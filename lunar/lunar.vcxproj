@@ -37,7 +37,6 @@
     <ClInclude Include="src\showelem.h" />
     <ClInclude Include="src\stringex.h" />
     <ClInclude Include="src\vislimit.h" />
-    <ClInclude Include="src\watdefs.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\gaia.hdr" />

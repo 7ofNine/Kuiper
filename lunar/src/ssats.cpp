@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 
 #include <math.h>
 #include <string.h>
-#include "watdefs.h"
+
 #include "lunar.h"
 #include "comets.h"
 #include "afuncs.h"
@@ -96,9 +96,9 @@ SAT_ELEMS
    int sat_no;
    };
 
-void comet_posn_part_ii( const ELEMENTS DLLPTR *elem, const double t,
-                                    double DLLPTR *loc, double DLLPTR *vel);
-void setup_orbit_vectors( ELEMENTS DLLPTR *e);             /* astfuncs.cpp */
+void comet_posn_part_ii( const ELEMENTS   *elem, const double t,
+                                    double   *loc, double   *vel);
+void setup_orbit_vectors( ELEMENTS   *e);             /* astfuncs.cpp */
 
 /* set_ssat_elems( ) is the core part of computing positions for the
 satellites of Saturn,  and quite probably the only part of the code
@@ -111,7 +111,7 @@ relative to the equator of Saturn,  and you have to do two rotations to
 get a B1950.0 coordinate.  For the outer four moons,  you get B1950.0
 elements right away. */
 
-static int set_ssat_elems( SAT_ELEMS DLLPTR *elems, ELEMENTS DLLPTR *orbit)
+static int set_ssat_elems( SAT_ELEMS   *elems, ELEMENTS   *orbit)
 {
    static const long semimaj[9] = { 268180L, 344301, 426393, 545876,
                762277, 1766041, 2140790, 5148431, 18720552 };
@@ -507,7 +507,7 @@ instead get precessed to equatorial J2000,  then rotated to ecliptic
 J2000.
 */
 
-int DLL_FUNC calc_ssat_loc( const double t, double DLLPTR *ssat,
+int /*DLL_FUNC*/ calc_ssat_loc( const double t, double   *ssat,
                                 const int sat_wanted, const long precision)
 {
    SAT_ELEMS elems;

@@ -210,46 +210,46 @@ other sort orders (perhaps reversed,  or by residuals) possible later. */
 #define SORT_OBS_RADAR_LAST             2
 
 #ifdef SEEK_CUR
-OBSERVE FAR *load_observations( FILE *ifile, const char *packed_desig,
+OBSERVE   *load_observations( FILE *ifile, const char *packed_desig,
                         const int n_obs);
 #endif
-int unload_observations( OBSERVE FAR *obs, const int n_obs);
+int unload_observations( OBSERVE   *obs, const int n_obs);
 OBJECT_INFO *find_objects_in_file( const char *filename,
                                          int *n_found, const char *station);
 void sort_object_info( OBJECT_INFO *ids, const int n_ids,
                                           int compare_by_last_obs_time);
 int get_object_name( char *obuff, const char *packed_desig);
-int get_observer_data( const char FAR *mpc_code, char *buff, mpc_code_t *cinfo);
-void recreate_observation_line( char *obuff, const OBSERVE FAR *obs,
+int get_observer_data( const char   *mpc_code, char *buff, mpc_code_t *cinfo);
+void recreate_observation_line( char *obuff, const OBSERVE   *obs,
                            const int residual_format);   /* ephem0.cpp */
-int put_observer_data_in_text( const char FAR *mpc_code, char *buff);
+int put_observer_data_in_text( const char   *mpc_code, char *buff);
 
-void create_obs_file( const OBSERVE FAR *obs, int n_obs, const int append,
+void create_obs_file( const OBSERVE   *obs, int n_obs, const int append,
                   const int resid_format);            /* ephem0.cpp */
-void create_obs_file_with_computed_values( const OBSERVE FAR *obs,
+void create_obs_file_with_computed_values( const OBSERVE   *obs,
                   int n_obs, const int append,
                   const int resid_format);            /* ephem0.cpp */
-int find_worst_observation( const OBSERVE FAR *obs, const int n_obs);
-double calc_absolute_magnitude( OBSERVE FAR *obs, int n_obs);
-double compute_rms( const OBSERVE FAR *obs, const int n_obs);
-double compute_weighted_rms( const OBSERVE FAR *obs, const int n_obs, int *n_resids);
+int find_worst_observation( const OBSERVE   *obs, const int n_obs);
+double calc_absolute_magnitude( OBSERVE   *obs, int n_obs);
+double compute_rms( const OBSERVE   *obs, const int n_obs);
+double compute_weighted_rms( const OBSERVE   *obs, const int n_obs, int *n_resids);
 bool opposition_break( const OBSERVE *obs);              /* elem_out.cpp */
-int herget_method( OBSERVE FAR *obs, int n_obs, double r1, double r2,
+int herget_method( OBSERVE   *obs, int n_obs, double r1, double r2,
          double *orbit, double *d_r1, double *d_r2, const char *limited_orbit);
-int adjust_herget_results( OBSERVE FAR *obs, int n_obs, double *orbit);
-void improve_parabolic( OBSERVE FAR *obs, int n_obs, double *orbit, double epoch);
-int full_improvement( OBSERVE FAR *obs, int n_obs, double *orbit,
+int adjust_herget_results( OBSERVE   *obs, int n_obs, double *orbit);
+void improve_parabolic( OBSERVE   *obs, int n_obs, double *orbit, double epoch);
+int full_improvement( OBSERVE   *obs, int n_obs, double *orbit,
                  const double epoch, const char *limited_orbit,
                  const int sigmas_requested, const double epoch2);
-int set_locs( const double *orbit, const double t0, OBSERVE FAR *obs,
+int set_locs( const double *orbit, const double t0, OBSERVE   *obs,
                                    const int n_obs);
 void make_date_range_text( char *obuff, const double jd1, const double jd2);
                                                         /* orb_func.cpp */
-int get_r1_and_r2( const int n_obs, const OBSERVE FAR *obs,
+int get_r1_and_r2( const int n_obs, const OBSERVE   *obs,
                              double *r1, double *r2);    /* elem_out.cpp */
-int get_idx1_and_idx2( const int n_obs, const OBSERVE FAR *obs,
+int get_idx1_and_idx2( const int n_obs, const OBSERVE   *obs,
                                   int *idx1, int *idx2);  /* elem_out.cpp */
-double initial_orbit( OBSERVE FAR *obs, int n_obs, double *orbit);
+double initial_orbit( OBSERVE   *obs, int n_obs, double *orbit);
 double get_step_size( const char *stepsize, char *step_units,
                                  int *step_digits);          /* ephem0.cpp */
 int ephemeris_in_a_file_from_mpc_code( const char *filename,
@@ -261,31 +261,31 @@ int ephemeris_in_a_file_from_mpc_code( const char *filename,
 int find_best_fit_planet( const double jd, const double *ivect,
                      double *rel_vect);     /* runge.cpp */
 int integrate_orbit( double *orbit, const double t0, const double t1);
-int generate_obs_text( const OBSERVE FAR *obs, const int n_obs, char *buff,
+int generate_obs_text( const OBSERVE   *obs, const int n_obs, char *buff,
                                           const size_t buffsize);
-double convenient_gauss( const OBSERVE FAR *obs, int n_obs, double *orbit,
+double convenient_gauss( const OBSERVE   *obs, int n_obs, double *orbit,
                   const double mu, const int desired_soln); /* gauss.cpp */
 void set_solutions_found( OBJECT_INFO *ids, const int n_ids);
-OBSERVE FAR *load_object( FILE *ifile, OBJECT_INFO *id,
+OBSERVE   *load_object( FILE *ifile, OBJECT_INFO *id,
                        double *curr_epoch, double *epoch_shown, double *orbit);
-int store_solution( const OBSERVE FAR *obs, const int n_obs, const double *orbit,
+int store_solution( const OBSERVE   *obs, const int n_obs, const double *orbit,
        const double orbit_epoch, const int perturbers);
-int compute_observation_motion_details( const OBSERVE FAR *obs,
+int compute_observation_motion_details( const OBSERVE   *obs,
                MOTION_DETAILS *m);                    /* mpc_obs.cpp */
 int compute_observer_loc( const double jde, const int planet_no,
                const double rho_cos_phi,                    /* mpc_obs.cpp */
-               const double rho_sin_phi, const double lon, double FAR *offset);
+               const double rho_sin_phi, const double lon, double   *offset);
 int compute_observer_vel( const double jde, const int planet_no,
                const double rho_cos_phi,                    /* mpc_obs.cpp */
-               const double rho_sin_phi, const double lon, double FAR *offset);
+               const double rho_sin_phi, const double lon, double   *offset);
 int get_findorb_text( char *buff, const int ival);    /* ephem.cpp */
 int write_out_elements_to_file( const double *orbit,
             const double curr_epoch,
             const double epoch_shown,
-            OBSERVE FAR *obs, const int n_obs, const char *constraints,
+            OBSERVE   *obs, const int n_obs, const char *constraints,
             const int precision, const int monte_carlo,
             const int options);    /* elem_out.cpp */
-int extend_orbit_solution( OBSERVE FAR *obs, const int n_obs,
+int extend_orbit_solution( OBSERVE   *obs, const int n_obs,
             const double limit, const double time_limit);
 int clean_up_find_orb_memory( void);         /* orb_func.cpp */
 
@@ -358,8 +358,8 @@ int clean_up_find_orb_memory( void);         /* orb_func.cpp */
 #define RESIDUAL_FORMAT_SHOW_DESIGS              0x20000
 
 int write_residuals_to_file( const char *filename, const char *ast_filename,
-        const int n_obs, const OBSERVE FAR *obs_data, const int resid_format);
-void format_observation( const OBSERVE FAR *obs, char *text,
+        const int n_obs, const OBSERVE   *obs_data, const int resid_format);
+void format_observation( const OBSERVE   *obs, char *text,
                                    const int resid_format);   /* ephem0.cpp */
 
 #define MPC_STATION struct mpc_station
@@ -372,10 +372,10 @@ MPC_STATION
    };
 
 int find_mpc_color( const MPC_STATION *sdata, const char *mpc_code);
-MPC_STATION *find_mpc_color_codes( const int n_obs, const OBSERVE FAR *obs,
+MPC_STATION *find_mpc_color_codes( const int n_obs, const OBSERVE   *obs,
                    const int max_n_colors);           /* elem_out.cpp */
 
-int filter_obs( OBSERVE FAR *obs, const int n_obs,           /* orb_fun2.cpp */
+int filter_obs( OBSERVE   *obs, const int n_obs,           /* orb_fun2.cpp */
                   const double max_residual_in_sigmas, const int filter_type);
    /* Currently,  filter_type = 0 -> in sigmas; = 1 => in arcsec */
 
@@ -391,9 +391,9 @@ typedef struct
    double rparam, vparam, orbit[6], score;
 } sr_orbit_t;
 
-int find_nth_sr_orbit( sr_orbit_t *orbit, OBSERVE FAR *obs, int n_obs,
+int find_nth_sr_orbit( sr_orbit_t *orbit, OBSERVE   *obs, int n_obs,
                             const int orbit_number);         /* orb_func.cpp */
-int get_sr_orbits( sr_orbit_t *orbits, OBSERVE FAR *obs,     /* orb_func.cpp */
+int get_sr_orbits( sr_orbit_t *orbits, OBSERVE   *obs,     /* orb_func.cpp */
                const unsigned n_obs, const unsigned starting_orbit,
                const unsigned max_orbits, const double max_time,
                const double noise_in_sigmas, const int writing_sr_elems);

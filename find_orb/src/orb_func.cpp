@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include <assert.h>
 #include <stdio.h>
 #include <time.h>
-#include "watdefs.h"
+//
 #include "stringex.h"
 #include "comets.h"
 #include "mpc_obs.h"
@@ -84,13 +84,13 @@ int debug_printf( const char *format, ...)                 /* mpc_obs.cpp */
          __attribute__ (( format( printf, 1, 2)))
 #endif
 ;
-double initial_orbit( OBSERVE FAR *obs, int n_obs, double *orbit);
-int adjust_herget_results( OBSERVE FAR *obs, int n_obs, double *orbit);
-int find_trial_orbit( double *orbit, OBSERVE FAR *obs, int n_obs,
+double initial_orbit( OBSERVE   *obs, int n_obs, double *orbit);
+int adjust_herget_results( OBSERVE   *obs, int n_obs, double *orbit);
+int find_trial_orbit( double *orbit, OBSERVE   *obs, int n_obs,
              const double r1, const double angle_param);   /* orb_func.cpp */
-int search_for_trial_orbit( double *orbit, OBSERVE FAR *obs, int n_obs,
+int search_for_trial_orbit( double *orbit, OBSERVE   *obs, int n_obs,
               const double r1, double *angle_param);  /* orb_func.cpp */
-int set_locs( const double *orbit, double t0, OBSERVE FAR *obs, int n_obs);
+int set_locs( const double *orbit, double t0, OBSERVE   *obs, int n_obs);
 int find_best_fit_planet( const double jd, const double *ivect,
                                  double *rel_vect);         /* runge.cpp */
 const char *get_environment_ptr( const char *env_ptr);     /* mpc_obs.cpp */
@@ -100,38 +100,38 @@ static int evaluate_limited_orbit( const double *orbit,
 int find_relative_orbit( const double jd, const double *ivect,
                ELEMENTS *elements, const int ref_planet);     /* runge.cpp */
 void format_dist_in_buff( char *buff, const double dist_in_au); /* ephem0.c */
-static inline void look_for_best_subarc( const OBSERVE FAR *obs,
+static inline void look_for_best_subarc( const OBSERVE   *obs,
        const int n_obs, const double max_arc_len, int *start, int *end);
 int check_for_perturbers( const double t_cen, const double *vect); /* sm_vsop*/
-int get_idx1_and_idx2( const int n_obs, const OBSERVE FAR *obs,
+int get_idx1_and_idx2( const int n_obs, const OBSERVE   *obs,
                                 int *idx1, int *idx2);      /* elem_out.c */
-void set_distance( OBSERVE FAR *obs, double r);             /* orb_func.c */
-double find_r_given_solar_r( const OBSERVE FAR *obs, const double solar_r);
+void set_distance( OBSERVE   *obs, double r);             /* orb_func.c */
+double find_r_given_solar_r( const OBSERVE   *obs, const double solar_r);
 void attempt_extensions( OBSERVE *obs, const int n_obs, double *orbit,
                   const double epoch);                  /* orb_func.cpp */
 double *get_asteroid_mass( const int astnum);   /* bc405.cpp */
 char *get_file_name( char *filename, const char *template_file_name);
 int compute_observer_loc( const double jde, const int planet_no,
              const double rho_cos_phi,           /* mpc_obs.cpp */
-             const double rho_sin_phi, const double lon, double FAR *offset);
+             const double rho_sin_phi, const double lon, double   *offset);
 int compute_observer_vel( const double jde, const int planet_no,
              const double rho_cos_phi,           /* mpc_obs.cpp */
-             const double rho_sin_phi, const double lon, double FAR *vel);
+             const double rho_sin_phi, const double lon, double   *vel);
 void get_relative_vector( const double jd, const double *ivect,
           double *relative_vect, const int planet_orbiting);  /* orb_func.c */
 double get_planet_mass( const int planet_idx);                /* orb_func.c */
-int compute_available_sigmas_hash( const OBSERVE FAR *obs, const int n_obs,
+int compute_available_sigmas_hash( const OBSERVE   *obs, const int n_obs,
          const double epoch, const unsigned perturbers, const int central_obj);
 double vector3_dist( const double *a, const double *b);     /* orb_func.c */
-double euler_function( const OBSERVE FAR *obs1, const OBSERVE FAR *obs2);
-double evaluate_initial_orbit( const OBSERVE FAR *obs,      /* orb_func.c */
+double euler_function( const OBSERVE   *obs1, const OBSERVE   *obs2);
+double evaluate_initial_orbit( const OBSERVE   *obs,      /* orb_func.c */
                const int n_obs, const double *orbit, const double epoch);
-static int find_transfer_orbit( double *orbit, OBSERVE FAR *obs1,
-                OBSERVE FAR *obs2,
+static int find_transfer_orbit( double *orbit, OBSERVE   *obs1,
+                OBSERVE   *obs2,
                 const int already_have_approximate_orbit);
 bool is_sungrazing_comet( const OBSERVE *obs, const int n_obs);  /* orb_func.c */
-double observation_rms( const OBSERVE FAR *obs);            /* elem_out.cpp */
-double compute_weighted_rms( const OBSERVE FAR *obs, const int n_obs,
+double observation_rms( const OBSERVE   *obs);            /* elem_out.cpp */
+double compute_weighted_rms( const OBSERVE   *obs, const int n_obs,
                            int *n_resids);                  /* orb_func.cpp */
 double find_epoch_shown( const OBSERVE *obs, const int n_obs); /* elem_out */
 FILE *fopen_ext( const char *filename, const char *permits);   /* miscell.cpp */
@@ -139,7 +139,7 @@ void rotate_state_vector_to_current_frame( double *state_vect,
                   const double epoch_shown, const int planet_orbiting,
                   char *body_frame_note);               /* elem_out.cpp */
 const char *get_find_orb_text( const int index);      /* elem_out.cpp */
-void set_obs_vect( OBSERVE FAR *obs);        /* mpc_obs.h */
+void set_obs_vect( OBSERVE   *obs);        /* mpc_obs.h */
 double improve_along_lov( double *orbit, const double epoch, const double *lov,
           const unsigned n_params, unsigned n_obs, OBSERVE *obs);
 void adjust_error_ellipse_for_timing_error( double *sigma_a, double *sigma_b,
@@ -147,7 +147,7 @@ void adjust_error_ellipse_for_timing_error( double *sigma_a, double *sigma_b,
 void compute_error_ellipse_adjusted_for_motion( double *sigma1, double *sigma2,
                   double *posn_angle, const OBSERVE *obs,
                   const MOTION_DETAILS *m);                  /* orb_func.cpp */
-double n_nearby_obs( const OBSERVE FAR *obs, const unsigned n_obs,
+double n_nearby_obs( const OBSERVE   *obs, const unsigned n_obs,
           const unsigned idx, const double time_span);       /* orb_func.cpp */
 double find_parabolic_minimum_point( const double x[3], const double y[3]);
 int orbital_monte_carlo( const double *orbit, OBSERVE *obs, const int n_obs,
@@ -156,7 +156,7 @@ void shellsort_r( void *base, const size_t n_elements, const size_t esize,
          int (*compare)(const void *, const void *, void *), void *context);
 int curses_kbhit_without_mouse( );
 
-void set_distance( OBSERVE FAR *obs, double r)
+void set_distance( OBSERVE   *obs, double r)
 {
    int i;
 
@@ -190,7 +190,7 @@ quickly enough.  Otherwise,  an elliptical orbit is possible.  (Similarly,
 the time for the "long route" can tell you if an elliptical orbit taking
 more than half a revolution is possible.)   */
 
-double euler_function( const OBSERVE FAR *obs1, const OBSERVE FAR *obs2)
+double euler_function( const OBSERVE   *obs1, const OBSERVE   *obs2)
 {
    const double s = vector3_dist( obs1->obj_posn, obs2->obj_posn);
    const double temp1 = obs1->solar_r + obs2->solar_r + s;
@@ -203,7 +203,7 @@ double euler_function( const OBSERVE FAR *obs1, const OBSERVE FAR *obs2)
    return( rval);
 }
 
-double find_r_given_planet_r( const OBSERVE FAR *obs, const double solar_r,
+double find_r_given_planet_r( const OBSERVE   *obs, const double solar_r,
                         const int planet_idx)
 {
    double posn[3];
@@ -235,12 +235,12 @@ double find_r_given_planet_r( const OBSERVE FAR *obs, const double solar_r,
    return( rval);
 }
 
-double find_r_given_solar_r( const OBSERVE FAR *obs, const double solar_r)
+double find_r_given_solar_r( const OBSERVE   *obs, const double solar_r)
 {
    return( find_r_given_planet_r( obs, solar_r, 0));
 }
 
-static double get_euler_value( const OBSERVE FAR *obs1, OBSERVE FAR *obs2,
+static double get_euler_value( const OBSERVE   *obs1, OBSERVE   *obs2,
             const double r2)
 {
    set_distance( obs2, r2);
@@ -279,12 +279,12 @@ static double find_quadratic_zero( const double *x, const double *y,
    return( x[0] + rval / (2. * a));
 }
 
-int find_parabolic_orbit( OBSERVE FAR *obs, const int n_obs,
+int find_parabolic_orbit( OBSERVE   *obs, const int n_obs,
             double *orbit, const int direction)
 {
    double r[3], y[3];
    int i, iter, rval = 0;
-   OBSERVE FAR *obs2 = obs + n_obs - 1;
+   OBSERVE   *obs2 = obs + n_obs - 1;
    const double thresh = 1e-10;
 
    for( i = 0; i < 3; i++)
@@ -786,7 +786,7 @@ void light_time_lag( const double jde, const double *orbit,
       light_bending( observer, result);
 }
 
-static void set_solar_r( OBSERVE FAR *ob)
+static void set_solar_r( OBSERVE   *ob)
 {
    ob->solar_r = vector3_length( ob->obj_posn);
 }
@@ -824,7 +824,7 @@ NULL orbit2.                          */
 #define is_between( t1, t2, t3)  ((t2 - t1) * (t3 - t2) >= 0.)
 
 static int set_locs_extended( const double *orbit, const double epoch_jd,
-                       OBSERVE FAR *obs, const int n_obs,
+                       OBSERVE   *obs, const int n_obs,
                        const double epoch2, double *orbit2)
 {
    int i, pass, rval = is_unreasonable_orbit( orbit);
@@ -851,7 +851,7 @@ static int set_locs_extended( const double *orbit, const double epoch_jd,
       while( j < n_obs && j >= 0)
          {
          double light_lagged_orbit[6], temp_orbit[MAX_N_PARAMS];
-         OBSERVE FAR *optr = obs + j;
+         OBSERVE   *optr = obs + j;
 
          if( orbit2 && is_between( curr_t, epoch2, optr->jd))
             {
@@ -868,8 +868,8 @@ static int set_locs_extended( const double *orbit, const double epoch_jd,
          ldouble_to_double( temp_orbit, curr_orbit, n_orbit_params);
          light_time_lag( optr->jd, temp_orbit, optr->obs_posn, light_lagged_orbit,
                   optr->note2 == 'R');
-         FMEMCPY( optr->obj_posn, light_lagged_orbit, 3 * sizeof( double));
-         FMEMCPY( optr->obj_vel, light_lagged_orbit + 3, 3 * sizeof( double));
+         memcpy( optr->obj_posn, light_lagged_orbit, 3 * sizeof( double));
+         memcpy( optr->obj_vel, light_lagged_orbit + 3, 3 * sizeof( double));
          j += (pass ? 1 : -1);
          }
       if( orbit2)
@@ -919,13 +919,13 @@ static int set_locs_extended( const double *orbit, const double epoch_jd,
    return( 0);
 }
 
-int set_locs( const double *orbit, const double t0, OBSERVE FAR *obs,
+int set_locs( const double *orbit, const double t0, OBSERVE   *obs,
                        const int n_obs)
 {
    return( set_locs_extended( orbit, t0, obs, n_obs, t0, NULL));
 }
 
-double observation_rms( const OBSERVE FAR *obs)
+double observation_rms( const OBSERVE   *obs)
 {
    const double d_dec = obs->computed_dec - obs->dec;
    const double d_ra  = (obs->computed_ra  - obs->ra) * cos( obs->computed_dec);
@@ -938,7 +938,7 @@ root-mean-square of RA and dec treated separately,  meaning the
 previous results needed to be multipled by sqrt(.5)  (Gareth
 Williams kindly steered me the right way on this).          */
 
-double compute_rms( const OBSERVE FAR *obs, const int n_obs)
+double compute_rms( const OBSERVE   *obs, const int n_obs)
 {
    double rval = 0.;
    int i, n_included = 0;
@@ -956,7 +956,7 @@ double compute_rms( const OBSERVE FAR *obs, const int n_obs)
    return( sqrt( rval / (double)(n_included * 2)));
 }
 
-double compute_weighted_rms( const OBSERVE FAR *obs, const int n_obs, int *n_resids)
+double compute_weighted_rms( const OBSERVE   *obs, const int n_obs, int *n_resids)
 {
    double rval = 0;
    int i, n = 0;
@@ -1003,8 +1003,8 @@ It does this with the logic given in 'herget.htm#sund_xplns'. */
 
 clock_t t_transfer;
 
-static int find_transfer_orbit( double *orbit, OBSERVE FAR *obs1,
-                OBSERVE FAR *obs2,
+static int find_transfer_orbit( double *orbit, OBSERVE   *obs1,
+                OBSERVE   *obs2,
                 const int already_have_approximate_orbit)
 {
    double r = 0.;
@@ -1059,7 +1059,7 @@ static int find_transfer_orbit( double *orbit, OBSERVE FAR *obs1,
          debug_printf( "Speed = %f km/s; radii %f, %f\n", speed, obs1->r, obs2->r);
       for( pass = 0; pass < 2; pass++)
          {
-         OBSERVE FAR *obs = (pass ? obs2 : obs1);
+         OBSERVE   *obs = (pass ? obs2 : obs1);
          const double jd = (pass ? jd2 : jd1);
 
          assert( fabs( jd) < 1e+9);
@@ -1373,7 +1373,7 @@ int find_sr_ranges( double *ranges, const double *q1, const double *p1,
    #define min( x, y) ((x) > (y) ? (y) : (x))
 #endif
 
-int find_trial_orbit( double *orbit, OBSERVE FAR *obs, int n_obs,
+int find_trial_orbit( double *orbit, OBSERVE   *obs, int n_obs,
                  const double r1, const double angle_param)
 {
    int rval = 0;
@@ -1385,7 +1385,7 @@ int find_trial_orbit( double *orbit, OBSERVE FAR *obs, int n_obs,
    else
       {
       double r2 = 0., dist2 = 0., escape_dist2;
-      OBSERVE FAR *endptr = obs + n_obs - 1;
+      OBSERVE   *endptr = obs + n_obs - 1;
       const double dt = endptr->jd - obs->jd;
       int i;
 
@@ -1438,7 +1438,7 @@ double find_parabolic_minimum_point( const double x[3], const double y[3])
    return( new_x);
 }
 
-int search_for_trial_orbit( double *orbit, OBSERVE FAR *obs, int n_obs,
+int search_for_trial_orbit( double *orbit, OBSERVE   *obs, int n_obs,
                  const double r1, double *angle_param)
 {
    int rval = 0;
@@ -1542,7 +1542,7 @@ static int simple_hash( int ival, const char *ibuff, int nbytes)
    return( ival);
 }
 
-int compute_available_sigmas_hash( const OBSERVE FAR *obs, const int n_obs,
+int compute_available_sigmas_hash( const OBSERVE   *obs, const int n_obs,
          const double epoch, const unsigned perturber_mask, const int central_obj)
 {
    int temp_array[10], rval, i;
@@ -1637,7 +1637,7 @@ double find_sr_dist( const double fraction)
    return( sr_roots[n_sr_ranges * 2 - 1]);         /* maxed out */
 }
 
-int find_nth_sr_orbit( sr_orbit_t *orbit, OBSERVE FAR *obs, int n_obs,
+int find_nth_sr_orbit( sr_orbit_t *orbit, OBSERVE   *obs, int n_obs,
                             const int orbit_number)
 {
    int rval = 0;
@@ -1703,17 +1703,16 @@ static int sr_orbit_compare( const void *a, const void *b)
    return( (ta->score > tb->score) ? 1 : -1);
 }
 
-int get_sr_orbits( sr_orbit_t *orbits, OBSERVE FAR *obs,
+int get_sr_orbits( sr_orbit_t *orbits, OBSERVE   *obs,
                const unsigned n_obs, const unsigned starting_orbit,
                const unsigned max_orbits, const double max_time,
-               const double noise_in_sigmas, const int writing_sr_elems)
+               [[maybe_unused]] const double noise_in_sigmas, const int writing_sr_elems)
 {
    const clock_t end_clock =
              clock( ) + (clock_t)( max_time * (double)CLOCKS_PER_SEC);
    unsigned i, rval = 0;
    sr_orbit_t *tptr = orbits;
 
-   INTENTIONALLY_UNUSED_PARAMETER( noise_in_sigmas);
    for( i = 0; i < max_orbits && clock( ) < end_clock; i++)
       {
       if( !find_nth_sr_orbit( tptr, obs, n_obs, i + starting_orbit)
@@ -1766,13 +1765,11 @@ static void possible_sr_improvement( const sr_orbit_t *added, sr_orbit_t *orb1, 
 }
 
 static void improve_sr_pair( sr_orbit_t *orb1, sr_orbit_t *orb2,
-               OBSERVE FAR *obs, const unsigned n_obs,
-               const double noise_in_sigmas, const int writing_sr_elems)
+               OBSERVE   *obs, const unsigned n_obs,
+    [[maybe_unused]] const double noise_in_sigmas, [[maybe_unused]] const int writing_sr_elems)
 {
    sr_orbit_t orb3;
 
-   INTENTIONALLY_UNUSED_PARAMETER( noise_in_sigmas);
-   INTENTIONALLY_UNUSED_PARAMETER( writing_sr_elems);
 // if( !is_valid_sr_orbit( orb1) || !is_valid_sr_orbit( orb2))
       debug_printf( "%f, %f;  %f, %f wrong\n",
                orb1->rparam, orb1->vparam,
@@ -1809,7 +1806,7 @@ static void improve_sr_pair( sr_orbit_t *orb1, sr_orbit_t *orb2,
    fail_on_hitting_planet = false;
 }
 
-int improve_sr_orbits( sr_orbit_t *orbits, OBSERVE FAR *obs,
+int improve_sr_orbits( sr_orbit_t *orbits, OBSERVE   *obs,
                const unsigned n_obs, const unsigned n_orbits,
                const double noise_in_sigmas, const int writing_sr_elems)
 {
@@ -1889,7 +1886,7 @@ static double max_herget_span( const double r1, const double r2)
    return( rval);
 }
 
-int adjust_herget_results( OBSERVE FAR *obs, int n_obs, double *orbit)
+int adjust_herget_results( OBSERVE   *obs, int n_obs, double *orbit)
 {
    int n_found, rval;
 
@@ -1908,7 +1905,7 @@ int adjust_herget_results( OBSERVE FAR *obs, int n_obs, double *orbit)
    return( rval);
 }
 
-int herget_method( OBSERVE FAR *obs, int n_obs, double r1, double r2,
+int herget_method( OBSERVE   *obs, int n_obs, double r1, double r2,
          double *orbit, double *d_r1, double *d_r2, const char *limited_orbit)
 {
    double *xresid, *yresid, *dx_dr1, *dx_dr2, *dy_dr1, *dy_dr2;
@@ -2159,7 +2156,7 @@ static int setup_parabolic( const double *iparams, double *orbit)
    return( 0);
 }
 
-void improve_parabolic( OBSERVE FAR *obs, int n_obs, double *orbit,
+void improve_parabolic( OBSERVE   *obs, int n_obs, double *orbit,
                                                               double epoch)
 {
    void *lsquare = lsquare_init( 5);
@@ -2261,7 +2258,7 @@ double get_planet_mass( const int planet_idx)
    return( rval * SOLAR_GM);
 }
 
-double evaluate_for_simplex_method( const OBSERVE FAR *obs,
+double evaluate_for_simplex_method( const OBSERVE   *obs,
                     const int n_obs, const double *orbit,
                     const int planet_orbiting,
                     const char *limited_orbit)
@@ -2466,12 +2463,12 @@ void **calloc_double_dimension_array( const size_t x, const size_t y,
    return( rval);
 }
 
-static double dotted_dist( OBSERVE FAR *obs)
+static double dotted_dist( OBSERVE   *obs)
 {
    return( dot_product( obs->vect, obs->obj_posn) - dot_product( obs->vect, obs->obs_posn));
 }
 
-double n_nearby_obs( const OBSERVE FAR *obs, const unsigned n_obs,
+double n_nearby_obs( const OBSERVE   *obs, const unsigned n_obs,
           const unsigned idx, const double time_span)
 {
    unsigned i = idx;
@@ -2517,7 +2514,7 @@ unsigned overobserving_ceiling = 4;
 
 #define IDX_ASTEROIDS 20
 
-static double reweight_for_overobserving( const OBSERVE FAR *obs,
+static double reweight_for_overobserving( const OBSERVE   *obs,
             const unsigned n_obs, const unsigned idx)
 {
    double rval;
@@ -2724,10 +2721,9 @@ static void output_json_matrix( FILE *ofile, const char *title, const double *ma
 state vector axes.  This may change,  probably (back to) being along the
 eigenvectors,  to provide greater stability.  */
 
-static void _tweak_orbit( double *orbit, const int axis, double tweak, const int n_params)
+static void _tweak_orbit( double *orbit, const int axis, double tweak, [[maybe_unused]] const int n_params)
 {
-   INTENTIONALLY_UNUSED_PARAMETER( n_params);
-   orbit[axis] += tweak;
+     orbit[axis] += tweak;
 }
 
 const char *monte_label[MONTE_N_ENTRIES] = {
@@ -2746,7 +2742,7 @@ be in 2001.  'epoch2' would be in 2012.
    Note that if you're uninterested in sigmas or constraining the orbit,
 'epoch2' won't be used for anything.         */
 
-int full_improvement( OBSERVE FAR *obs, int n_obs, double *orbit,
+int full_improvement( OBSERVE   *obs, int n_obs, double *orbit,
                  const double epoch, const char *limited_orbit,
                  int sigmas_requested, double epoch2)
 {
@@ -2754,9 +2750,9 @@ int full_improvement( OBSERVE FAR *obs, int n_obs, double *orbit,
                get_asteroid_mass( atoi( limited_orbit + 2)) : NULL);
    int n_params;
    void *lsquare;
-   double FAR *xresids;
-   double FAR *yresids;
-   double FAR *slopes;
+   double   *xresids;
+   double   *yresids;
+   double   *slopes;
    double constraint_slope[MAX_CONSTRAINTS][MAX_N_PARAMS];
    double element_slopes[MAX_N_PARAMS][MONTE_N_ENTRIES];
    double elements_in_array[MONTE_N_ENTRIES];
@@ -2913,7 +2909,7 @@ int full_improvement( OBSERVE FAR *obs, int n_obs, double *orbit,
    put_orbital_elements_in_array_form( &elem, elements_in_array);
 
    uncertainty_parameter = 99.;
-   xresids = (double FAR *)FCALLOC( (2 + 2 * n_params) * n_obs + n_params, sizeof( double));
+   xresids = (double   *)calloc( (2 + 2 * n_params) * n_obs + n_params, sizeof( double));
    yresids = xresids + n_obs;
    slopes = yresids + n_obs;
 
@@ -3172,7 +3168,7 @@ int full_improvement( OBSERVE FAR *obs, int n_obs, double *orbit,
             if( overobserving_time_span && overobserving_ceiling)
                weight *= reweight_for_overobserving( obs, n_obs, i);
             }
-         FMEMCPY( loc_vals, slopes + i * 2 * n_params,
+         memcpy( loc_vals, slopes + i * 2 * n_params,
                                          2 * n_params * sizeof( double));
          lsquare_add_observation( lsquare, xresid, weight, loc_vals);
          lsquare_add_observation( lsquare, yresid, weight, loc_vals + n_params);
@@ -3471,7 +3467,7 @@ int full_improvement( OBSERVE FAR *obs, int n_obs, double *orbit,
       available_sigmas_hash = compute_available_sigmas_hash( obs, n_obs, epoch2,
                   perturbers, planet_orbiting);
       }
-   FFREE( xresids);
+   free( xresids);
    lsquare_free( lsquare);
 
    if( levenberg_marquardt_lambda)
@@ -3494,7 +3490,7 @@ We look for both a maximum and a minimum;  the difference between
 them indicates how far out of the great-circle route the observations
 go.         */
 
-static inline double score_orbit_arc( const OBSERVE FAR *obs, const unsigned n_obs)
+static inline double score_orbit_arc( const OBSERVE   *obs, const unsigned n_obs)
 {
    const double five_degrees = PI * 5. / 180.;
    double xprod[3], minimum = 0., maximum = 0.;
@@ -3544,7 +3540,7 @@ we exclude pre-CCD observations.  (Unless that would exclude most or all
 of our observations.  In that case,  we take a deep breath and get the
 best orbit we can get with probably raggedy data.)  */
 
-static inline void look_for_best_subarc( const OBSERVE FAR *obs,
+static inline void look_for_best_subarc( const OBSERVE   *obs,
        const int n_obs, const double max_arc_len, int *start, int *end)
 {
    double best_score = -999., score;
@@ -3696,7 +3692,7 @@ static int generate_orthonormal_basis( double *x, double *y, double *z, const do
    return( 0);
 }
 
-double distance_to_shadow( const OBSERVE FAR *obs)
+double distance_to_shadow( const OBSERVE   *obs)
 {
    double earth_loc[3];
    double xyz_ecl[3];   /* observer loc relative to earth center,  in AU and J2000 ecliptic */
@@ -3733,7 +3729,7 @@ double distance_to_shadow( const OBSERVE FAR *obs)
 
 int is_interstellar = 0;
 
-double evaluate_initial_orbit( const OBSERVE FAR *obs,
+double evaluate_initial_orbit( const OBSERVE   *obs,
                const int n_obs, const double *orbit, const double epoch)
 {
    const double rms_err = compute_weighted_rms( obs, n_obs, NULL);
@@ -3905,7 +3901,7 @@ bool is_sungrazing_comet( const OBSERVE *obs, const int n_obs)
    return( i == n_obs);    /* all obs are from SOHO or STEREOs */
 }
 
-static double find_sungrazer_orbit( OBSERVE FAR *obs, int n_obs, double *orbit)
+static double find_sungrazer_orbit( OBSERVE   *obs, int n_obs, double *orbit)
 {
    double best_score = 1e+10;
    double temp_orbit[6];
@@ -3957,7 +3953,7 @@ supplied... this was easier than generating an error message right away.
 Also used if we're just looking at the observations and don't actually
 need a "real" orbit (force_bogus_orbit == true).      */
 
-static void generate_bogus_orbit_for_single_obs( OBSERVE FAR *obs, double *orbit)
+static void generate_bogus_orbit_for_single_obs( OBSERVE   *obs, double *orbit)
 {
    unsigned i;
    double z;
@@ -3977,7 +3973,7 @@ static void generate_bogus_orbit_for_single_obs( OBSERVE FAR *obs, double *orbit
 
 bool force_bogus_orbit = false;
 
-static double only_one_position_available( OBSERVE FAR *obs,
+static double only_one_position_available( OBSERVE   *obs,
                               const unsigned n_obs, double *orbit)
 {
    unsigned i, n_usable_obs;
@@ -4019,11 +4015,10 @@ static int sort_unused_obs_to_end( OBSERVE *obs, int n_obs)
    return( n_radar_obs);
 }
 
-static int compare_doubles( const void *aptr, const void *bptr, void *unused_context)
+static int compare_doubles( const void *aptr, const void *bptr, [[maybe_unused]] void *unused_context)
 {
    const double a = *(double *)aptr, b = *(double *)bptr;
 
-   INTENTIONALLY_UNUSED_PARAMETER( unused_context);
    return( a > b ? 1 : -1);
 }
 
@@ -4078,7 +4073,7 @@ double *sr_orbits;
 unsigned n_sr_orbits = 0;
 unsigned max_n_sr_orbits;
 
-double initial_orbit( OBSERVE FAR *obs, int n_obs, double *orbit)
+double initial_orbit( OBSERVE   *obs, int n_obs, double *orbit)
 {
    int i;
    int start = 0, n_radar_obs;
@@ -4478,11 +4473,11 @@ if both "ends" of the arc are already included,  or if any extension would
 make the arc longer than time_limit).  -1 or -2 is returned if the arc was
 extended by a single observation that was outside the limit. */
 
-int extend_orbit_solution( OBSERVE FAR *obs, const int n_obs,
+int extend_orbit_solution( OBSERVE   *obs, const int n_obs,
             const double limit, const double time_limit)
 {
    int first_idx, last_idx, n_added = 0, initial_count;
-   OBSERVE FAR *optr;
+   OBSERVE   *optr;
    double jd_low, jd_high;
    const double max_sigma = 2.;
 
@@ -4931,7 +4926,7 @@ char *find_numbered_mp_info( const int number);    /* mpc_obs.cpp */
 int check_for_other_processes( const int locking);    /* elem_out.cpp */
 int get_temp_dir( char *name, const size_t max_len);   /* miscell.cpp */
 #endif
-int detect_perturbers( const double jd, const double * __restrict xyz,
+int detect_perturbers( const double jd, const double * /*__restrict*/ xyz,
                        double *accel);
 
 int clean_up_find_orb_memory( void)

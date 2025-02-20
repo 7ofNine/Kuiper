@@ -62,7 +62,7 @@ void sxp8_common_init( double *params, const tle_t *tle, deep_arg_t *deep_arg)
       2.*(3.-deep_arg->cosio2*7.))*deep_arg->cosio;
 }
 
-void DLL_FUNC SGP8_init( double *params, const tle_t *tle)
+void /*DLL_FUNC*/ SGP8_init( double *params, const tle_t *tle)
 {
    const double rho = .15696615;
    const double b = tle->bstar*2./rho;
@@ -209,7 +209,7 @@ void DLL_FUNC SGP8_init( double *params, const tle_t *tle)
       }  /* End of if (fabs(r1) > .00216) */
 } /* End of SGP8() initialization */
 
-int DLL_FUNC SGP8( const double tsince, const tle_t *tle, const double *params,
+int /*DLL_FUNC*/ SGP8( const double tsince, const tle_t *tle, const double *params,
                                            double *pos, double *vel)
 {
    int i;

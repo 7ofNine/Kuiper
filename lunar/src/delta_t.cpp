@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include <stdint.h>
 #include <limits.h>
 #include <assert.h>
-#include "watdefs.h"
+
 #include "afuncs.h"
 #include "mjd_defs.h"
 
@@ -163,7 +163,7 @@ static const char *td_minus_dt_string = NULL;
 /* If a user attempts to set a NULL or "blank" Delta-T definition,   */
 /* we fall back on the above default_delta_t_string.                 */
 
-void DLL_FUNC reset_td_minus_dt_string( const char *string)
+void /*DLL_FUNC*/ reset_td_minus_dt_string( const char *string)
 {
    td_minus_dt_string = (string && *string ? string :
                         default_delta_t_string);
@@ -252,7 +252,7 @@ its time span covers the input JD,  you'll get a very precise Delta-T
 value.  (See eop_prec.cpp.)  If that doesn't work out,  it'll fill in
 a Delta-T using the above method.   */
 
-double DLL_FUNC td_minus_ut( const double jd)
+double /*DLL_FUNC*/ td_minus_ut( const double jd)
 {
    earth_orientation_params eop;
 
@@ -348,7 +348,7 @@ them here for reference.
    static const double phase[4] = { 357.5287 * deg2rad,
              246.199 * deg2rad, 355.057 * deg2rad, 243.451 * deg2rad };  */
 
-long double DLL_FUNC tdb_minus_tdt( const long double t_centuries)
+long double /*DLL_FUNC*/ tdb_minus_tdt( const long double t_centuries)
 {
    static const long double amplitude[6] = { 1656.6894e-6,
             22.4175e-6, 13.8399e-6, 4.7701e-6, 4.6767e-6, 2.2566e-6 };
@@ -369,7 +369,7 @@ long double DLL_FUNC tdb_minus_tdt( const long double t_centuries)
 
 int mjd_end_of_predictive_leap_seconds = INT_MAX;
 
-double DLL_FUNC td_minus_utc( const double jd_utc)
+double /*DLL_FUNC*/ td_minus_utc( const double jd_utc)
 {
    const double tdt_minus_tai = 32.184;
    const double mjd_utc = jd_utc - 2400000.5;
@@ -457,7 +457,7 @@ double DLL_FUNC td_minus_utc( const double jd_utc)
    return( td_minus_ut( jd_utc));
 }
 
-double DLL_FUNC tdb_minus_utc( const double jd_utc)
+double /*DLL_FUNC*/ tdb_minus_utc( const double jd_utc)
 {
    const double t_cen = (jd_utc - J2000) / 36525.;
 

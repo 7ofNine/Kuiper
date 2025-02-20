@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include <stdint.h>
 #include <assert.h>
 #include <stdbool.h>
-#include "watdefs.h"
+//
 #include "comets.h"
 #include "afuncs.h"
 
@@ -39,17 +39,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #define CUBE_ROOT( X)  (exp( log( X) / 3.))
 
 double kepler( const double ecc, double mean_anom);
-void setup_orbit_vectors( ELEMENTS DLLPTR *e);  /* astfuncs.cpp */
-void comet_posn_part_ii( const ELEMENTS DLLPTR *elem, const double t,
-                                    double DLLPTR *loc, double DLLPTR *vel);
+void setup_orbit_vectors( ELEMENTS   *e);  /* astfuncs.cpp */
+void comet_posn_part_ii( const ELEMENTS   *elem, const double t,
+                                    double   *loc, double   *vel);
 
 /* Asteroid elements on the Guide CD-ROM are stored in a compressed format,
 where a full set of elements consumes six long integers = 24 bytes.  The
 grisly details are described in the file \COMPRESS\ASTEROID.DOC on the
 Guide CD-ROM.        */
 
-int DLL_FUNC setup_elems_from_ast_file( ELEMENTS DLLPTR *class_elem,
-              const uint32_t DLLPTR *elem, const double t_epoch)
+int /*DLL_FUNC*/ setup_elems_from_ast_file( ELEMENTS   *class_elem,
+              const uint32_t   *elem, const double t_epoch)
 {
    double mean_anomaly;
 
@@ -90,10 +90,10 @@ and major axes;  the longitude of perihelion;  and a unit vector,
 "sideways",  that lies in the plane of the orbit and points at right angles
 to the direction of perihelion. */
 
-void setup_orbit_vectors( ELEMENTS DLLPTR *e)
+void setup_orbit_vectors( ELEMENTS   *e)
 {
    const double sin_incl = sin( e->incl), cos_incl = cos( e->incl);
-   double FAR *vec;
+   double   *vec;
    double vec_len;
    double up[3];
    unsigned i;
@@ -119,7 +119,7 @@ void setup_orbit_vectors( ELEMENTS DLLPTR *e)
    vector_cross_product( e->sideways, up, vec);
 }
 
-void DLL_FUNC derive_quantities( ELEMENTS DLLPTR *e, const double gm)
+void /*DLL_FUNC*/ derive_quantities( ELEMENTS   *e, const double gm)
 {
    if( e->ecc != 1.)    /* for non-parabolic orbits: */
       {
@@ -276,8 +276,8 @@ double kepler( const double ecc, double mean_anom)
    return( is_negative ? offset - curr : offset + curr);
 }
 
-void comet_posn_part_ii( const ELEMENTS DLLPTR *elem, const double t,
-                                    double DLLPTR *loc, double DLLPTR *vel)
+void comet_posn_part_ii( const ELEMENTS   *elem, const double t,
+                                    double   *loc, double   *vel)
 {
    double true_anom, r, x, y, r0;
 
@@ -332,8 +332,8 @@ void comet_posn_part_ii( const ELEMENTS DLLPTR *elem, const double t,
       }
 }
 
-int DLL_FUNC comet_posn_and_vel( ELEMENTS DLLPTR *elem, double t,
-                  double DLLPTR *loc, double DLLPTR *vel)
+int /*DLL_FUNC*/ comet_posn_and_vel( ELEMENTS   *elem, double t,
+                  double   *loc, double   *vel)
 {
    t -= elem->perih_time;
    if( elem->ecc != 1.)    /* not parabolic */
@@ -351,12 +351,12 @@ int DLL_FUNC comet_posn_and_vel( ELEMENTS DLLPTR *elem, double t,
    return( 0);
 }
 
-int DLL_FUNC comet_posn( ELEMENTS DLLPTR *elem, double t, double DLLPTR *loc)
+int /*DLL_FUNC*/ comet_posn( ELEMENTS   *elem, double t, double   *loc)
 {
    return( comet_posn_and_vel( elem, t, loc, NULL));
 }
 
-double DLL_FUNC phase_angle_correction_to_magnitude( const double phase_angle,
+double /*DLL_FUNC*/ phase_angle_correction_to_magnitude( const double phase_angle,
                                  const double slope_param)
 {
       const double epsilon = 1e-10;

@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 02110-1301, USA.    */
 
 #include <math.h>
-#include "watdefs.h"
+
 #include "afuncs.h"
 
 #define PI 3.1415926535897932384626433832795028841971693993751058209749445923
@@ -86,7 +86,7 @@ antipodes).  In such cases,  the haversine of the position angle is
 poorly rounded off,  and you get an imprecise PA and sometimes distance.
 This new code appears to handle both cases with aplomb.   */
 
-int DLL_FUNC calc_dist_and_posn_ang( const double *p1, const double *p2,
+int /*DLL_FUNC*/ calc_dist_and_posn_ang( const double *p1, const double *p2,
                                        double *dist, double *posn_ang)
 {
    int rval = 0;
@@ -127,7 +127,7 @@ int DLL_FUNC calc_dist_and_posn_ang( const double *p1, const double *p2,
    return( rval);
 }
 
-void DLL_FUNC reverse_dist_and_posn_ang( double *to, const double *from,
+void /*DLL_FUNC*/ reverse_dist_and_posn_ang( double *to, const double *from,
                                  const double dist, const double posn_ang)
 {
    const double cos_lat = cos( from[1]), sin_lat = sin( from[1]);
@@ -157,7 +157,7 @@ void DLL_FUNC reverse_dist_and_posn_ang( double *to, const double *from,
 
 #include <stdlib.h>
 #include <stdio.h>
-#include "watdefs.h"
+
 #include "afuncs.h"
 
 void main( int argc, char **argv)

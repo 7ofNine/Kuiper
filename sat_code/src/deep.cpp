@@ -82,7 +82,7 @@ static double dpsec_integration_step = 720.;
 static int dpsec_integration_order = 2;
 static int is_dundee_compliant = 0;
 
-void DLL_FUNC sxpx_set_implementation_param( const int param_index,
+void /*DLL_FUNC*/ sxpx_set_implementation_param( const int param_index,
                                               const int new_param)
 {
    switch( param_index)
@@ -96,7 +96,7 @@ void DLL_FUNC sxpx_set_implementation_param( const int param_index,
       }
 }
 
-void DLL_FUNC sxpx_set_dpsec_integration_step( const double new_step_size)
+void /*DLL_FUNC*/ sxpx_set_dpsec_integration_step( const double new_step_size)
 {
    dpsec_integration_step = new_step_size;
 }

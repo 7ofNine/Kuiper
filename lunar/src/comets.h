@@ -42,15 +42,15 @@ extern "C" {
 #include <stdint.h>
 
 // void calc_vectors( ELEMENTS *elem, const double sqrt_gm);
-int DLL_FUNC calc_classical_elements( ELEMENTS *elem, const double *r,
+int /*DLL_FUNC*/ calc_classical_elements( ELEMENTS *elem, const double *r,
                              const double t, const int ref);
-int DLL_FUNC comet_posn_and_vel( ELEMENTS DLLPTR *elem, double t,
-                  double DLLPTR *loc, double DLLPTR *vel);
-int DLL_FUNC comet_posn( ELEMENTS DLLPTR *elem, double t, double DLLPTR *loc);       /* astfuncs.c */
-void DLL_FUNC derive_quantities( ELEMENTS DLLPTR *e, const double gm);
-int DLL_FUNC setup_elems_from_ast_file( ELEMENTS DLLPTR *class_elem,
-              const uint32_t DLLPTR *elem, const double t_epoch);
-double DLL_FUNC phase_angle_correction_to_magnitude( const double phase_angle,
+int /*DLL_FUNC*/ comet_posn_and_vel( ELEMENTS   *elem, double t,
+                  double   *loc, double   *vel);
+int /*DLL_FUNC*/ comet_posn( ELEMENTS   *elem, double t, double   *loc);       /* astfuncs.c */
+void /*DLL_FUNC*/ derive_quantities( ELEMENTS   *e, const double gm);
+int /*DLL_FUNC*/ setup_elems_from_ast_file( ELEMENTS   *class_elem,
+              const uint32_t   *elem, const double t_epoch);
+double /*DLL_FUNC*/ phase_angle_correction_to_magnitude( const double phase_angle,
                                  const double slope_param);
 int setup_planet_elem( ELEMENTS *elem, const int planet_idx,
                                              const double t_cen);
@@ -66,7 +66,7 @@ typedef struct
    double barbee_speed;              /* in AU/day */
 } moid_data_t;
 
-double DLL_FUNC find_moid_full( const ELEMENTS *elem1, const ELEMENTS *elem2, moid_data_t *mdata);
+double /*DLL_FUNC*/ find_moid_full( const ELEMENTS *elem1, const ELEMENTS *elem2, moid_data_t *mdata);
 
 #ifdef __cplusplus
 }

@@ -605,9 +605,9 @@ static const ROCK rocks[N_ROCKS] = {
                /* lets us do that without confusing OSes that are        */
                /* blessedly ignorant of the weirdnesses of Windoze DLLs: */
 #ifdef _WIN32
-#define DLL_FUNC __stdcall
+#define /*DLL_FUNC*/ __stdcall
 #else
-#define DLL_FUNC
+#define /*DLL_FUNC*/
 #endif
 
    /* Given a JDE and a JPL ID number (see list at the top of this file), */
@@ -621,7 +621,7 @@ static const ROCK rocks[N_ROCKS] = {
 extern "C" {
 #endif
 
-int DLL_FUNC evaluate_rock( const double jde, const int jpl_id,
+int /*DLL_FUNC*/ evaluate_rock( const double jde, const int jpl_id,
                                                   double *output_vect)
 {
    int i;

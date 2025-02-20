@@ -16,7 +16,7 @@
 #define c5       params[9]
 #define c6       params[10]
 
-void DLL_FUNC SGP_init( double *params, const tle_t *tle)
+void /*DLL_FUNC*/ SGP_init( double *params, const tle_t *tle)
 {
    double c1, c2, c3, c4, r1, cosio, sinio, a1, d1, po, po2no;
 
@@ -46,7 +46,7 @@ void DLL_FUNC SGP_init( double *params, const tle_t *tle)
 }
 
 
-int DLL_FUNC SGP( const double tsince, const tle_t *tle, const double *params,
+int /*DLL_FUNC*/ SGP( const double tsince, const tle_t *tle, const double *params,
                                      double *pos, double *vel)
 {
   double

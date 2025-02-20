@@ -50,7 +50,7 @@ https://www.researchgate.net/publication/325922027_On_the_minimum_orbital_inters
 #include <string.h>
 #include <math.h>
 #include <stdio.h>
-#include "watdefs.h"
+
 #include "brentmin.h"
 #include "comets.h"
 #include "afuncs.h"
@@ -170,7 +170,7 @@ true anomaly of elem2's orbit : */
 
 static double moid_step = 5. * PI / 180.;
 
-double DLL_FUNC find_moid_full( const ELEMENTS *elem1, const ELEMENTS *elem2, moid_data_t *mdata)
+double /*DLL_FUNC*/ find_moid_full( const ELEMENTS *elem1, const ELEMENTS *elem2, moid_data_t *mdata)
 {
    double mat1[3][3], mat2[3][3];
    internal_moid_t idata;

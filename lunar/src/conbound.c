@@ -1,6 +1,6 @@
 #include <string.h>
 #include <stdint.h>
-#include "watdefs.h"
+//
 #include "afuncs.h"
 
 /* See 'constbnd.c' in the 'constbnd' repository for a description of
@@ -373,9 +373,9 @@ bits (the uppermost bit is unused).  */
    #include <stdlib.h>
 #endif
 
-int DLL_FUNC constell_from_ra_dec( const double ra_degrees_1875,
+int /*DLL_FUNC*/ constell_from_ra_dec( const double ra_degrees_1875,
                                    const double dec_degrees_1875,
-                                   char DLLPTR *constell_name)
+                                   char   *constell_name)
 {
    const int32_t ra = ((int32_t)(ra_degrees_1875 * 240.) + 864000) % 86400;
    const int16_t spd = (int16_t)( (dec_degrees_1875 + 90.) * 60.);

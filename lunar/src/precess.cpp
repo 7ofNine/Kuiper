@@ -68,7 +68,7 @@ precession and inverse precession are exactly inverse operations.    */
 #include <math.h>
 #include <string.h>
 #include <stdio.h>
-#include "watdefs.h"
+
 #include "afuncs.h"
 #include "lunar.h"         /* for obliquity( ) prototype */
 
@@ -76,14 +76,14 @@ precession and inverse precession are exactly inverse operations.    */
 
 #include <stdlib.h>
 
-int DLL_FUNC setup_precession_with_nutation( double DLLPTR *matrix,
+int /*DLL_FUNC*/ setup_precession_with_nutation( double   *matrix,
                     const double year);         /* precess.c */
-int DLL_FUNC setup_precession_with_nutation_delta( double DLLPTR *matrix,
+int /*DLL_FUNC*/ setup_precession_with_nutation_delta( double   *matrix,
                     const double year,          /* precess.c */
                     const double delta_nutation_lon,
                     const double delta_nutation_obliq);
 
-static int setup_ecliptic_precession_from_j2000( double DLLPTR *matrix, const double year)
+static int setup_ecliptic_precession_from_j2000( double   *matrix, const double year)
 {
    const double t = (year - 2000.) / 100.;
    const double S2R = (PI / 180.) / 3600.;   /* converts arcSeconds to Radians */
@@ -106,8 +106,8 @@ static int setup_ecliptic_precession_from_j2000( double DLLPTR *matrix, const do
    return( 0);
 }
 
-int DLL_FUNC setup_equatorial_precession_from_j2000(
-                          double DLLPTR *matrix, const double year)
+int /*DLL_FUNC*/ setup_equatorial_precession_from_j2000(
+                          double   *matrix, const double year)
 {
    const double t_cen = (year - 2000.) / 100.;
    const double ka = 2306.2181;
@@ -143,7 +143,7 @@ int DLL_FUNC setup_equatorial_precession_from_j2000(
 #define SEMIRANDOM_GARBAGE1  314.8145501e+12
 #define SEMIRANDOM_GARBAGE2  -9.19001473e-08
 
-int DLL_FUNC setup_ecliptic_precession( double DLLPTR *matrix,
+int /*DLL_FUNC*/ setup_ecliptic_precession( double   *matrix,
                      const double year_from, const double year_to)
 {
    int rval;
@@ -201,7 +201,7 @@ int DLL_FUNC setup_ecliptic_precession( double DLLPTR *matrix,
    return( rval);
 }
 
-int DLL_FUNC setup_precession( double DLLPTR *matrix, const double year_from, const double year_to)
+int /*DLL_FUNC*/ setup_precession( double   *matrix, const double year_from, const double year_to)
 {
    const double obliquity1 = mean_obliquity( (year_from - 2000.) / 100.);
    const double obliquity2 = mean_obliquity( (year_to - 2000.) / 100.);
@@ -215,7 +215,7 @@ int DLL_FUNC setup_precession( double DLLPTR *matrix, const double year_from, co
 /* For computing the orientation of the earth,  we need something resembling
 the above,  but including the effects of nutation : */
 
-int DLL_FUNC setup_precession_with_nutation_delta( double DLLPTR *matrix,
+int /*DLL_FUNC*/ setup_precession_with_nutation_delta( double   *matrix,
                     const double year,
                     const double delta_nutation_lon,
                     const double delta_nutation_obliq)
@@ -246,7 +246,7 @@ int DLL_FUNC setup_precession_with_nutation_delta( double DLLPTR *matrix,
    return( 0);
 }
 
-int DLL_FUNC setup_precession_with_nutation( double DLLPTR *matrix,
+int /*DLL_FUNC*/ setup_precession_with_nutation( double   *matrix,
                     const double year)
 {
    return( setup_precession_with_nutation_delta( matrix, year, 0., 0.));
@@ -255,7 +255,7 @@ int DLL_FUNC setup_precession_with_nutation( double DLLPTR *matrix,
 static const double sin_obliq_2000 = 0.397777155931913701597179975942380896684;
 static const double cos_obliq_2000 = 0.917482062069181825744000384639406458043;
 
-void DLL_FUNC equatorial_to_ecliptic( double *vect)
+void /*DLL_FUNC*/ equatorial_to_ecliptic( double *vect)
 {
    double temp;
 
@@ -264,7 +264,7 @@ void DLL_FUNC equatorial_to_ecliptic( double *vect)
    vect[2] = temp;
 }
 
-void DLL_FUNC ecliptic_to_equatorial( double *vect)
+void /*DLL_FUNC*/ ecliptic_to_equatorial( double *vect)
 {
    double temp;
 
@@ -273,9 +273,9 @@ void DLL_FUNC ecliptic_to_equatorial( double *vect)
    vect[2] = temp;
 }
 
-int DLL_FUNC precess_vector( const double DLLPTR *matrix,
-                                      const double DLLPTR *v1,
-                                      double DLLPTR *v2)
+int /*DLL_FUNC*/ precess_vector( const double   *matrix,
+                                      const double   *v1,
+                                      double   *v2)
 {
    int i = 3;
    double temp_v[3];
@@ -293,9 +293,9 @@ int DLL_FUNC precess_vector( const double DLLPTR *matrix,
    return( 0);
 }
 
-int DLL_FUNC deprecess_vector( const double DLLPTR *matrix,
-                                      const double DLLPTR *v1,
-                                      double DLLPTR *v2)
+int /*DLL_FUNC*/ deprecess_vector( const double   *matrix,
+                                      const double   *v1,
+                                      double   *v2)
 {
    int i = 3;
    double temp_v[3];
@@ -313,9 +313,9 @@ int DLL_FUNC deprecess_vector( const double DLLPTR *matrix,
    return( 0);
 }
 
-int DLL_FUNC precess_ra_dec( const double DLLPTR *matrix,
-                        double DLLPTR *p_out,
-                        const double DLLPTR *p_in, int backward)
+int /*DLL_FUNC*/ precess_ra_dec( const double   *matrix,
+                        double   *p_out,
+                        const double   *p_in, int backward)
 {
    double v1[3], v2[3];
    const double old_ra = p_in[0];

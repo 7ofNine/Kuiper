@@ -27,7 +27,7 @@ gcc -Wall -Wextra -pedantic -I../include -DCGI_VERSION -o cvt_elem conv_ele.cpp 
 
 
 #include <math.h>
-#include "watdefs.h"
+//
 #include "afuncs.h"
 
 const double PI = 3.141592653589793238462643383279502884197169399375;

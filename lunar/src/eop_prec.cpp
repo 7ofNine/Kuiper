@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include <string.h>
 #include <assert.h>
 #include <math.h>
-#include "watdefs.h"
+
 #include "afuncs.h"
 
 double cubic_spline_interpolate_within_table(      /* spline.cpp */
@@ -92,7 +92,7 @@ static bool is_valid_eop_line( const char *iline)
       return( true);
 }
 
-int DLL_FUNC load_earth_orientation_params( const char *filename,
+int /*DLL_FUNC*/ load_earth_orientation_params( const char *filename,
                                              int *file_date)
 {
    int rval = 0;
@@ -190,7 +190,7 @@ desired value,  zero is returned.
    Further,  if we try to get a Delta-T value from the EOPs and fail,
 one is computed from the 'default' algorithm in delta_t.cpp. */
 
-int DLL_FUNC get_earth_orientation_params( const double jd,
+int /*DLL_FUNC*/ get_earth_orientation_params( const double jd,
                               earth_orientation_params *params,
                               const int desired_params_mask)
 {
@@ -255,7 +255,7 @@ matrix[3, 4, 5] = vector pointing at equator, 90 E lon,  also J2000/ICRF
 matrix[6, 7, 8] = vector pointing at north pole (+90 lat),  also J2000/ICRF
 */
 
-int DLL_FUNC setup_precession_with_nutation_eops( double DLLPTR *matrix,
+int /*DLL_FUNC*/ setup_precession_with_nutation_eops( double   *matrix,
                     const double year)
 {
    const double jdt = J2000 + (year - 2000.) * 365.25;

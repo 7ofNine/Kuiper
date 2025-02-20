@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include <assert.h>
 #include <string.h>
 #include <ctype.h>
-#include "watdefs.h"
+
 #include "stringex.h"
 #include "afuncs.h"
 #include "date.h"
@@ -55,7 +55,7 @@ static const long double j2000 = 2451545.0;
    avoiding areas where bad values would be generated.
 */
 
-double DLL_FUNC acose( const double arg)
+double /*DLL_FUNC*/ acose( const double arg)
 {
    if( arg >= 1.)
       return( 0.);
@@ -64,7 +64,7 @@ double DLL_FUNC acose( const double arg)
    return( acos( arg));
 }
 
-double DLL_FUNC asine( const double arg)
+double /*DLL_FUNC*/ asine( const double arg)
 {
    if( arg >= 1.)
       return( pi / 2);
@@ -73,7 +73,7 @@ double DLL_FUNC asine( const double arg)
    return( asin( arg));
 }
 
-void DLL_FUNC set_identity_matrix( double DLLPTR *matrix)
+void /*DLL_FUNC*/ set_identity_matrix( double   *matrix)
 {
    int i;
 
@@ -87,7 +87,7 @@ void DLL_FUNC set_identity_matrix( double DLLPTR *matrix)
 
 #define SWAP( A, B, TEMP)  { TEMP = A;  A = B;  B = TEMP; }
 
-void DLL_FUNC invert_orthonormal_matrix( double DLLPTR *matrix)
+void /*DLL_FUNC*/ invert_orthonormal_matrix( double   *matrix)
 {
    double temp;
 
@@ -132,7 +132,7 @@ skipped.
 
 */
 
-void DLL_FUNC make_var_desig( char DLLPTR *buff, int var_no)
+void /*DLL_FUNC*/ make_var_desig( char   *buff, int var_no)
 {
    int i, curr_no = 10;
 
@@ -168,7 +168,7 @@ void DLL_FUNC make_var_desig( char DLLPTR *buff, int var_no)
       }
 }
 
-void DLL_FUNC rotate_vector( double DLLPTR *v, const double angle,
+void /*DLL_FUNC*/ rotate_vector( double   *v, const double angle,
                                           const int axis)
 {
    const double sin_ang = sin( angle), cos_ang = cos( angle);
@@ -179,7 +179,7 @@ void DLL_FUNC rotate_vector( double DLLPTR *v, const double angle,
    v[a] = temp;
 }
 
-void DLL_FUNC pre_spin_matrix( double *v1, double *v2, const double angle)
+void /*DLL_FUNC*/ pre_spin_matrix( double *v1, double *v2, const double angle)
 {
    const double sin_ang = sin( angle);
    const double cos_ang = cos( angle);
@@ -196,7 +196,7 @@ void DLL_FUNC pre_spin_matrix( double *v1, double *v2, const double angle)
       }
 }
 
-void DLL_FUNC spin_matrix( double *v1, double *v2, const double angle)
+void /*DLL_FUNC*/ spin_matrix( double *v1, double *v2, const double angle)
 {
    const double sin_ang = sin( angle);
    const double cos_ang = cos( angle);
@@ -214,7 +214,7 @@ void DLL_FUNC spin_matrix( double *v1, double *v2, const double angle)
 
 /* See above for a discussion of the variable star designation scheme. */
 
-int DLL_FUNC decipher_var_desig( const char DLLPTR *desig)
+int /*DLL_FUNC*/ decipher_var_desig( const char   *desig)
 {
    int len, first,  second, rval = -2;
 
@@ -297,7 +297,7 @@ static void remove_char( char *buff, const char removed)
    (Gregorian, Julian,  Hebrew,  etc.;  see 'date.cpp' for details).
    Also,  greater control over the output format is provided. */
 
-void DLL_FUNC full_ctimel( char *buff, long double t2k, const int format)
+void /*DLL_FUNC*/ full_ctimel( char *buff, long double t2k, const int format)
 {
    const int precision = (format >> 4) & 0xf, calendar = format & 0xf;
    const int output_format = (format & FULL_CTIME_FORMAT_MASK);
@@ -457,12 +457,12 @@ void DLL_FUNC full_ctimel( char *buff, long double t2k, const int format)
       remove_char( ibuff, ':');
 }
 
-void DLL_FUNC full_ctime( char *buff, double jd, const int format)
+void /*DLL_FUNC*/ full_ctime( char *buff, double jd, const int format)
 {
    full_ctimel( buff, (long double)jd - j2000, format);
 }
 
-void DLL_FUNC polar3_to_cartesian( double *vect, const double lon, const double lat)
+void /*DLL_FUNC*/ polar3_to_cartesian( double *vect, const double lon, const double lat)
 {
    double clat = cos( lat);
 
@@ -471,17 +471,17 @@ void DLL_FUNC polar3_to_cartesian( double *vect, const double lon, const double 
    *vect   = sin( lat);
 }
 
-double DLL_FUNC vector3_length( const double *vect)
+double /*DLL_FUNC*/ vector3_length( const double *vect)
 {
    return( sqrt( vect[0] * vect[0] + vect[1] * vect[1] + vect[2] * vect[2]));
 }
 
-double DLL_FUNC dot_product( const double *a, const double *b)
+double /*DLL_FUNC*/ dot_product( const double *a, const double *b)
 {
    return( a[0] * b[0] + a[1] * b[1] + a[2] * b[2]);
 }
 
-double DLL_FUNC normalize_vect3( double *vect)
+double /*DLL_FUNC*/ normalize_vect3( double *vect)
 {
    const double d2 = vect[0] * vect[0] + vect[1] * vect[1]
                                        + vect[2] * vect[2];
@@ -503,7 +503,7 @@ double DLL_FUNC normalize_vect3( double *vect)
    second as the earth slows down.  The difference is kept within one
    second,  and can be ignored for many purposes.)   */
 
-double DLL_FUNC green_sidereal_time( double jd_ut)
+double /*DLL_FUNC*/ green_sidereal_time( double jd_ut)
 {
    double t_cen, rval, base_t;
 
@@ -519,7 +519,7 @@ double DLL_FUNC green_sidereal_time( double jd_ut)
    return( rval * pi / 180.);
 }
 
-void DLL_FUNC vector_cross_product( double *xprod, const double *a, const double *b)
+void /*DLL_FUNC*/ vector_cross_product( double *xprod, const double *a, const double *b)
 {
    xprod[0] = a[1] * b[2] - a[2] * b[1];
    xprod[1] = a[2] * b[0] - a[0] * b[2];

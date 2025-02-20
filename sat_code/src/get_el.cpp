@@ -77,7 +77,7 @@ value if it's definitely not a TLE line,  positive if it's all OK
 except the checksum.  This last was added because people sometimes
 want to use TLEs without worrying about the checksum. */
 
-int DLL_FUNC tle_checksum( const char *buff)
+int /*DLL_FUNC*/ tle_checksum( const char *buff)
 {
    int rval = 0;
    int count = 69;
@@ -275,7 +275,7 @@ static inline double get_eight_places( const char *ptr)
          3 if they're OK except both lines have checksum errors;
          a negative value if the lines aren't at all parseable */
 
-int DLL_FUNC parse_elements( const char *line1, const char *line2, tle_t *sat)
+int /*DLL_FUNC*/ parse_elements( const char *line1, const char *line2, tle_t *sat)
 {
    int rval, checksum_problem = 0;
 

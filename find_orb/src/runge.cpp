@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #ifdef __GNUC__
 #include <unistd.h>
 #endif
-#include "watdefs.h"
+//
 #include "lunar.h"
 #include "afuncs.h"
 #include "comets.h"
@@ -72,7 +72,7 @@ int debug_printf( const char *format, ...)                 /* mpc_obs.cpp */
 ;
 int planet_posn( const int planet_no, const double jd, double *vect_2000);
                                                 /* mpc_obs.cpp */
-int earth_lunar_posn( const double jd, double FAR *earth_loc, double FAR *lunar_loc);
+int earth_lunar_posn( const double jd, double   *earth_loc, double   *lunar_loc);
 const char *get_environment_ptr( const char *env_ptr);     /* mpc_obs.cpp */
 ldouble take_rk_stepl( const ldouble jd, ELEMENTS *ref_orbit,
                  const ldouble *ival, ldouble *ovals,
@@ -86,7 +86,7 @@ int get_planet_posn_vel( const double jd, const int planet_no,
                      double *posn, double *vel);         /* runge.cpp */
 int find_best_fit_planet( const double jd, const double *ivect,
                                  double *rel_vect);      /* runge.cpp */
-int detect_perturbers( const double jd, const double * __restrict xyz,
+int detect_perturbers( const double jd, const double * /*__restrict*/ xyz,
                        double *accel);          /* bc405.cpp */
 void find_relative_state_vect( const double jd, const double *ivect,
                double *ovect, const int ref_planet);        /* runge.cpp */

@@ -44,14 +44,14 @@ ask a computer.  */
 #endif
 
 #include <stdint.h>
-#include "watdefs.h"
+
 #include "afuncs.h"
 
-int64_t DLL_FUNC nanoseconds_since_1970( void);                      /* afuncs.c */
+int64_t /*DLL_FUNC*/ nanoseconds_since_1970( void);                      /* afuncs.c */
 
 #ifdef _WIN32
 
-int64_t DLL_FUNC nanoseconds_since_1970( void)
+int64_t /*DLL_FUNC*/ nanoseconds_since_1970( void)
 {
    FILETIME ft;
    const uint64_t jd_1601 = 2305813;  /* actually 2305813.5 */
@@ -67,7 +67,7 @@ int64_t DLL_FUNC nanoseconds_since_1970( void)
 }
 #else
 #ifdef __WATCOMC__
-int64_t DLL_FUNC nanoseconds_since_1970( void)
+int64_t /*DLL_FUNC*/ nanoseconds_since_1970( void)
 {
    struct timeb t;
    const int64_t one_million = 1000000;
@@ -81,7 +81,7 @@ int64_t DLL_FUNC nanoseconds_since_1970( void)
 #include <sys/time.h>
 #include <unistd.h>
 
-int64_t DLL_FUNC nanoseconds_since_1970( void)
+int64_t /*DLL_FUNC*/ nanoseconds_since_1970( void)
 {
    struct timeval now;
    const int rv = gettimeofday( &now, NULL);
@@ -105,7 +105,7 @@ However,  it does require the realtime library to be linked in...
 I leave it here in case we someday need nanosecond precision.  */
 
 #ifdef NOT_CURRENTLY_IN_USE
-int64_t DLL_FUNC nanoseconds_since_1970( void)
+int64_t /*DLL_FUNC*/ nanoseconds_since_1970( void)
 {
    struct timespec t;
 
@@ -114,7 +114,7 @@ int64_t DLL_FUNC nanoseconds_since_1970( void)
 }
 #endif    /* NOT_CURRENTLY_IN_USE */
 
-double DLL_FUNC current_jd( void)
+double /*DLL_FUNC*/ current_jd( void)
 {
    static const double jan_1970 = 2440587.5;
    const double jd = jan_1970 +

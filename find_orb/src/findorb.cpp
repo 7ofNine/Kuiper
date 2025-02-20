@@ -99,7 +99,7 @@ static bool _mouse_movements_are_reported = false;
 #include <assert.h>
 #include <sys/stat.h>
 #include <locale.h>
-#include "watdefs.h"
+//
 #include "sigma.h"
 #include "afuncs.h"
 #include "comets.h"
@@ -162,17 +162,17 @@ devoted to station data.   */
 void ensure_config_directory_exists(); /* miscell.c */
 static int user_select_file( char *filename, const char *title, const int flags);
 double get_planet_mass( const int planet_idx);                /* orb_func.c */
-int simplex_method( OBSERVE FAR *obs, int n_obs, double *orbit,
+int simplex_method( OBSERVE   *obs, int n_obs, double *orbit,
                const double r1, const double r2, const char *constraints);
-int superplex_method( OBSERVE FAR *obs, int n_obs, double *orbit, const char *constraints);
+int superplex_method( OBSERVE   *obs, int n_obs, double *orbit, const char *constraints);
 static void show_a_file( const char *filename, const int flags);
 static void put_colored_text( const char *text, const int line_no,
                const int column, const int n_bytes, const int color);
-int find_trial_orbit( double *orbit, OBSERVE FAR *obs, int n_obs,
+int find_trial_orbit( double *orbit, OBSERVE   *obs, int n_obs,
              const double r1, const double angle_param);   /* orb_func.cpp */
-int search_for_trial_orbit( double *orbit, OBSERVE FAR *obs, int n_obs,
+int search_for_trial_orbit( double *orbit, OBSERVE   *obs, int n_obs,
               const double r1, double *angle_param);  /* orb_func.cpp */
-void create_ades_file( const char *filename, const OBSERVE FAR *obs, int n_obs);
+void create_ades_file( const char *filename, const OBSERVE   *obs, int n_obs);
 char *fgets_trimmed( char *buff, size_t max_bytes, FILE *ifile);
 int generic_message_box( const char *message, const char *box_type);
 int write_excluded_observations_file( const OBSERVE *obs, int n_obs);
@@ -192,7 +192,7 @@ int store_defaults( const ephem_option_t ephemeris_output_options,
 int get_defaults( ephem_option_t *ephemeris_output_options, int *element_format,
          int *element_precision, double *max_residual_for_filtering,
          double *noise_in_sigmas);                /* elem_out.cpp */
-int text_search_and_replace( char FAR *str, const char *oldstr,
+int text_search_and_replace( char   *str, const char *oldstr,
                                      const char *newstr);   /* ephem0.cpp */
 int sort_obs_by_date_and_remove_duplicates( OBSERVE *obs, const int n_obs);
 double utc_from_td( const double jdt, double *delta_t);     /* ephem0.cpp */
@@ -200,17 +200,17 @@ void fix_home_dir( char *filename);                /* ephem0.cpp */
 int write_environment_pointers( void);             /* mpc_obs.cpp */
 int add_ephemeris_details( FILE *ofile, const double start_jd,  /* ephem0.c */
                                                const double end_jd);
-void set_distance( OBSERVE FAR *obs, double r);             /* orb_func.c */
+void set_distance( OBSERVE   *obs, double r);             /* orb_func.c */
 void set_statistical_ranging( const int new_using_sr);      /* elem_out.cpp */
 int link_arcs( OBSERVE *obs, int n_obs, const double r1, const double r2);
-int find_circular_orbits( OBSERVE FAR *obs1, OBSERVE FAR *obs2,
+int find_circular_orbits( OBSERVE   *obs1, OBSERVE   *obs2,
                double *orbit, const int desired_soln);   /* orb_fun2.cpp */
-void set_up_observation( OBSERVE FAR *obs);               /* mpc_obs.cpp */
+void set_up_observation( OBSERVE   *obs);               /* mpc_obs.cpp */
 char *get_file_name( char *filename, const char *template_file_name);
-double euler_function( const OBSERVE FAR *obs1, const OBSERVE FAR *obs2);
+double euler_function( const OBSERVE   *obs1, const OBSERVE   *obs2);
 int find_relative_orbit( const double jd, const double *ivect,
                ELEMENTS *elements, const int ref_planet);     /* runge.cpp */
-int find_parabolic_orbit( OBSERVE FAR *obs, const int n_obs,
+int find_parabolic_orbit( OBSERVE   *obs, const int n_obs,
             double *orbit, const int direction);         /* orb_func.cpp */
 int format_jpl_ephemeris_info( char *buff);
 double improve_along_lov( double *orbit, const double epoch, const double *lov,
@@ -249,7 +249,7 @@ int find_fcct_biases( const double ra, const double dec, const char catalog,
 int select_tracklet( OBSERVE *obs, const int n_obs, const int idx);
 int get_orbit_from_mpcorb_sof( const char *object_name, double *orbit,
              ELEMENTS *elems, const double full_arc_len, double *max_resid);
-int improve_sr_orbits( sr_orbit_t *orbits, OBSERVE FAR *obs,
+int improve_sr_orbits( sr_orbit_t *orbits, OBSERVE   *obs,
                const unsigned n_obs, const unsigned n_orbits,  /* orb_func.c */
                const double noise_in_sigmas, const int writing_sr_elems);
 int save_ephemeris_settings( const ephem_option_t ephemeris_output_options,
@@ -2061,7 +2061,7 @@ static int get_character_code( const char *buff)
    return( rval);
 }
 
-static unsigned show_basic_info( const OBSERVE FAR *obs, const int n_obs,
+static unsigned show_basic_info( const OBSERVE   *obs, const int n_obs,
                                           const unsigned max_lines_to_show)
 {
    char buff[81];
@@ -2320,7 +2320,7 @@ static void show_right_hand_scroll_bar( const int line_start,
       }
 }
 
-static int show_station_info( const OBSERVE FAR *obs, const int n_obs,
+static int show_station_info( const OBSERVE   *obs, const int n_obs,
               const int top_line_residual_area,
               const int curr_obs,
               const int list_codes)
@@ -2931,7 +2931,7 @@ static void show_a_file( const char *filename, const int flags)
    free( index);
 }
 
-static int get_epoch_range_of_included_obs( const OBSERVE FAR *obs,
+static int get_epoch_range_of_included_obs( const OBSERVE   *obs,
                   const int n_obs, double *start_jd, double *end_jd)
 {
    int idx1, idx2, rval;
@@ -3193,7 +3193,7 @@ static int *get_key_remap_table( void)
 
 static SCREEN *screen_ptr;
 
-static inline int initialize_curses( const int argc, const char **argv)
+static inline int initialize_curses([[maybe_unused]] const int argc, [[maybe_unused]] const char **argv)
 {
 #ifdef __PDCURSES__
    ttytype[0] = 20;    /* Window must have at least 20 lines in Win32a */
@@ -3209,9 +3209,7 @@ static inline int initialize_curses( const int argc, const char **argv)
    Xinitscr( argc, (char **)argv);
    screen_ptr = SP;
 #else
-   INTENTIONALLY_UNUSED_PARAMETER( argc);
-   INTENTIONALLY_UNUSED_PARAMETER( argv);
-
+   
    char xterm_256color_name[20];
 
    strlcpy_error( xterm_256color_name, "xterm-256color");
@@ -4014,7 +4012,7 @@ int main( int argc, const char **argv)
    bool is_monte_orbit = false;
    unsigned list_codes = SHOW_MPC_CODES_NORMAL;
    int i, quit = 0, n_obs = 0, clock_line = 0;
-   OBSERVE FAR *obs = NULL;
+   OBSERVE   *obs = NULL;
    int curr_obs = 0;
    double epoch_shown, curr_epoch, orbit[MAX_N_PARAMS];
    double r1 = 1., r2 = 1.;
@@ -5006,7 +5004,7 @@ int main( int argc, const char **argv)
                               int n_selected = 0, n_deselected = 0;
 
                               for( i = 0; i < n_obs; i++)
-                                 if( !FSTRCMP( obs[i].mpc_code, search_code))
+                                 if( !strcmp( obs[i].mpc_code, search_code))
                                     {
                                     if( obs[i].flags & OBS_IS_SELECTED)
                                        n_selected++;
@@ -5014,7 +5012,7 @@ int main( int argc, const char **argv)
                                        n_deselected++;
                                     }
                               for( i = 0; i < n_obs; i++)
-                                 if( !FSTRCMP( obs[i].mpc_code, search_code))
+                                 if( !strcmp( obs[i].mpc_code, search_code))
                                     {
                                     if( n_selected < n_deselected)
                                        obs[i].flags |= OBS_IS_SELECTED;
@@ -5199,10 +5197,10 @@ int main( int argc, const char **argv)
          case KEY_F(3):          /* turn on/off all obs w/same observatory ID */
             obs[curr_obs].is_included ^= 1;
             for( i = 0; i < n_obs; i++)
-               if( !FSTRCMP( obs[i].mpc_code, obs[curr_obs].mpc_code))
+               if( !strcmp( obs[i].mpc_code, obs[curr_obs].mpc_code))
                   obs[i].is_included = obs[curr_obs].is_included;
             strlcpy_error( message_to_user, "All observations from xxx toggled");
-            FMEMCPY( message_to_user + 22, obs[curr_obs].mpc_code, 3);
+            memcpy( message_to_user + 22, obs[curr_obs].mpc_code, 3);
             add_off_on = obs[curr_obs].is_included;
             break;
          case KEY_F(4):          /* find prev obs from this observatory */
@@ -5212,7 +5210,7 @@ int main( int argc, const char **argv)
             int new_obs = (curr_obs + dir) % n_obs;
 
             while( new_obs != curr_obs &&
-                        FSTRCMP( obs[new_obs].mpc_code, obs[curr_obs].mpc_code))
+                        strcmp( obs[new_obs].mpc_code, obs[curr_obs].mpc_code))
                new_obs = (new_obs + dir) % n_obs;
             curr_obs = new_obs;
             single_obs_selected = true;

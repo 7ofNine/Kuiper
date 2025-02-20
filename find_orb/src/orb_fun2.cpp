@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include <assert.h>
 #include <math.h>
 #include <stdio.h>
-#include "watdefs.h"
+//
 #include "stringex.h"
 #include "comets.h"
 #include "afuncs.h"
@@ -44,9 +44,9 @@ double generate_mc_variant_from_covariance( double *var_orbit,
 double improve_along_lov( double *orbit, const double epoch, const double *lov,
           const unsigned n_params, unsigned n_obs, OBSERVE *obs);
 const char *get_environment_ptr( const char *env_ptr);     /* mpc_obs.cpp */
-int adjust_herget_results( OBSERVE FAR *obs, int n_obs, double *orbit);
+int adjust_herget_results( OBSERVE   *obs, int n_obs, double *orbit);
 double current_jd( void);                       /* elem_out.cpp */
-double evaluate_for_simplex_method( const OBSERVE FAR *obs,
+double evaluate_for_simplex_method( const OBSERVE   *obs,
                     const int n_obs, const double *orbit,
                     const int planet_orbiting,
                     const char *limited_orbit);     /* orb_func.cpp */
@@ -67,7 +67,7 @@ extern int available_sigmas;
 
 typedef struct
    {
-   OBSERVE FAR *obs;
+   OBSERVE   *obs;
    int n_obs, n_params;
    const char *constraints;
    double orbit[MAX_N_PARAMS];
@@ -97,7 +97,7 @@ static double simplex_scoring( void *icontext, const double *ivect)
    return( rval);
 }
 
-int simplex_method( OBSERVE FAR *obs, int n_obs, double *orbit,
+int simplex_method( OBSERVE   *obs, int n_obs, double *orbit,
                const double r1, const double r2, const char *constraints)
 {
    int i, iter;
@@ -143,7 +143,7 @@ static void adjust_orbit_to_constraints( double *orbit, const char *constraints)
 }
 #endif
 
-int superplex_method( OBSERVE FAR *obs, int n_obs, double *orbit, const char *constraints)
+int superplex_method( OBSERVE   *obs, int n_obs, double *orbit, const char *constraints)
 {
    int i, iter;
    int max_iter = atoi( get_environment_ptr( "SUPERPLEX_ITER"));
@@ -182,7 +182,7 @@ int superplex_method( OBSERVE FAR *obs, int n_obs, double *orbit, const char *co
  /* no changes and return -1.  If we succeed,  we return the number   */
  /* of 'flipped' observations.                                        */
 
-int filter_obs( OBSERVE FAR *obs, const int n_obs,
+int filter_obs( OBSERVE   *obs, const int n_obs,
                   const double max_residual, const int filter_type)
 {
    int i, pass, n_active = 0, rval = 0;
@@ -290,7 +290,7 @@ void pop_all_orbits( void)
 }
 
 FILE *fopen_ext( const char *filename, const char *permits);   /* miscell.cpp */
-void set_distance( OBSERVE FAR *obs, double r);             /* orb_func.c */
+void set_distance( OBSERVE   *obs, double r);             /* orb_func.c */
 
 /* The linear regression fit here is used to determine a perihelion distance
 q,  eccentricity ecc,  and longitude of perihelion omega.  The idea is that
@@ -426,9 +426,9 @@ int link_arcs( OBSERVE *obs, int n_obs, const double r1, const double r2)
    return( 0);
 }
 
-double find_r_given_solar_r( const OBSERVE FAR *obs, const double solar_r);
+double find_r_given_solar_r( const OBSERVE   *obs, const double solar_r);
 
-static int set_up_circular_orbit( OBSERVE FAR *obs1, OBSERVE FAR *obs2,
+static int set_up_circular_orbit( OBSERVE   *obs1, OBSERVE   *obs2,
                   const double solar_r, double *dt, double *t0,
                   double *orbit)
 {
@@ -460,7 +460,7 @@ static int set_up_circular_orbit( OBSERVE FAR *obs1, OBSERVE FAR *obs2,
    return( obs1->r > 0. && obs2->r > 0.);
 }
 
-int find_circular_orbits( OBSERVE FAR *obs1, OBSERVE FAR *obs2,
+int find_circular_orbits( OBSERVE   *obs1, OBSERVE   *obs2,
                double *orbit, const int desired_soln)
 {
    double dt = obs2->jd - obs1->jd, t0;
@@ -813,7 +813,7 @@ double generate_mc_variant_from_covariance( double *var_orbit,
    return( rval);
 }
 
-int text_search_and_replace( char FAR *str, const char *oldstr,
+int text_search_and_replace( char   *str, const char *oldstr,
                                      const char *newstr);   /* ephem0.cpp */
 
 const char *excluded_filename = "excluded.txt";

@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
     #include <time.h>
 #endif
 #include "pl_cache.h"
-#include "watdefs.h"
+//
 #include "stringex.h"
 #include "lunar.h"
 #include "afuncs.h"
@@ -296,13 +296,12 @@ sort the entire array.  */
 void shellsort_r( void *base, const size_t n_elements, const size_t elem_size,
          int (*compare)(const void *, const void *, void *), void *context);
 
-static int compare_cached_posns( const void *a, const void *b, void *ignored_context)
+static int compare_cached_posns( const void *a, const void *b, [[maybe_unused]] void *ignored_context)
 {
    const POSN_CACHE *pa = (const POSN_CACHE *)a;
    const POSN_CACHE *pb = (const POSN_CACHE *)b;
    int rval;
 
-   INTENTIONALLY_UNUSED_PARAMETER( ignored_context);
    if( pa->jd > pb->jd)
       rval = 1;
    else if( pa->jd < pb->jd)

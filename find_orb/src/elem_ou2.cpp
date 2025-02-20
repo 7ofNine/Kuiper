@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include <assert.h>
 #include <sys/types.h>
 #include <sys/stat.h>
-#include "watdefs.h"
+//
 #include "comets.h"
 #include "afuncs.h"
 #include "mpc_obs.h"

@@ -34,7 +34,7 @@ have to wait for another day.       */
 #include <assert.h>
 #include <math.h>
 #include <ctype.h>
-#include "watdefs.h"
+//
 #include "mpc_obs.h"
 #include "mpc_func.h"
 #include "details.h"
@@ -45,7 +45,7 @@ FILE *fopen_ext( const char *filename, const char *permits);   /* miscell.cpp */
 char *fgets_trimmed( char *buff, size_t max_bytes, FILE *ifile); /*elem_out.c*/
 double utc_from_td( const double jdt, double *delta_t);     /* ephem0.cpp */
 char *iso_time( char *buff, const double jd, const int precision);   /* elem_out.c */
-int text_search_and_replace( char FAR *str, const char *oldstr,
+int text_search_and_replace( char   *str, const char *oldstr,
                                      const char *newstr);   /* ephem0.cpp */
 double original_observed_ra( const OBSERVE *obs);     /* ephem0.cpp */
 double original_observed_dec( const OBSERVE *obs);    /* ephem0.cpp */
@@ -177,7 +177,7 @@ static int dump_one_line_of_names( FILE *ofile, const char *line)
    return( n_found);
 }
 
-static int output_names( FILE *ofile, const OBSERVE FAR *obs, const char *target)
+static int output_names( FILE *ofile, const OBSERVE   *obs, const char *target)
 {
    int i, n_found = 0;
    const size_t tlen = strlen( target);
@@ -231,7 +231,7 @@ static int output_names( FILE *ofile, const OBSERVE FAR *obs, const char *target
 specified by the first observation.      */
 
 static void create_ades_file_for_one_code( FILE *ofile,
-                   const OBSERVE FAR *obs, int n_obs)
+                   const OBSERVE   *obs, int n_obs)
 {
    char buff[200];
    const char *code = obs->mpc_code;
@@ -372,7 +372,7 @@ do all this only once per code.   */
 
 #define OBSCODE_BUFF_SIZE 20000
 
-void create_ades_file( const char *filename, const OBSERVE FAR *obs,
+void create_ades_file( const char *filename, const OBSERVE   *obs,
                                            int n_obs)
 {
    int i, j;

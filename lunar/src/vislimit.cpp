@@ -132,7 +132,7 @@ static double compute_f_factor( const double obj_dist)
             /* scattered light from an object as a function of distance.  */
 }
 
-int DLL_FUNC set_brightness_params( BRIGHTNESS_DATA *b)
+int /*DLL_FUNC*/ set_brightness_params( BRIGHTNESS_DATA *b)
 {
    const double month_angle = (b->month - 3.) * PI / 6.;
    const double k_rayleigh_coeff =
@@ -202,7 +202,7 @@ int DLL_FUNC set_brightness_params( BRIGHTNESS_DATA *b)
    /* an unnecessary drain on computation.  So that's broken out as a */
    /* separate process in compute_extinction( ). */
 
-int DLL_FUNC compute_extinction( BRIGHTNESS_DATA *b)
+int /*DLL_FUNC*/ compute_extinction( BRIGHTNESS_DATA *b)
 {
    const double cos_zenith_ang = cos( b->zenith_angle);
    const double tval = sin( b->zenith_angle) / (1. + 20. / 6378.);
@@ -221,7 +221,7 @@ int DLL_FUNC compute_extinction( BRIGHTNESS_DATA *b)
    return( 0);
 }
 
-double DLL_FUNC compute_limiting_mag( BRIGHTNESS_DATA *b)
+double /*DLL_FUNC*/ compute_limiting_mag( BRIGHTNESS_DATA *b)
 {
    const double bl = b->brightness[2] / 1.11e-15;
    double c1, c2;
@@ -243,7 +243,7 @@ double DLL_FUNC compute_limiting_mag( BRIGHTNESS_DATA *b)
    return( rval);
 }
 
-int DLL_FUNC compute_sky_brightness( BRIGHTNESS_DATA *b)
+int /*DLL_FUNC*/ compute_sky_brightness( BRIGHTNESS_DATA *b)
 {
    const double sin_zenith = sin( b->zenith_angle);
    const double brightness_drop_2150 =

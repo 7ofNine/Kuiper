@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include <string.h>
 #include <math.h>
 #include <stdint.h>
-#include "watdefs.h"
+
 #include "lunar.h"
 
 /* Code to compute lunar positions using the ELP 2000-82B analytical
@@ -331,7 +331,7 @@ static int get_elp_values( FILE *ifile, const double t_cen,
 #define Q_3         -0.1371808e-11
 #define Q_4         -0.320334e-14
 
-int DLL_FUNC compute_elp_xyz( FILE *ifile, const double t_cen,
+int /*DLL_FUNC*/ compute_elp_xyz( FILE *ifile, const double t_cen,
                    const double prec, double *ecliptic_xyz_2000)
 {
    double uvr[3];

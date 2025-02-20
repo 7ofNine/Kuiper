@@ -72,10 +72,10 @@ protected:
    ephem_option_t ephemeris_output_options;
    int bad_elements;
    double blunder_probability;
-   void FAR *obs_data;
+   void   *obs_data;
    OBJECT_INFO *obj_info;
    CRect OriginalDlgRect;
-   void OnGetMinMaxInfo(MINMAXINFO FAR* lpMMI);
+   void OnGetMinMaxInfo(MINMAXINFO  * lpMMI);
    void AdjustControls( void);
 
    // Generated message map functions

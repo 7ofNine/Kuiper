@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include <stdio.h>
 #include <ctype.h>
 #include <time.h>
-#include "watdefs.h"
+
 #include "mpc_func.h"
 #include "lunar.h"
 #include "stringex.h"

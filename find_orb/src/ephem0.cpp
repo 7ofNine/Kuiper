@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include <ctype.h>
 #include <assert.h>
 #include <stdbool.h>
-#include "watdefs.h"
+//
 #include "afuncs.h"
 #include "lunar.h"
 #include "date.h"
@@ -64,13 +64,13 @@ double calc_obs_magnitude( const double obj_sun,
 int lat_alt_to_parallax( const double lat, const double ht_in_meters,
              double *rho_cos_phi, double *rho_sin_phi, const int planet_idx);
 int write_residuals_to_file( const char *filename, const char *ast_filename,
-          const int n_obs, const OBSERVE FAR *obs_data, const int format);
+          const int n_obs, const OBSERVE   *obs_data, const int format);
 void light_time_lag( const double jde, const double *orbit,       /* orb_func.c */
              const double *observer, double *result, const int is_heliocentric);
 int make_pseudo_mpec( const char *mpec_filename, const char *obj_name);
                                               /* ephem0.cpp */
-int earth_lunar_posn( const double jd, double FAR *earth_loc,
-                                       double FAR *lunar_loc);
+int earth_lunar_posn( const double jd, double   *earth_loc,
+                                       double   *lunar_loc);
 bool nighttime_only( const char *mpc_code);                 /* mpc_obs.cpp */
 double get_planet_mass( const int planet_idx);                /* orb_func.c */
 void remove_trailing_cr_lf( char *buff);      /* ephem0.cpp */
@@ -3925,12 +3925,10 @@ static void show_dd_hh_mm_ss_point_sss( char *text,
 }
 
 static void put_mag_resid( char *output_text, const double obs_mag,
-                           const double computed_mag, const char mag_band)
+                           const double computed_mag, [[maybe_unused]]  const char mag_band)
 {
    const double mag_resid = obs_mag - computed_mag;
-
-   INTENTIONALLY_UNUSED_PARAMETER( mag_band);
-
+      
    if( obs_mag < BLANK_MAG && computed_mag && fabs( mag_resid) < 99.)
       {
       const char *format = (fabs( mag_resid) < 9.9 ? "%+6.2f " : "%+6.1f ");
@@ -4030,7 +4028,7 @@ double original_observed_dec( const OBSERVE *obs)
    suitable for display on a console (findorb) or in a Windoze scroll
    box (FIND_ORB),  or for writing to a file.  */
 
-void format_observation( const OBSERVE FAR *obs, char *text,
+void format_observation( const OBSERVE   *obs, char *text,
                                         const int resid_format)
 {
    double angle;
@@ -4322,7 +4320,7 @@ possible we'll need to reformat astrometry in a manner that'll make MPC
 reasonably happy.   */
 
 #ifdef CURRENTLY_UNUSED_POSSIBLY_OBSOLETE
-static inline void set_obs_to_microday( OBSERVE FAR *obs)
+static inline void set_obs_to_microday( OBSERVE   *obs)
 {
    const double utc = utc_from_td( obs->jd);
    double delta_jd = utc - floor( utc);
@@ -4370,7 +4368,7 @@ static void put_sigma( char *buff, const double val)
 
 int sigmas_in_columns_57_to_65 = 0;
 
-void recreate_observation_line( char *obuff, const OBSERVE FAR *obs,
+void recreate_observation_line( char *obuff, const OBSERVE   *obs,
                            const int residual_format)
 {
    char buff[100];
@@ -4444,7 +4442,7 @@ void recreate_observation_line( char *obuff, const OBSERVE FAR *obs,
 }
 
 #ifdef NOT_QUITE_READY_YET
-void recreate_second_observation_line( char *buff, const OBSERVE FAR *obs)
+void recreate_second_observation_line( char *buff, const OBSERVE   *obs)
 {
    int i;
    double vect[3];
@@ -4485,7 +4483,7 @@ char *get_file_name( char *filename, const char *template_file_name)
    return( filename);
 }
 
-void create_obs_file( const OBSERVE FAR *obs, int n_obs, const int append,
+void create_obs_file( const OBSERVE   *obs, int n_obs, const int append,
                   const int resid_format)
 {
    char filename[81], curr_sigma_text[81];
@@ -4530,7 +4528,7 @@ file back into Find_Orb,  and you get near-zero residuals (there is
 rounding error).  Computed mags are supplied for all observations,
 and they're all V mags. */
 
-void create_obs_file_with_computed_values( const OBSERVE FAR *obs,
+void create_obs_file_with_computed_values( const OBSERVE   *obs,
                   int n_obs, const int append,
                   const int resid_format)
 {
@@ -4748,7 +4746,7 @@ static void observer_link_substitutions( char *buff)
 }
 
 static unsigned get_list_of_stations( const unsigned n_obs,
-               const OBSERVE FAR *obs_data, const unsigned max_n_stations,
+               const OBSERVE   *obs_data, const unsigned max_n_stations,
                char stations[][5])
 {
    unsigned n_stations = 0, i, j;
@@ -4773,13 +4771,12 @@ static unsigned get_list_of_stations( const unsigned n_obs,
    return( n_stations);
 }
 
-static int write_observer_data_to_file( FILE *ofile, const char *ast_filename,
-                 const int n_obs, const OBSERVE FAR *obs_data)
+static int write_observer_data_to_file( FILE *ofile, [[maybe_unused]]  const char *ast_filename,
+                 const int n_obs, const OBSERVE   *obs_data)
 {
    unsigned n_stations = 0, i, j;
    char stations[400][5];
 
-   INTENTIONALLY_UNUSED_PARAMETER( ast_filename);
    n_stations = get_list_of_stations( n_obs, obs_data, 400, stations);
    for( i = 0; i < n_stations; i++)
       {
@@ -4870,7 +4867,7 @@ static int write_observer_data_to_file( FILE *ofile, const char *ast_filename,
 bool residual_file_in_config_dir = true;
 
 int write_residuals_to_file( const char *filename, const char *ast_filename,
-       const int n_obs, const OBSERVE FAR *obs_data, const int resid_format)
+       const int n_obs, const OBSERVE   *obs_data, const int resid_format)
 {
    FILE *ofile = fopen_ext( filename,
                residual_file_in_config_dir ? "tfcw" : "fw");
@@ -4886,7 +4883,7 @@ int write_residuals_to_file( const char *filename, const char *ast_filename,
          for( i = 0; i < number_lines * 3; i++)
             {
             int num = (i % 3) * number_lines + i / 3;
-            OBSERVE FAR *obs = ((OBSERVE FAR *)obs_data) + num;
+            OBSERVE   *obs = ((OBSERVE   *)obs_data) + num;
 
             if( num < n_obs)
                {
@@ -4916,7 +4913,7 @@ int write_residuals_to_file( const char *filename, const char *ast_filename,
 #ifdef FUTURE_PROJECT_IN_WORKS
 
 int create_residual_scattergram( const char *filename, const int n_obs,
-                         const OBSERVE FAR *obs)
+                         const OBSERVE   *obs)
 {
    const int tbl_height = 19, tbl_width = 71;
    const int xspacing = 12, yspacing = 5,

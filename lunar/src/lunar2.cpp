@@ -46,7 +46,7 @@ term stored as a 32-bit integer.  */
 #include <stdlib.h>
 #include <stdint.h>
 #include <assert.h>
-#include "watdefs.h"
+
 #include "lunar.h"
 #include "get_bin.h"
 
@@ -62,11 +62,11 @@ term stored as a 32-bit integer.  */
 
 #define PI 3.1415926535897932384626433832795028841971693993751058209749445923
 
-int DLL_FUNC lunar_fundamentals( const void FAR *data, const double t,
-                                        double DLLPTR *fund)
+int /*DLL_FUNC*/ lunar_fundamentals( const void   *data, const double t,
+                                        double   *fund)
 {
    int i, j;
-   const char FAR *tptr = (const char FAR *)data + LUNAR_FUND_OFFSET;
+   const char   *tptr = (const char   *)data + LUNAR_FUND_OFFSET;
    double tpow;
 
    assert( get32bits( tptr) == 0x6ed5a0b1);
@@ -93,8 +93,8 @@ int DLL_FUNC lunar_fundamentals( const void FAR *data, const double t,
    return( 0);
 }
 
-int DLL_FUNC lunar_lon_and_dist( const void FAR *data, const double DLLPTR *fund,
-                 double DLLPTR *lon, double DLLPTR *r, const long precision)
+int /*DLL_FUNC*/ lunar_lon_and_dist( const void   *data, const double   *fund,
+                 double   *lon, double   *r, const long precision)
 {
    int i, j;
    const signed char *tptr = (const signed char *)data + LUNAR_LON_DIST_OFFSET;
@@ -141,11 +141,11 @@ int DLL_FUNC lunar_lon_and_dist( const void FAR *data, const double DLLPTR *fund
    return( 0);
 }
 
-double DLL_FUNC lunar_lat( const void FAR *data, const double DLLPTR *fund,
+double /*DLL_FUNC*/ lunar_lat( const void   *data, const double   *fund,
                                            const long precision)
 {
    int i, j;
-   const signed char *tptr = (const signed char FAR *)data + LUNAR_LAT_OFFSET;
+   const signed char *tptr = (const signed char   *)data + LUNAR_LAT_OFFSET;
    double rval = 0., e;
 
    assert( get32bits( tptr) == 0x01000000);

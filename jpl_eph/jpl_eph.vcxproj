@@ -21,7 +21,6 @@
   <ItemGroup>
     <ClInclude Include="src\jpleph.h" />
     <ClInclude Include="src\jpl_int.h" />
-    <ClInclude Include="src\watdefs.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\jpleph.cpp" />

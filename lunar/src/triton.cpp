@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 02110-1301, USA.    */
 
 #include <math.h>
-#include "watdefs.h"
+
 #include "lunar.h"
 #include "afuncs.h"
 
@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 /* Note that 'rocks.cpp' also has code for computing the position of Triton.
 The following is,  therefore,  essentially obsolete.   */
 
-void DLL_FUNC calc_triton_loc( const double jd, double *vect)
+void /*DLL_FUNC*/ calc_triton_loc( const double jd, double *vect)
 {
    const double t_cent = (jd - J2000) / 36525.;
    const double n = (359.28 + 54.308 * t_cent) * (PI / 180.);

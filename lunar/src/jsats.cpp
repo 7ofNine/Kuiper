@@ -39,7 +39,7 @@ ftp://ftp.imcce.fr/pub/ephem/satel/galilean/L1/L1.2/     */
 
 #include <math.h>
 #include <string.h>
-#include "watdefs.h"
+
 #include "lunar.h"
 
 #define PI 3.1415926535897932384626433832795028841971693993751058209749445923
@@ -80,8 +80,8 @@ static void rotate_vector( const double angle, double *x, double *y)
    coordinates of _date_,  not J2000 or B1950!  Units are Jovian radii.
    Input time is in TD.                            */
 
-int DLL_FUNC calc_jsat_loc( const double jd, double DLLPTR *jsats,
-                         const int sats_wanted, const long precision)
+int /*DLL_FUNC*/ calc_jsat_loc( const double jd, double   *jsats,
+                         const int sats_wanted, [[maybe_unused]] const long precision)
 {
    const double t = jd - 2443000.5;          /* 1976 aug 10, 0:00 TD */
                /* calc precession since B1950 epoch */
@@ -133,7 +133,6 @@ int DLL_FUNC calc_jsat_loc( const double jd, double DLLPTR *jsats,
    double loc[18];
    int i;
 
-   INTENTIONALLY_UNUSED_PARAMETER( precision);
    for( i = 1; i < 5; i++)
       lon[i] = tan_lat[i] = rad[i] = 0.;
 
@@ -322,7 +321,7 @@ int DLL_FUNC calc_jsat_loc( const double jd, double DLLPTR *jsats,
    for( i = 1; i < 6; i++)
       if( sats_wanted & (1 << (i - 1)))
          {
-         double FAR *tptr = (double FAR *)loc + (i - 1) * 3;
+         double   *tptr = (double   *)loc + (i - 1) * 3;
 
                                     /* calc coords by Jupiter's equator */
          if( i != 5)
@@ -354,8 +353,8 @@ int DLL_FUNC calc_jsat_loc( const double jd, double DLLPTR *jsats,
                             /* rotation axis of Jupiter.  We don't need */
                             /* any of that here.                        */
          }
-   FMEMCPY( jsats, loc, 12 * sizeof( double));
+   memcpy( jsats, loc, 12 * sizeof( double));
    if( sats_wanted & 16)      /* imaginary sat wanted */
-      FMEMCPY( jsats + 12, loc + 12, 3 * sizeof( double));
+      memcpy( jsats + 12, loc + 12, 3 * sizeof( double));
    return( sats_wanted);
 }

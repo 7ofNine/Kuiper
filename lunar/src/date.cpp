@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include <stdint.h>
 #include <limits.h>
 #include <assert.h>
-#include "watdefs.h"
+
 #include "get_bin.h"
 #include "date.h"
 
@@ -125,7 +125,7 @@ static const char *month_names[N_MONTHS] = { "Jan", "Feb", "Mar",
 static const char *day_of_week_names[7] = { "Sun", "Mon", "Tue", "Wed",
                                "Thu", "Fri", "Sat"};
 
-const char * DLL_FUNC set_month_name( const int month, const char *new_name)
+const char * /*DLL_FUNC*/ set_month_name( const int month, const char *new_name)
 {
    assert( month >= 1 && month <= N_MONTHS);
    if( new_name)
@@ -133,7 +133,7 @@ const char * DLL_FUNC set_month_name( const int month, const char *new_name)
    return( month_names[month - 1]);
 }
 
-const char * DLL_FUNC set_day_of_week_name( const int day_of_week,
+const char * /*DLL_FUNC*/ set_day_of_week_name( const int day_of_week,
                                             const char *new_name)
 {
    assert( day_of_week >= 0 && day_of_week < 7);
@@ -585,7 +585,7 @@ Thus,  the offset can be a value from 0 to (2^11 / 14) = 186. */
 #ifdef LOAD_CHINESE_CALENDAR_DATA_FROM_FILE
 static const unsigned char *chinese_calendar_data = NULL;
 
-void DLL_FUNC set_chinese_calendar_data( const void *cdata)
+void /*DLL_FUNC*/ set_chinese_calendar_data( const void *cdata)
 {
    chinese_calendar_data = (const unsigned char *)cdata;
 }
@@ -677,7 +677,7 @@ static int get_calendar_data( const long year, long *days, char *month_data,
    return( rval);
 }
 
-int DLL_FUNC get_chinese_intercalary_month( void)
+int /*DLL_FUNC*/ get_chinese_intercalary_month( void)
 {
    return( chinese_intercalary_month);
 }
@@ -689,7 +689,7 @@ the JD of New Years Day for that year.  After that,  all it has to do is
 add up the days in intervening months,  plus the day of the month,  and
 it's done:  */
 
-long DLL_FUNC dmy_to_day( const int day, const int month, const long year,
+long /*DLL_FUNC*/ dmy_to_day( const int day, const int month, const long year,
                             const int calendar)
 {
    char mdata[N_MONTHS];
@@ -721,7 +721,7 @@ long DLL_FUNC dmy_to_day( const int day, const int month, const long year,
    return( jd);
 }
 
-int DLL_FUNC days_in_month( const int month, const long year,
+int /*DLL_FUNC*/ days_in_month( const int month, const long year,
                             const int calendar)
 {
    return( dmy_to_day( RETURN_DAYS_IN_MONTH, month, year, calendar));
@@ -819,8 +819,8 @@ back a year and tries again.  Once it's done,  jd - year_ends[0] gives
 the number of days since New Years Day;  by subtracting month_data[]
 values,  we quickly determine which month and day of month we're in.  */
 
-void DLL_FUNC day_to_dmy( const long jd, int DLLPTR *day,
-                  int DLLPTR *month, long DLLPTR *year, const int calendar)
+void /*DLL_FUNC*/ day_to_dmy( const long jd, int   *day,
+                  int   *month, long   *year, const int calendar)
 {
    long year_ends[2];
    long curr_jd;

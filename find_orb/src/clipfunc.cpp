@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 02110-1301, USA.    */
 
 #include <stdio.h>
-#include "watdefs.h"
+//
 
 int copy_buffer_to_clipboard( const char *contents, const long length);
 int copy_file_to_clipboard( const char *filename);    /* clipfunc.cpp */
@@ -112,12 +112,12 @@ int copy_file_to_clipboard( const char *filename)
 }
 
 int clipboard_to_file( const char *filename, const int append,
-                                          const bool use_selection)
+                       [[maybe_unused]] const bool use_selection)
 {
     int rval;
 
             /* sadly,  we can't get at the selected text in MSWin */
-    INTENTIONALLY_UNUSED_PARAMETER( use_selection);
+    //INTENTIONALLY_UNUSED_PARAMETER( use_selection);
     if( !OpenClipboard(NULL))
         rval =  -1;
     else
@@ -149,13 +149,13 @@ int clipboard_to_file( const char *filename, const int append,
 #include "curses.h"
 
 int clipboard_to_file( const char *filename, const int append,
-                                          const bool use_selection)
+                      [[maybe_unused]] const bool use_selection)
 {
    long size = -99;
    char *contents;
    int err_code;
 
-   INTENTIONALLY_UNUSED_PARAMETER( use_selection);
+   //INTENTIONALLY_UNUSED_PARAMETER( use_selection);
    err_code = PDC_getclipboard( &contents, &size);
    if( err_code == PDC_CLIP_SUCCESS)
       {

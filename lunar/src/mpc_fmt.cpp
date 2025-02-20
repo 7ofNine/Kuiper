@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include <ctype.h>
 #include <string.h>
 #include <math.h>
-#include "watdefs.h"
+
 #include "afuncs.h"
 #include "date.h"
 #include "mpc_func.h"
@@ -707,7 +707,7 @@ inline int get_satellite_coordinate( const char *iptr, double coord[1])
 
 /* Returns spacecraft offset in AU,  in J2000 ecliptic coords */
 
-int DLL_FUNC get_satellite_offset( const char *iline, double xyz[3])
+int /*DLL_FUNC*/ get_satellite_offset( const char *iline, double xyz[3])
 {
    size_t i;
    int error_code = 0;

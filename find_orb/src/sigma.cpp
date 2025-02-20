@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include <stdlib.h>
 #include <assert.h>
 #include <math.h>
-#include "watdefs.h"
+//
 #include "sigma.h"
 #include "afuncs.h"
 #include "date.h"

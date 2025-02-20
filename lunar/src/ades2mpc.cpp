@@ -29,7 +29,7 @@ parsing in my software.
 #include "stringex.h"
 #include <stdio.h>
 #include <ctype.h>
-#include "watdefs.h"
+//
 #include "date.h"
 #include "mpc_func.h"
 #include "afuncs.h"

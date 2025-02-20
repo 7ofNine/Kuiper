@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include <stdarg.h>
 #include <assert.h>
 #include <errno.h>
-#include "watdefs.h"
+//
 #include "details.h"
 #include "comets.h"
 #include "lunar.h"
@@ -49,11 +49,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include "constant.h"
 
 int pattern_match(const char* pattern, const char* string);   /* miscell.c */
-int text_search_and_replace( char FAR *str, const char *oldstr,
+int text_search_and_replace( char   *str, const char *oldstr,
                                      const char *newstr);   /* ephem0.cpp */
 double utc_from_td( const double jdt, double *delta_t);     /* ephem0.cpp */
 int apply_excluded_observations_file( OBSERVE *obs, const int n_obs);
-void set_up_observation( OBSERVE FAR *obs);                 /* mpc_obs.c */
+void set_up_observation( OBSERVE   *obs);                 /* mpc_obs.c */
 static double observation_jd( const char *buff);
 double centralize_ang( double ang);             /* elem_out.cpp */
 int sort_obs_by_date_and_remove_duplicates( OBSERVE *obs, const int n_obs);
@@ -62,17 +62,17 @@ int lat_alt_to_parallax( const double lat, const double ht_in_meters,
              double *rho_cos_phi, double *rho_sin_phi, const int planet_idx);
 int parallax_to_lat_alt( const double rho_cos_phi, const double rho_sin_phi,
        double *lat, double *ht_in_meters, const int planet_idx); /* ephem0.c */
-void set_obs_vect( OBSERVE FAR *obs);        /* mpc_obs.h */
+void set_obs_vect( OBSERVE   *obs);        /* mpc_obs.h */
 void remove_trailing_cr_lf( char *buff);            /* ephem0.cpp */
 void format_dist_in_buff( char *buff, const double dist_in_au); /* ephem0.c */
 double current_jd( void);                       /* elem_out.cpp */
 void remove_insignificant_digits( char *tbuff);          /* monte0.c */
 int compute_observer_loc( const double jde, const int planet_no,
              const double rho_cos_phi,           /* mpc_obs.cpp */
-             const double rho_sin_phi, const double lon, double FAR *offset);
+             const double rho_sin_phi, const double lon, double   *offset);
 int compute_observer_vel( const double jde, const int planet_no,
              const double rho_cos_phi,           /* mpc_obs.cpp */
-             const double rho_sin_phi, const double lon, double FAR *vel);
+             const double rho_sin_phi, const double lon, double   *vel);
 int get_satellite_offset( const char *iline, double *xyz);  /* mpc_obs.cpp */
 int get_residual_data( const OBSERVE *obs, double *xresid, double *yresid);
 bool nighttime_only( const char *mpc_code);                 /* mpc_obs.cpp */
@@ -111,7 +111,7 @@ int get_object_name( char *obuff, const char *packed_desig);   /* mpc_obs.c */
 void compute_error_ellipse_adjusted_for_motion( double *sigma1, double *sigma2,
                   double *posn_angle, const OBSERVE *obs,
                   const MOTION_DETAILS *m);                  /* orb_func.cpp */
-double n_nearby_obs( const OBSERVE FAR *obs, const unsigned n_obs,
+double n_nearby_obs( const OBSERVE   *obs, const unsigned n_obs,
           const unsigned idx, const double time_span);       /* orb_func.cpp */
 void convert_ades_sigmas_to_error_ellipse( const double sig_ra,
          const double sig_dec, const double correl, double *major,
@@ -712,7 +712,7 @@ typedef struct
 static rover_t *rovers = NULL;
 int n_obs_actually_loaded, n_rovers = 0;
 
-int get_observer_data( const char FAR *mpc_code, char *buff, mpc_code_t *cinfo)
+int get_observer_data( const char   *mpc_code, char *buff, mpc_code_t *cinfo)
 {
    static char *curr_station = NULL;
    static char **station_data = NULL;
@@ -888,7 +888,7 @@ int get_observer_data( const char FAR *mpc_code, char *buff, mpc_code_t *cinfo)
    or a negative value if the station doesn't exist,  or if there's no
    latitude/longitude (planet-centric case,  or spacecraft).  */
 
-static int get_observer_data_latlon( const char FAR *mpc_code,
+static int get_observer_data_latlon( const char   *mpc_code,
               char *buff, double *lon_in_radians, double *lat_in_radians,
               double *alt_in_meters)
 {
@@ -914,7 +914,7 @@ static int get_observer_data_latlon( const char FAR *mpc_code,
 
 */
 
-static int get_obs_alt_azzes( const OBSERVE FAR *obs, DPT *sun_alt_az,
+static int get_obs_alt_azzes( const OBSERVE   *obs, DPT *sun_alt_az,
                                                DPT *object_alt_az)
 {
    DPT latlon;
@@ -1329,7 +1329,7 @@ int get_object_name( char *obuff, const char *packed_desig)
    return( rval);
 }
 
-void set_obs_vect( OBSERVE FAR *obs)
+void set_obs_vect( OBSERVE   *obs)
 {
    obs->vect[0] = cos( obs->ra) * cos( obs->dec);
    obs->vect[1] = sin( obs->ra) * cos( obs->dec);
@@ -1345,8 +1345,8 @@ int load_environment_file( const char *filename);          /* mpc_obs.cpp */
 static int load_default_environment_file( void);           /* mpc_obs.cpp */
 void update_environ_dot_dat( void);                        /* mpc_obs.cpp */
 
-static int earth_lunar_posn_vel( const double jd, double FAR *earth_loc,
-                             double FAR *lunar_loc, const int is_vel)
+static int earth_lunar_posn_vel( const double jd, double   *earth_loc,
+                             double   *lunar_loc, const int is_vel)
 {
    const int vel_offset = (is_vel ? PLANET_POSN_VELOCITY_OFFSET : 0);
 
@@ -1357,12 +1357,12 @@ static int earth_lunar_posn_vel( const double jd, double FAR *earth_loc,
    return( 0);
 }
 
-int earth_lunar_posn( const double jd, double FAR *earth_loc, double FAR *lunar_loc)
+int earth_lunar_posn( const double jd, double   *earth_loc, double   *lunar_loc)
 {
    return( earth_lunar_posn_vel( jd, earth_loc, lunar_loc, 0));
 }
 
-int earth_lunar_vel( const double jd, double FAR *earth_loc, double FAR *lunar_loc)
+int earth_lunar_vel( const double jd, double   *earth_loc, double   *lunar_loc)
 {
    return( earth_lunar_posn_vel( jd, earth_loc, lunar_loc, 1));
 }
@@ -1491,7 +1491,7 @@ static int _compute_lagrange_point( double *vect, const int point_number,
 
 int compute_observer_loc( const double jde, const int planet_no,
                const double rho_cos_phi,
-               const double rho_sin_phi, const double lon, double FAR *offset)
+               const double rho_sin_phi, const double lon, double   *offset)
 {
 
    if( planet_no == -2)
@@ -1524,7 +1524,7 @@ int compute_observer_loc( const double jde, const int planet_no,
 
 int compute_observer_vel( const double jde, const int planet_no,
                const double rho_cos_phi,
-               const double rho_sin_phi, const double lon, double FAR *vel)
+               const double rho_sin_phi, const double lon, double   *vel)
 {
    int i;
 
@@ -1571,7 +1571,7 @@ static double observation_time_offset = 0.;
       /* meteor observations,  where one station might have its clock in */
       /* error by a second or more relative to another. */
 
-static void comment_observation( OBSERVE FAR *obs, const char *comment)
+static void comment_observation( OBSERVE   *obs, const char *comment)
 {
    size_t i;
 
@@ -1601,7 +1601,7 @@ static int jpl_code_to_planet_idx( const int spice_code)
    return( rval);
 }
 
-void set_up_observation( OBSERVE FAR *obs)
+void set_up_observation( OBSERVE   *obs)
 {
    char tbuff[300];
    mpc_code_t cinfo;
@@ -1615,13 +1615,13 @@ void set_up_observation( OBSERVE FAR *obs)
 
       obs->is_included = 0;
       obs->discovery_asterisk = '!';
-      for( i = 0; FMEMCMP( unfound[i], obs->mpc_code, 3) && i < n_unfound; i++)
+      for( i = 0; memcmp( unfound[i], obs->mpc_code, 3) && i < n_unfound; i++)
          ;
       if( i == n_unfound && n_unfound < 10)     /* got a new one! */
          {
          int text_to_add;
 
-         FMEMCPY( unfound[n_unfound++], obs->mpc_code, 3);
+         memcpy( unfound[n_unfound++], obs->mpc_code, 3);
          snprintf_err( tbuff, sizeof( tbuff), get_find_orb_text( 2002),
                              obs->mpc_code);
          if( strcmp( obs->mpc_code, "XXX"))
@@ -1658,7 +1658,7 @@ static int set_data_from_obs_header( OBSERVE *obs);
 When that happens,  they have to be adjusted for both aberration of light
 and nutation and precession.  The following removes the aberration. */
 
-static void adjust_for_aberration( OBSERVE FAR *obs)
+static void adjust_for_aberration( OBSERVE   *obs)
 {
    size_t i;
 
@@ -1677,7 +1677,7 @@ int object_type;
 int find_fcct_biases( const double ra, const double dec, const char catalog,
                  const double jd, double *bias_ra, double *bias_dec);
 
-static int parse_observation( OBSERVE FAR *obs, const char *buff)
+static int parse_observation( OBSERVE   *obs, const char *buff)
 {
    unsigned time_format;
    double utc = extract_date_from_mpc_report( buff, &time_format);
@@ -1784,9 +1784,9 @@ static int parse_observation( OBSERVE FAR *obs, const char *buff)
       obs->mag_precision = -1;
 
    obs->is_included = (buff[64] != 'x' && buff[12] != '-');
-   FMEMCPY( obs->mpc_code, buff + 77, 3);
+   memcpy( obs->mpc_code, buff + 77, 3);
    obs->mpc_code[3] = '\0';
-   FMEMCPY( obs->columns_57_to_65, buff + 56, 9);
+   memcpy( obs->columns_57_to_65, buff + 56, 9);
    obs->columns_57_to_65[9] = '\0';
    if( !strcmp( obs->columns_57_to_65, "Apparent "))
       coord_epoch = -1.;
@@ -1811,8 +1811,8 @@ static int parse_observation( OBSERVE FAR *obs, const char *buff)
          if( coord_epoch)               /* specific epoch given, not just */
             year = coord_epoch;         /* mean coords of date */
          obs->ra *= -1.;
-         precess_pt( (DPT DLLPTR *)&obs->ra,
-                     (DPT DLLPTR *)&obs->ra, year, 2000.);
+         precess_pt( (DPT   *)&obs->ra,
+                     (DPT   *)&obs->ra, year, 2000.);
          obs->ra *= -1.;
          }
       obs->note2 = 'A';       /* mark as coordinates precessed */
@@ -1845,7 +1845,7 @@ static int parse_observation( OBSERVE FAR *obs, const char *buff)
       }                         /* band, but are basically V */
    else
       obs->obs_mag = BLANK_MAG;
-   FMEMCPY( obs->reference, buff + 72, 5);
+   memcpy( obs->reference, buff + 72, 5);
    obs->reference[5] = '\0';
    set_data_from_obs_header( obs);
    if( memcmp( buff + 72, ".rwo ", 5) &&
@@ -1971,9 +1971,8 @@ static unsigned find_in_hash_table( const OBJECT_INFO *objs, const char *desig,
       }
 }
 
-int qsort_strcmp( const void *a, const void *b, void *ignored_context)
+int qsort_strcmp( const void *a, const void *b, [[maybe_unused]] void *ignored_context)
 {
-   INTENTIONALLY_UNUSED_PARAMETER( ignored_context);
    return( strcmp( (const char *)a, (const char *)b));
 }
 
@@ -2851,7 +2850,7 @@ int compare_observations( const void *a, const void *b, void *context)
 {
    const OBSERVE *obs1 = (const OBSERVE *)a;
    const OBSERVE *obs2 = (const OBSERVE *)b;
-   int rval = FMEMCMP( obs1->mpc_code, obs2->mpc_code, 3);
+   int rval = memcmp( obs1->mpc_code, obs2->mpc_code, 3);
 
    if( context)
       {
@@ -3061,7 +3060,7 @@ static void fix_radar_time( char *buff)
 }
 #endif
 
-int unload_observations( OBSERVE FAR *obs, const int n_obs)
+int unload_observations( OBSERVE   *obs, const int n_obs)
 {
    int i;
    extern int available_sigmas;
@@ -3265,7 +3264,7 @@ measured) observation only.
 note and the other has a 'K' ('stacked image').  In that case,  we're supposed
 to ignore the stacked one and keep the blank-note one.  */
 
-inline int spacewatch_duplication( OBSERVE FAR *obs)
+inline int spacewatch_duplication( OBSERVE   *obs)
 {
    int rval = 0;
 
@@ -3444,13 +3443,13 @@ bool use_sigmas = true;
 extern int is_interstellar;
 static double _overall_obj_alt_limit, _overall_sun_alt_limit;
 
-OBSERVE FAR *load_observations( FILE *ifile, const char *packed_desig,
+OBSERVE   *load_observations( FILE *ifile, const char *packed_desig,
                            const int n_obs)
 {
    const double days_per_year = 365.25;
    char buff[650], mpc_code_from_neocp[4], desig_from_neocp[15];
    char obj_name[80], curr_ades_ids[100];
-   OBSERVE FAR *rval;
+   OBSERVE   *rval;
    bool including_obs = true;
    int i, n_fixes_made = 0, n_future_obs = 0;
    unsigned line_no = 0;
@@ -3488,7 +3487,7 @@ OBSERVE FAR *load_observations( FILE *ifile, const char *packed_desig,
    strcpy( mpc_code_from_neocp, "500");   /* default is geocenter */
    neocp_file_type = NEOCP_FILE_TYPE_UNKNOWN;
    get_object_name( obj_name, packed_desig);
-   rval = (OBSERVE FAR *)FCALLOC( n_obs + 1, sizeof( OBSERVE));
+   rval = (OBSERVE   *)calloc( n_obs + 1, sizeof( OBSERVE));
    if( !rval)
       return( NULL);
    input_coordinate_epoch = 2000.;
@@ -4525,7 +4524,7 @@ OBJECT_INFO *find_objects_in_file( const char *filename,
    In Find_Orb, these details are shown for the station that made
    the currently-selected observation. */
 
-int put_observer_data_in_text( const char FAR *mpc_code, char *buff)
+int put_observer_data_in_text( const char   *mpc_code, char *buff)
 {
    double lon, lat, alt_in_meters;
    const int planet_idx = get_observer_data_latlon( mpc_code, buff,
@@ -4536,7 +4535,7 @@ int put_observer_data_in_text( const char FAR *mpc_code, char *buff)
       {
       char tbuff[4];
 
-      FMEMCPY( tbuff, mpc_code, 4);
+      memcpy( tbuff, mpc_code, 4);
       snprintf_err( buff, buffsize, "No information about station '%s'", tbuff);
       }
    else
@@ -4819,7 +4818,7 @@ void update_environ_dot_dat( void)
       }
 }
 
-static inline void compute_relative_velocity_vectors( const OBSERVE FAR *obs,
+static inline void compute_relative_velocity_vectors( const OBSERVE   *obs,
                                     double *vel)
 {
    double j2000_vel[3], matrix[9], length;
@@ -4953,7 +4952,7 @@ static void reference_to_text( char *obuff, const size_t obuff_size,
       }
 }
 
-int compute_observation_motion_details( const OBSERVE FAR *obs,
+int compute_observation_motion_details( const OBSERVE   *obs,
                MOTION_DETAILS *m)
 {
    double vel[3];
@@ -5188,11 +5187,11 @@ line 4: (709) W & B Observatory, Cloudcroft  (N32.95580 E254.22882)
 
 int show_alt_info = 0;
 
-static int generate_observation_text( const OBSERVE FAR *obs, const int idx,
+static int generate_observation_text( const OBSERVE   *obs, const int idx,
                  const int n_obs, const int line_number, char *const buff,
                  size_t buffsize)
 {
-   const OBSERVE FAR *optr = obs + idx;
+   const OBSERVE   *optr = obs + idx;
    const double earth_sun = vector3_length( optr->obs_posn);
 
    *buff = '\0';
@@ -5502,7 +5501,7 @@ static void _add_version_and_de_text( char *buff, const size_t buffsize)
 
 int show_observational_details = 0;
 
-int generate_obs_text( const OBSERVE FAR *obs, const int n_obs, char *buff,
+int generate_obs_text( const OBSERVE   *obs, const int n_obs, char *buff,
                                                const size_t buffsize)
 {
    size_t i, n_selected = 0, first = 0, last = 0;
@@ -5587,8 +5586,8 @@ int generate_obs_text( const OBSERVE FAR *obs, const int n_obs, char *buff,
       if( n_selected == 2)
          {
          double dist, posn_ang, delta_time;
-         const OBSERVE FAR *optr1 = obs + first;
-         const OBSERVE FAR *optr2 = obs + last;
+         const OBSERVE   *optr1 = obs + first;
+         const OBSERVE   *optr2 = obs + last;
 
          calc_dist_and_posn_ang( &optr1->ra, &optr2->ra, &dist, &posn_ang);
          dist *= 180. / PI;      /* cvt radians to degrees */

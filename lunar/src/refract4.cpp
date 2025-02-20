@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 02110-1301, USA.    */
 
 #include <math.h>
-#include "watdefs.h"
+
 #include "afuncs.h"
 
 /*
@@ -172,7 +172,7 @@ static double total_refraction( const REFRACT *ref,
       }
 }
 
-double DLL_FUNC integrated_refraction( const double latitude,
+double /*DLL_FUNC*/ integrated_refraction( const double latitude,
                   const double observed_alt, const double wavelength_microns,
                   const double height_in_meters, const double rel_humid_pct,
                   const double temp_kelvins, const double pressure_mb)
@@ -235,7 +235,7 @@ integrated_refraction( ) is relatively expensive,  and the hope is that
 use of the "primitive" function will get us close enough to the right
 answer to save us an iteration or two.  */
 
-double DLL_FUNC reverse_integrated_refraction( const double latitude,
+double /*DLL_FUNC*/ reverse_integrated_refraction( const double latitude,
                   const double refracted_alt, const double wavelength_microns,
                   const double height_in_meters, const double rel_humid_pct,
                   const double temp_kelvins, const double pressure_mb)

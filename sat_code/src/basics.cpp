@@ -30,7 +30,7 @@ void sxpall_common_init( const tle_t *tle, deep_arg_t *deep_arg);
                                                             /* common.c */
 
 /* Selects the type of ephemeris to be used (SGP*-SDP*) */
-int DLL_FUNC select_ephemeris( const tle_t *tle)
+int /*DLL_FUNC*/ select_ephemeris( const tle_t *tle)
 {
    int rval;
 
@@ -61,7 +61,7 @@ int DLL_FUNC select_ephemeris( const tle_t *tle)
 
 /*------------------------------------------------------------------*/
 
-long DLL_FUNC sxpx_library_version( void)
+long /*DLL_FUNC*/ sxpx_library_version( void)
 {
    return( 0x100);
 }

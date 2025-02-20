@@ -93,7 +93,7 @@ static void raw_lunar_solar_position( const double jd, double *lunar_xyzr, doubl
 moon positions at the exact same time we needed for the preceding step.
 Caching those positions saves recomputing them. */
 
-void DLL_FUNC lunar_solar_position( const double jd,
+void /*DLL_FUNC*/ lunar_solar_position( const double jd,
                     double *lunar_xyzr, double *solar_xyzr)
 {
    static double curr_jd = 0., lunar[4], solar[4];
@@ -151,7 +151,7 @@ static void init_high_ephemeris( double *params, const tle_t *tle)
 #define t2cof        params[5]
 #define deep_arg     ((deep_arg_t *)( params + 10))
 
-void DLL_FUNC SDP4_init( double *params, const tle_t *tle)
+void /*DLL_FUNC*/ SDP4_init( double *params, const tle_t *tle)
 {
    init_t init;
 
@@ -297,7 +297,7 @@ static int high_ephemeris( double tsince, const tle_t *tle, const double *params
    return( 0);
 }
 
-int DLL_FUNC SDP4( const double tsince, const tle_t *tle, const double *params,
+int /*DLL_FUNC*/ SDP4( const double tsince, const tle_t *tle, const double *params,
                                          double *pos, double *vel)
 {
   double

@@ -35,32 +35,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
    than C. */
 
 #ifdef _WIN32
-#define DLL_FUNC __stdcall
+#define /*DLL_FUNC*/ __stdcall
 #else
-#define DLL_FUNC
+#define /*DLL_FUNC*/
 #endif
 
 #ifdef __WATCOMC__
    #include <stdbool.h>
 #endif
 
-#ifdef __cplusplus
-extern "C" {
-#endif
 
-void * DLL_FUNC jpl_init_ephemeris( const char *ephemeris_filename,
+extern "C" {
+
+
+void * /*DLL_FUNC*/ jpl_init_ephemeris( const char *ephemeris_filename,
                                              char nam[][6], double *val);
-void DLL_FUNC jpl_close_ephemeris( void *ephem);
-int DLL_FUNC jpl_state( void *ephem, const double et, const int list[14],
+void /*DLL_FUNC*/ jpl_close_ephemeris( void *ephem);
+int /*DLL_FUNC*/ jpl_state( void *ephem, const double et, const int list[14],
                           double pv[][6], double nut[4], const int bary);
-int DLL_FUNC jpl_pleph( void *ephem, const double et, const int ntarg,
+int /*DLL_FUNC*/ jpl_pleph( void *ephem, const double et, const int ntarg,
                       const int ncent, double rrd[], const int calc_velocity);
-double DLL_FUNC jpl_get_double( const void *ephem, const int value);
-long DLL_FUNC jpl_get_long( const void *ephem, const int value);
-int DLL_FUNC make_sub_ephem( void *ephem, const char *sub_filename,
+double /*DLL_FUNC*/ jpl_get_double( const void *ephem, const int value);
+long /*DLL_FUNC*/ jpl_get_long( const void *ephem, const int value);
+int /*DLL_FUNC*/ make_sub_ephem( void *ephem, const char *sub_filename,
                               const double start_jd, const double end_jd);
-double DLL_FUNC jpl_get_constant( const int idx, void *ephem, char *constant_name);
-const char * DLL_FUNC jpl_get_ephem_name( const void *ephem);
+double /*DLL_FUNC*/ jpl_get_constant( const int idx, void *ephem, char *constant_name);
+const char * /*DLL_FUNC*/ jpl_get_ephem_name( const void *ephem);
 
          /* Following are constants used in          */
          /* jpl_get_double( ) and jpl_get_long( ):   */
@@ -86,7 +86,7 @@ const char * DLL_FUNC jpl_get_ephem_name( const void *ephem);
 #define JPL_EPH_INVALID_INDEX                (-5)
 #define JPL_EPH_FSEEK_ERROR                  (-6)
 
-int DLL_FUNC jpl_init_error_code( void);
+int /*DLL_FUNC*/ jpl_init_error_code( void);
 
          /* The following error codes may be returned by       */
          /* jpl_init_error_code( ) after jpl_init_ephemeris( ) */
@@ -107,6 +107,6 @@ int DLL_FUNC jpl_init_error_code( void);
 #define jpl_get_pvsun( ephem) ((double *)((char *)ephem + 248))
 
 
-#ifdef __cplusplus
+
 }
-#endif
+

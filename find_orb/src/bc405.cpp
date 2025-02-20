@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include <stdbool.h>
 #include <math.h>
 #include <assert.h>
-#include "watdefs.h"
+//
 #include "comets.h"
 #include "afuncs.h"
 #include "constant.h"
@@ -46,7 +46,7 @@ in a file of 6 * 300 * 3654 = 52 617 600 bytes.  The input file is called
 'asteroid_ephemeris.txt';  we create 'bc405.dat'.    */
 
 const char *get_find_orb_text( const int index);      /* elem_out.cpp */
-int detect_perturbers( const double jd, const double * __restrict xyz,
+int detect_perturbers( const double jd, const double * /*__restrict*/ xyz,
                        double *accel);          /* bc405.cpp */
 double *get_asteroid_mass( const int astnum);   /* bc405.cpp */
 int generic_message_box( const char *message, const char *box_type);
@@ -290,7 +290,7 @@ static FILE *get_precomputed_data_fp( void)
 const double integer_scale = 1000.;
 
 static int find_and_set_precomputed_data( FILE *precomputed_fp,
-                         const int bc_chunk, int16_t *__restrict posns)
+                         const int bc_chunk, int16_t */*__restrict*/ posns)
 {
    const int chunk_size = bc405_n_asteroids * 3;
    FILE *bc405_elem_file = open_bc405_file( false);
@@ -305,7 +305,7 @@ static int find_and_set_precomputed_data( FILE *precomputed_fp,
       return( -1);
    if( !posns[0] && !posns[1] && !posns[2])     /* still all zeroes; gotta compute */
       {
-      int16_t * __restrict pptr = posns;
+      int16_t * /*__restrict*/ pptr = posns;
 
       fseek( bc405_elem_file, (size_t)bc_chunk * bc405_n_asteroids
                     * 6 * sizeof( double), SEEK_SET);
@@ -390,7 +390,7 @@ double *get_asteroid_mass( const int astnum)
    return( rval);
 }
 
-int detect_perturbers( const double jd, const double * __restrict xyz,
+int detect_perturbers( const double jd, const double * /*__restrict*/ xyz,
                        double *accel)
 {
    static int curr_chunk = -1;

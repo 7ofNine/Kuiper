@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include <stdlib.h>
 #include <string.h>
 #include <stdint.h>
-#include "watdefs.h"
+
 #include "lunar.h"
 #include "get_bin.h"
 
@@ -128,7 +128,7 @@ Second,  freeing up the buffer when you're done with it is much easier
 above unpack_six_doubles() function.
 */
 
-void * DLL_FUNC load_ps1996_series( FILE *ifile, double jd, int planet_no)
+void * /*DLL_FUNC*/ load_ps1996_series( FILE *ifile, double jd, int planet_no)
 {
    int32_t offset;
    long jump = 0;
@@ -209,7 +209,7 @@ void * DLL_FUNC load_ps1996_series( FILE *ifile, double jd, int planet_no)
    return( rval);
 }
 
-int DLL_FUNC unload_ps1996_series( void *p)
+int /*DLL_FUNC*/ unload_ps1996_series( void *p)
 {
    free( p);
    return( 0);
@@ -231,7 +231,7 @@ out the velocity,  in AU/day,  as vx = state_vect[3],  vy = state_vect[4],
 vz = state_vect[5].
 */
 
-int DLL_FUNC get_ps1996_position( const double jd, const void *iptr,
+int /*DLL_FUNC*/ get_ps1996_position( const double jd, const void *iptr,
                         double *state_vect, const int compute_velocity)
 {
    const POISSON *p = (const POISSON *)iptr;

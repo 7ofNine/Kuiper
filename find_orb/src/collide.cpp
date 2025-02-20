@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 
 #include <math.h>
 #include <stdlib.h>
-#include "watdefs.h"
+//
 #include "comets.h"
 #include "afuncs.h"
 #include "lunar.h"

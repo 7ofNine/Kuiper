@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include <string.h>
 #include <stdlib.h>
 #include <math.h>
-#include "watdefs.h"
+
 #include "comets.h"
 #include "date.h"
 #include "afuncs.h"
@@ -34,7 +34,7 @@ for hyperbolic/parabolic orbits. */
 
 #define PI 3.1415926535897932384626433832795028841971693993751058209749445923
 
-double DLL_FUNC decimal_day_to_dmy( double jd, long *year, int *month,
+double /*DLL_FUNC*/ decimal_day_to_dmy( double jd, long *year, int *month,
                               const int calendar);
 
 static double zero_to_two_pi( double ang)
@@ -56,7 +56,7 @@ static void lop_digits( char *buff, int precision)
       *buff++ = ' ';
 }
 
-double DLL_FUNC decimal_day_to_dmy( double jd, long *year, int *month,
+double /*DLL_FUNC*/ decimal_day_to_dmy( double jd, long *year, int *month,
                               const int calendar)
 {
    int day;
@@ -145,7 +145,7 @@ static void add_pq_data( char *obuff, const size_t obuff_size,
 
 /* REMEMBER:  set 'central_obj', 'epoch', 'abs_mag', 'slope_param', 'gm' fields */
 
-int DLL_FUNC elements_in_mpc_format( char *obuff, const size_t obuff_size,
+int /*DLL_FUNC*/ elements_in_mpc_format( char *obuff, const size_t obuff_size,
                   const ELEMENTS *elem, const char *obj_id,
                   const int is_cometary, const int format)
 {

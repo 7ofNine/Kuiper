@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #endif
 #include <stdint.h>
 #include <math.h>
-#include "watdefs.h"
+
 #include "lunar.h"
 
 /* 2013 Jul 22:  switched to int8_t, int16_t,  and int32_t for char,
@@ -65,8 +65,8 @@ least a little. */
       /* that actually mattered.  It's obviously not something I'd do  */
       /* today.  But I'm reluctant to modify code that works Just Fine. */
 
-int DLL_FUNC nutation( const double t, double DLLPTR *d_lon,
-                                       double DLLPTR *d_obliq)
+int /*DLL_FUNC*/ nutation( const double t, double   *d_lon,
+                                       double   *d_obliq)
 {
    const double linear_part[5] = {445267.111480, 35999.050340,
             477198.867398, 483202.017538, -1934.136261 };

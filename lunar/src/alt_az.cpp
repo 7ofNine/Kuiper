@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 
 #include <math.h>
 #include <stdio.h>
-#include "watdefs.h"
+//
 #include "afuncs.h"
 #include "lunar.h"
 
@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #define J2000 2451545.0
 
 static void ra_dec_to_alt_az( const double hr_ang, const double dec,
-        double DLLPTR *alt, double DLLPTR *az, const double lat)
+        double   *alt, double   *az, const double lat)
 {
    double temp, cos_lat = cos( lat);
 
@@ -53,10 +53,10 @@ and the alt/azimuth.  You can optionally pass in NULLs for 'hr_ang'
 and 'loc_epoch' in the (rather common) situations where you're
 really just interested in the alt/az.   */
 
-void DLL_FUNC full_ra_dec_to_alt_az( const DPT DLLPTR *ra_dec,
-                DPT DLLPTR *alt_az,
-                DPT DLLPTR *loc_epoch, const DPT DLLPTR *latlon,
-                const double jd_utc, double DLLPTR *hr_ang)
+void /*DLL_FUNC*/ full_ra_dec_to_alt_az( const DPT   *ra_dec,
+                DPT   *alt_az,
+                DPT   *loc_epoch, const DPT   *latlon,
+                const double jd_utc, double   *hr_ang)
 {
    double ha, nutation_lon;
    const double t_centuries = (jd_utc - J2000) / 36525.;
@@ -81,8 +81,8 @@ void DLL_FUNC full_ra_dec_to_alt_az( const DPT DLLPTR *ra_dec,
 }
 
 static void alt_az_to_ra_dec( double alt, double az,
-                         double DLLPTR *hr_ang,
-                         double DLLPTR *dec, const double lat)
+                         double   *hr_ang,
+                         double   *dec, const double lat)
 {
    double temp, sin_dec, cos_lat = cos( lat);
 
@@ -112,9 +112,9 @@ static void alt_az_to_ra_dec( double alt, double az,
       }
 }
 
-void DLL_FUNC full_alt_az_to_ra_dec( DPT DLLPTR *ra_dec,
-                              const DPT DLLPTR *alt_az,
-                              const double jd_utc, const DPT DLLPTR *latlon)
+void /*DLL_FUNC*/ full_alt_az_to_ra_dec( DPT   *ra_dec,
+                              const DPT   *alt_az,
+                              const double jd_utc, const DPT   *latlon)
 {
    double hr_ang, ra;
    DPT tmp;
@@ -128,7 +128,7 @@ void DLL_FUNC full_alt_az_to_ra_dec( DPT DLLPTR *ra_dec,
 
 /* The following matrix was derived from the code in 'superga2.cpp'.  */
 
-const double * DLL_FUNC j2000_to_supergalactic_matrix( void)
+const double * /*DLL_FUNC*/ j2000_to_supergalactic_matrix( void)
 {
    static const double rval[9] = {
            0.37501548,  0.34135896,  0.86188018,
@@ -138,8 +138,8 @@ const double * DLL_FUNC j2000_to_supergalactic_matrix( void)
    return( rval);
 }
 
-void DLL_FUNC ra_dec_to_supergalactic( const double ra, const double dec,
-                   double DLLPTR *glat, double DLLPTR *glon)
+void /*DLL_FUNC*/ ra_dec_to_supergalactic( const double ra, const double dec,
+                   double   *glat, double   *glon)
 {
    double ipt[2], opt[2];
 
@@ -150,8 +150,8 @@ void DLL_FUNC ra_dec_to_supergalactic( const double ra, const double dec,
    *glat = opt[1];
 }
 
-void DLL_FUNC supergalactic_to_ra_dec( const double glat, double glon,
-                    double DLLPTR *ra, double DLLPTR *dec)
+void /*DLL_FUNC*/ supergalactic_to_ra_dec( const double glat, double glon,
+                    double   *ra, double   *dec)
 {
    double ipt[2], opt[2];
 
@@ -162,7 +162,7 @@ void DLL_FUNC supergalactic_to_ra_dec( const double glat, double glon,
    *dec = opt[1];
 }
 
-const double * DLL_FUNC j2000_to_galactic_matrix( void)
+const double * /*DLL_FUNC*/ j2000_to_galactic_matrix( void)
 {
                /* The following matrix comes from _The Hipparcos & Tycho */
                /* Catalogues:  Introduction & Guide to the Data_, p 92:  */
@@ -174,8 +174,8 @@ const double * DLL_FUNC j2000_to_galactic_matrix( void)
    return( rval);
 }
 
-void DLL_FUNC ra_dec_to_galactic( const double ra, const double dec,
-                   double DLLPTR *glat, double DLLPTR *glon)
+void /*DLL_FUNC*/ ra_dec_to_galactic( const double ra, const double dec,
+                   double   *glat, double   *glon)
 {
    double ipt[2], opt[2];
 
@@ -186,8 +186,8 @@ void DLL_FUNC ra_dec_to_galactic( const double ra, const double dec,
    *glat = opt[1];
 }
 
-void DLL_FUNC galactic_to_ra_dec( const double glat, double glon,
-                    double DLLPTR *ra, double DLLPTR *dec)
+void /*DLL_FUNC*/ galactic_to_ra_dec( const double glat, double glon,
+                    double   *ra, double   *dec)
 {
    double ipt[2], opt[2];
 
@@ -198,7 +198,7 @@ void DLL_FUNC galactic_to_ra_dec( const double glat, double glon,
    *dec = opt[1];
 }
 
-void DLL_FUNC precess_pt( DPT DLLPTR *opt, const DPT DLLPTR *ipt,
+void /*DLL_FUNC*/ precess_pt( DPT   *opt, const DPT   *ipt,
                         double from_time, double to_time)
 {
    double precess[9];

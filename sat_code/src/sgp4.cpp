@@ -32,7 +32,7 @@
 #define MINIMAL_E    1.e-4
 #define ECC_EPS      1.e-6     /* Too low for computing further drops. */
 
-void DLL_FUNC SGP4_init( double *params, const tle_t *tle)
+void /*DLL_FUNC*/ SGP4_init( double *params, const tle_t *tle)
 {
    deep_arg_t deep_arg;
    init_t init;
@@ -86,7 +86,7 @@ void DLL_FUNC SGP4_init( double *params, const tle_t *tle)
    c5 = 2*init.coef1*p_aodp * deep_arg.betao2*(1+2.75*(etasq+eeta)+eeta*etasq);
 } /* End of SGP4() initialization */
 
-int DLL_FUNC SGP4( const double tsince, const tle_t *tle, const double *params,
+int /*DLL_FUNC*/ SGP4( const double tsince, const tle_t *tle, const double *params,
                                                     double *pos, double *vel)
 {
   double

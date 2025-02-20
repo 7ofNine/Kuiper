@@ -36,7 +36,7 @@ static inline double ThetaG( double jd)
   return( rval);
 } /*Function thetag*/
 
-void DLL_FUNC observer_cartesian_coords( const double jd, const double lon,
+void /*DLL_FUNC*/ observer_cartesian_coords( const double jd, const double lon,
               const double rho_cos_phi, const double rho_sin_phi,
               double *vect)
 {
@@ -47,7 +47,7 @@ void DLL_FUNC observer_cartesian_coords( const double jd, const double lon,
    *vect++ = rho_sin_phi               * EARTH_MAJOR_AXIS / 1000.;
 }
 
-void DLL_FUNC earth_lat_alt_to_parallax( const double lat,
+void /*DLL_FUNC*/ earth_lat_alt_to_parallax( const double lat,
                     const double ht_in_meters,
                     double *rho_cos_phi, double *rho_sin_phi)
 {
@@ -58,7 +58,7 @@ void DLL_FUNC earth_lat_alt_to_parallax( const double lat,
    *rho_cos_phi = cos( u) + (ht_in_meters / EARTH_MAJOR_AXIS) * cos( lat);
 }
 
-void DLL_FUNC get_satellite_ra_dec_delta( const double *observer_loc,
+void /*DLL_FUNC*/ get_satellite_ra_dec_delta( const double *observer_loc,
                                  const double *satellite_loc, double *ra,
                                  double *dec, double *delta)
 {
@@ -91,14 +91,14 @@ static void precess( const double t_centuries, double *ra, double *dec)
    *dec -= t_centuries * dec_rate * 100.;
 }
 
-void DLL_FUNC epoch_of_date_to_j2000( const double jd, double *ra, double *dec)
+void /*DLL_FUNC*/ epoch_of_date_to_j2000( const double jd, double *ra, double *dec)
 {
    const double t_centuries = (jd - 2451545.) / 36525.;
 
    precess( t_centuries, ra, dec);
 }
 
-void DLL_FUNC j2000_to_epoch_of_date( const double jd, double *ra, double *dec)
+void /*DLL_FUNC*/ j2000_to_epoch_of_date( const double jd, double *ra, double *dec)
 {
    const double t_centuries = (jd - 2451545.) / 36525.;
 

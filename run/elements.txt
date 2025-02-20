@@ -1,30 +1,30 @@
 Orbital elements: 
 Example1
-   Perihelion 1998 Mar 9.727323173 TT = 17:27:20.7221 (JD 2450882.227323173)
-Epoch 1997 Nov 15.0 TT = JDT 2450767.5   Earth MOID: 0.0603   Ma: 0.0048
-M 330.356341996128                  (J2000 ecliptic)             Find_Orb
-n   0.258383593236 Peri.   72.843642228
-a   2.441327783292 Node    47.714668911
-e   0.57220749610  Incl.    0.143398613
-P   3.81451        H   16.52    U  8.4     q 1.044381725233  Q 3.838273841350
-From 20 observations 1997 Oct. 23-Nov. 15; mean residual 0".60
+   Perihelion 1998 Mar 8.701924583 TT = 16:50:46.2839 (JD 2450881.201924583)
+Epoch 1997 Nov 15.0 TT = JDT 2450767.5   Earth MOID: 0.0615   Ma: 0.0050
+M 330.984250421423                  (J2000 ecliptic)             Find_Orb
+n   0.255191367120 Peri.   72.210055101
+a   2.461644855438 Node    47.856542611
+e   0.57527857741  Incl.    0.142517366
+P   3.86223        H   16.54    U  8.0     q 1.045513304912  Q 3.877776405964
+From 20 observations 1997 Oct. 23-Nov. 15; mean residual 0".43
 # State vector (heliocentric equatorial J2000):
-#   +1.487143320997  +0.726720828475  +0.313523482779 AU
-#  -12.921638957717  +7.274743409102  +3.194646872621 mAU/day
-# MOIDs: Me  0.720687 Ve  0.327546 Ea  0.060347 Ma  0.004839
-# MOIDs: Ju  1.278069 Sa  6.130998 Ur 15.762942 Ne 26.280275
+#   +1.481981875971  +0.726694132514  +0.313521111425 AU
+#  -12.987811747943  +7.288658167054  +3.200609126751 mAU/day
+# MOIDs: Me  0.722247 Ve  0.328634 Ea  0.061520 Ma  0.004966
+# MOIDs: Ju  1.240722 Sa  6.094528 Ur 15.718831 Ne 26.243211
 # 1 oppositions
-# Elements written: 20 Feb 2025 16:18:48 (JD 2460727.179723)
+# Elements written: 20 Feb 2025 21:05:57 (JD 2460727.379134)
 # Full range of obs: 1997 Oct. 12-Nov. 15 (37 observations)
 # Find_Orb ver: 2025 Jan 30
 # Perturbers: 00000000 (unperturbed orbit);  not using JPL DE
-# Tisserand relative to Earth: 2.97240
-# Tisserand relative to Jupiter: 3.25484
-# Barbee-style encounter velocity: 6.2814 km/s
-# Diameter 2038.0 meters (assuming 10% albedo)
-# Score: 1.314761
-#  $Name=Example1  $Ty=1998  $Tm=03  $Td=09.727323  $MA=330.35634
-#  $ecc=0.5722075  $Eqnx=2000.
-#  $a=2.4413278  $Peri=72.84364  $Node=47.71467  $Incl=0.14340
-#  $EpJD=2450767.500  $q=1.044382  $T=2450882.227323  $H=16.5
-# Sigmas avail: 0
+# Tisserand relative to Earth: 2.97291
+# Tisserand relative to Jupiter: 3.23896
+# Barbee-style encounter velocity: 6.2960 km/s
+# Diameter 2025.5 meters (assuming 10% albedo)
+# Score: 0.949981
+#  $Name=Example1  $Ty=1998  $Tm=03  $Td=08.701924  $MA=330.98425
+#  $ecc=0.5752786  $Eqnx=2000.
+#  $a=2.4616449  $Peri=72.21006  $Node=47.85654  $Incl=0.14252
+#  $EpJD=2450767.500  $q=1.045513  $T=2450881.201925  $H=16.5
+# Sigmas avail: 1

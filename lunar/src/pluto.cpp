@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include <math.h>
 #include <stdlib.h>
 #include <stdint.h>
-#include "watdefs.h"
+
 #include "lunar.h"
 
 #define PI 3.1415926535897932384626433832795028841971693993751058209749445923
@@ -43,14 +43,14 @@ machines,  and on some little-Endians that require byte alignment.
 Let me know if you have such a machine.  The fix is simple,  but I'm
 reluctant to try it without a means of verifying that it works. */
 
-int DLL_FUNC calc_pluto_loc( const void FAR *data, double DLLPTR *loc,
+int /*DLL_FUNC*/ calc_pluto_loc( const void   *data, double   *loc,
                                           const double t, const long precision)
 {
    double lat, lon, r, j, s, p, cosine, sine, arg;
    int i, prec = (int)precision;
-   COEFFS FAR *tptr;
-   int32_t FAR *long_coeffs = (int32_t FAR *)((char FAR *)data + 58610U);
-   COEFFS FAR *coeffs = (COEFFS FAR *)(long_coeffs + 42);
+   COEFFS   *tptr;
+   int32_t   *long_coeffs = (int32_t   *)((char   *)data + 58610U);
+   COEFFS   *coeffs = (COEFFS   *)(long_coeffs + 42);
 
                      /* assume t in julian centuries from J2000.0 */
    j =  34.35 + 3034.9057 * t;       /* jupiter's mean longitude */
@@ -64,7 +64,7 @@ int DLL_FUNC calc_pluto_loc( const void FAR *data, double DLLPTR *loc,
    r = 407.247248;      /* temporarily in tenths of AUs; fixed at the end */
    for( i = 0; i < 7; i++)
       {
-      int32_t FAR *ltptr;
+      int32_t   *ltptr;
 
       if( i == 6)
          arg = j - p;
@@ -115,14 +115,12 @@ g++ -Wall -Wextra -pedantic -DTEST_PROGRAM -o pluto pluto.cpp        */
 #include <stdio.h>
 #include <stdlib.h>
 
-int main( const int argc, const char **argv)
+int main([[maybe_unused]] const int argc, [[maybe_unused]] const char **argv)
 {
    const size_t vsop_size = 60874;
    FILE *ifile = fopen( "vsop.bin", "rb");
    char *buff = (char *)malloc( vsop_size);
 
-   INTENTIONALLY_UNUSED_PARAMETER( argv);
-   INTENTIONALLY_UNUSED_PARAMETER( argc);
    assert( ifile);
    assert( buff);
    if( fread( buff, 1, vsop_size, ifile) != vsop_size)

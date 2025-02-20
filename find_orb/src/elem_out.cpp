@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include <ctype.h>
 #include <stdbool.h>
 #include <sys/stat.h>
-#include "watdefs.h"
+//
 #include "comets.h"
 #include "mpc_obs.h"
 #include "mpc_func.h"
@@ -76,15 +76,15 @@ int get_defaults( ephem_option_t *ephemeris_output_options, int *element_format,
 int64_t nanoseconds_since_1970( void);                      /* mpc_obs.c */
 static int elements_in_mpcorb_format( char *buff, const char *packed_desig,
                 const char *full_desig, const ELEMENTS *elem,
-                const OBSERVE FAR *obs, const int n_obs);   /* orb_func.c */
+                const OBSERVE   *obs, const int n_obs);   /* orb_func.c */
 static int elements_in_guide_format( char *buff, const ELEMENTS *elem,
                      const char *obj_name, const OBSERVE *obs,
                      const unsigned n_obs);                /* orb_func.c */
 FILE *open_json_file( char *filename, const char *env_ptr, const char *default_name,
                   const char *packed_desig, const char *permits); /* ephem0.cpp */
-int find_worst_observation( const OBSERVE FAR *obs, const int n_obs);
-double initial_orbit( OBSERVE FAR *obs, int n_obs, double *orbit);
-int set_locs( const double *orbit, double t0, OBSERVE FAR *obs, int n_obs);
+int find_worst_observation( const OBSERVE   *obs, const int n_obs);
+double initial_orbit( OBSERVE   *obs, int n_obs, double *orbit);
+int set_locs( const double *orbit, double t0, OBSERVE   *obs, int n_obs);
 void attempt_extensions( OBSERVE *obs, const int n_obs, double *orbit,
                   const double epoch);                  /* orb_func.cpp */
 double calc_obs_magnitude( const double obj_sun,
@@ -105,7 +105,7 @@ int setup_planet_elem( ELEMENTS *elem, const int planet_idx,
 void set_environment_ptr( const char *env_ptr, const char *new_value);
 double find_collision_time( ELEMENTS *elem, double *latlon, const int is_impact);
 char *fgets_trimmed( char *buff, size_t max_bytes, FILE *ifile); /*elem_out.c*/
-int get_idx1_and_idx2( const int n_obs, const OBSERVE FAR *obs,
+int get_idx1_and_idx2( const int n_obs, const OBSERVE   *obs,
                                 int *idx1, int *idx2);      /* elem_out.c */
 double mag_band_shift( const char mag_band, int *err_code);   /* elem_out.c */
 int get_jpl_ephemeris_info( int *de_version, double *jd_start, double *jd_end);
@@ -117,9 +117,9 @@ void get_relative_vector( const double jd, const double *ivect,
 void push_orbit( const double epoch, const double *orbit);  /* orb_fun2.c */
 int pop_orbit( double *epoch, double *orbit);               /* orb_fun2.c */
 double get_planet_mass( const int planet_idx);                /* orb_func.c */
-double observation_rms( const OBSERVE FAR *obs);            /* elem_out.cpp */
+double observation_rms( const OBSERVE   *obs);            /* elem_out.cpp */
 double find_epoch_shown( const OBSERVE *obs, const int n_obs); /* elem_out */
-double evaluate_initial_orbit( const OBSERVE FAR *obs,      /* orb_func.c */
+double evaluate_initial_orbit( const OBSERVE   *obs,      /* orb_func.c */
                const int n_obs, const double *orbit, const double epoch);
 double diameter_from_abs_mag( const double abs_mag,      /* ephem0.cpp */
                                      const double optical_albedo);
@@ -149,7 +149,7 @@ int get_planet_posn_vel( const double jd, const int planet_no,
 void compute_variant_orbit( double *variant, const double *ref_orbit,
                      const double n_sigmas);       /* orb_func.cpp */
 char *make_config_dir_name( char *oname, const char *iname);  /* miscell.cpp */
-int earth_lunar_posn( const double jd, double FAR *earth_loc, double FAR *lunar_loc);
+int earth_lunar_posn( const double jd, double   *earth_loc, double   *lunar_loc);
 double vect_diff2( const double *a, const double *b);
 int get_residual_data( const OBSERVE *obs, double *xresid, double *yresid);
 int put_elements_into_sof( char *obuff, const char *templat,
@@ -415,7 +415,7 @@ const char *get_find_orb_text( const int index)
    oddity is handled using the text_search_and_replace() function.
 */
 
-static void observation_summary_data( char *obuff, const OBSERVE FAR *obs,
+static void observation_summary_data( char *obuff, const OBSERVE   *obs,
                               const int n_obs, const int options)
 {
    int i, n_included, first_idx, last_idx;
@@ -520,7 +520,7 @@ int n_clones_accepted = 0;
 
 static int elements_in_mpcorb_format( char *buff, const char *packed_desig,
                 const char *full_desig, const ELEMENTS *elem,
-                const OBSERVE FAR *obs, const int n_obs)   /* orb_func.c */
+                const OBSERVE   *obs, const int n_obs)   /* orb_func.c */
 {
    int month, day, i, first_idx, last_idx, n_included_obs = 0;
    long year;
@@ -1284,7 +1284,7 @@ static int show_reference( char *buff)
    return( rval);
 }
 
-int compute_available_sigmas_hash( const OBSERVE FAR *obs, const int n_obs,
+int compute_available_sigmas_hash( const OBSERVE   *obs, const int n_obs,
          const double epoch, const unsigned perturbers, const int central_obj);
 
 static int get_uncertainty( const char *key, char *obuff, const bool in_km)
@@ -1880,7 +1880,7 @@ bool saving_elements_for_reuse = false;
 int write_out_elements_to_file( const double *orbit,
             const double curr_epoch,
             const double epoch_shown,
-            OBSERVE FAR *obs, const int n_obs, const char *constraints,
+            OBSERVE   *obs, const int n_obs, const char *constraints,
             const int precision, const int monte_carlo,
             const int options)
 {
@@ -3508,7 +3508,7 @@ double get_max_included_resid( const OBSERVE *obs, int n_obs)
    return( rval);
 }
 
-static void _log_problems( const OBJECT_INFO *id, const OBSERVE FAR *obs)
+static void _log_problems( const OBJECT_INFO *id, const OBSERVE   *obs)
 {
    int i, n_obs_used = 0, n_real_obs = 0;
    double first_jd = -1., last_jd = obs->jd, arc_used, full_arc;
@@ -3555,13 +3555,13 @@ static void _log_problems( const OBJECT_INFO *id, const OBSERVE FAR *obs)
       }
 }
 
-OBSERVE FAR *load_object( FILE *ifile, OBJECT_INFO *id,
+OBSERVE   *load_object( FILE *ifile, OBJECT_INFO *id,
                        double *curr_epoch, double *epoch_shown, double *orbit)
 {
    extern int n_obs_actually_loaded;
    extern int debug_level;
    extern int excluded_asteroid_number;
-   OBSERVE FAR *obs = load_observations( ifile, id->packed_desig,
+   OBSERVE   *obs = load_observations( ifile, id->packed_desig,
                                                 id->n_obs);
 
    if( debug_level || n_obs_actually_loaded != id->n_obs)
@@ -3726,7 +3726,7 @@ double mag_band_shift( const char mag_band, int *err_code)
 
 double override_abs_mag = 0.;
 
-static double _calc_absolute_magnitude_internal( OBSERVE FAR *obs, int n_obs)
+static double _calc_absolute_magnitude_internal( OBSERVE   *obs, int n_obs)
 {
    int obs_no;
    double n_mags = 0.;
@@ -3788,7 +3788,7 @@ _That_ may fail because _none_ of the observations has a magnitude.
 If so,  and if the DEFAULT_V_MAG is set,  we try again with all
 observations temporarily set to that magnitude.  */
 
-double calc_absolute_magnitude( OBSERVE FAR *obs, const int n_obs)
+double calc_absolute_magnitude( OBSERVE   *obs, const int n_obs)
 {
    double rval = _calc_absolute_magnitude_internal( obs, n_obs);
 
@@ -3835,7 +3835,7 @@ double calc_absolute_magnitude( OBSERVE FAR *obs, const int n_obs)
    return( rval);
 }
 
-int find_worst_observation( const OBSERVE FAR *obs, const int n_obs)
+int find_worst_observation( const OBSERVE   *obs, const int n_obs)
 {
    int i, rval = -1;
    double worst_rms = 0., rms;
@@ -3860,7 +3860,7 @@ int find_worst_observation( const OBSERVE FAR *obs, const int n_obs)
    *idx2.  These are shown near the top of the display,  and are used in
    the method of Herget.  Return value is the number of included obs.   */
 
-int get_idx1_and_idx2( const int n_obs, const OBSERVE FAR *obs,
+int get_idx1_and_idx2( const int n_obs, const OBSERVE   *obs,
                                           int *idx1, int *idx2)
 {
    int i, rval = 0;
@@ -3882,7 +3882,7 @@ int get_idx1_and_idx2( const int n_obs, const OBSERVE FAR *obs,
    return( rval);
 }
 
-int get_r1_and_r2( const int n_obs, const OBSERVE FAR *obs,
+int get_r1_and_r2( const int n_obs, const OBSERVE   *obs,
                            double *r1, double *r2)
 {
    int idx1, idx2, rval = get_idx1_and_idx2( n_obs, obs, &idx1, &idx2);
@@ -4235,7 +4235,7 @@ there are _no_ blue neighbors,  of course.)
    We keep trying this until no color changes are made.
 */
 
-static void improve_mpc_colors( const int n_obs, const OBSERVE FAR *obs,
+static void improve_mpc_colors( const int n_obs, const OBSERVE   *obs,
                    const int max_n_colors, MPC_STATION *sdata)
 {
    int i, changes_made = 1, n_iterations = 0;
@@ -4288,7 +4288,7 @@ static void improve_mpc_colors( const int n_obs, const OBSERVE FAR *obs,
 
 extern int debug_level;
 
-MPC_STATION *find_mpc_color_codes( const int n_obs, const OBSERVE FAR *obs,
+MPC_STATION *find_mpc_color_codes( const int n_obs, const OBSERVE   *obs,
                    const int max_n_colors)
 {
    int n_codes = 0, i, j, n_alloced = 10;

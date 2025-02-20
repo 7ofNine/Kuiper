@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #ifndef __cplusplus
    #include <stdbool.h>
 #endif
-#include "watdefs.h"
+//
 #include "afuncs.h"
 #include "comets.h"
 
@@ -101,7 +101,7 @@ static double remaining_terms( const double ival)
    return( rval);
 }
 
-int DLL_FUNC calc_classical_elements( ELEMENTS *elem, const double *r,
+int /*DLL_FUNC*/ calc_classical_elements( ELEMENTS *elem, const double *r,
                              const double t, const int ref)
 {
    const double *v = r + 3;

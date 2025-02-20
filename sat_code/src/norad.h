@@ -87,51 +87,51 @@ reasonable position/velocity was determined.       */
          /* overlooked and added 24 Sep 2002.  The DLL_FUNC macro lets    */
          /* this coexist peacefully with other OSes.                      */
 
-#ifdef _WIN32
-#define DLL_FUNC __stdcall
+#ifdef _WIN32     // only temporary until proper dll declaration/definition doesn't make much sense in 64 bit
+#define /*DLL_FUNC*/ __stdcall
 #else
-#define DLL_FUNC
+#define /*DLL_FUNC*/
 #endif
 
-#ifdef __cplusplus
+
 extern "C" {
-#endif
 
 
-void DLL_FUNC SGP_init( double *params, const tle_t *tle);
-int  DLL_FUNC SGP(  const double tsince, const tle_t *tle, const double *params,
+
+void /*DLL_FUNC*/ SGP_init( double *params, const tle_t *tle);
+int  /*DLL_FUNC*/ SGP(  const double tsince, const tle_t *tle, const double *params,
                                      double *pos, double *vel);
 
-void DLL_FUNC SGP4_init( double *params, const tle_t *tle);
-int  DLL_FUNC SGP4( const double tsince, const tle_t *tle, const double *params,
+void /*DLL_FUNC*/ SGP4_init( double *params, const tle_t *tle);
+int  /*DLL_FUNC*/ SGP4( const double tsince, const tle_t *tle, const double *params,
                                      double *pos, double *vel);
 
-void DLL_FUNC SGP8_init( double *params, const tle_t *tle);
-int  DLL_FUNC SGP8( const double tsince, const tle_t *tle, const double *params,
+void /*DLL_FUNC*/ SGP8_init( double *params, const tle_t *tle);
+int  /*DLL_FUNC*/ SGP8( const double tsince, const tle_t *tle, const double *params,
                                      double *pos, double *vel);
 
-void DLL_FUNC SDP4_init( double *params, const tle_t *tle);
-int  DLL_FUNC SDP4( const double tsince, const tle_t *tle, const double *params,
+void /*DLL_FUNC*/ SDP4_init( double *params, const tle_t *tle);
+int  /*DLL_FUNC*/ SDP4( const double tsince, const tle_t *tle, const double *params,
                                      double *pos, double *vel);
 
-void DLL_FUNC SDP8_init( double *params, const tle_t *tle);
-int  DLL_FUNC SDP8( const double tsince, const tle_t *tle, const double *params,
+void /*DLL_FUNC*/ SDP8_init( double *params, const tle_t *tle);
+int  /*DLL_FUNC*/ SDP8( const double tsince, const tle_t *tle, const double *params,
                                      double *pos, double *vel);
 
-int DLL_FUNC select_ephemeris( const tle_t *tle);
-int DLL_FUNC parse_elements( const char *line1, const char *line2, tle_t *sat);
-int DLL_FUNC tle_checksum( const char *buff);
-void DLL_FUNC write_elements_in_tle_format( char *buff, const tle_t *tle);
+int /*DLL_FUNC*/ select_ephemeris( const tle_t *tle);
+int /*DLL_FUNC*/ parse_elements( const char *line1, const char *line2, tle_t *sat);
+int /*DLL_FUNC*/ tle_checksum( const char *buff);
+void /*DLL_FUNC*/ write_elements_in_tle_format( char *buff, const tle_t *tle);
 
-void DLL_FUNC sxpx_set_implementation_param( const int param_index,
+void /*DLL_FUNC*/ sxpx_set_implementation_param( const int param_index,
                                               const int new_param);
-void DLL_FUNC sxpx_set_dpsec_integration_step( const double new_step_size);
-void DLL_FUNC lunar_solar_position( const double jd,
+void /*DLL_FUNC*/ sxpx_set_dpsec_integration_step( const double new_step_size);
+void /*DLL_FUNC*/ lunar_solar_position( const double jd,
                     double *lunar_xyzr, double *solar_xyzr);
 
-#ifdef __cplusplus
+
 }                       /* end of 'extern "C"' section */
-#endif
+
 
          /* Following are in 'dynamic.cpp',  for C/C++ programs that want  */
          /* to load 'sat_code.dll' and use its functions at runtime.  They */

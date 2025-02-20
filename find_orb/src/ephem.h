@@ -71,7 +71,7 @@ protected:
    void CreateB32Ephemeris( const char *filename);
    void set_jd_from_xtrols( char *err_msg);
    CRect OriginalDlgRect;
-   void OnGetMinMaxInfo(MINMAXINFO FAR* lpMMI);
+   void OnGetMinMaxInfo(MINMAXINFO  * lpMMI);
 
    // Generated message map functions
    //{{AFX_MSG(CEphem)

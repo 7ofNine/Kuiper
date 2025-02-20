@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 
 #include <math.h>
 #include <stdlib.h>
-#include "watdefs.h"
+//
 #include "afuncs.h"     /* for vector3_length() proto */
 
 /* Following are the first few terms of the VSOP87A Cartesian coordinate

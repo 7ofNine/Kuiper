@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include <ctype.h>
 #include <math.h>
 #include <time.h>
-#include "watdefs.h"
+
 #include "afuncs.h"
 #include "date.h"
 
@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #define sinl sin
 #endif
 
-long double DLL_FUNC split_timel( long double t2k, long *year, int *month, int *day,
+long double /*DLL_FUNC*/ split_timel( long double t2k, long *year, int *month, int *day,
                                  int *hr, int *min, const int time_format)
 {
    long int_t2k;
@@ -61,7 +61,7 @@ long double DLL_FUNC split_timel( long double t2k, long *year, int *month, int *
 
 const long double J2000 = 2451545.0;    /* 1.5 Jan 2000 = JD 2451545.0 */
 
-double DLL_FUNC split_time( double jd, long *year, int *month, int *day,
+double /*DLL_FUNC*/ split_time( double jd, long *year, int *month, int *day,
                                  int *hr, int *min, const int time_format)
 {
    return( (double)split_timel( jd - J2000, year, month, day, hr, min, time_format));
@@ -312,13 +312,13 @@ static long double get_phase_time( const long double k, const int phase_idx)
 #ifdef __cplusplus
 extern "C" {
 #endif /* #ifdef __cplusplus */
-long double DLL_FUNC find_nearest_lunar_phase_time(
+long double /*DLL_FUNC*/ find_nearest_lunar_phase_time(
                          const int phase_idx, const long double t2k);
 #ifdef __cplusplus
 }
 #endif  /* #ifdef __cplusplus */
 
-long double DLL_FUNC find_nearest_lunar_phase_time(
+long double /*DLL_FUNC*/ find_nearest_lunar_phase_time(
                          const int phase_idx, const long double t2k)
 {
    const long double phase = (long double)phase_idx * .25;
@@ -397,7 +397,7 @@ can safely pass a NULL for is_ut.
 #define AM_PM_SET_TO_AM    1
 #define AM_PM_SET_TO_PM    2
 
-long double DLL_FUNC get_time_from_stringl( long double initial_t2k,
+long double /*DLL_FUNC*/ get_time_from_stringl( long double initial_t2k,
          const char *time_str, const int time_format, int *is_ut)
 {
    const int calendar = (time_format & CALENDAR_MASK);
@@ -891,7 +891,7 @@ long double DLL_FUNC get_time_from_stringl( long double initial_t2k,
    return( rval + offset);
 }
 
-double DLL_FUNC get_time_from_string( double initial_jd,
+double /*DLL_FUNC*/ get_time_from_string( double initial_jd,
          const char *time_str, const int time_format, int *is_ut)
 {
    return( (double)get_time_from_stringl( initial_jd - J2000,

@@ -23,7 +23,7 @@ results at that point.  The test code now compares to the IAU
 obliquity formula,  and shows values linearly interpolated from
 integrated values from a file due to Laskar.   */
 
-#include "watdefs.h"
+
 #include "lunar.h"
 
 #define PI 3.1415926535897932384626433832795028841971693993751058209749445923
@@ -35,7 +35,7 @@ integrated values from a file due to Laskar.   */
           /* rval is mean obliq. (epsilon sub 0) in radians */
           /* Valid range is the years -8000 to +12000 (t = -100 to 100) */
 
-double DLL_FUNC mean_obliquity( const double t_cen)
+double /*DLL_FUNC*/ mean_obliquity( const double t_cen)
 {
    double u, u0;
    unsigned i;

@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include <stdbool.h>
 #include <assert.h>
 #include <math.h>
-#include "watdefs.h"
+//
 #include "afuncs.h"
 #include "lunar.h"
 
@@ -285,7 +285,7 @@ other than the working one.  They can use the following function to
 unload the COSPAR data (if any) and then direct that it be loaded from
 a specified file.          */
 
-int DLL_FUNC load_cospar_file( const char *filename)
+int /*DLL_FUNC*/ load_cospar_file( const char *filename)
 {
    const char *temp_name = cospar_filename;
    int rval, pass;
@@ -298,7 +298,7 @@ int DLL_FUNC load_cospar_file( const char *filename)
    return( rval);
 }
 
-double DLL_FUNC planet_rotation_rate( const int planet_no, const int system_no)
+double /*DLL_FUNC*/ planet_rotation_rate( const int planet_no, const int system_no)
 {
    const double dummy_tdt = 2451545.;     /* not really used */
    bool is_retrograde;
@@ -318,7 +318,7 @@ double DLL_FUNC planet_rotation_rate( const int planet_no, const int system_no)
    return( omega);
 }
 
-int DLL_FUNC planet_radii( const int planet_no, double *radii_in_km)
+int /*DLL_FUNC*/ planet_radii( const int planet_no, double *radii_in_km)
 {
    const double dummy_tdt = 2451545.;     /* not really used */
    bool is_retrograde;
@@ -340,10 +340,10 @@ left-handed system (see the 'if( is_retrograde)' code that flips the
 middle of the above three vectors).  */
 
 #ifdef TEST_MAIN
-int DLL_FUNC calc_planet_orientation2( const int planet_no, const int system_no,
+int /*DLL_FUNC*/ calc_planet_orientation2( const int planet_no, const int system_no,
                   const double jd, double *matrix)
 #else
-int DLL_FUNC calc_planet_orientation( const int planet_no, const int system_no,
+int /*DLL_FUNC*/ calc_planet_orientation( const int planet_no, const int system_no,
                   const double jd, double *matrix)
 #endif
 {

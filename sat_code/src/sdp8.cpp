@@ -18,7 +18,7 @@
 void sxpall_common_init( const tle_t *tle, deep_arg_t *deep_arg);
 void sxp8_common_init( double *params, const tle_t *tle, deep_arg_t *deep_arg);
 
-void DLL_FUNC SDP8_init( double *params, const tle_t *tle)
+void /*DLL_FUNC*/ SDP8_init( double *params, const tle_t *tle)
 {
    const double rho = .15696615;
    const double b = tle->bstar*2./rho;
@@ -73,7 +73,7 @@ void DLL_FUNC SDP8_init( double *params, const tle_t *tle)
 #endif
 } /* End of SDP8() initialization */
 
-int DLL_FUNC SDP8( const double tsince, const tle_t *tle, const double *params,
+int /*DLL_FUNC*/ SDP8( const double tsince, const tle_t *tle, const double *params,
                                 double *pos, double *vel)
 {
    double

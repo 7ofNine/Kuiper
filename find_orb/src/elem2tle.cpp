@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include <string.h>
 #include <stdlib.h>
 #include <math.h>
-#include "watdefs.h"
+//
 #include "afuncs.h"
 #include "comets.h"
 #include "norad.h"

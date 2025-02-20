@@ -20,15 +20,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include <stdio.h>
 #include <stdint.h>
 #include <math.h>
-#include "watdefs.h"
+//
 #include "mpc_obs.h"
 #include "afuncs.h"
 
 FILE *fopen_ext( const char *filename, const char *permits);   /* miscell.cpp */
-double gauss_method( const OBSERVE FAR *obs1, const OBSERVE FAR *obs2,
-                     const OBSERVE FAR *obs3, double *orbit, const double mu,
+double gauss_method( const OBSERVE   *obs1, const OBSERVE   *obs2,
+                     const OBSERVE   *obs3, double *orbit, const double mu,
                      const int desired_soln);               /* gauss.cpp */
-double convenient_gauss( const OBSERVE FAR *obs, int n_obs, double *orbit,
+double convenient_gauss( const OBSERVE   *obs, int n_obs, double *orbit,
                   const double mu, const int desired_soln); /* gauss.cpp */
 int find_real_polynomial_roots( const double *poly, int poly_order,
                                 double *real_roots);        /* roots.cpp */
@@ -41,7 +41,7 @@ section 3.6.1 (program FANDG),  starting at line 16010. */
 #define INCLUDE_FIFTH
 #define INCLUDE_SIXTH
 
-static double dot_prod3( const double FAR *a, const double FAR *b)
+static double dot_prod3( const double   *a, const double   *b)
 {
    return( a[0] * b[0] + a[1] * b[1] + a[2] * b[2]);
 }
@@ -49,8 +49,8 @@ static double dot_prod3( const double FAR *a, const double FAR *b)
 /* See p. 415, (10.13) and (10.14): we evaluate ten "(A x B) dot C"
    expressions,  so the following function is convenient: */
 
-static double cross_then_dot( const double FAR *a, const double FAR *b,
-                              const double FAR *c)
+static double cross_then_dot( const double   *a, const double   *b,
+                              const double   *c)
 {
    double xprod[3];
 
@@ -61,8 +61,8 @@ static double cross_then_dot( const double FAR *a, const double FAR *b,
 #define GAUSS_K .01720209895
 #define P_MAX 10000.
 
-double gauss_method( const OBSERVE FAR *obs1, const OBSERVE FAR *obs2,
-                     const OBSERVE FAR *obs3, double *orbit, const double mu,
+double gauss_method( const OBSERVE   *obs1, const OBSERVE   *obs2,
+                     const OBSERVE   *obs3, double *orbit, const double mu,
                      const int desired_soln)
 {
    double tau1 = GAUSS_K * (obs1->jd - obs2->jd);
@@ -318,7 +318,7 @@ a few pairs at pseudo-random,  then look for a third observation
 that maximizes d0... you'd have a bit more processing time,  but also
 some chance of improving d0.  */
 
-static double find_best_obs_for_gauss( const OBSERVE FAR *obs,
+static double find_best_obs_for_gauss( const OBSERVE   *obs,
                const unsigned n_obs, unsigned *idx)
 {
    double max_d0 = 0.;
@@ -349,7 +349,7 @@ and last valid observations.  Then it looks for the valid observation
 that comes closest to the mid-time of the end points, and calls the
 above function with the start,  end,  and middle observations. */
 
-double convenient_gauss( const OBSERVE FAR *obs, int n_obs, double *orbit,
+double convenient_gauss( const OBSERVE   *obs, int n_obs, double *orbit,
                   const double mu, const int desired_soln)
 {
    double p2, old_orbit[6], d0;

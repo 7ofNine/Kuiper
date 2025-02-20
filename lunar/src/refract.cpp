@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 02110-1301, USA.    */
 
 #include <math.h>
-#include "watdefs.h"
+
 #include "afuncs.h"
 
 #define PI 3.1415926535897932384626433832795028841971693993751058209749445923
@@ -42,7 +42,7 @@ One iteration using the refraction( ) function repairs this problem.
    All inputs and outputs from these functions are in radians.
 */
 
-double DLL_FUNC refraction( const double observed_alt)
+double /*DLL_FUNC*/ refraction( const double observed_alt)
 {
    double rval, ang = observed_alt;
 
@@ -52,7 +52,7 @@ double DLL_FUNC refraction( const double observed_alt)
    return( rval * (PI / 180.) / 60.);        /* cvt to radians */
 }
 
-double DLL_FUNC reverse_refraction( const double true_alt)
+double /*DLL_FUNC*/ reverse_refraction( const double true_alt)
 {
    double rval, delta = 1.;
    const double tolerance = .01 * (PI / 180.) / 3600.;
@@ -72,7 +72,7 @@ double DLL_FUNC reverse_refraction( const double true_alt)
    return( rval);
 }
 
-double DLL_FUNC saasta_refraction( const double observed_alt,
+double /*DLL_FUNC*/ saasta_refraction( const double observed_alt,
          const double pressure_mb, const double temp_kelvin,
          const double relative_humidity)
 {
@@ -90,7 +90,7 @@ double DLL_FUNC saasta_refraction( const double observed_alt,
    return( xi * (PI / 180.) / 3600.);        /* cvt to radians */
 }
 
-double DLL_FUNC reverse_saasta_refraction( const double true_alt,
+double /*DLL_FUNC*/ reverse_saasta_refraction( const double true_alt,
          const double pressure_mb, const double temp_kelvin,
          const double relative_humidity)
 {

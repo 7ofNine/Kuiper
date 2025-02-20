@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
-#include "watdefs.h"
+
 #include "comets.h"
 #include "date.h"
 

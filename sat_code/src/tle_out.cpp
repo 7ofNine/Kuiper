@@ -204,7 +204,7 @@ one should use the following format string for those four quantities :
 
    snprintf( line2 + 8, 57, "%8.4f %8.4f %07ld %8.4f %8.4f %11.8f", ...)  */
 
-void DLL_FUNC write_elements_in_tle_format( char *buff, const tle_t *tle)
+void /*DLL_FUNC*/ write_elements_in_tle_format( char *buff, const tle_t *tle)
 {
    long year = (long)( tle->epoch - J1900) / 365 + 1;
    double day_of_year;

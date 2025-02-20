@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include <math.h>
 #include <stdio.h>
 #include <stdint.h>
-#include "watdefs.h"
+//
 #include "lunar.h"
 
 #define PI 3.141592653589793238462643383279502884197169399375105
@@ -118,7 +118,7 @@ in 'big_vsop.cpp' reads as
       fseek( ifile, 290L + (long)loc[0] * 24L, SEEK_SET);
 */
 
-int DLL_FUNC calc_big_vsop_loc( FILE *ifile, const int planet,
+int /*DLL_FUNC*/ calc_big_vsop_loc( FILE *ifile, const int planet,
                       double *ovals, double t, const double prec0)
 {
    static int16_t cache[19];

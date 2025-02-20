@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 
 #include <math.h>
 #include <string.h>
-#include "watdefs.h"
+
 #include "lunar.h"
 #include "afuncs.h"
 
@@ -41,8 +41,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
    I intended to rig this up so you could keep on going to 11=Io, 12=Europa,
 etc.  This would make all sorts of sense.  But I've not done it yet. */
 
-int DLL_FUNC compute_planet( const char FAR *vsop_data, const int planet_no,
-                         const double t_c, double DLLPTR *ovals)
+int /*DLL_FUNC*/ compute_planet( const char   *vsop_data, const int planet_no,
+                         const double t_c, double   *ovals)
 {
    double lat, lon, r;
    const double obliquit = mean_obliquity( t_c);
@@ -76,13 +76,13 @@ int DLL_FUNC compute_planet( const char FAR *vsop_data, const int planet_no,
    ovals[5] =             sin( lat) * r;
             /* next, compute polar cartesian in eclip of date, */
             /* but in equatorial coords */
-   FMEMCPY( ovals + 6, ovals + 3, 3 * sizeof( double));
+   memcpy( ovals + 6, ovals + 3, 3 * sizeof( double));
    rotate_vector( ovals + 6, obliquit, 0);
             /* next, precess to get J2000.0 equatorial values */
    setup_precession( matrix, 2000. + t_c * 100., 2000.);
    precess_vector( matrix, ovals + 6, ovals + 9);
             /* Finally,  rotate equatorial J2000.0 into ecliptical J2000 */
-   FMEMCPY( ovals + 12, ovals + 9, 3 * sizeof( double));
+   memcpy( ovals + 12, ovals + 9, 3 * sizeof( double));
    rotate_vector( ovals + 12, -obliq_2000, 0);
    return( 0);
 }

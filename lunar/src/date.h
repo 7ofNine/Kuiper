@@ -20,26 +20,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 extern "C" {
 #endif
 
-long DLL_FUNC dmy_to_day( const int day, const int month, const long year,
+long /*DLL_FUNC*/ dmy_to_day( const int day, const int month, const long year,
                             const int calendar);
-void DLL_FUNC day_to_dmy( const long jd, int DLLPTR *day,
-                  int DLLPTR *month, long DLLPTR *year, const int calendar);
-void DLL_FUNC full_ctime( char *buff, double jd, const int format);
-void DLL_FUNC full_ctimel( char *buff, long double t2k, const int format);
-const char * DLL_FUNC set_month_name( const int month, const char *new_name);
-const char * DLL_FUNC set_day_of_week_name( const int day_of_week,
+void /*DLL_FUNC*/ day_to_dmy( const long jd, int   *day,
+                  int   *month, long   *year, const int calendar);
+void /*DLL_FUNC*/ full_ctime( char *buff, double jd, const int format);
+void /*DLL_FUNC*/ full_ctimel( char *buff, long double t2k, const int format);
+const char * /*DLL_FUNC*/ set_month_name( const int month, const char *new_name);
+const char * /*DLL_FUNC*/ set_day_of_week_name( const int day_of_week,
                                             const char *new_name);
-double DLL_FUNC decimal_day_to_dmy( double jd, long *year, int *month,
+double /*DLL_FUNC*/ decimal_day_to_dmy( double jd, long *year, int *month,
                                  const int calendar);
-double DLL_FUNC split_time( double jd, long *year, int *month, int *day,
+double /*DLL_FUNC*/ split_time( double jd, long *year, int *month, int *day,
                                  int *hr, int *min, const int time_format);
-long double DLL_FUNC split_timel( long double t2k, long *year, int *month, int *day,
+long double /*DLL_FUNC*/ split_timel( long double t2k, long *year, int *month, int *day,
                                  int *hr, int *min, const int time_format);
-double DLL_FUNC get_time_from_string( double initial_jd,
+double /*DLL_FUNC*/ get_time_from_string( double initial_jd,
          const char *time_str, const int time_format, int *is_ut);
-long double DLL_FUNC get_time_from_stringl( long double initial_t2k,
+long double /*DLL_FUNC*/ get_time_from_stringl( long double initial_t2k,
          const char *time_str, const int time_format, int *is_ut);
-int DLL_FUNC days_in_month( const int month, const long year,
+int /*DLL_FUNC*/ days_in_month( const int month, const long year,
                             const int calendar);
 
 #define FULL_CTIME_FORMAT_MASK           0x700
@@ -166,8 +166,8 @@ are plenty of candidates for the remaining seven: */
          /* statically included in the library,  or can be omitted and only */
          /* set when desired using the following function.  See jd.cpp      */
          /* for an example of the use of both of the following functions. */
-void DLL_FUNC set_chinese_calendar_data( const void *cdata);
-int DLL_FUNC get_chinese_intercalary_month( void);
+void /*DLL_FUNC*/ set_chinese_calendar_data( const void *cdata);
+int /*DLL_FUNC*/ get_chinese_intercalary_month( void);
 
 #ifdef __cplusplus
 }

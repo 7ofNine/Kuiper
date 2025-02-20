@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include <string.h>
 #include <math.h>
 #include <stdint.h>
-#include "watdefs.h"
+//
 #include "afuncs.h"
 
 /* 10 Apr 2003:  added code to handle cases such as
@@ -51,7 +51,7 @@ I don't think such designations exist nowadays,  but there are probably
 some old 'comets.dat' files that contain them.  NOTE that until 30 Mar 2009,
 the code looked for the P/YYYY and C/YYYY designations _first_. */
 
-int DLL_FUNC extract_periodic_name( const char *istr, char *ostr)
+int /*DLL_FUNC*/ extract_periodic_name( const char *istr, char *ostr)
 {
    int rval = 0, i;
    const char *loc;
@@ -143,13 +143,13 @@ static void put_long_hundredths( char *buff, long val)
       }
 }
 
-int DLL_FUNC get_comet_file( const char *cd_path,
+int /*DLL_FUNC*/ get_comet_file( const char *cd_path,
                  const double year, const double mag_limit)
 {
-   uint16_t FAR *limit_data;
+   uint16_t   *limit_data;
    uint16_t max_time, min_time;
    char *buff;
-   char FAR * FAR *periodics = NULL;
+   char   *   *periodics = NULL;
    static const char * const local_file = "now_comt.dat";
    static char * const big_comet_file = "asteroid\\cometg.dat";
    FILE *ifile = NULL, *ofile = NULL;
@@ -176,7 +176,7 @@ int DLL_FUNC get_comet_file( const char *cd_path,
       fseek( ifile, 0L, SEEK_END);
       n_comets_in_file = (int)( ftell( ifile) / 16L);
 
-      limit_data = (uint16_t FAR *)FCALLOC( n_comets_in_file,
+      limit_data = (uint16_t   *)calloc( n_comets_in_file,
                                     2 * sizeof( uint16_t));
       if( !limit_data)
          {
@@ -204,7 +204,7 @@ int DLL_FUNC get_comet_file( const char *cd_path,
          if( n_read > 13)
             n_read = 13;
          fread( buff, 2 * sizeof( uint16_t), n_read, ifile);
-         FMEMCPY( limit_data + i * 2, buff, n_read * 4);
+         memcpy( limit_data + i * 2, buff, n_read * 4);
          i += n_read;
          }
 #endif
@@ -262,7 +262,7 @@ int DLL_FUNC get_comet_file( const char *cd_path,
             memmove( period_name, period_name + 2, strlen( period_name));
          if( is_periodic)
             for( i = 0; i < n_periodics; i++)
-               if( !FSTRCMP( period_name, periodics[i]))
+               if( !strcmp( period_name, periodics[i]))
                   use_it = 0;
          for( i = 151; i > 65; i--)
             if( buff[i] == '0' && buff[i + 1] == ' ')
@@ -275,13 +275,13 @@ int DLL_FUNC get_comet_file( const char *cd_path,
             {
             if( !(n_periodics % 10))      /* gotta grow the array */
                {
-               char FAR * FAR *new_arr;
+               char   *   *new_arr;
 
                if( !n_periodics)          /* no,  gotta _make_ the array */
-                  new_arr = (char FAR * FAR *)FCALLOC( 10, sizeof( char FAR *));
+                  new_arr = (char   *   *)calloc( 10, sizeof( char   *));
                else
-                  new_arr = (char FAR * FAR *)FREALLOC( periodics,
-                                (n_periodics + 10) * sizeof( char FAR *));
+                  new_arr = (char   *   *)realloc( periodics,
+                                (n_periodics + 10) * sizeof( char   *));
                if( !new_arr)
                   {
                   rval = -5;
@@ -289,13 +289,13 @@ int DLL_FUNC get_comet_file( const char *cd_path,
                   }
                periodics = new_arr;
                }
-            periodics[n_periodics] = (char FAR *)FMALLOC( strlen( period_name) + 2);
+            periodics[n_periodics] = (char   *)malloc( strlen( period_name) + 2);
             if( !periodics[n_periodics])
                {
                rval = -6;
                goto The_End;
                }
-            FSTRCPY( periodics[n_periodics++], period_name);
+            strcpy( periodics[n_periodics++], period_name);
             }
          }
       fclose( ifile);
@@ -336,7 +336,7 @@ int DLL_FUNC get_comet_file( const char *cd_path,
             if( period_name[1] == '/')    /* skip the 'P/' or 'C/' */
                memmove( period_name, period_name + 2, strlen( period_name));
             for( j = 0; j < n_periodics; j++)
-               if( !FSTRCMP( periodics[j], period_name))
+               if( !strcmp( periodics[j], period_name))
                   use_it = 0;
             }
 
@@ -363,13 +363,13 @@ The_End:
    if( ifile)
       fclose( ifile);
    if( limit_data)
-      FFREE( limit_data);
+      free( limit_data);
    if( periodics)
       {
       for( i = 0; i < n_periodics; i++)
          if( periodics[i])
-            FFREE( periodics[i]);
-      FFREE( periodics);
+            free( periodics[i]);
+      free( periodics);
       }
    free( buff);
    return( rval);

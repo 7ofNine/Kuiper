@@ -84,7 +84,7 @@ details of the implementation encapsulated.
 #define TRUE 1
 #define FALSE 0
 
-double DLL_FUNC jpl_get_double( const void *ephem, const int value)
+double /*DLL_FUNC*/ jpl_get_double( const void *ephem, const int value)
 {
    const struct jpl_eph_data *tptr = (const struct jpl_eph_data *)ephem;
    double rval;
@@ -113,7 +113,7 @@ double DLL_FUNC jpl_get_double( const void *ephem, const int value)
    return( rval);
 }
 
-long DLL_FUNC jpl_get_long( const void *ephem, const int value)
+long /*DLL_FUNC*/ jpl_get_long( const void *ephem, const int value)
 {
    const struct jpl_eph_data *tptr = (const struct jpl_eph_data *)ephem;
    long rval;
@@ -205,7 +205,7 @@ long DLL_FUNC jpl_get_long( const void *ephem, const int value)
 **           computed,  otherwise not.                                      **
 **                                                                          **
 *****************************************************************************/
-int DLL_FUNC jpl_pleph( void *ephem, const double et, const int ntarg,
+int /*DLL_FUNC*/ jpl_pleph( void *ephem, const double et, const int ntarg,
                       const int ncent, double rrd[], const int calc_velocity)
 {
   struct jpl_eph_data *eph = (struct jpl_eph_data *)ephem;
@@ -634,7 +634,7 @@ static int dimension( const int idx)
 **                       d epsilon dot                                      **
 **                                                                          **
 *****************************************************************************/
-int DLL_FUNC jpl_state( void *ephem, const double et, const int list[14],
+int /*DLL_FUNC*/ jpl_state( void *ephem, const double et, const int list[14],
                           double pv[][6], double nut[4], const int bary)
 {
    struct jpl_eph_data *eph = (struct jpl_eph_data *)ephem;
@@ -736,7 +736,7 @@ int DLL_FUNC jpl_state( void *ephem, const double et, const int list[14],
 
 static int init_err_code = JPL_INIT_NOT_CALLED;
 
-int DLL_FUNC jpl_init_error_code( void)
+int /*DLL_FUNC*/ jpl_init_error_code( void)
 {
    return( init_err_code);
 }
@@ -773,7 +773,7 @@ int DLL_FUNC jpl_init_error_code( void)
 **      Errors can be determined with the above jpl_init_error_code( )     **
 ****************************************************************************/
 
-void * DLL_FUNC jpl_init_ephemeris( const char *ephemeris_filename,
+void * /*DLL_FUNC*/ jpl_init_ephemeris( const char *ephemeris_filename,
                           char nam[][6], double *val)
 {
    unsigned i, j;
@@ -983,7 +983,7 @@ void * DLL_FUNC jpl_init_ephemeris( const char *ephemeris_filename,
 **    this function closes files and frees up memory allocated by the      **
 **    jpl_init_ephemeris( ) function.                                      **
 ****************************************************************************/
-void DLL_FUNC jpl_close_ephemeris( void *ephem)
+void /*DLL_FUNC*/ jpl_close_ephemeris( void *ephem)
 {
    struct jpl_eph_data *eph = (struct jpl_eph_data *)ephem;
 
@@ -994,7 +994,7 @@ void DLL_FUNC jpl_close_ephemeris( void *ephem)
 /* Added 2011 Jan 18:  random access to any desired JPL constant */
 
 
-double DLL_FUNC jpl_get_constant( const int idx, void *ephem, char *constant_name)
+double /*DLL_FUNC*/ jpl_get_constant( const int idx, void *ephem, char *constant_name)
 {
    struct jpl_eph_data *eph = (struct jpl_eph_data *)ephem;
    double rval = 0.;
@@ -1019,7 +1019,7 @@ double DLL_FUNC jpl_get_constant( const int idx, void *ephem, char *constant_nam
 }
 
 
-const char * DLL_FUNC jpl_get_ephem_name( const void *ephem)
+const char * /*DLL_FUNC*/ jpl_get_ephem_name( const void *ephem)
 {
    struct jpl_eph_data *eph = (struct jpl_eph_data *)ephem;
 

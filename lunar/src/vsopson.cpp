@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include <stdio.h>
 #include <stdint.h>
 #include <assert.h>
-#include "watdefs.h"
+
 #include "lunar.h"
 #include "get_bin.h"
 
@@ -44,13 +44,13 @@ almost all my code sets prec=0 (i.e.,  include all terms.)
    This function relies on direct reading of binary data.   See
 'get_bin.h' for details on this. */
 
-double DLL_FUNC calc_vsop_loc( const void FAR *data, const int planet,
+double /*DLL_FUNC*/ calc_vsop_loc( const void   *data, const int planet,
                           const int value, double t, double prec)
 {
-   int16_t FAR *loc;
+   int16_t   *loc;
    int i, j;
    double sum, rval = 0., power = 1.;
-   double FAR *tptr;
+   double   *tptr;
 
    if( !planet)
       return( 0.);       /* the sun */
@@ -63,7 +63,7 @@ double DLL_FUNC calc_vsop_loc( const void FAR *data, const int planet,
    assert( ((char *)data)[0xea0a] == 'q');
    assert( get16bits( (char *)data + 0x10c) == 0x93e);
    t /= 10.;         /* convert to julian millennia */
-   loc = (int16_t FAR *)data + (planet - 1) * 18 + value * 6;
+   loc = (int16_t   *)data + (planet - 1) * 18 + value * 6;
    for( i = 6; i; i--, loc++)
       {
       const int16_t loc0 = get16bits( loc);
@@ -75,7 +75,7 @@ double DLL_FUNC calc_vsop_loc( const void FAR *data, const int planet,
       sum = 0.;
       if( prec < 0.)
          prec = -prec;
-      tptr = (double FAR *)((int16_t FAR *)data + 8 * 18 + 1) + loc0 * 3U;
+      tptr = (double   *)((int16_t   *)data + 8 * 18 + 1) + loc0 * 3U;
 
       for( j = loc1 - loc0; j; j--, tptr += 3)
          {
@@ -95,7 +95,7 @@ double DLL_FUNC calc_vsop_loc( const void FAR *data, const int planet,
          prec /= t;
       }
 
-   if( ((char FAR *)data)[2] == 38)
+   if( ((char   *)data)[2] == 38)
       rval *= 1.e-8;
    if( value == 0)   /* ensure 0 < lon < 2 * pi  */
       {
