@@ -1,0 +1,7 @@
+Click on an observation to get information about it.  Right-click to get
+further options.  Ctrl-click to select multiple observations.
+Version 2025 Jan 30
+No JPL DE ephemeris file loaded; using (slower, less accurate)
+analytic approximations for lunar and planetary positions
+See https://www.projectpluto.com/find_orb.htm#de_eph for
+info on how and why to use JPL DE ephemerides.

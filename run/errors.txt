@@ -1,0 +1,10 @@
+J009S        :  29.975250/1625.899815 of arclength used
+01566J49M00A :  rms=22435430.007564
+01566J49M00A :  rms=11453.100540
+01566J49M00A :  rms=35938223.290589
+J009S        :  29.975250/1625.899815 of arclength used
+     Mir     :  0.000695/0.006250 of arclength used
+    Example2 :  no sigmas
+27224J75T07D :  7169.074803/17823.834521 of arclength used no sigmas
+    Example2 :  no sigmas
+    Example2 :  no sigmas

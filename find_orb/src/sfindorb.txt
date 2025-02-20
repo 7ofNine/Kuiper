@@ -1,0 +1,264 @@
+# Comments can be added by putting a '#' at the start of a line.
+# FIND_ORB has three dialog boxes:  the "main" box,  the "about" box,
+# and the "ephemeris" box.  For each,  the window title is given,  then
+# a set of lines providing translated text.  The numbers at the start of
+# each line are ID numbers for the text being translated.
+# See 'ffindorb.txt',  'ifindorb.txt',  etc. for French,  Italian,  etc.
+# versions of this file.
+
+# main
+99000   FIND_ORB Orbit Determination Software
+99105   &Herget step
+99106   &Full step
+99108   Mercurio
+99109   Venus
+99110   Tierra
+99111   Marte
+99112   Jupiter
+99113   Saturno
+99114   Urano
+99115   Neptuno
+99116   Pluton
+99117   Luna
+99118   Asteroides
+99129   Guardar elementos
+99136   &Auto-resolver
+99137   Guardar &Residuos...
+99138   &Efemerides...
+99142   &Abrir...
+99148   Acerca de...
+99149   R2:
+99150   UA
+99151   UA
+99153   R1:
+99174   Elementos orbitales:
+99156   Epoca
+99157   Perturbadores:
+99140   &Gauss
+99141   Peor o&bs
+99143   F&iltar obs
+99139   &Monte Carlo...
+99144   &Ajustes
+99145   &Alternar Obs
+99146   Establecer Sigma(s)
+99179   (Insertar info version Find_Orb & DE)
+99180   Todos Perturbadores On
+99001   Salir
+
+# about
+98000   Acerca de FIND_ORB
+98153   FIND_ORB Orbital Determination Software
+98149   GPL'ed software by Project Pluto (C)1997-2019
+98150   Actualizaciones e informacion acerca de otros
+98152   software de astronomia se pueden encontrar en:
+98155   https://www.projectpluto.com
+98179   Version
+
+# ephem
+97000   Crea Efemerides
+97001   &Hecho
+97129   &Guardar
+97147   &Ir
+97148   &Pseudo-MPEC
+97149   Pegar al &Portapapeles
+97150   &Ahora
+97151   # paso:
+97152   Tamaño del paso
+97153   Inicio:
+97154   Latitud
+97155   Longitud
+97175   Mostrar detalles &Movimiento
+97176   Mostrar &Alt/az
+97182   Velocidad &Radial
+97183   Angulo de &Fase
+97184   S&eparar movimientos
+97185   &Bisectriz angulo de fase
+97186   Ecliptica &Heliocentrica
+97187   Ecliptica&Topocentrica
+97188   Re&dondear al paso más proximo
+97189   Trayectoria en superficie
+97192   S&uprimir no observables
+97193   Indicadores de &Visibilidad
+97194   I&ncertidumbre efemerides
+97195   Lectura humana directa
+97196   Velocidad
+97199   Latitud
+97200   &Observables
+97201   &Vectors de estado
+97202   Coordenadas Car&tesianas
+97203   Elementos MP&CORB
+97204   Elementos &8-line
+97205   Aproximaciones C&ercanas
+97206   Codigo MPC
+96999   Eliminar salidas magnitud bajo:
+
+# settings
+96000   Ajustes
+96149   Referencia:
+96150   Ruido Monte Carlo:
+96151   Residuo max. filtrado:
+96152   Precision elemento:
+96153   Restricciones:
+96173   Solo orbitas &Heliocentricas
+96001   OK
+96002   Cancelar
+
+# ephemeris
+
+# messages
+1       No hay orbita que mejorar!
+2       No hay residuos que guardar!
+3       No hay orbita para generar efemerides!
+4       Metodo de Gauss ha fallado!
+5       No se han hecho cambios!
+6       Las efemerides han de tener al menos una entrada!
+7       No se ha especificado el tamaño del paso!
+8       El mes entre 1 y 12!
+9       El dia entre 1 y %d!
+10      No se han cargado observaciones de ese archivo!
+11      Archivo no encontrado!
+12      La latitud debe empezar por 'N' or 'S'!
+13      La latitud debe empezar por 'E' or 'W'!
+14      Fecha no valida!
+15      %d de %d observaciones
+16      De %d observaciones
+17      ; Residuo medio %s
+18      Find_Orb -- Determinacion orbital
+19      Peso de posns/mags/times es
+20      Conmutar todas las observaciones anteriores
+21      Todos los perturbadores On
+22      Todos los perturbadores Off
+
+900     Ingles
+901     Frances
+902     Italiano
+903     Ruso
+904     Español
+905     Aleman
+
+# months
+1000    enero
+1001    febrero
+1002    marzo
+1003    abril
+1004    mayo
+1005    junio
+1006    julio
+1007    agosto
+1008    septiembre
+1009    octubre
+1010    noviembre
+1011    diciembre
+
+2000    La lat/lon especificada para el codigo (%s) en la cabecera esta mal formateada.\n
+2000    Vea https://www.projectpluto.com/find_orb.htm#obs_codes para\n
+2000    mas informacion sobre como arreglar esto.\n
+
+2001    Este objeto muestra muy poco movimiento y probablemente es una estrella.\n
+
+2002    No se ha encontrado el observador (%s). Estas observaciones se excluyen
+2002    y se tratan como geocentricas.
+
+2003    Esto se puede arreglar descargando
+2003    la lista actual de observatorios MPC en\n
+2003    https://www.minorplanetcenter.net/iau/lists/ObsCodes.html\n
+2003    y guardandola en la misma carpeta donde se ejecuta Find_Orb.
+
+2004    Puede leer sobre como añadir una
+2004    posicion XXX para un observador nuevo/temporal en\n
+2004    https://www.projectpluto.com/find_orb.htm#xxx_code
+
+2005    No se ha encontrado el archivo con los datos de sesgos observacionales
+2005    Para incluir los datos FCCT14,  Find_Orb necesita
+2005    el archivo 'bias.dat'.  Hay mas informacion
+2005    sobre esto en https://www.projectpluto.com/bias.htm
+2005    Las correcciones de sesgos no es aplicaran hasta que no este disponible el archivo.
+
+2006    Find_Orb puede usar las efemerides NEOCP insertadas.
+2006    Sin embargo, las efemerides son geocentricas. Obtendra
+2006    mejore resultados si selecciona un codigo de observatorio
+2006    preferiblemente uno proximo al ecuardor.  (781) Quito
+2006    es el mejor para este proposito.
+
+2007    Las observaciones abarcan %.1f años,  mas del limite de Find_Orb
+2007    de %.1f años.  Si realmente quiere usar el conjunto
+2007    de observaciones completo (que podria no procesarse correctamente),  edite en
+2007    'environ.dat' la linea MAX_OBSERVATION_SPAN.
+
+2008    No se han leido correctamente todas las observaciones de satelite.
+2008    Esto no deberia ocurrir.  Envie el archivo con sus observaciones
+2008    a [email]rojectpluto.com para que se pueda arreglar.
+
+2009    %u observaciones estaban duplicadas.  Se han eliminado.
+
+2010    %u observaciones de satelite tenian datos de offset incorrectos.  El archivo
+2010    'debug.txt' podria mostrar mas informacion.  Estas observaciones
+2010    se han excluido.
+
+
+2011    %u observaciones estaban mal formateadas.  Estas observaciones
+2011    no seran tenidas en cuenta.
+
+2012    %u observaciones estan por debajo del horizonte.
+2013    %u observations se hicieron con luz solar.
+2014    Estas observaciones se excluyen.
+
+2015    %u observaciones coinciden en fecha y codigo del observatorio,
+2015    pero no en otros aspectos. No seran tenidas en cuenta.
+
+2016    %u observaciones coinciden en fecha, RA/dec, magnitud, y codigo
+2016    MPC pero no en otros aspectos. No seran tenidas en cuenta.
+
+2017    %u observaciones son desde un satelite,  pero no estan marcadas
+2017    como tales y les falta la 'segunda linea' de datos de offset.  Vea\n
+2017    https://www.minorplanetcenter.net/iau/info/SatelliteObs.html
+2017    \npara mas informacion sobre como trabajar con observaciones desde satelite.
+
+2018    La fecha/hora de una o mas observaciones es en el futuro.
+2018    Si no es lo que esperaba, deberia revisar los datos.
+
+2019    Falta el archivo 'elp82.dat'.  Sin este archivo
+2019    las posiciones lunares seran muy imprecias y las orbitas
+2020    tendran menos precision.  Consiga este archivo,  o (solucion
+2020    preferida) seleccion efemerides JPL.  Vea
+2020    https://www.projectpluto.com/find_orb.htm#de_eph
+2020    para mas detalles sobre como hacer esto.
+
+2020    Falta el archivo 'ps_1996.dat'. Sin este archivo
+2020    las posiciones planetarios no sera precisas y las orbitas
+2020    tendran menos precision.  Consiga este archivo,  o (solucion
+2020    preferida) seleccion efemerides JPL.  Vea
+2020    https://www.projectpluto.com/find_orb.htm#de_eph
+2020    para mas detalles sobre como hacer esto.
+
+2021    No hay disponibles datos sobre efemerides de asteroides,
+2021    por lo que no se incluyen asteroides como perturbadores.  Puede
+2021    arreglar esto descargando los archivos necesarios.  Vea
+2021    https://www.projectpluto.com/ast_pert.htm para mas detalles.
+
+# Following pop-up shown when you right-click on an _observation_ :
+
+2022    Cambiar observacion
+2022    Asignar valor de error a la observacion
+
+# Following pop-up shown when you right-click on an _observatory code_ :
+
+2023    Cambiar todas con este codigo de observatorio
+2023    Encontrar siguiente con este codigo de observatorio
+2023    Encontrar anterior con este codigo de observatorio
+
+# Following pop-up shown when you right-click on the _orbital elements_ :
+
+2024    Tomar obs del portapapeles
+2024    Abrir archivo
+2024    Seleccionar objecto
+2024    Guardar elementos
+2024    Guardar elementos al portapapeles
+2024    Cambiar detalles de los elementos
+
+2025    Haga clic en la observacion para obtener mas informacion sobre ella. Clic derecho para obtener
+2025    mas opciones.  Ctrl-clic para seleccionar varias observaciones.\n
+
+2026    No se ha proporcionado cabecera observacional con las observaciones.  Si se
+2026    hubiera proporcionao,  aquí se mostaría informacion acerca del observador, el medidor,
+2026    el telescopio usado,  etc.\n

@@ -1,0 +1,196 @@
+#   Comments can be added freely as lines starting with '#'
+#
+#   'sigma.txt' is the replacement for 'weights.txt',  and renders it
+# obsolete.  It is similar to 'weights.txt',  but extends its capabilities.
+#
+#   'sigma.txt' allows you to set up rules describing the default
+# uncertainties in position,  time,  and magnitude for astrometric data.
+# The idea is that you can tell Find_Orb that all observations from a
+# given observatory over a given time span and magnitude range have,
+# by your estimate,  specific uncertainties in those three quantities.
+#
+#   The resulting uncertainties are simply default values,  used when
+# there's no other way to know the uncertainty.  If you use the
+# AstDyS/NEODyS .rwo format or the ADES format,  the data have
+# astrometric uncertainties given with each observation.  And
+# Find_Orb provides ways to specify uncertainties via special keywords
+# within the observations.  See
+#
+# https://www.projectpluto.com/find_orb.htm#sigmas
+#
+#  for details.
+#
+#   Also,  note that if you revise this file,  it's recommended to rename
+# it and to put the new name on the SIGMAS_FILE line in 'environ.dat'.
+# If you just edit this file without renaming,  it will get clobbered
+# the next time you update.
+#
+#   This is a revised version of what used to be 'weight.txt'.  That
+# file was quite similar,  except that instead of storing uncertainties,
+# weights were stored.  These basically just boiled down to 1/sigma_posn,
+# with sigma_posn expressed in arcseconds.  Also,  only sigmas for
+# position could be defined;  'sigma.txt' adds sigmas for magnitude
+# and time as well,  and allows you to specify a project code.
+#
+#   Find_Orb looks through this file from top to bottom.  Non-comment
+# lines give an observatory code,  an optional program code,  and a date
+# range and magnitude range.  (The ranges can be blank,  to specify "any
+# date" and/or "any magnitude",  or to indicate that there is no lower
+# or upper limit on that range.)  The idea is that such a line defines
+# what the sigmas are for any observation from that code,  taken within
+# that date range,  and within that magnitude range.
+#
+#   Assigning uncertainties this way isn't a great idea.  Just because
+# two observations were made at around the same time from the same place
+# with comparable magnitudes doesn't mean they'll have similar uncertainties.
+# This is a hack to get around the absence of observer-supplied sigmas.
+#
+#   When Find_Orb finds a line describing the observation in question,
+# it extracts any non-blank sigmas.  It keeps going,  possibly to
+# the bottom of the file,  until sigmas have been found for all
+# three quantities. That's why there is a final line that will
+# assign sigmas to _any_ observation that hasn't already been handled.
+#
+#    Comments can be added at the end of each line.  I've just listed
+# the station names in that slot.
+#
+#   Some comments on how to assign sigmas are at the bottom of this text.
+# I've noticed that the following stations get unusually good astrometry.
+# These uncertainties roughly reflect how well I've seen them do.  Note
+# that (413) made some pre-CCD observations that ought to just get the
+# default "old-era",  larger uncertainties.
+#
+#Obs P  <--start-> <--end -->           Pos   Mag  Time
+#COD C  yyyy mm dd yyyy mm dd mag1 mag2 sig   sig  sig    Comment
+ 689                                    .1                Flagstaff
+ 422                                    .3                Loomberah
+ 413    1993 01 01                      .3                Siding Spring
+ E12                                    .25               Siding Spring #2
+ 568 2                                  .1          .2    David Tholen et. al., Mauna Kea
+ T09                                    .1          .2    David Tholen et. al., Subaru
+ T12                                    .1          .2    David Tholen et. al., 2.24-m
+ T14                                    .1          .2    David Tholen et. al., CFHT
+ 568 ~                                  .1          .2    TNO survey folks, Mauna Kea
+ J95                                    .2          .2    Great Shefford
+ J75                                    .2          .1    La Sagra
+ Y00                                                .2    SONEAR
+ F51                                    .2                PanSTARRS
+ F52                                    .2                PanSTARRS 2
+#   (J95), (Y00) and Tholen at (568) have demonstrated,  via observations of
+# artsats,  that they really have gotten timing right.  (J75) has had
+# cause to observe very fast-moving artsats;  their actual time sigma
+# is probably quite a bit better than the above .1 second.
+#
+#    SOHO and STEREO,  though,  were not intended to do astrometry and
+# produce noisy data.  "Program codes" A and 2 = SOHO C2; B and 3=
+# SOHO C3.
+#    For SOHO,  we check for "program codes" A or 2,  meaning C2
+# was used.  Everything else from (249) is assumed to use the
+# lower-accuracy C3.  (People sometimes mangle the codes;  we
+# want to default to the lower accuracy in such cases.)
+ 249 A                         8.7      36                SOHO
+ 249 2                         8.7      36                SOHO
+ 249 A                         8.2  8.8 24                SOHO
+ 249 2                         8.2  8.8 24                SOHO
+ 249 A                         7.2  8.2 12                SOHO
+ 249 2                         7.2  8.2 12                SOHO
+ 249 A                         4.2  7.2  6                SOHO
+ 249 2                         4.2  7.2  6                SOHO
+ 249 A                         2.7  4.2 12                SOHO
+ 249 2                         2.7  4.2 12                SOHO
+ 249 A                         1.7  2.7 18                SOHO
+ 249 2                         1.7  2.7 18                SOHO
+ 249 A                         0.2  1.7 24                SOHO
+ 249 2                         0.2  1.7 24                SOHO
+ 249 A                        -1.8  0.2 36                SOHO
+ 249 2                        -1.8  0.2 36                SOHO
+ 249 A                             -1.8 48                SOHO
+ 249 2                             -1.8 48                SOHO
+ 249                           9.7      280               SOHO
+ 249                           9.2  9.7 224               SOHO
+ 249                           7.7  9.2 168               SOHO
+ 249                           7.2  7.7 112               SOHO
+ 249                           6.7  7.2 84                SOHO
+ 249                           5.7  6.7 56                SOHO
+ 249                           2.7  5.7 28                SOHO
+ 249                           1.2  2.7 56                SOHO
+ 249                          -0.2  1.2 84                SOHO
+ 249                          -1.2 -0.2 112               SOHO
+ 249                               -1.2 168               SOHO
+
+# Karl also guesstimates sigmas for HI-1 to be pretty bad,  maybe
+# two 70" pixels.  COR-2 is much better by comparison,  10".
+# G or 4 = STEREO/SECCHI HI1-A; H or 5 = COR2-A (for code C49);
+# O or 4 = STEREO/SECCHI HI1-B; P or 5 = COR2-B (for code C50).
+# These are also from an e-mail from Karl Battams,  2019 Nov 1.
+ C49 H                                  10                STEREO-A
+ C49 5                                  10                STEREO-A
+ C49                                    140               STEREO-A
+ C50 P                                  10                STEREO-A
+ C50 5                                  10                STEREO-B
+ C50                                    140               STEREO-B
+# Still puzzling out how Solar Orbiter astrometry should be handled.
+# Based on exactly one object,  let's say 20".
+ SoO                                    20                Solar Orbiter
+# TESS data has (I assume) beautiful photometry,  but the astrometry
+# appears to be approximate at best.
+ C57                                     5                TESS
+# MPC appears to be weighting (C51) WISE data lightly,  which appears to
+# be... well... wise.  I am also informed by Joe Masiero that the mag
+# data from WISE (which is an R magnitude guesstimated from W1 and W2)
+# is very approximate.
+ C51                                     1      3         WISE
+# ...but Hipparcos and HST get incredibly good astrometry:
+ 248                                    .01               Hipparcos
+ 250                                    .01               HST
+# The radar folks don't really have 'uncertainties' in RA/dec or mag;
+# they aren't measuring those quantities.  The quantities they _do_
+# measure -- round-trip time and Doppler shift -- have sigmas given
+# for them,  provided along with the data;  we don't need to specify
+# them in 'sigma.txt'.  The only thing we need to specify is the
+# uncertainty in the timing.  That sigma really should be effectively
+# zero.  We can't actually do that,  but a nanosecond is good enough.
+ 251                                     7         1e-9   Arecibo
+ 252                                     7         1e-9   Goldstone DSS 13, Fort Irwin
+ 253                                     7         1e-9   Goldstone DSS 13, Fort Irwin
+ 254                                     7         1e-9   Haystack, Westford
+ 255                                     7         1e-9   Evpatoria
+ 256                                     7         1e-9   Green Bank
+ 257                                     7         1e-9   Goldstone DSS 25, Fort Irwin
+ 259                                     7         1e-9   EISCAT Tromso UHF
+#  Marco Micheli tells me that (Z84) Calar Alto has been tested
+#  to be good to about 0.05 seconds.  He usually provides positional
+#  uncertainties with the data,  so I'll just specify a 0.1-s timing
+#  uncertainty here.
+ Z84                                                .1     Calar Alto
+#  Gaia data will carry its own sigmas,  except for time.  We'll set that
+# to be effectively zero,  same as for radar.
+ 258                                     7         1e-9   Gaia
+# Occultations give extremely precise positions.  (Unfortunately,
+# the 80-column astrometric format won't give us all of that.)
+# I assume accuracy in time to a video frame = 1/60 second.
+ 244                                    .001       .017   Geocentric occultation
+#  You MUST have some final "catchall" lines that assign sigmas to all
+# observations not otherwise catalogued.  Here,  we'll say that if the
+# observation predates 1993,  we'll assume a sigma of 3",  no matter
+# which observatory it came from.  (Older observations are usually
+# photographic,  and reduced with older catalogues such as the SAO;
+# the assumption that they're just a little bit dodgy is usually right.)
+                   1993 01 01            3
+# ...which will just leave everything after that date,  and we'll
+# assume a default sigma for those (more "modern" CCD obs) of a half
+# arcsecond,  half a magnitude,  and one second.  This is the "catch-all"
+# line mentioned above,  to assign uncertainties to anything not already
+# found.  It's also used if you have turned off weighting (i.e.,  all
+# observations are to be treated equally,  with identical uncertainties).
+                                        .5     .5    1    Default
+#
+# HOW TO ASSIGN SIGMAS:  I don't really know of a simple way to do this.
+# The above numbers reflect what I've observed in the data,  and are
+# better than no sigmas at all,  but they are somewhat ad hoc.
+#
+#   One _can_ analyze data from an individual observatory and get a feel
+# for what their RMS residuals are and base the sigmas on that.  It helps
+# if the observatory in question gets a _lot_ of data,  to get some
+# meaningful statistics.  .rwo files give uncertainties assigned in
+# this manner.

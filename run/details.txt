@@ -1,0 +1,3814 @@
+   Find_Orb uses the following details when none are provided
+with the observations.  It only pays attention to lines beginning
+with COD, OBS, MEA, or TEL.  In some cases,  you'll see a COM or ACK
+or other line;  that just means I copied a header and didn't bother
+to trim out parts irrelevant to Find_Orb.  (Though I suppose they
+could prove useful at some point;  e.g.,  click on an observatory
+code and get an address.  But please mangle e-mail addresses to
+avoid spam problems!)
+
+   Many details were automatically extracted from MPECs and merged
+in.  See https://github.com/Bill-Gray/miscell/blob/master/details.c
+for the code used to do that.  Such 'default details' are usually
+not very trustworthy,  but the scope aperture may be useful in
+computing exposure times.
+
+   Details are occasionally date dependent;  one can specify that
+a given observer/measurer was present between certain dates,  and/or
+that certain telescope gear was used for certain date ranges.  See
+details for (703), (E12), (G96) for examples.
+
+   I've indented some codes/details by a space,  effectively commenting
+them out.  That happens if I know those details are used at that site,
+but that others also use it and I've no way of knowing which details
+ought to be shown.  (For example,  (568) Mauna Kea has eleven scopes
+and a bazillion observers;  I've no idea what to show there.)
+
+2024 Nov 6 version
+
+COD 006
+MEA A. Bernal, J. Nunez, N. Torras
+OBS A. Bernal, J. M. Codina, J. Nunez, N. Torras
+COM Default details extracted from MPEC 2024-D33
+TEL 0.35-m f/11 Schmidt-Cassegrain + CCD
+
+COD 033
+MEA B. Stecklum
+OBS S. Melnikov, C. Hoegner, B. Stecklum
+COM Default details extracted from MPEC 2021-C313
+TEL 1.34-m f/3 Schmidt + CCD
+
+COD 046
+MEA M. Tichy, M. Honkova
+OBS M. Tichy, M. Janda, J. Ticha, M. Honkova
+COM Default details extracted from MPEC 2023-D41
+TEL 0.57-m f/5.2 Reflector + 4096x4096 CMOS
+
+COD 048
+COM Find_Orb default details
+OBS M. Lekhy
+TEL 0.40-m f/5 reflector + CCD
+
+COD 056
+OBS G. {C}ervak, J. Svore{n}, {/ Rychtar{c}{}k, E. M. Pittich
+COM Default details extracted from MPEC 2020-W26
+TEL 0.3-m f/5 astrograph
+
+COD 069
+MEA K. Cernis
+OBS I. Eglitis
+COM Default details extracted from MPEC 2021-A190
+TEL 0.80-m f/3.0 Schmidt + CCD
+
+COD 071
+OBS A. Kostov
+COM Default details extracted from MPEC 2018-K95
+TEL 0.50-m f/3.44 Schmidt + CCD
+
+COD 073
+MEA A. Sonka
+OBS A. Sonka, A. Nedelcu
+COM Default details extracted from MPEC 2021-B143
+TEL 0.50-m f/8 Ritchey-Chretien + CCD
+
+COD 074
+COM Default details extracted from MPEC 2023-F148
+TEL 0.042-m camera
+
+COD 076
+COM Default details extracted from MPEC 2023-F148
+TEL 0.25-m Franklin-Adams Star Camera
+
+COD 084
+COM Find_Orb default details
+OBS A. V. Devyatkin, D. L. Gorshanov, V. V. Kouprianov,  M. Yu. Sidorov
+MEA A. V. Devyatkin, G. D. Baturina, A. V. Lemeseva, N. V. Mikhailova
+TEL 0.32-m f/3.2 reflector + CCD
+
+COD 088
+OBS A. Taky, M. Aboueisha
+MEA L. Elenin
+COM Default details extracted from MPEC 2024-D56
+TEL 1.88-m f/4.9 reflector + CCD
+
+COD 089
+MEA N. V. Maigurova, L. E. Bondarchuk
+OBS S. V. Protsyuk, O. G. Sergienko, V. F. Kryuchkovsky, M. P. Kalyuzhny
+COM Default details extracted from MPEC 2021-P47
+TEL 0.5-m f/6.0 Maksutov + CCD
+
+COD 094
+OBS A. Novichonok, A. Zhornichenko
+COM Default details extracted from MPEC 2021-F20
+TEL 1.0-m f/13 reflector + CCD
+
+COD 095
+MEA A. Novichonok, A. Zhornichenko
+OBS S. Nazarov
+COM Default details extracted from MPEC 2021-F20
+COM Multi-telescope site;  see 'rovers.txt' for some details
+TEL 0.35-m f/5 reflector + CCD
+TEL 0.64-m reflector + CCD
+
+COD 097
+COM Find_Orb default details
+OBS D. Polishook
+TEL 1.0-m f/7 reflector + CCD
+
+COD 104
+MEA P. Bacci, L. Tesi, G. Fagioli
+OBS P. Bacci, M. Maestripieri
+COM Default details extracted from MPEC 2021-A190
+TEL 0.60-m reflector + CCD
+
+COD 106
+COM Find_Orb default details
+OBS J. Skvarc
+TEL 0.6-m f/3.3 Deltagraph + CCD
+
+COD 107
+MEA G. Corradini
+OBS M. Facchini
+COM Default details extracted from MPEC 2021-A190
+TEL 0.4-m f/5.5 reflector + CCD
+
+COD 108
+OBS M. Tombelli, G. Interrante, A. Mazzanti
+MEA M. Tombelli, F. Bernardi.
+TEL 0.30-m f/10 Schmidt-Cassegrain + CCD
+COM Default details extracted from MPEC 2021-F18
+
+COD 113
+OBS G. Lehmann
+COM Default details extracted from MPEC 2021-C321
+TEL 0.5-m f/4.6 reflector + CCD
+
+COD 118
+COM Find_Orb default details
+OBS S. Gajdos, A. Galad
+NET USNO-SA2.0
+TEL 0.6-m f/5.5 reflector + CCD
+
+COD 120
+OBS K. Korlevic, V. Jelic, I. Turcin, A. Vukorepa
+COM Default details extracted from MPEC 2020-E26
+MEA V. Jelic
+TEL 0.41-m f/4.3 reflector + CCD
+
+COD 126
+OBS L. Sannino, A. Mancuso, S. Mercanti, D. Agnetti
+MEA L. Sannino, A. Mancuso
+COM Default details extracted from MPEC 2024-P161
+TEL 0.41-m f/5.3 reflector + CCD
+
+COD 127
+COM Find_Orb default details
+OBS N. Ehring
+TEL 0.30-m f/3.2 reflector + CCD
+
+COD 130
+MEA A. Coffano, W. Marinello
+OBS A. Coffano, W. Marinello, M. Micheli, G. Pizzetti, A. Soffiantini
+COM Default details extracted from MPEC 2021-B143
+TEL 0.40-m f/5.9 reflector + CCD
+
+COD 145
+OBS T. Alderweireldt
+COM Default details extracted from MPEC 2021-N06
+TEL 0.35-m f/5.5 reflector + CCD
+
+COD 151
+COM Find_Orb default details
+OBS D. Luongo
+TEL 0.6-m f/3.8 Astrograph + CCD
+
+COD 152
+MEA K. Cernis
+OBS K. Cernis, H. Selevicius, J. Zdanavicius
+COM Default details extracted from MPEC 2021-B143
+TEL 0.35-m f/3.5 reflector + CCD
+
+COD 157
+MEA R. Haver
+OBS R. Haver, R. Gorelli
+COM Default details extracted from MPEC 2021-E19
+TEL 0.37-m f/6.70 Cassegrain + CCD
+
+COD 160
+MEA E. Prosperi
+OBS M. Jaeger, E. Prosperi, S. Prosperi
+COM Default details extracted from MPEC 2021-B143
+TEL 0.36-m f/10.2 Schmidt-Cassegrain + CCD
+
+COD 162
+COM Find_Orb default details
+OBS A. M. Giambersio
+TEL 0.20-m f/6.3 reflector + CCD
+
+COD 170
+COM Find_Orb default details
+OBS J. Manteca
+
+COD 171
+OBS S. M. Brincat
+COM Default details extracted from MPEC 2024-B140
+TEL 0.25-m f/6.3 SCT + CCD
+
+COD 178
+OBS J.-G. Bosch
+COM Default details extracted from MPEC 2021-F115
+TEL 0.08-m f/6 refractor + CCD
+
+COD 179
+OBS D. Buczynski
+COM Default details extracted from MPEC 2024-A43
+TEL 0.43-m f/6.9 CDK + CCD
+
+COD 181
+COM Default details extracted from MPEC 2022-R91
+OBS T. Santana-Ros, M. Micheli, L. Conversi, J. Berthier, F. Vachier, P. Descamps
+MEA M. Micheli
+TEL 0.6-m f/8 reflector + CMOS
+
+COD 185
+COM Find_Orb default details
+OBS M. Ory
+TEL 0.61-m f/3.88 reflector + CCD
+
+COD 186
+OBS A. Novichonok, A. Zhornichenko
+COM Default details extracted from MPEC 2021-B143
+TEL 0.36-m f/8 reflector + CCD
+
+COD 190
+OBS A. M. Buriev
+COM Default details extracted from MPEC 2020-C98
+TEL 0.7-m f/4 reflector + CCD
+
+COD 194
+MEA M. Jaeger
+OBS G. Rhemann
+COM Default details extracted from MPEC 2021-A190
+TEL 0.3-m f/3.6 reflector + CCD
+
+COD 196
+OBS W. Wiedemann
+COM Default details extracted from MPEC 2023-N01
+TEL 0.28-m f/4.3 Schmidt-Cassegrain + CCD
+
+COD 201
+OBS V. Pozzoli
+COM Default details extracted from MPEC 2020-L06
+TEL 0.40-m f/9 Cassegrain + CCD
+
+COD 203
+MEA G. Galli
+OBS S. Foglia, G. Galli
+COM Default details extracted from MPEC 2021-C321
+TEL 0.36-m f/5.76 Schmidt-Cassegrain + CCD
+
+COD 204
+COM Find_Orb default details
+CON F. Bellini, Via A. Del Sarto 3, Varese, Italy
+CON [belcat (at) tele2 (dot) it]
+AC2 [luca_buzzi (at) alice (dot) it]
+OBS L. Buzzi
+MEA L. Buzzi
+TEL 0.60-m f/4.64 Newtonian + CCD
+TEL 0.84-m f/3.5 reflector + CCD
+
+COD 212
+COM Default details extracted from MPEC 2021-L04
+OBS I. Almendros
+TEL 0.30-m f/10 Schmidt-Cassegrain
+
+COD 213
+COM Default details extracted from MPEC 2021-L04
+OBS R. Naves
+MEA M. Campas
+TEL 0.30-m f/9 reflector + CCD
+
+COD 215
+COM Find_Orb default details
+OBS W. Hasubick
+TEL 0.44-m f/4.6 reflector + CCD
+
+COD 221
+MEA D. Husar
+OBS D. Husar, L. Demetz
+COM Default details extracted from MPEC 2021-A190
+TEL 0.2-m f/3 Riccardi-Honders + CCD
+TEL 0.5-m f/6.8 Corrected Dall-Kirkham + CCD
+
+COD 232
+COM Find_Orb default details
+OBS E. Reina
+TEL 0.25-m f/6.3 Schmidt-Cassegrain + CCD
+
+COD 233
+OBS S. Donati, F. Biagini
+MEA S. Donati
+COM Default details extracted from MPEC 2021-F17
+TEL 0.30-m f/9 Schmidt-Cassegrain + CCD
+
+COD 235
+COM Find_Orb default details
+OBS R. Ligustri, V. Savani, P. Beltrame, G. Degano
+TEL 0.35-m f/5 reflector + CCD
+
+COD 246
+MEA M. Tichy
+OBS M. Tichy, J. Ticha
+COM Default details extracted from MPEC 2021-C313
+TEL 1.06-m f/2.7 reflector + 2048x2048 CCD
+
+COD 247
+OBS Observer N. Tirawat
+COM Default details extracted from MPEC 2024-A150
+TEL 0.20-m f/4.0 reflector + CCD
+
+COD 249 A
+TEL 0.19-m f/? coronagraph C2
+
+COD 249 B
+TEL 0.096-m f/? coronagraph C3
+
+COD 260
+OBS Measurer R. Matson
+COM Default details extracted from MPEC 2020-W129
+TEL 1.2-m Schmidt
+
+COD 261
+MEA E. Colombini
+COM Default details extracted from MPEC 2024-E157
+TEL 1.2-m Schmidt
+
+COD 266
+OBS S. B. Porter, S. Sheppard.
+COM Default details extracted from MPEC 2017-M31
+MEA S. B. Porter
+TEL 8.2-m f/2.2 Subaru reflector
+
+COD 274
+MEA M. Micheli, M. S. Kelley, D. Farnocchia
+OBS M. S. Kelley, D. Farnocchia, A. McKay, M. Micheli, C. Opitom
+OBS S. Protopapa, C. Snodgrass
+COM Default details extracted from MPEC 2022-S20
+TEL 6.5-m reflector + CMO
+
+COD 290
+COM Default details extracted from MPEC 2022-T132
+TEL 1.83-m f/9.2 reflector + CCD
+
+COD 291
+COM Find_Orb default details
+TEL 1.8-m f/2.7 reflector + CCD
+OBS J. V. Scotti, R. S. McMillan
+
+COD 300
+COM Find_Orb default details
+TEL 1.0-m f/3.0 reflector + CCD
+
+COD 304
+COM Find_Orb default details
+OBS M. Holman, D. Trilling, W. Fraser
+MEA M. Holman
+TEL 6.5-m f/1.25 Clay reflector + CCD
+
+COD 309
+MEA S. Deen
+COM Default details extracted from MPEC 2021-B143
+TEL 2.65-m Ritchey-Chretien + CCD
+
+COD 322
+COM Find_Orb default details
+OBS J. Biggs
+TEL 0.25-m f/4.5 Newtonian + CCD
+
+COD 323
+MEA P. Camilleri
+OBS P. Camilleri, J. Oey, R. Groom
+COM Default details extracted from MPEC 2020-C98
+TEL 0.40-m f/5 reflector + CCD
+
+COD 333
+COM Find_Orb default details
+OBS W. K. Y. Yeung
+TEL 0.45-m f/3 Schmidt-Cassegrain + CCD
+
+COD 349
+COM Find_Orb default details
+OBS K. Kadota
+TEL 0.25-m f/5.0 reflector + CCD
+
+COD 360
+COM Find_Orb default details
+OBS A. Nakamura
+TEL 0.60-m f/5.8 Ritchey-Chretien + CCD
+
+COD 367
+OBS H. Abe
+COM Default details extracted from MPEC 2021-B143
+TEL 0.26-m f/6.0 reflector + CCD
+
+COD 372
+MEA H. Sato
+OBS T. Seki
+COM Default details extracted from MPEC 2021-A190
+TEL 0.70-m f/10 reflector + f/5 focal reducer
+
+COD 381
+OBS J. Beniyama
+COM Default details extracted from MPEC 2020-Y114
+TEL 1.05-m f/3.1 Schmidt + CCD
+
+COD 403
+OBS Y. Mizuno
+MEA S. Nakano
+COM Default details extracted from MPEC 2020-A132
+TEL 0.32-m f/5.4 reflector + CCD
+
+COD 413
+COM Find_Orb default details
+CON R. H. McNaught
+CON Siding Spring Observatory, Coonabarabran, NSW 2357, Australia
+OBS G. J. Garradd, R. H. McNaught
+MEA R. H. McNaught
+ACK Charon
+TEL 1.0-m f/8 reflector + CCD
+
+COD 415
+COM Find_Orb default details
+CON D. Herald, P.O. Box 254, Woden, ACT 2606, Australia
+CON [DRHerald (at) bigpond (dot) net.au]
+OBS D. Herald
+TEL 0.36-m f/3.9 Schmidt-Cassegrain + CCD
+ACK MPCReport file updated 2009.03.03 00:42:01
+AC2 [DRHerald (at) bigpond (dot) net (dot) au]
+
+COD 422
+COM Find_Orb default details
+OBS G. J. Garradd
+ACK 2002 05 22 observations
+TEL 0.45-m f/5.4 reflector + CCD
+COM Reduction done using Charon
+NET UCAC1
+
+COD 423
+OBS S. G. McAndrew
+COM Default details extracted from MPEC 2021-F20
+TEL 0.20-m f/4 hyperbolic astrograph + CCD
+
+COD 428
+COM Find_Orb default details
+OBS J. Broughton
+TEL 0.25-m f/7.2 Schmidt-Cassegrain + CCD
+
+COD 430
+OBS S. Lee
+COM Default details extracted from MPEC 2020-L06
+TEL 0.30-m f/5 reflector + CCD
+
+COD 442
+COM Find_Orb default details
+OBS A. Sanchez
+TEL 0.31-m f/3.3 Schmidt-Cassegrain + CCD
+
+COD 445
+COM Find_Orb default details
+OBS M. Camarasa
+TEL 0.20-m f/7.2 Schmidt-Cassegrain + CCD
+
+COD 448 Desert Moon Observatory
+COM Find_Orb default details
+OBS B. L. Stevens
+TEL 0.3-m Schmidt-Cassegrain + CCD
+
+COD 458
+COM Find_Orb default details
+OBS D. Rodriguez
+TEL 0.20-m f/10 Schmidt-Cassegrain + CCD
+
+COD 461
+COM Find_Orb default details
+CON K. S\'arneczky, 6701 Szeged, POB 406. Hungary
+CON [sky (at) titan (dot) physx.u-szeged (dot) hu]
+OBS K. Sarneczky
+TEL 0.60-m f/3 Schmidt + CCD
+NET USNO-B1.0
+COM Posn sigma 0.2", mag sigma 0.3, time sigma 0.5s
+
+COD 467
+COM Find_Orb default details
+CON M. Micheli
+CON [marco (dot) micheli (at) esa (dot) int]
+OBS G. W. Christie
+MEA M. Micheli, G. W. Christie, K. Merz, D. Koschny
+TEL 0.40-m f/10 Schmidt-Cassegrain + CCD
+
+COD 470
+COM Default details extracted from MPEC 2019-S03
+OBS G. Masi
+TEL 0.43-m f/6.8 astrograph + CCD
+
+COD 474
+COM Find_Orb default details
+OBS A. C. Gilmore, P. M. Kilmartin
+MEA P. M. Kilmartin
+TEL 1.0-m f/7.7 reflector + CCD
+AC2 alan (dot) gilmore (at) canterbury.ac (dot) nz
+
+COD 493
+COM Find_Orb default details.  Multi-telescope site.  See
+COM also codes (Z84), (Z79), (G36).
+OBS F. Hormuth
+TEL 1.23-m f/8 reflector + CCD
+TEL 3.5-m f/3.9 reflector + CCD
+
+COD 511
+COM Find_Orb default details
+CON J. E. Arlot, IMCCE, Observatoire de Paris
+CON 61 Avenue de l'Observatoire, F75014 Paris, France
+CON [arlot (at) bdl (dot) fr]
+OBS W. Polycarpe, M. Dennefield, W. Thuillot, B. Carry, P. David
+OBS S. Bouquillon, F. Taris, P. Tanga, M. Delbo, E. Saquet, V. Robert
+MEA W. Thuillot, S. Bouquillon, F. Taris, T. Carlucci, C. Barache
+TEL 1.20-m f/6 reflector + CCD
+
+COD 541
+OBS J. Manek
+COM Default details extracted from MPEC 2020-W26
+TEL 0.20-m f/6.8 refractor
+TEL 0.35-m f/9 Maksutov-Cassegrain
+
+COD 557
+COM Find_Orb default details
+CON P. Pravec, Astronomical Institute, Czech Academy of Sciences,
+CON CZ-25165 Ondrejov, Czech Republic
+CON [ppravec (at) asu.cas (dot) cz]
+OBS P. Pravec, P. Kusnirak
+TEL 0.65-m f/3.6 reflector + CCD
+NET USNO-SA 2.0
+
+ COD 568
+ OBS D. J. Tholen
+ TEL 2.24-m University of Hawaii reflector
+
+COD 568
+ MEA S. Deen, M. Micheli, J. Kleyna
+ OBS K. J. Meech, J. Kleyna, J. V. Keane, E. Bufanda
+COM Default details extracted from MPEC 2021-B143
+COM Added 2.24-m (88-inch) scope to make it clear that this is
+COM a multiple-telescope site (see 'rovers.txt' for Mauna Kea comments)
+TEL 3.6-m Canada-France-Hawaii Telescope + CCD
+TEL 2.24-m University of Hawaii reflector
+
+COD 583
+MEA V. Troianskyi, S. Kashuba
+OBS V. Kashuba, V. Troianskyi
+COM Default details extracted from MPEC 2021-A190
+TEL 0.80-m f/2.7 reflector + CCD
+
+COD 585
+MEA A. Baransky, K. Ponko, M. Tkachuk
+OBS A. Baransky, A. Khorolskiy
+COM Default details extracted from MPEC 2021-A190
+TEL 0.7-m f/4 reflector + CCD
+
+COD 586
+MEA F. Colas
+OBS F. Colas, A. Klotz, A. Duchene, P. Stammler
+COM Default details extracted from MPEC 2023-A66
+TEL 1.06-m f/17 Cassegrain + CCD
+
+COD 587
+MEA P. Sicoli
+OBS E. Colzani, E. Valli
+COM Default details extracted from MPEC 2021-D34
+TEL 0.5-m f/6.8 reflector + CCD
+
+COD 595
+MEA S. Aschi, E. Pettarin
+OBS S. Aschi, E. Pettarin, G. Panterotto
+COM Default details extracted from MPEC 2021-C321
+TEL 0.40-m f/5.15 reflector + CCD
+
+COD 598
+COM Find_Orb default details
+CON M. Micheli
+CON [marco (dot) micheli (at) esa (dot) int]
+OBS A. Buzzoni, R. Gualandi, F. Matassoni
+MEA M. Micheli, A. Buzzoni, C. Colombo, P. Di Lizia
+TEL 1.52-m f/8 Ritchey-Chretien + CCD
+NET Gaia-DR1
+
+COD 608
+MEA T. Prystavski
+OBS R. Bambery, E. Helin, S. Pravdo, M. Hicks, K. Lawrence, P. Kervin
+COM Default details extracted from MPEC 2021-B143
+TEL 1.2-m reflector + CCD
+
+COD 611
+COM Find_Orb default details
+OBS R. Stoss, M. Busch, L. Kurtze, P. Geffert
+TEL 0.45-m f/4.4 reflector + CCD
+
+COD 616
+COM Find_Orb default details
+OBS M. Lehky, K. Hornoch, D. Hanzl
+TEL 0.62-m f/4.5 reflector + CCD
+
+COD 620
+COM Find_Orb default details
+OBS S. Sanchez, R. Stoss, J. Nomen
+TEL 0.30-m f/9 Schmidt-Cassegrain + CCD
+
+COD 637
+OBS D. Husar
+COM Default details extracted from MPEC 2023-J29
+TEL 0.12-m f/6.9 refractor + CCD
+
+COD 644
+OBS E. F. Helin, S. Pravdo, K. Lawrence, K. Kuluhiwa
+OBS M. Hicks, R. Thicksten
+MEA R. Matson
+COM Default details extracted from MPEC 2020-W21
+TEL 1.2-m f/2.5 Schmidt + CCD
+
+COD 645
+COM Find_Orb default details
+MEA Z. Ivezic, M. Juric, R. H. Lupton, S. Tabachnik, T. Quinn
+TEL 2.5-m SDSS Telescope + SDSS camera
+
+COD 648
+COM Default details extracted from MPEC 2022-T43
+OBS K. Kaminski, M. Kaminska, T. Santana-Ros
+MEA M. Micheli
+TEL 0.7-m f/6.5 reflector + CCD
+
+COD 649
+COM Find_Orb default details
+CON Powell Observatory Louisburg, KS USA
+CON [lrobinsn (at) ix (dot) netcom (dot) com]
+OBS M. Glaze, R. Trentman
+NET USNO-A2.0
+TEL 0.75-m Newtonian + CCD
+
+COD 658
+MEA D. D. Balam, D. W. E. Green, C. E. Spratt
+OBS D. D. Balam
+COM Default details extracted from MPEC 2021-B143
+TEL 1.82-m reflector + CCD
+
+COD 654
+OBS P. Choi, N. Saini, C. Zhai, R. Trahan, M. Shao
+COM Default details extracted from MPEC 2021-G138
+
+COD 661
+MEA D. D. Balam, D. W. E. Green
+OBS P. Langill
+COM Default details extracted from MPEC 2022-S297
+TEL 0.76-m Reflector + CCD
+
+COD 673
+COM Find_Orb default details
+CON W. M. Owen Jr., Jet Propulsion Laboratory 301-150, Pasadena CA 91109-8099
+OBS W. M. Owen Jr.
+MEA W. M. Owen Jr.
+TEL 0.61-m f/16 reflector + CCD
+NET Tycho-2
+
+COD 675
+MEA K. Sharma, B. T. Bolin
+OBS R. S. Walters, B. T. Bolin
+COM Default details extracted from MPEC 2020-W177
+TEL 1.52-m f/8.75 Ritchey-Chretien + CCD
+
+COD 678
+COM Find_Orb default details
+CON C. W. Juels, P. O. Box 19960, Fountain Hills, AZ  85269
+CON [cwjuels_nospam (at) cox (dot) net]
+OBS C. W. Juels,  P. R. Holvorcem
+MEA PinPoint Engine
+TEL 0.07-m f/2.8 refractor + CCD
+NET GSC-ACT
+ACK MPC_HJ0110_OBS_050629_061012_A.txt
+
+COD 679
+COM Default details extracted from MPEC 2021-T85
+OBS J. S. Silva-Cabrera
+MEA M. Micheli
+TEL 0.84-m reflector + CCD
+
+COD 691
+COM Find_Orb default details
+OBS J. V. Scotti
+TEL 0.9-m f/3 reflector + CCD
+
+COD 695
+MEA S. Deen
+COM Default details extracted from MPEC 2021-B143
+COM Multi-telescope site;  see Kitt Peak comments in 'rovers.txt'
+COM Details are for the 3.5-m and 0.9-m WIYN telescopes,  4.0-m Mayall,
+COM and 0.61-m Burrell Schmidt.  The 2.3-m Bok telescope has code (V00).
+TEL 3.5-m f/1.75 reflector + CCD
+TEL 0.9-m f/7.5 reflector + CCD
+TEL 4.0-m Ritchey-Chretien + CCD
+TEL 0.61-m f/3.5 Schmidt + CCD
+TEL 2.3-m f/9 reflector + CCD
+
+COD 696
+COM Find_Orb default details
+COM https://www.as.arizona.edu/mmt-65m-telescope
+TEL 6.5-m f/1.48 reflector + CCD
+
+COD 699
+COM Find_Orb default details
+OBS M. E. Van Ness
+TEL 0.59-m LONEOS Schmidt + CCD
+
+   See below for info on observers.  This is just telescope data.
+COD 703
+COM Find_Orb default details
+COM Valid: 2003 jan 1 - 2016 Dec 02
+TEL 0.68 m Schmidt + 4K CCD
+COM Valid: 2016 Dec 02 - 2100
+TEL 0.68 m Schmidt + 10K CCD
+
+COD 704
+COM Find_Orb default details
+OBS M. Blythe, F. Shelly, M. Bezpalko, R. Huber, L. Manguso
+OBS S. Adams, D. Torres, T. Brothers, S. Partridge
+MEA J. Stuart, R. Sayer, J. Evans, P. Hopman
+TEL 1.0-m f/2.15 reflector + CCD
+
+COD 705
+OBS B. T. Bolin, R. McMillan, C. Gray
+MEA B. T. Bolin
+COM Default details extracted from MPEC 2019-K37
+TEL 3.5-m f/10 reflector + CCD
+
+COD 711
+MEA J. G. Ries
+OBS J. G. Ries, B. P. Roman
+COM Default details extracted from MPEC 2021-A190
+TEL 2.1-m reflector + CCD + focal reducer
+
+COD 715
+COM Find_Orb default details
+OBS D. S. Dixon
+TEL 0.3m SCT + CCD
+
+COD 718
+COM Default details extracted from MPEC 2021-F17
+OBS P. Wiggins
+TEL 0.35-m f/5.5 Schmidt-Cassegrain + CCD
+
+COD 726
+OBS J. Wentworth
+COM Default details extracted from MPEC 2021-B143
+TEL 0.28-m Schmidt-Cassegrain + CCD
+
+COD 734
+COM Find_Orb default details
+CON Farpoint Observatory Rte.1 Box 35 C Eskridge, Ks. 66423
+OBS G. Hug
+MEA G. Hug
+NET USNO-SA2.0
+COM Valid: 1900 - 2010
+TEL 0.3-m Schmidt-Cassegrain + CCD
+COM Valid: 2010 - 2100
+TEL 0.69-m reflector + CCD
+
+COD 735
+COM Find_Orb default details
+CON William G. Dillon, 4703 Birkenhead Circle, Missouri City, TX 77459, USA
+OBS A. Cruz, L. Casady, J. Dellinger, W. G. Dillon, T. Hiserodt
+MEA J. Dellinger, W. G. Dillon
+NET GSC-ACT
+BND R
+TEL 0.46-m f/4.5 Newtonian + CCD
+
+COD 750
+OBS N. Moritz
+MEA W. Childs
+COM Default details extracted from MPEC 2021-L04
+TEL 0.6-m f/5 Newtonian reflector + CCD
+
+COD 761
+COM Find_Orb default details
+CON Richard Kowalski
+OBS RA. Kowalski
+MEA RA. Kowalski
+NET USNO-A2.0
+TEL 0.18-m Mak + CCD
+
+COD 785
+COM Find_Orb default details
+OBS J. Maffei
+TEL 0.91-m f/13.6 Cassegrain + CCD
+
+COD 807
+OBS T. Linder, R. Holmes
+COM Default details extracted from MPEC 2021-C321
+TEL 0.61-m f/6.5 astrograph + CCD
+
+COD 808
+OBS M. R. Cesco, R. Gil-Hutton, H. S. Lepez, C. E. Lopez
+OBS H. Mira, J. G. Sanguin, J. E. Torres, J. A. Vincentela
+COM Default details extracted from MPEC 2021-A190
+COM No telescope specified
+
+COD 809
+OBS J. Campbell-White, S. Rahvar, M. Rabus, S. Dib, A. Andrews
+OBS M. Burgdorf, Y. Fujii
+COM Default details extracted from MPEC 2018-R14
+COM Multiple-telescope site;  see 'rovers.txt' for details
+COM Note that the Danish 1.54-m now has code (W74).  The 3.58-m New
+COM Technology Telescope (NTT) has also reported under this code.
+MEA Measurers T. L. Farnham, M. M. Knight
+TEL 1.54-m Danish Telescope
+TEL 3.58-m f/11 Ritchey-Chretien
+
+COD 820
+COM Default details from private communication
+TEL 0.25-m telescope + CCD
+
+COD 834
+COM Find_Orb default details
+OBS R. Mackintosh, R. Caprio, P. Kelis
+MEA R. Mackintosh
+
+COD 850
+OBS D. T. Durig, L. D. Fraley
+COM Default details extracted from MPEC 2021-P47
+TEL 0.3-m f/6 Schmidt-Cassegrain + 4656x3520 CCD
+
+COD 851
+OBS F. D. Romanov
+COM Default details extracted from MPEC 2021-A190
+TEL 0.61-m f/6.5 Corrected Dall-Kirkham + CCD
+
+COD 854
+COM Find_Orb default details
+OBS J. E. McGaha
+TEL 0.36-m f/10.0 Schmidt-Cassegrain + CCD
+
+COD 858
+OBS F. B. Zoltowski
+COM Default details extracted from MPEC 2021-B143
+TEL 0.16-m refractor + CCD
+TEL 0.51-m Schmidt-Cassegrain + CCD
+
+COD 859
+OBS C. Jacques
+COM Default details extracted from MPEC 2023-K196
+TEL 0.45-m f/2.9 reflector + CMO
+
+COD 867
+OBS T. Oribe
+COM Default details extracted from MPEC 2021-F20
+TEL 1.03-m f/4.6 reflector + CCD
+
+COD 900
+OBS Y. Ikari
+COM Default details extracted from MPEC 2021-A190
+TEL 0.26-m f/7.0 reflector + CCD
+
+COD 903
+OBS M. Yoshimi
+COM Default details extracted from MPEC 2022-C56
+TEL 0.20-m f/5 reflector + CCD
+
+COD 926
+COM Find_Orb default details
+CON M. Schwartz, Tenagra Observatories, HC 2 Box 292, Nogales, AZ 85621, U.S.A.
+CON [mbs (at) tenagraobservatories (dot) com]
+OBS M. Schwartz, P. R. Holvorcem
+MEA M. Schwartz
+AC2 [holvorcem (at) mpc (dot) com (dot) br], [mbs (at) tenagraobservatories (dot) com]
+TEL 0.41-m f/3.75 astrograph + CCD
+NET UCAC-3
+ACK Batch 160511b.txt (926) - NEOCP follow-up
+
+COD 932
+OBS M. Robson
+TEL 0.4-m f/7.5 Schmidt-Cassegrain + CCD
+
+COD 938
+COM Find_Orb default details
+OBS R. Goncalves
+MEA R. Goncalves
+NET USNO-A2.0
+TEL 0.25-m f/6.72 Schmidt-Cassegrain + CCD (MX916 2x2)
+ACK MPCReport J002E3
+
+COD 939
+COM Find_Orb default details
+OBS J. Castellano
+TEL 0.20-m f/10 Schmidt-Cassegrain + CCD
+
+TEL 0.40-m f/10 Ritchey-Chretien + CCD
+COD 941
+OBS R. Ferrando
+COM Default details extracted from MPEC 2021-P47
+TEL 0.4-m f/7 Ritchey-Chretien + CCD
+
+COD 945
+COM Find_Orb default details
+OBS J. R. Vidal
+TEL 0.36-m f/3.3 Schmidt-Cassegrain + CCD
+
+COD 950
+COM Default details extracted from MPEC 2020-W95
+OBS O. Vaduvescu, R. Ashley, P. Massana, C. Celma, M. Monelli
+OBS M. Rodriguez, M. Rodriguez-Alarcon
+MEA C. Boldea, O. Vaduvescu
+TEL 2.5-m f/3.3 reflector + CCD
+
+COD 952
+OBS J. J. Gomez
+COM Default details extracted from MPEC 2022-H122
+TEL 0.25-m f/3.3 Schmidt-Cassegrain + CCD
+
+COD 954
+OBS J. A. Mansour, M. Popescu
+MEA M. Popescu
+COM Default details extracted from MPEC 2020-M109, 2021-H143
+TEL 1.52-m f/4.2 reflector
+TEL 0.82-m f/11.3 Cassegrain + CCD
+
+COD 958
+OBS P. Dupouy
+COM Default details extracted from MPEC 2021-C321
+TEL 0.32-m Schmidt-Cassegrain
+
+COD 963
+OBS J. Mackey
+COM Default details extracted from MPEC 2020-L06
+TEL 0.28-m f/3.3 Schmidt-Cassegrain + CCD
+
+COD 970
+COM Find_Orb default details
+OBS N. James
+TEL 0.28-m f/10 Schmidt-Cassegrain + CCD
+
+COD A02
+COM Find_Orb default details
+OBS J. Salto, A. Salto
+TEL 0.25-m f/3.7 Schmidt-Cassegrain + CCD
+
+COD A16
+OBS P. Kocher
+COM Default details extracted from MPEC 2021-B143
+TEL 0.28-m f/2.2 astrograph + CCD
+
+COD A17
+OBS M. Emmerich, S. Melchert
+COM Default details extracted from MPEC 2021-E60
+TEL 0.36-m f/6 Schmidt-Cassegrain + CCD
+
+COD A18
+COM Find_Orb default details
+OBS B. Brinkmann
+TEL 0.2-m f/5.8 Schmidt-Cassegrain + CCD
+
+COD A29
+OBS M. Bachini
+COM Default details extracted from MPEC 2020-C98
+TEL 0.40-m f/5 reflector + CCD
+
+COD A32
+COM Find_Orb default details
+OBS H. Denzau
+TEL 0.36-m Schmidt-Cassegrain f/5.5 + CCD
+
+COD A41
+OBS R. Palcic
+COM Default details extracted from MPEC 2024-J304
+TEL 0.60-m f/5.2 reflector + CMO
+
+COD A44
+OBS W. Ries
+COM Default details extracted from MPEC 2020-S38
+TEL 0.45-m f/4.5 reflector + CCD
+
+COD A46
+COM Find_Orb default details
+OBS K. Hornoch
+TEL 0.35-m f/4.7 reflector + CCD
+
+COD A50
+COM Default details via private communication
+TEL 0.50-m telescope + CCD
+
+COD A57
+OBS N. Montigiani, M. Mannucci
+COM Default details extracted from MPEC 2019-J14
+TEL 0.35-m f/11 Schmidt-Cassegrain + CCD + f/8.25 focal reducer
+
+COD A60
+COM Find_Orb default details
+OBS N. Loaring, P. Vaisanen, T. Kwiatkowski, M. Polinska
+TEL 10.50-m reflector + CCD
+
+COD A71
+MEA M. Jaeger
+OBS M. Jaeger, E. Prosperi, S. Prosperi
+COM Default details extracted from MPEC 2021-P47
+TEL 0.3-m f/4 reflector + CCD
+TEL 0.2-m f/2.0 reflector + CCD
+
+COD A77
+MEA F. Kugel, J.-G. Bosch
+OBS F. Kugel, J.-G. Bosch
+COM Default details extracted from MPEC 2021-P47
+TEL 0.4-m f/2.8 reflector + CCD
+TEL 0.2-m f/5.7 reflector + CCD
+TEL 0.2-m f/5.6 reflector + CCD
+
+COD A81
+OBS L. Franco
+COM Default details extracted from MPEC 2022-C56
+TEL 0.20-m f/5.3 reflector + CCD
+
+COD A84
+OBS E. Irtuganov, I. Khamitov.
+COM Default details extracted from MPEC 2019-U80
+MEA I. Bikmaev, I. Khamitov
+TEL 1.50-m f/7.7 reflector + CCD
+
+COD A92
+OBS C. Titescu
+COM Default details extracted from MPEC 2022-G109
+TEL 0.30-m f/3.3 reflector + CCD
+
+COD A98
+OBS S. Shurpakov
+COM Default details extracted from MPEC 2021-J28
+TEL 0.41-m f/3.9 Newtonian reflector + CCD
+
+COD B04
+COM Find_Orb default details
+OBS A. Carbognani
+TEL 0.81-m f/7.9 reflector + CCD
+
+COD B06
+OBS J. M. Trigo-Rodriguez
+COM Default details extracted from MPEC 2020-J16
+TEL 0.25-m f/6.3 Schmidt-Cassegrain + CCD
+
+COD B15
+OBS B. Thinius
+COM Default details extracted from MPEC 2021-X108
+TEL 0.36-m f/5.6 Schmidt-Cassegrain + CCD
+
+COD B18
+MEA M. Andreev
+OBS V. Kozlov, G. Butenko
+COM Default details extracted from MPEC 2021-W138
+TEL 0.6-m f/12.8 Cassegrain + CCD
+
+COD B20
+OBS J. M. Aymami
+COM Default details extracted from MPEC 2021-A190
+TEL 0.25-m f/4.3 Schmidt-Cassegrain + CCD
+
+COD B21
+COM Find_Orb default details
+OBS R. Gierlinger
+MEA R. Gierlinger
+TEL 0.6-m f/3.3 Newtonian reflector + CCD
+
+COD B31
+COM Find_Orb default details
+OBS T. Kwiatkowski, M. Polinska, A. Kryszczynska, M. Polinska, D. Buckley
+OBS P. Charles, E. R. Colmenero, Y. Hashimoto, A. Kniazev, N. Loaring
+OBS D. O'Donoghue, M. Still, P. Vaisanen
+MEA P. Kankiewicz.
+TEL 10-m SALT + CCD
+
+COD B37
+OBS A. Garrigos
+COM Default details extracted from MPEC 2020-V57
+TEL 0.51-m f/4.0 reflector + CCD
+
+COD B42
+OBS V. Nevski
+COM Default details extracted from MPEC 2022-F14
+TEL 0.3-m f/5.0 reflector + CCD
+
+COD B49
+OBS J. Camarasa
+COM Default details extracted from MPEC 2021-C96
+TEL 0.30-m f/4 reflector + CCD
+
+COD B50
+OBS J. Linder
+COM Default details extracted from MPEC 2021-A190
+TEL 0.20-m f/5.8 Schmidt-Cassegrain + CCD
+
+COD B53
+OBS D. Pivato
+COM Default details extracted from MPEC 2024-G193
+TEL 0.25-m  f/5.0 reflector + CCD
+
+COD B54
+OBS J. Bel
+COM Default details extracted from MPEC 2021-N06
+TEL 0.30-m f/10.28 Schmidt-Cassegrain + CCD
+
+COD B56
+OBS J. Lopesino
+COM Default details extracted from MPEC 2021-B143
+TEL 0.30-m Schmidt-Cassegrain
+
+COD B63
+COM Default details from http://www.6roads.com.pl/
+TEL 0.25-m f/3.8 Newtonian + CCD
+
+COD B66
+MEA W. Borghini
+OBS W. Borghini, M. Botti
+COM Default details extracted from MPEC 2021-W31
+TEL 0.4-m f/7.3 Ritchey-Chretien + CCD
+
+COD B69
+OBS S. Beck
+COM Default details extracted from MPEC 2020-C98
+TEL 0.2-m f/2.8  Newtonian reflector + CCD
+
+COD B70
+OBS L. Montoro
+COM Default details extracted from MPEC 2022-C56
+TEL 0.24-m f/6.5 Schmidt-Cassegrain
+
+COD B72
+OBS B. Koch
+COM Default details extracted from MPEC 2021-P47
+TEL 0.36-m f/7.6 Schmidt-Cassegrain + CCD + f/7.6 focal reducer
+
+COD B74
+OBS J. M. Bosch
+COM Default details extracted from MPEC 2021-B143
+TEL 0.4-m f/1.2 Schmidt-Cassegrain + CCD
+
+COD B75
+OBS M. Martignoni
+COM Default details extracted from MPEC 2021-A190
+TEL 0.25-m f/10 Schmidt-Cassegrain + CCD
+
+COD B83
+OBS T. Noel
+COM Default details extracted from MPEC 2023-C137
+TEL 0.05-m f/5.3 refractor + CMOS
+TEL 0.6-m f/7.6 refractor + CMOS + CCD
+
+COD B92
+OBS M. Audejean
+COM Default details extracted from MPEC 2021-N06
+TEL 0.32-m f/6 Newtonian reflector + CCD
+
+COD B96
+OBS E. Bryssinck
+COM Default details extracted from MPEC 2021-A190
+TEL 0.4-m f/3.8 reflector + CCD
+
+COD C10
+OBS J.-F. Soulier
+COM Default details extracted from MPEC 2021-B143
+TEL 0.30-m f/3.8 Newtonian reflector + CCD
+
+COD C23
+OBS A. Diepvens
+COM Default details extracted from MPEC 2021-P47
+TEL 0.20-m f/9 refractor + CCD
+
+COD C27
+OBS A. Jorba
+COM Default details extracted from MPEC 2021-W31
+TEL 0.36-m f/8.0 Ritchey-Chretien + CCD
+
+COD C32
+OBS S. Korotkiy
+COM Default details extracted from MPEC 2021-W31
+TEL 0.13-m f/2 refractor + CCD
+
+COD C35
+OBS J. Aledo
+COM Default details extracted from MPEC 2021-B143
+TEL 0.4-m f/3.4 reflector
+
+COD C36
+OBS S. Shurpakov
+COM Default details extracted from MPEC 2021-A190
+TEL 0.20-m f/4 Schmidt-Cassegrain + CCD
+
+COD C40
+MEA A. Ivanov
+OBS A. Ivanov, A. Barcov, V. Ivanov, V. Lysenko, M. Astapov, N. Ivanova
+COM Default details extracted from MPEC 2021-A190
+TEL 0.51-m f/8 reflector + CCD
+
+COD C41
+OBS E. Gorbovskoy, V. Lipunov, N. Tiurina, P. Balanutsa, V. Kornilov
+OBS V. Chazov, A. Kuznetsov, K. Ivanov, O. Gress, A. Tlatov, V. Senik
+OBS D. Dormidontov, A. Parkhomenko
+COM Default details extracted from MPEC 2022-O116
+TEL 0.4-m f/2.5 reflector
+
+COD C42
+COM Find_Orb default details
+OBS H. Tan, X. Gao, P. Sun
+MEA Z. Xu, P. Sun, M.-T. Hui
+TEL 0.5-m f/4 reflector + CCD
+
+COD C43
+OBS P. Lindner
+COM Default details extracted from MPEC 2021-B143
+TEL 0.30-m f/6.3 Schmidt-Cassegrain + CCD
+
+COD C47
+OBS G. Dangl
+COM Default details extracted from MPEC 2021-A190
+TEL 0.25-m f/4.8 reflector + CCD
+
+COD C49 G
+TEL 0.16-m f/? coronagraph HI1-A
+
+COD C49 H
+TEL 0.34-m f/? coronagraph COR2-A
+
+COD C50 O
+TEL 0.16-m f/? coronagraph HI1-B
+
+COD C50 P
+TEL 0.34-m f/? coronagraph COR2-B
+
+COD C51
+COM Find_Orb default details
+MEA A. Mainzer, E. Wright, J. Bauer, T. Grav, J. Dailey
+MEA J. Masiero, R. Cutri, R. McMillan, R. Walker
+
+COD C53
+COM Find_Orb default details
+OBS S. Thorsteinson
+MEA D. D. Balam
+TEL 0.15-m reflector + CCD
+
+COD C57
+MEA J. Brown, E. Evans, E. Main, R.  Rios, J. Ruprecht, J. Vaillancourt
+MEA J. Varey, H. Viggh, D. Woods
+OBS R. Vanderspek
+COM Default details extracted from MPEC 2020-C98
+TEL 0.10-m  f/1.4 reflector + CCD
+
+COD C65
+COM Find_Orb default details
+OBS T. Santana-Ros
+MEA M. Micheli
+TEL 0.80-m f/9.6 Ritchey-Chretien + CCD
+
+COD C73
+OBS O. Tercu, D. Manole, C. Fotin, C. Antohi, F. Jiglau, A. Serbanescu
+COM Default details extracted from MPEC 2022-L66
+TEL 0.4-m f/8 Ritchey-Chretien + CCD
+
+COD C75
+MEA V. Gonano, T. Gregor
+OBS T. Gregor
+COM Default details extracted from MPEC 2024-D126
+TEL 0.25-m f/5.7 Schmidt-Cassegrain + CCD
+
+COD C77
+OBS A. Mantero
+COM Default details extracted from MPEC 2021-E131
+TEL 0.25-m f/4.0 reflector + CCD
+
+COD C82
+COM Default details extracted from MPEC 2021-R151
+OBS N. Ruocco
+TEL 0.35-m f/6.3 Schmidt-Cassegrain + CCD
+
+COD C86
+OBS J. Gaitan
+COM Default details extracted from MPEC 2020-C98
+TEL 0.24-m f/6.8 reflector
+
+COD C90
+OBS L. Tremosa
+COM Default details extracted from MPEC 2021-A190
+TEL 0.30-m f/5 reflector + CCD
+
+COD C94
+OBS Y. Kechin, V. Lipunov, E. Gorbovskoy, N. Tiurina, P. Balanutsa
+OBS V. Kornilov, A. Kuznetsov, O. Gress, D. Zimnukhov, S. Yazev, N. Budnev
+COM Default details extracted from MPEC 2024-C09
+TEL 0.4-m f/2.5 reflector   CCD.
+
+COD C95
+COM Find_Orb default details
+OBS D. Husar, J. Jahn, K. Meo, W. Pasche
+MEA D. Husar, J. Jahn
+TEL 0.60-m f/3.2 Newtonian reflector + CCD
+
+COD C97
+OBS S. Al-Alawi, Y. Al-Majrafi, M. Al- Hadi, M. Al-tobi
+COM Default details extracted from MPEC 2022-Y104
+TEL 0.61-m f/7.84 Ritchey-Chretien + CCD
+
+COD D00
+OBS V. Nevski
+COM Default details extracted from MPEC 2021-A190
+TEL 1-m f/2.5 reflector + CCD
+
+COD D03
+COM Default details from http://www.6roads.com.pl/
+TEL 0.40-m f/3.8 Newtonian + CCD
+
+COD D15
+OBS T. Lehmann
+COM Default details extracted from MPEC 2022-G109
+TEL 0.28-m f/2.2 reflector
+
+COD D20
+COM Default details extracted from MPEC 2020-U161
+OBS T. Santana-Ros, B. Gendre
+MEA M. Micheli
+TEL 1.0-m reflector + CCD
+
+COD D23
+MEA J. M. Perez-Redondo
+OBS J. M. Perez-Redondo, D. Rodriguez
+COM Default details extracted from MPEC 2024-L77
+TEL 0.20-m f/10.0 sc + CCD
+
+COD D28
+OBS J. Solaz
+COM Default details extracted from MPEC 2024-A150
+TEL 0.35-m f/4.2 reflector + CMO
+
+COD D29
+COM Find_Orb default details
+OBS H. B. Zhao, B. Li, G. Zhaori, R. Q. Hong, L. F. Hu
+MEA H. B. Zhao, B. Li. H. Lu, G. Zhaori
+TEL 1.04-m f/1.8 Schmidt + CCD
+
+COD D30
+OBS D. Scharnhorst
+COM Default details extracted from MPEC 2024-E49
+TEL 0.15-m f/6.2 reflector + CCD
+
+COD D31
+OBS M. Stefanini
+COM Default details extracted from MPEC 2024-F83
+TEL 0.36-m f/6.6 Schmidt-Cassegrain + CMO
+
+COD D35
+OBS C.-S. Lin, Z.-Y. Lin
+COM Default details extracted from MPEC 2021-L04
+MEA Z.-Y. Lin
+TEL 0.4-m f/8.4 Ritchey-Chretien + CCD
+
+COD D38
+OBS A. Pearce
+COM Default details extracted from MPEC 2024-L77
+TEL 0.23-m f/4 Reflector + CCD
+TEL 0.30-m f/5.5 Reflector + CCD
+TEL 0.30-m f/5.5 reflector + CCD
+
+COD D40
+OBS D. Pica
+COM Default details extracted from MPEC 2024-H91
+TEL 0.23-m f/6 Schmidt-Cassegrain + CMO
+
+COD D47
+OBS D. Pivato
+COM Default details extracted from MPEC 2024-L77
+TEL 0.25-m f/5.0 Baker Ritchey Chretien + CCD
+
+COD D48
+OBS W. Wiedemann
+COM Default details extracted from MPEC 2024-M118
+TEL 0.28-m f/4.3 Schmidt- Cassegrain + CCD
+
+COD D49
+OBS J. Camarasa
+COM Default details extracted from MPEC 2024-N80
+TEL 0.07-m f/5.8 refractor + CCD
+
+COD D54
+OBS Y. Kechin, V. Lipunov, E. Gorbovskoy, N. Tiurina, P. Balanutsa
+OBS V. Kornilov, A. Kuznetsov, D. Zimnukhov, O. Gress, A. Tlatov, V. Senik
+OBS D. Dormidontov, A. Parkhomenko
+COM Default details extracted from MPEC 2024-D126
+TEL 0.4-m f/2.5 reflector + CCD
+
+COD D63
+OBS R. Bacci
+COM Default details extracted from MPEC 2024-V93
+TEL 0.41-m f/3.75 reflector + CCD
+
+COD D64
+OBS M. F. Caramanico
+COM Default details extracted from MPEC 2024-H91
+TEL 0.25-m f/4.0 0.25m Newton + CMOS + CMO
+
+COD D78
+OBS T. Tanaka
+COM Default details extracted from MPEC 2021-O47
+MEA H. Sato
+TEL 0.13-m f/7.7 refractor + CCD + f/5.8 focal reducer
+
+COD D88
+OBS Y. Sugiyama
+COM Default details extracted from MPEC 2021-B143
+TEL 0.25-m f/5.0 reflector + CCD
+
+COD D95
+OBS T. Takahashi
+COM Default details extracted from MPEC 2021-B143
+TEL 0.25-m f/4.2 reflector + CCD
+
+COD E10
+OBS P. Breitenstein, L. Broering
+COM Default details extracted from MPEC 2020-H182
+MEA P. Breitenstein
+TEL 2.0-m Ritchey-Chretien + CCD
+
+COD E12
+COM Find_Orb default details
+TEL 0.5-m Uppsala Schmidt + CCD
+NET UCAC2
+
+COD E23
+OBS A. Hidas
+COM Default details extracted from MPEC 2021-C16
+TEL 0.35-m f/1.9 reflector + CCD
+
+COD E62
+OBS B. Lutkenhoner, E. Cortes
+COM Default details extracted from MPEC 2024-T138
+TEL 0.5-m f/6.8 Corrected Dall-Kirkham + CCD
+
+COD E85
+OBS J. McCormick
+COM Default details extracted from MPEC 2021-F20
+TEL 0.35-m f/10 Schmidt-Cassegrain + CCD
+
+COD E89
+OBS R. Carstens
+COM Default details extracted from MPEC 2021-A190
+TEL 0.25-m f/4.6 Schmidt-Cassegrain + CCD
+
+COD E94
+OBS J. Drummond
+COM Default details extracted from MPEC 2021-C16
+TEL 0.41-m f/4.5 Newtonian reflector + CCD
+
+
+COD F65
+MEA M. Wawerzonnek
+OBS P. Breitenstein
+COM Default details extracted from MPEC 2021-A24
+TEL 2.0-m Ritchey-Chretien + CCD
+
+COD F84
+COM Find_Orb default details
+OBS N. Teamo
+TEL 0.35-m f/2.0 Schmidt + 1392x1040 CCD
+
+COD G00
+OBS M. Jaeger, E. Prosperi, S. Prosperi
+COM Default details extracted from MPEC 2021-V21
+MEA M. Jaeger
+TEL 0.28-m f/2.2 reflector + CCD
+
+COD G01
+OBS T. Hoffmann
+COM Default details extracted from MPEC 2022-C56
+TEL 0.4-m f/8 Ritchey-Chretien + CCD
+
+COD G02
+OBS M. Urbanik
+COM Default details extracted from MPEC 2021-P47
+TEL 0.40-m f/4.4 reflector + CCD
+
+COD G03
+OBS T. Maroti
+COM Default details extracted from MPEC 2022-N28
+TEL 0.28-m f/2.2 reflector + CCD
+
+COD G06
+OBS G. van Buitenen
+COM Default details extracted from MPEC 2021-B143
+TEL 0.20-m f/8 Ritchey-Chretien + CCD + f/5.4 focal reducer
+
+COD G09
+OBS J. Vincent
+COM Default details extracted from MPEC 2021-F115
+TEL 0.30-m reflector + CCD
+
+COD G11
+OBS B. Klemt
+COM Default details extracted from MPEC 2021-F20
+TEL 0.31-m f/5.7 Ritchey-Chretien + CCD
+
+COD G14
+OBS G. Attard
+COM Default details extracted from MPEC 2021-U31
+TEL 0.28-m f/1.9 reflector + CCD
+
+COD G15
+COM Default details extracted from MPEC 2021-R52
+OBS A. De Pieri
+TEL 0.25-m f/6.7 Schmidt-Cassegrain + CCD
+
+COD G17
+OBS L. Grazzini
+COM Default details extracted from MPEC 2021-B143
+TEL 0.20-m f/10 Schmidt-Cassegrain + CCD + f/6.3 focal reducer
+
+COD G18
+MEA A. Valvasori
+OBS A. Valvasori, E. Guido
+COM Default details extracted from MPEC 2021-J28
+TEL 0.23-m f/5.2 reflector + CCD
+
+COD G19
+OBS I. Kuettner
+COM Default details extracted from MPEC 2022-W132
+TEL 0.23-m f/5.5 reflector + CCD
+
+COD G20
+OBS Y. Degot Longhi
+COM Default details extracted from MPEC 2021-B143
+TEL 0.2-m f/3.8 reflector + CCD
+
+COD G23
+OBS Z. Banfalvy
+COM Default details extracted from MPEC 2021-B143
+TEL 0.12-m refractor + CCD
+
+COD G26
+OBS W. Pei
+COM Default details extracted from MPEC 2021-B143
+TEL 0.28-m f/2 Schmidt-Cassegrain + CCD
+
+COD G33
+OBS G. Neue
+COM Default details extracted from MPEC 2021-B143
+TEL 0.27-m Schmidt-Cassegrain + CCD
+
+COD G34
+OBS T. Felber
+COM Default details extracted from MPEC 2021-C321
+TEL 0.35-m f/6.3 Schmidt-Cassegrain + CCD
+
+COD G37
+COM Find_Orb default details
+TEL 4.3-m Lowell Discovery Telescope + CCD
+
+COD G39
+MEA E. Bryssinck
+OBS F.-J. Hambsch, E. Bryssinck
+COM Default details extracted from MPEC 2021-B143
+TEL 0.4-m f/6.8 reflector + CCD
+
+COD G40
+COM Find_Orb default details
+CON Goran Gasparovic, Actarius Grupa, Badaliceva 25, 10000 Zagreb, Croatia
+CON [gasparovic (at) actarius (dot) hr]
+OBS G. Gasparovic, Y. Chen
+MEA G. Gasparovic, Y. Chen
+TEL 0.43-m f/6.8 Corrected Dall-Kirkham + CCD
+ACK 2016-07-13 [G40], 2010-050B (GG712B), Gasparovic
+AC2 [gasparovic (at) actarius (dot) hr], [ying (dot) chen (at) actarius (dot) hr], [paul (at) slooh (dot) com]
+NET UCAC-4
+
+COD G45
+COM Find_Orb default details
+OBS L. Banks, M. Blythe, R. Brungard, P. Festler, T. McVey
+OBS J. Paige, W. Robertson, G. Spitz
+MEA C. Byun, M. Cornell, M. Goldberg, A. Klein, J. Ruprecht
+MEA G. Ushomirsky, J. Varey, H. Viggh, D. Woods
+TEL 3.5-m f/1 reflector + CCD
+
+COD G56
+COM Find_Orb default details
+OBS G. McKeegan
+TEL 0.28-m Schmidt-Cassegrain + CCD + f/6.2 focal reducer
+
+COD G58
+COM Find_Orb default details
+OBS G. McKeegan
+TEL 0.9-m f/4.5 Schmidt-Cassegrain + CCD
+
+COD G80
+OBS D. De Martin
+COM Default details extracted from MPEC 2022-G109
+TEL 0.61-m f/6.8 Corrected Dall-Kirkham + CCD
+
+COD G83
+COM Find_Orb default details
+COM https://www.lbto.org/overview.html
+TEL 8.4-m f/1.14 reflector
+
+COD G84
+COM Default details extracted from MPEC 2022-J102
+TEL 0.8-m f/7.0 reflector + CMOS
+
+COD G96
+COM Find_Orb default details
+COM Valid: 2003 jan 1 - 2016 May 26
+TEL 1.5-m reflector + 4K CCD
+COM Valid: 2016 May 26 - 2100
+TEL 1.5-m reflector + 10K CCD
+
+COD H01
+COM Find_Orb default details
+OBS W. H. Ryan, E. V. Ryan
+MEA W. H. Ryan
+TEL 2.4-m f/8.9 reflector + CCD
+
+COD H06
+COM Find_Orb default details
+COM Note : multi-telescope site
+COM See also : https://support.itelescope.net/support/solutions/articles/231907-telescope-24
+OBS E. Guido, G. Sostero, V. Gonano, L. Donato
+TEL 0.43-m f/6.8 astrograph + CCD + f/4.5 focal reducer
+TEL 0.25-m f/3.4 reflector + CCD
+TEL 0.50-m f/6.8 reflector + CCD + f/4.5 focal reducer
+TEL 0.10-m f/5.0 astrograph + CCD
+
+COD H15
+OBS L. Elenin
+COM Default details extracted from MPEC 2022-G109
+TEL 0.45-m f/2.8 astrograph + CCD
+
+COD H21
+COM Find_Orb default details
+OBS R. Holmes
+COM Default details extracted from MPEC 2020-Y141
+COM Multi-telescope site;  for full info,  see
+COM https://support.itelescope.net/support/solutions/articles/231907-telescope-24
+MEA S. Foglia, L. Buzzi, T. Linder, R. Holmes
+TEL 0.76-m f/3.0 astrograph + CCD
+TEL 0.81-m f/4.0 astrograph + CCD
+TEL 0.61-m f/4.5 astrograph + CCD
+TEL 0.40-m f/5.32 astrograph + CCD
+
+COD H23
+OBS T. Haugh
+COM Default details extracted from MPEC 2021-B143
+TEL 0.32-m f/6.7 Newtonian reflector + CCD
+
+COD H27
+COM Default details extracted from MPEC 2022-Q137
+OBS M. Bruenjes
+TEL 0.36-m f/2.0 Schmidt-Cassegrain + CCD
+
+COD H36
+COM Find_Orb default details
+OBS G. Hug
+TEL 0.56-m reflector + CCD
+COM Valid: 2018 Jul 1 - 2100
+NET Gaia-DR1
+
+COD H41
+COM Find_Orb default details
+OBS P. C. Sherrod
+TEL 0.41-m f/3.7 Schmidt-Cassegrain + CCD
+
+COD H45
+OBS P. C. Sherrod
+COM Default details extracted from MPEC 2020-C98
+TEL 0.51-m f/4.3 astrograph + CCD
+
+COD H47
+OBS C. Bell
+COM Default details extracted from MPEC 2021-B143
+TEL 0.3-m f/6.6 Schmidt-Cassegrain + CCD
+
+COD H55
+COM Find_Orb default details
+OBS R. Holmes
+TEL 0.81-m f/4.0 astrograph + CCD
+
+COD H59
+COM Find_Orb default details
+CON J. Mahony, 304 S. 6th #3W, Lafayette IN 47901, U.S.A.
+OBS J. Mahony
+MEA J. Mahony
+NET USNO-SA2.0
+TEL 0.30-m Schmidt Cassegrain + CCD
+ACK MPCReport file updated 2003.05.21 06:59:37
+
+COD H72
+COM Find_Orb default details
+OBS M. Fauerbach, M. Mon
+TEL 0.40-m f/5.3 reflector + CCD
+
+COD H85
+COM Find_Orb default details
+CON J. C. Pelle, BP 130085, 98717 PUNAAUIA, French Polynesia
+CON [jcpelle (at) mail (dot) pf]
+OBS K. Levin
+MEA J. C. Pelle
+TEL 0.45-m f/7.25 Ritchey-Chretien + 3072x2054 CCD
+AC2 [jcpelle (at) mail (dot) pf], [klevin57 (at) gmail (dot) com]
+NET UCAC-2
+
+COD I11
+OBS J. Masiero, V. Firpo, P. Prado
+MEA J. Masiero
+COM Default details extracted from MPEC 2018-L30
+TEL 8.0-m reflector
+
+COD I15
+OBS H. Peterson
+COM Default details extracted from MPEC 2020-C98
+TEL 0.35-m f/10  Schmidt-Cassegrain + CCD + f/6.27 focal reducer
+
+COD I19
+OBS C. Colazo
+COM Default details extracted from MPEC 2019-P77
+TEL 0.36-m f/10.70 Schmidt-Cassegrain + CCD
+
+COD I22
+OBS F. D. Romanov
+COM Default details extracted from MPEC 2021-J28
+TEL 0.35-m f/6.2 Schmidt-Cassegrain + CCD
+
+COD I32
+OBS F. Tifner
+COM Default details extracted from MPEC 2021-A190
+TEL 0.25-m f/10 Schmidt-Cassegrain + CCD
+
+COD I33
+COM Find_Orb default details
+TEL 4.1-m reflector + CCD
+
+COD I41
+MEA B. T. Bolin, Z.-Y. Lin, F. J. Masci
+OBS B. T. Bolin, Z. T. F. Collaboration
+COM Default details extracted from MPEC 2020-W177
+TEL 1.2-m f/2.4 Schmidt
+
+COD I47
+OBS M. Masek
+COM Default details extracted from MPEC 2021-C16
+TEL 0.3-m f/6.8 reflector + CCD
+
+COD I48
+OBS J. Spagnotto
+COM Default details extracted from MPEC 2020-H18
+TEL 0.20-m f/5 reflector + CCD
+
+COD I52
+COM Find_Orb default details
+TEL 1.0-m prime focus + CCD
+
+COD I72
+OBS J. L. Martin
+COM Default details extracted from MPEC 2021-B143
+TEL 0.30-m f/8 Ritchey-Chretien + CCD
+
+COD I75
+OBS A. Betoret
+COM Default details extracted from MPEC 2022-M21
+TEL 0.25-m f/6.3 Schmidt Cassegrain + CCD
+
+COD I77
+COM Find_Orb default details
+OBS C. Jacques,E. Pimentel
+MEA C. Jacques
+TEL 0.30-m f/3.0 Schmidt-Cassegrain + CCD
+ACK batch_2004_I77_002
+AC2 [cjacqueslf_nospam (at) yahoo (dot) com (dot) br]
+
+COD I79
+MEA D. Husar
+OBS L. Demetz, D. Husar
+COM Default details extracted from MPEC 2021-A190
+TEL 0.2-m f/3 Riccardi-Honders + CCD
+
+COD I81
+OBS D. Buczynski
+COM Default details extracted from MPEC 2021-B143
+TEL 0.35-m f/6.0 Schmidt-Cassegrain + CCD
+
+COD I88
+OBS J. Carrillo
+COM Default details extracted from MPEC 2021-F20
+TEL 0.36-m f/5 reflector + CCD
+
+COD I89
+COM Default details extracted from MPEC 2020-W177
+COM NOTE: multi-telescope site; see :
+COM https://support.itelescope.net/support/solutions/articles/247371-overview-of-all-telescopes
+TEL 0.32-m f/8 reflector + CCD
+TEL 0.15-m f/7.3 refractor + CCD
+TEL 0.43-m f/6.8 corrected Dall-Kirkham + CCD
+
+COD I93
+MEA F. Losse
+OBS F. Losse, W. D'Anna
+COM Default details extracted from MPEC 2021-C313
+TEL 0.40-m f/3.7 reflector + CCD
+
+COD J01
+OBS J. Gonzalez
+COM Default details extracted from MPEC 2020-C98
+TEL 0.20-m f/6  Ritchey-Chretien + CCD
+
+COD J04
+COM Find_Orb default details
+CON M. Micheli
+CON [marco (dot) micheli (at) esa.int]
+OBS D. Abreu
+MEA M. Micheli, D. Koschny, E. Schwab, M. Busch, A. Kn\"ofel
+TEL 1.0-m f/4.4 reflector + CCD
+NET UCAC-4
+
+COD J08
+OBS A. Carreno
+MEA J. Piqueras
+COM Default details extracted from MPEC 2019-C19
+TEL 0.20-m f/5 Newtonian reflector + CCD
+
+COD J13
+COM Default details extracted from MPEC 2020-R87
+OBS M. Altmann, I. Steele, J. Marchant
+MEA C. Barache, S. Bouquillon, T. Carlucci, F. Taris
+TEL 2.0-m f/10 Ritchey-Chretien + CCD
+
+COD J19
+OBS F. Pe\~na Ciriza
+COM Default details extracted from MPEC 2021-O56
+TEL 0.15-m f/5 reflector + CCD
+
+COD J22
+OBS K. Hills
+COM Default details extracted from MPEC 2021-B143
+TEL 0.5-m f/2.9 astrograph + CCD
+
+COD J27
+OBS A. San Segundo
+COM Default details extracted from MPEC 2021-E131
+TEL 0.30-m f/4 reflector + CCD
+
+COD J31
+OBS J. Baez
+COM Default details extracted from MPEC 2022-S297
+TEL 0.30-m f/3 + CCD
+
+COD J36
+OBS F. Gomez
+COM Default details extracted from MPEC 2021-L04
+TEL 0.25-m f/10 Schmidt-Cassegrain + CCD.
+
+COD J37
+OBS F. J. Alvarez
+COM Default details extracted from MPEC 2023-A50
+TEL 0.15-m f/5.0 Newtonian reflector + CCD
+
+COD J38
+OBS F. Garcia
+COM Default details extracted from MPEC 2021-B143
+TEL 0.25-m f/8.1 Ritchey-Chretien + CCD
+
+COD J41
+COM Find_Orb default details
+OBS D. Grennan
+
+COD J43
+COM Find_Orb default details
+OBS C. Rinner
+MEA C. Rinner,  M. Ory
+TEL 0.5-m f/3 reflector + CCD
+
+COD J47
+OBS G. Muler
+COM Default details extracted from MPEC 2021-L04
+TEL 0.30-m f/6 reflector + CCD
+
+COD J57
+OBS A. Fornas
+COM Default details extracted from MPEC 2021-J104
+MEA E. Arce, V. Mas, G. Fornas
+TEL 0.43-m f/6.8 reflector + CCD
+
+COD J59
+OBS J. Temprano
+COM Default details extracted from MPEC 2021-B143
+TEL 0.20-m f/9.0 Cassegrain + CCD
+
+COD J69
+OBS D. Briggs
+COM Default details extracted from MPEC 2020-O21
+TEL 0.41-m f/4.5 Newtonian reflector + CCD
+
+COD J75
+COM Find_Orb default details
+OBS S. Sanchez, J. Nomen, M. Hurtado, J. A. Jaume, W. K. Y. Yeung, F. Serra
+OBS T. Valls, I. Mas, J. Marcus
+TEL 0.36-m f/2 reflector + CCD.
+
+COD J77
+OBS R. Miles
+COM Default details extracted from MPEC 2021-E19
+TEL 0.35-m f/8 Schmidt-Cassegrain + CCD
+
+COD J87 La Canada
+COM Find_Orb default details
+OBS J. Lacruz
+TEL 0.30-m f/3.3 Schmidt-Cassegrain + CCD
+
+COD J95
+COM Find_Orb default details
+CON Phlox Cottage, Wantage Road, Gt Shefford
+CON Berkshire England RG17 7DA
+CON [peter (at) birtwhistle (dot) org (dot) uk]
+OBS P. Birtwhistle
+COM Valid: 2002-2005 sep 15
+TEL 0.30-m f/6.3 Schmidt-Cassegrain + CCD
+COM Valid: 2005 sep 15-2100
+TEL 0.41-m f/6.3 Schmidt-Cassegrain + CCD
+
+COD J96
+MEA J. Temprano
+OBS J. Ruiz
+COM Default details extracted from MPEC 2022-O116
+TEL 0.40-m f/5.0 Ritchey-Chretien + CCD
+
+COD J97 Alginet
+COM Find_Orb default details
+OBS T. Climent
+TEL 0.25-m f/4 Schmidt-Cassegrain + CCD
+
+COD K02
+OBS P. Carson
+COM Default details extracted from MPEC 2019-L24
+TEL 0.32-m reflector + CCD + f/5.4 focal reducer
+
+COD K06
+OBS L. Rubio
+COM Default details extracted from MPEC 2021-A190
+TEL 0.2-m f/5.3 Ritchey-Chretien
+
+COD K14
+OBS M. Morales
+COM Default details extracted from MPEC 2021-B143
+TEL 0.25-m Schmidt-Cassegrain + CCD
+
+COD K19
+OBS C. Demeautis
+COM Default details extracted from MPEC 2021-B143
+TEL 0.16-m f/3.3 reflector + CCD
+
+COD K21
+OBS H. Boussier
+COM Default details extracted from MPEC 2021-W31
+TEL 0.20-m f/6 Schmidt-Cassegrain + CCD
+
+COD K22
+OBS M. Deldem
+COM Default details extracted from MPEC 2021-F20
+TEL 0.28-m f/10 Schmidt-Cassegrain + CCD + f/6.4 focal reducer
+TEL 0.20-m f/10 Schmidt-Cassegrain + CCD + f/8.1 focal reducer
+
+COD K30
+OBS L. Grimm
+COM Default details extracted from MPEC 2020-G44
+TEL 0.25-m f/4.8 Newtonian reflector + CCD
+
+COD K32
+OBS G. Locatelli
+COM Default details extracted from MPEC 2022-Y114
+TEL 0.25-m f/6.3 0.25 m. f/6.3 Schmidt-Cassegrain + CCD
+
+COD K35
+OBS P. Remmel
+COM Default details extracted from MPEC 2023-L10
+TEL 0.36-m f/1.9 reflector + CMO
+
+COD K38
+OBS G. Baj
+COM Default details extracted from MPEC 2021-B143
+TEL 0.3-m f/5.5 Ritchey-Chretien + CCD
+
+COD K40
+OBS S. Beck
+COM Default details extracted from MPEC 2020-W26
+TEL 0.2-m f/2.8 Newtonian reflector + CCD
+
+COD K41
+OBS V. Luna
+COM Default details extracted from MPEC 2019-A68
+TEL 0.3-m Schmidt-Cassegrain + CCD
+
+COD K47
+OBS M. Bachini
+COM Default details extracted from MPEC 2020-C98
+TEL 0.25-m f/5.1  reflector + CCD
+
+COD K51
+MEA R. Furgoni
+OBS G. Favero, R. Furgoni
+COM Default details extracted from MPEC 2020-V57
+TEL 0.80-m f/4 reflector + CCD
+
+COD K56
+OBS R. Nesci
+COM Default details extracted from MPEC 2021-B143
+TEL 0.30-m Schmidt-Cassegrain + CCD
+
+COD K60
+OBS J. Warell
+COM Default details extracted from MPEC 2018-H105
+TEL 0.25-m Schmidt-Cassegrain + CCD
+
+COD K61
+COM Find_Orb default details
+OBS M. Adamovsky
+TEL 0.51-m f/6.8 reflector + CCD
+
+COD K62
+OBS Z. Moravec
+COM Default details extracted from MPEC 2021-E131
+TEL 0.43-m f/4.5 reflector + CCD
+
+COD K63
+OBS R. Bacci
+COM Default details extracted from MPEC 2021-E118
+TEL 0.41-m f/3.2 Newtonian reflector + CCD
+
+COD K70
+OBS A. Brosio
+COM Default details extracted from MPEC 2023-E49
+TEL 0.30-m f/4.0 reflector + CCD + CCD
+
+COD K73
+OBS F. Taccogna
+COM Default details extracted from MPEC 2020-W26
+TEL 0.2-m f/5.0 Newtonian reflector + CCD
+
+COD K74
+OBS C. Gerhard
+COM Default details extracted from MPEC 2021-A190
+TEL 0.30-m f/3.75 Newtonian reflector + CCD
+
+COD K77
+OBS R. Fichtl
+COM Default details extracted from MPEC 2020-C98
+TEL 0.40-m f/2.6  reflector + CCD
+
+COD K78
+OBS G. Scarfi, L. Sannino, L. Bertagna, F. Francini
+MEA G. Scarfi, L. Sannino
+TEL 0.40-m f/6 reflector + CCD
+
+COD K80
+COM Find_Orb default details
+TEL 0.28-m f/2.2 Schmidt astrograph + CCD
+OBS T. Kluwak
+
+COD K81
+OBS P. Matassa
+COM Default details extracted from MPEC 2021-A190
+TEL 0.40-m Ritchey-Chretien + CCD
+
+COD K83
+MEA G. Interrante, M. Iozzi, M. Tombelli, F. Bernardi
+OBS M. Tombelli, A. Mazzanti, E. Venticinque
+COM Default details extracted from MPEC 2021-C321
+TEL 0.40-m f/8 Ritchey-Chretien + CCD
+
+COD K85
+OBS T. Hebbeker
+COM Default details extracted from MPEC 2020-J16
+COM No telescope information given
+
+COD K87
+OBS B. Haeusler
+COM Default details extracted from MPEC 2021-B143
+TEL 0.3-m f/8.0 Schmidt-Cassegrain + CCD
+
+COD K88
+COM Find_Orb default details
+OBS K. Sarneczky
+TEL 0.60-m Schmidt + CCD
+
+COD K91
+COM Find_Orb default details
+CON LCOGT, 6740 Cortona Drive Suite 102, Goleta, CA 93117
+CON [tlister (at) lcogt (dot) net]
+OBS T. Lister, S. Greenstreet, E. Gomez
+MEA T. Lister
+TEL 1.0-m f/8 Ritchey-Chretien + CCD
+ACK M70pEPX(=ExoMars1)_K91_8x6imstacks (at) Leiden
+COM LCOGT CPT Node 1m0 Dome A at Sutherland, South Africa
+AC2 [tlister (at) lcogt (dot) net], [sgreenstreet (at) lcogt (dot) net]
+NET UCAC-4
+BND R
+
+COD K92
+COM Find_Orb default details
+OBS T. Lister, S. Greenstreet, E. Gomez
+MEA S. Greenstreet
+TEL 1.0-m f/6.3 Cassegrain + CCD
+
+COD K93
+COM Find_Orb default details
+OBS R. Miles
+TEL 1.0-m f/8.0 Ritchey-Chretien + CCD
+
+COD K95
+OBS S. Bodrov, V. Lipunov, E. Gorbovskoy, Y. Kechin, N. Tiurina
+OBS P. Balanutsa, A. Kuznetsov, I. Gorbunov, F. Balakin, D. Zimnukhov
+OBS V. Kornilov, A. Krylov, D. Buckley, R. Podesta, F. Podesta
+OBS H. Levato, C. Francile
+TEL 0.4-m f/2.5 reflector + CCD
+
+COD K96
+OBS A. Brosio, A. De Pieri
+COM Default details extracted from MPEC 2020-K194
+TEL 0.5-m f/8.0 Ritchey-Chretien + CCD
+
+COD K97
+OBS P. Ditz
+COM Default details extracted from MPEC 2024-N80
+TEL 0.54-m f/3.75 reflector + CCD
+
+COD K98
+COM Default details from http://www.6roads.com.pl/
+TEL 0.40-m f/3.8 Newtonian + CCD
+
+COD K99
+COM Default details from private communication
+OBS V. Kudak, V. Perig
+TEL 0.40-m telescope + CCD
+
+COD L01
+MEA D. Pujagic, K. Korlevic
+OBS K. Korlevic, D. Pujagic, V. Dobos
+COM Default details extracted from MPEC 2021-C313
+TEL 1.0-m f/2.9 reflector + CCD
+
+COD L02
+OBS N. Sioulas
+COM Default details extracted from MPEC 2021-N06
+TEL 0.25-m f/4.7 reflector + CCD
+
+COD L04
+OBS L. Hudin
+COM Default details extracted from MPEC 2021-A190
+TEL 0.3-m f/5 reflector + CCD
+TEL 0.1-m f/9 refractor + CCD
+
+COD L05
+OBS C. Ghidetti
+COM Default details extracted from MPEC 2024-J122
+TEL 0.25-m f/0.2 Newtonian reflector + CCD
+
+COD L06
+MEA G. Ventre, P. Sicoli
+OBS G. Ventre
+COM Default details extracted from MPEC 2021-A190
+TEL 0.28-m f/10 reflector + CCD
+
+COD L07
+OBS E. Guido, A. Catapano
+COM Default details extracted from MPEC 2021-B143
+TEL 0.5-m f/8 Ritchey-Chretien + CCD
+
+COD L09
+COM Default details extracted from MPEC 2021-L04
+OBS A. Hale
+TEL 0.40-m f/10 Schmidt-Cassegrain + CCD
+
+COD L10
+COM Default details from private communication
+TEL 1.2-m reflector + CMO
+OBS A. Liakos
+MEA M. Micheli
+NET Gaia-DR2
+
+COD L18
+MEA A. M. Kozhukhov
+OBS O. V. Kravchenko, Y. V. Tanasiychuk
+COM Default details extracted from MPEC 2021-E14
+TEL 0.50-m f/3.8 reflector + CCD
+
+COD L22
+OBS C. Vintdevara, A. Dumitriu
+COM Default details extracted from MPEC 2021-N06
+TEL 0.2-m f/4 Newtonian reflector + CCD
+
+COD L27
+OBS J.-F. Soulier
+COM Default details extracted from MPEC 2021-B143
+TEL 0.20-m f/4 Newtonian reflector + CCD
+
+COD L28
+OBS S. Schmalz
+COM Default details extracted from MPEC 2018-V147
+TEL 0.22-m f/2.3 reflector + CCD
+
+COD L29
+OBS G. Lehmann
+COM Default details extracted from MPEC 2019-P11
+TEL 0.4-m f/3.6 reflector + CCD
+
+COD L30
+OBS T. Zilch
+COM Default details extracted from MPEC 2023-B57
+TEL 0.3-m f/4 reflector + CCD
+
+COD L32
+OBS Y. JeongAhn
+COM Default details extracted from MPEC 2019-Y97
+TEL 1.6-m f/3.22 reflector + CCD
+
+COD L33
+OBS N. Mishevskiy
+COM Default details extracted from MPEC 2020-Q109
+TEL 0.25-m f/4.7 reflector + CCD
+
+COD L34
+OBS A. Nastasi
+COM Default details extracted from MPEC 2021-E131
+TEL 0.40-m reflector + CCD
+
+COD L36
+OBS M. Lehky
+COM Default details extracted from MPEC 2020-C98
+TEL 0.60-m f/5 reflector +  CCD
+
+COD L38
+OBS A. Opitz
+COM Default details extracted from MPEC 2023-L60
+TEL 0.35-m f/4.6 Newton + CCD
+
+COD L39
+OBS M. Bertini, L. Franchini
+COM Default details extracted from MPEC 2021-C321
+TEL 0.30-m Newtonian reflector + CCD
+
+COD L40
+OBS M. Schoenwetter
+COM Default details extracted from MPEC 2021-A190
+TEL 0.15-m f/6.1 refractor + CCD
+
+COD L43
+OBS J. Carballada
+COM Default details extracted from MPEC 2022-C56
+TEL 0.16-m f/3.3 reflector + CCD
+
+COD L45
+OBS C. Arena
+COM Default details extracted from MPEC 2021-G154
+TEL 0.2-m f/4.5 Newtonian reflector + CCD
+
+COD L47
+OBS A. Teseo, A. Annamelia
+COM Default details extracted from MPEC 2021-A190
+TEL 0.20-m f/6.3 Schmidt-Cassegrain + CCD
+
+COD L51
+OBS G. Borisov
+COM Default details extracted from MPEC 2017-E42
+TEL 0.4-m f/2.3 astrograph + CCD
+
+COD L53
+OBS D. Agnetti
+COM Default details extracted from MPEC 2022-Y232
+TEL 0.28-m f7.7 S-C + CCD
+
+COD L54
+MEA A. Sonka
+OBS A. Sonka, A. Nedelcu
+COM Default details extracted from MPEC 2021-A190
+TEL 0.38-m f/8 Ritchey-Chretien + CCD
+
+COD L59
+OBS B. Vauquelin
+COM Default details extracted from MPEC 2021-B143
+TEL 0.4-m f/6.35 reflector + CCD
+
+COD L60
+MEA S. Plaksa
+OBS I. Dulevich
+COM Default details extracted from MPEC 2021-A190
+TEL 0.28-m f/2.0 Ritchey-Chretien + CCD
+
+COD L63
+OBS M. Iozzi
+COM Default details extracted from MPEC 2021-A190
+TEL 0.2-m f/7.4 Schmidt-Cassegrain + CCD
+
+COD L65
+OBS H. Duin
+COM Default details extracted from MPEC 2023-J95
+TEL 0.23-m f/6.3 reflector + CMO
+
+COD L68
+OBS S. L. Ferreira
+COM Default details extracted from MPEC 2022-H122
+TEL 0.35-m f/6.3 Schmidt- Cassegrain + CCD
+
+COD L74
+OBS G. Morra
+COM Default details extracted from MPEC 2021-G02
+COM No telescope specified
+
+COD L76
+OBS E. Romas
+COM Default details extracted from MPEC 2021-F20
+TEL 0.2-m f/5 reflector + CCD
+
+COD L79
+OBS A. Nagy Melykuti
+COM Default details extracted from MPEC 2024-D126
+TEL 0.20-m f/4.0 reflector + CCD
+
+COD L80
+CON M. Micheli
+COM Default details from private communication, 2020 Jun 04
+OBS R. Reszelewski, M. Zolnowski, M. Gedek, K. Zukowski
+OBS T. Santana-Ros, L. Conversi, M. Micheli
+MEA M. Micheli
+TEL 0.25-m reflector + CCD
+NET Gaia-DR2
+
+COD L81
+MEA L. Buzzi, G. Galli, A. Aletti
+OBS L. Buzzi, L. Demetz
+COM Default details extracted from MPEC 2021-P47
+TEL 0.51-m f/6.7 astrograph + CCD
+
+COD L85
+OBS M. Feraco
+COM Default details extracted from MPEC 2021-A190
+TEL 0.28-m f/6.3 Schmidt-Cassegrain + CCD
+
+COD L87
+OBS G. Duszanowicz
+COM Default details extracted from MPEC 2021-W31
+TEL 0.36-m f/7.7 reflector + CCD
+
+COD L90
+OBS A. Brosio
+COM Default details extracted from MPEC 2023-V147
+TEL 0.30-m f/4.0 reflector + CCD
+
+COD L92
+OBS T. Scarmato
+COM Default details extracted from MPEC 2021-J28
+TEL 0.25-m Newtonian reflector + CCD
+
+COD L99
+OBS A. M. Kozhukhov
+COM Default details extracted from MPEC 2023-S189
+TEL 0.30-m f/1.0 astrograph + CMO
+
+COD M03
+OBS C. Grabenbauer
+COM Default details extracted from MPEC 2022-G109
+TEL 0.15-m f/4 refractor + CCD
+
+COD M04
+OBS J. M. Llenas garcia
+COM Default details extracted from MPEC 2023-C45
+TEL 0.51-m f/6.8 CDK + CCD
+
+COD M06
+OBS J. M. Perez-Redondo
+COM Default details extracted from MPEC 2024-F34
+TEL 0.20-m f/10.0 SC + CCD
+
+COD M09
+OBS P.-J. Dekelver
+COM Default details extracted from MPEC 2022-F14
+TEL 0.3-m f/4.0 Newtonian reflector + CCD
+
+COD M10
+OBS C. Pin-ferrier
+COM Default details extracted from MPEC 2021-V21
+TEL 0.25-m f/5 reflector + CCD
+
+COD M11
+OBS G. Attard
+COM Default details extracted from MPEC 2022-G14
+TEL 0.28-m f/2.2 reflector + CCD
+
+COD M13
+OBS P. Buttani
+COM Default details extracted from MPEC 2023-N01
+TEL 0.20-m f/3.2 reflector + CMO
+
+COD M14
+OBS M. Auteri
+COM Default details extracted from MPEC 2023-J29
+TEL 0.20-m f/5 Newtonian reflector + CCD
+
+COD M16
+OBS S. Negri
+COM Default details extracted from MPEC 2022-F14
+TEL 0.20-m f/10 Schmidt- Cassegrain + CCD
+
+COD M17
+OBS L. Bertagna
+COM Default details extracted from MPEC 2022-L66
+TEL 0.20-m f/4 reflector + CCD
+
+COD M18
+OBS S. Fritsche
+COM Default details extracted from MPEC 2022-C56
+TEL 0.10-m f/5.8 refractor
+
+COD M19
+OBS Z. Orbanic
+COM Default details extracted from MPEC 2024-J304
+TEL 0.25-m f/3.8 reflector + CCD
+
+COD M21
+MEA L. Buzzi
+OBS A. Aletti, F. Bellini, L. Buzzi, G. Galli
+COM Default details extracted from MPEC 2022-H30
+TEL 0.36-m f/8.4 reflector + CCD
+
+COD M24
+OBS B. Monteleone
+COM Default details extracted from MPEC 2024-J304
+TEL 0.25-m f/8.0 reflector + CMO
+
+COD M26
+MEA M. Lombardo
+OBS M. Lombardo, K. Lombardo
+COM Default details extracted from MPEC 2022-K19
+TEL 0.30-m f/8 Ritchey-Chretien + CCD
+
+COD M28
+OBS N. Erasmus
+COM Default details extracted from MPEC 2022-O04
+TEL 1.0-m f/8 Reflector + CCD
+
+COD M29
+OBS V. Tinella, A. De Pieri
+COM Default details extracted from MPEC 2023-V111
+TEL 0.40-m f/8 Reflector + CCD
+
+COD M32
+OBS O. Briukhovetskyi
+COM Default details extracted from MPEC 2022-O04
+TEL 0.35-m f/2.0 reflector + CCD
+
+COD M35
+MEA R. Anghel, A. Anghel
+OBS R. Anghel
+COM Default details extracted from MPEC 2023-N01
+TEL 0.2-m f/12 Cassegrain + CCD
+
+COD M38
+OBS T. Elek
+COM Default details extracted from MPEC 2023-M109
+TEL 0.20-m f/4 reflector + CCD
+
+COD M40
+MEA A. M. Abdelaziz
+OBS A. M. Abdelaziz, S. K. Tealib
+COM Default details extracted from MPEC 2023-B154
+TEL 0.36-m f/2.2 reflector + CCD
+
+COD M43
+OBS A. Gabuya
+COM Default details extracted from MPEC 2020-W26
+TEL 0.41-m f/8 Schmidt-Cassegrain + CCD
+
+COD M45
+OBS F. Ursache
+COM Default details extracted from MPEC 2023-J95
+TEL 0.41-m f/7.5 reflector + CMO
+
+COD M44
+OBS M. Odeh
+MEA M. Odeh, S. Ashi
+COM Default details extracted from MPEC 2023-X175
+TEL 0.36-m f/7.7 Schmidt-Cassegrain + CMO
+
+COD M49
+MEA D. Husar
+OBS D. Husar, M. Junius
+COM Default details extracted from MPEC 2023-M112
+TEL 0.25-m f/4.6 reflector + CCD
+
+COD M50
+OBS G. Masi
+COM Default details extracted from MPEC 2023-M28
+TEL 0.36-m  f/7.2 Schmidt-Cassegrain + CCD
+
+COD M52
+OBS M. Dionisi
+COM Default details extracted from MPEC 2023-J95
+TEL 0.25-m f/5 reflector + CMOS + CCD
+
+COD M54
+MEA J.-M. Mari
+OBS J.-M. Mari, C. Jasicki
+COM Default details extracted from MPEC 2024-K130
+TEL 0.25-m f/4.5 reflector + CMO
+
+COD M57
+OBS A. Nastasi
+COM Default details extracted from MPEC 2023-W12
+TEL 1.00-m f/2.1 reflector + CCD
+
+COD M60
+OBS A. Carbognani
+COM Default details extracted from MPEC 2023-X143
+TEL 0.3-m f/4.0 reflector + CCD
+
+COD M63
+OBS D. Licchelli
+COM Default details extracted from MPEC 2024-A53
+TEL 0.3-m f/5.3 reflector + CCD
+
+COD M64
+OBS K. Johnson
+COM Default details extracted from MPEC 2024-E157
+TEL 0.25-m f/6.8 SCT + CCD
+
+COD M75
+OBS A. V. Skachedub
+COM Default details extracted from MPEC 2024-Q29
+TEL 0.28-m f/2.2 reflector + CMO
+
+COD N42
+COM Default details from private communication
+TEL 1.0-m reflector + CCD
+
+COD N50
+OBS D. K. Sahu, S. Pramod Kumar, T. Santana-Ros, M. Micheli, L. Conversi
+MEA M. Micheli
+COM Default details extracted from MPEC 2022-L21
+TEL 2.01-m reflector + CCD
+
+COD N51
+MEA K. Sharma, B. T. Bolin
+OBS K. Sharma, H. Kumar, P. Dorjay, J. Stanzin, V. Bhalerao, G. C. Anupama
+OBS S. Barway
+COM Default details extracted from MPEC 2020-W177
+TEL 0.70-m f/6.5 Corrected Dall-Kirkham + CCD
+
+COD N55
+OBS T. Chen, D. W. E. Green
+MEA T. Chen
+COM Default details extracted from MPEC 2019-X100
+TEL 0.3-m f/7.2 reflector + CCD
+
+COD N56
+OBS T. Chen, D. W. E. Green
+COM Default details extracted from MPEC 2021-N137
+TEL 0.3-m f/7.2 reflector + CCD
+
+COD N82
+OBS L. Elenin
+COM Default details extracted from MPEC 2021-E129
+TEL 0.4-m f/1.25 reflector + CCD
+
+COD N86
+COM Default details extracted from MPEC 2021-L04
+OBS Observers X. Gao, Q.-Z. Ye
+MEA Q.-Z. Ye
+TEL 0.28-m f/2.2 Schmidt.
+
+COD N87
+MEA M. Zhang, X. Liao, Z. Yang
+OBS M. Zhang, G. Sun, X. Gao, H. B. Niu, G. J. Feng
+COM Default details extracted from MPEC 2023-K53
+TEL 1.0-m f/2.2 reflector + CCD
+
+COD N88
+MEA Q.-Z. Ye
+OBS X. Gao
+COM Default details extracted from MPEC 2021-C96
+TEL 0.6-m f/8 Ritchey-Chretien + CCD
+
+COD N89
+MEA M. Zhang
+OBS M. Zhang, X. Gao
+COM Default details extracted from MPEC 2023-H131
+TEL 0.50-m f/4 reflector + CCD
+
+COD O18
+MEA B. Li, H. B. Zhao, Z. J. Xu, G. T. Zhaori
+OBS K. Yan, Z. Q. Li, J. Z. Zhu, N. Jiang, Z. Y. Liu
+COM Default details extracted from MPEC 2023-X77
+TEL 2.5-m f/2.48 reflector + CCD
+
+COD O46
+OBS Z. Wang
+TEL 0.25-m f/8 reflector + CMO
+
+COD O49
+OBS F. Li, Y. Yuan, J. Chen, A. Zhu, Y. Fu
+MEA B. Li, H. B. Zhao
+TEL 0.8-m f/10 Ritchey-Chretien + 2048 CCD
+
+COD O51
+OBS T. Thaluang
+COM Default details extracted from MPEC 2022-Y232
+TEL 0.2-m f/4 reflector + CCD
+
+COD O52
+OBS N. Tirawat
+COM Default details extracted from MPEC 2024-D126
+TEL 0.20-m f/4 reflector + CCD
+
+COD O53
+OBS W. Jaichalad
+COM Default details extracted from MPEC 2024-D126
+TEL 0.23-m f/2.2 SCT + CMO
+
+COD O75
+COM Find_Orb default details
+OBS T. Namkhai, S. Schmalz
+MEA S. Schmalz
+TEL 0.4-m f/2.3 reflector + CCD
+
+COD O85
+OBS Y. Yu, K. Tang, A. Pomazan
+COM Default details extracted from MPEC 2023-Y02
+TEL 0.50-m f/7.0 Cassegrain + CCD
+
+COD P07
+MEA M. Cornell, M. Kotson, R. Rios, J. Ruprecht, J. Vaillancourt, J. Varey
+MEA H. Viggh, D. Woods
+OBS M. Blythe, R. Brungard, P. Festler, T. McVey, J. Paige, G. Spitz
+OBS L. Banks
+COM Default details extracted from MPEC 2022-Y15
+TEL 3.5-m f/1.0 reflector + CCD
+
+COD P13
+OBS Z. Wang, B. Liu
+MEA Z. Wang
+TEL 0.28-m f/2.2 reflector + CMO
+
+COD P14
+OBS A. Pearce
+COM Default details extracted from MPEC 2024-N80
+TEL 0.05-m f/5 Apochromatic Refractor + CCD
+
+COD P18
+OBS S. Zhang, H. Chen, X. Yin
+COM Default details extracted from MPEC 2021-F20
+TEL 0.25-m f/4.0 reflector + CCD
+
+COD P87
+OBS K. Yoshimoto
+COM Default details extracted from MPEC 2021-B143
+TEL 0.20-m f/8.0 Ritchey-Chretien + CCD + f/5.4 focal reducer
+
+COD P93
+COM Find_Orb default details
+OBS S. Okumura, T. Fujiwara
+TEL 1.0-m f/3.0 reflector + CCD
+
+COD Q02
+OBS Y. Yamaguchi
+COM Default details extracted from MPEC 2021-N06
+TEL 0.08-m f/5.5 refractor
+
+COD Q06
+OBS H. Watanabe
+COM Default details extracted from MPEC 2024-C158
+TEL 0.35-m f/1.9 Schmidt-Cassegrain + CMO
+
+COD Q10
+OBS M. Ishiguro
+COM Default details extracted from MPEC 2024-W185
+TEL 0.20-m f/5 reflector + CCD
+
+COD Q11
+MEA H. Sato
+OBS T. Ikemura
+COM Default details extracted from MPEC 2021-B143
+TEL 0.35-m f/5 reflector + CCD
+
+COD Q12
+MEA M. Micheli, R. Reszelewski
+OBS R. Reszelewski, M. Zolnowski, M. Gedek, K. Zukowski, T. Santana-Ros
+OBS L. Conversi, M. Micheli
+COM Default details extracted from MPEC 2022-L04
+TEL 0.28-m f/2.2 reflector + CMO
+
+COD Q19
+OBS K. Sugawara
+COM Default details extracted from MPEC 2024-D126
+TEL 0.2-m f/4.0 BKP200/800OTA + CCD
+
+COD Q20
+OBS J. Jahn
+COM Default details extracted from MPEC 2024-G15
+TEL 0.30-m f/3.8 reflector + CMO
+
+COD Q21
+OBS H. Nohara
+COM Default details extracted from MPEC 2021-B143
+TEL 0.4-m f/3.8 astrograph + CCD
+
+COD Q23
+OBS H. Sato
+COM Default details extracted from MPEC 2021-B143
+TEL 0.25-m f/4 reflector + CCD
+
+COD Q24
+OBS T. Noguchi
+COM Default details extracted from MPEC 2020-C98
+TEL 0.23-m f/10 Schmidt-Cassegrain + CCD
+
+COD Q38
+COM Find_Orb default details
+OBS M. Mattiazzo
+
+COD Q55
+MEA T. Prystavski
+OBS M. Petkovic, T. Preston, P. Tisserand, P. Oates, C. Vest, G. Bloxham
+COM Default details extracted from MPEC 2022-L66
+TEL 1.35-m Cassegrain + CCD
+
+COD Q56
+OBS P.-J. Dekelver
+COM Default details extracted from MPEC 2024-L140
+TEL 0.14-m f/4.8 refractor + CMO
+
+COD Q57
+COM Find_Orb default details
+OBS Y. JeongAhn
+TEL 1.6-m f/3.22 reflector + CCD
+
+COD Q58
+OBS T. Santana-Ros, L. Conversi, M. Micheli
+MEA M. Micheli
+COM Default details extracted from MPEC 2020-Q228
+TEL 0.4-m reflector + CCD
+
+COD Q59
+OBS A. Hale
+COM Default details extracted from MPEC 2021-J28
+TEL 0.40-m f/8 Schmidt-Cassegrain + CCD
+
+COD Q60
+COM Find_Orb default details
+OBS L. Elenin
+TEL 0.4-m f/2.4 reflector + CCD
+
+COD Q62
+OBS H. Sato, T. Prystavski, M. Mattiazzo, A. Pearce, F. D. Romanov
+COM Default details extracted from MPEC 2021-B143
+COM NOTE: multi-telescope site; see :
+COM https://support.itelescope.net/support/solutions/articles/247371-overview-of-all-telescopes
+TEL 0.51-m f/6.8 astrograph + CCD + f/4.5 focal reducer
+TEL 0.43-m f/6.8 astrograph + CCD + focal reducer
+TEL 0.43-m f/6.8 astrograph + CCD
+TEL 0.10-m f/5 astrograph + CCD
+TEL 0.127-m f/5.6 refractor + CCD
+TEL 0.50-m f/6.8 reflector + CCD
+TEL 0.30-m f/9 reflector + CCD
+
+COD Q63
+COM Find_Orb default details
+OBS T. Lister, S. Greenstreet, E. Gomez
+NET PPMXL
+TEL 1.0-m f/8 Ritchey-Chretien + CCD
+
+COD Q64
+COM Find_Orb default details
+CON M. Micheli
+CON [marco (dot) micheli (at) esa (dot) int]
+OBS A. Tripp, S. Roberts
+MEA M. Micheli, A. Tripp, K. Merz, D. Koschny
+TEL 1.0-m f/8 Ritchey-Chretien + CCD
+NET PPMXL
+ACK [ART SAT] ExoMars (Q64)
+
+COD Q65
+COM Find_Orb default details
+CON Marco Langbroek, Zusterhof 10, 2311 RK Leiden, Netherlands
+CON [asteroids (at) langbroek (dot) org]
+OBS M. Langbroek, P. Starr
+MEA M. Langbroek
+TEL 0.51-m f/6.8 Dall-Kirkham + CCD
+ACK ARTSAT 2010-050B obs 27 Feb 2016
+NUM 9
+NET UCAC-4
+
+COD Q66
+OBS T. Yanagisawa, H. Kurosaki, K. Kamiya, H. Onodera
+COM Default details extracted from MPEC 2019-G162
+TEL 0.25-m f/2.8 reflector + CCD
+
+COD Q67
+OBS M. Suzuki
+COM Default details extracted from MPEC 2019-B153
+TEL 0.31-m f/9.0 reflector + CCD
+
+COD Q68
+MEA M. Al-Bussaidi
+OBS M. Al-Bussadi, H. Williams
+COM Default details extracted from MPEC 2021-B143
+TEL 0.30-m f/3.0 reflector + CCD
+
+COD Q70
+OBS S. Kerr
+COM Default details extracted from MPEC 2021-G09
+
+COD Q80
+COM Find_Orb default details
+OBS T. Lovejoy
+TEL 0.20-m f/2.1 Schmidt-Cassegrain + CCD
+
+COD R56
+COM Default details extracted from MPEC 2023-U76
+OBS A. Vilquin Barrajon
+TEL 0.20-m f/8.1 reflector + CCD
+
+COD R57
+COM Default details extracted from MPEC 2021-F112
+OBS A. C. Gilmore, P. M. Kilmartin
+MEA P. M. Kilmartin
+TEL 0.35-m f/11 Schmidt-Cassegrain + CCD
+AC2 alan (dot) gilmore (at) canterbury.ac (dot) nz
+
+COD R65
+COM Default details extracted from MPEC 2021-S94
+OBS R. B. Glassey
+Tel 0.4-m f/8.0 Schmidt-Cassegrain + CCD
+
+COD R66
+COM Default details extracted from MPEC 2022-K07
+OBS R. B. Glassey
+TEL 0.15-m f/5.0 Newtonian + CCD
+
+COD T03
+OBS T. Santana-Ros, M. Micheli, L. Conversi
+COM Default details extracted from MPEC 2022-G189
+MEA M. Micheli
+TEL 0.4-m reflector + CCD
+
+COD T04
+OBS T. Santana-Ros, M. Micheli, L. Conversi
+COM Default details extracted from MPEC 2021-P122
+MEA M. Micheli
+TEL 0.4-m reflector + CCD
+
+COD T09
+COM Find_Orb default details
+CON D. J. Tholen, Institute for Astronomy, 2680 Woodlawn Drive, Honolulu, HI 96822
+CON [tholen (at) ifa (dot) hawaii (dot) edu]
+TEL 8.2-m f/2.2 Subaru reflector
+COM Valid: 2016-2018 mar 1
+NET Gaia-DR1
+COM Valid: 2018 mar 1-2100
+NET Gaia-DR2
+
+COD T11
+MEA S. Deen
+COM Default details extracted from MPEC 2024-G193
+TEL 3.8-m Cassegrain reflector
+
+COD T12
+COM Find_Orb default details
+CON D. J. Tholen, Institute for Astronomy, 2680 Woodlawn Drive, Honolulu, HI 96822
+CON [tholen (at) ifa (dot) hawaii (dot) edu]
+OBS D. Fohring, D. Hung, Y. Ramanjooloo, Z. Claytor, D. J. Tholen
+TEL 2.24-m f/10.1 University of Hawaii reflector
+COM Valid: 2016-2018 mar 1
+NET Gaia-DR1
+COM Valid: 2018 mar 1-2100
+NET Gaia-DR2
+
+COD T14
+COM Find_Orb default details
+CON D. J. Tholen, Institute for Astronomy, 2680 Woodlawn Drive, Honolulu, HI 96822
+CON [tholen (at) ifa (dot) hawaii (dot) edu]
+TEL 3.6-m Canada-France-Hawaii Telescope
+COM Valid: 2016-2018 mar 1
+NET Gaia-DR1
+COM Valid: 2018 mar 1-2100
+NET Gaia-DR2
+
+COD T15
+COM Default details extracted from MPEC 2022-U04
+TEL 8.1-m reflector + 3x2Kx4K mosaic CCD
+
+COD U52
+OBS J. E. Rogers
+MEA J. E. Rogers, D. Parrott
+COM Default details extracted from MPEC 2022-K98
+TEL 0.30-m Helin Telescope + CCD
+
+COD U55
+OBS B. Kumar
+COM Default details extracted from MPEC 2021-E118
+TEL 0.36-m f/7 Schmidt-Cassegrain + CCD
+
+COD U63
+OBS B. Vandeventer, R. Morrison, N. Saini, C. Zhai, R. Trahan, M. Shao
+TEL 0.28-m f/2.2 reflector + CCD
+COM Default details extracted from MPEC 2020-S146
+
+COD U68
+OBS N. Saini, C. Zhai, R. Trahan, M. Zhan, M. Shao
+COM Default details extracted from MPEC 2020-Y115
+TEL 0.28-m f/2.2 Schmidt + CCD
+
+COD U69
+OBS H. Sato
+COM Default details extracted from MPEC 2029-J68
+COM See also : https://support.itelescope.net/support/solutions/articles/231907-telescope-24
+TEL 0.61-m f/6.5 astrograph + CCD
+
+COD U71
+OBS M. Forslund
+COM Default details extracted from MPEC 2021-B143
+TEL 0.36-m f/2.2 reflector + CCD
+
+COD U74
+OBS N. Saini, C. Zhai, R. Trahan, M. Zhan, M. Shao
+COM Default details extracted from MPEC 2021-T266
+TEL 0.36-m f/2.2 Schmidt
+
+COD U75
+OBS R. Matson
+COM Default details from private communication
+TEL 0.28-m f/7 Schmidt-Cassegrain + CCD
+
+COD U76
+OBS P. Lewin
+COM Default details extracted from MPEC 2021-F115
+TEL 0.36-m reflector + CCD
+
+COD U94
+OBS T. Prystavski, J.-C. Merlin
+COM Default details extracted from MPEC 2023-J95
+TEL 0.51-m f/4.5 Corrected Dall-Kirkham + CCD
+TEL 0.51-m f/6.8 astrograph + f/4.5 focal reducer + CCD
+
+COD V00
+COM Find_Orb default details
+TEL 2.25-m reflector + 4x4K mosaic CCD
+
+COD V01
+OBS B. Sheets
+COM Default details extracted from MPEC 2020-Y99
+TEL 0.36-m reflector + CCD
+
+COD V03
+COM Find_Orb default details
+CON D. Rankin, P. O. Box 410313, Big Water, Utah U. S. A.
+CON [david (at) rankinstudio (dot) com]
+OBS D. Rankin
+NET PPMXL
+TEL 0.30-m reflector + CCD
+
+COD V06
+COM Find_Orb default details
+COM Valid: 1900-2100
+TEL 1.55-m reflector + CCD
+
+COD V11
+COM Default details extracted from MPEC 2020-L04
+OBS D. Rankin
+TEL 0.20-m reflector + CCD
+
+COD V16
+OBS D. Crowson
+COM Default details extracted from MPEC 2020-C98
+TEL 0.30-m f/8.0  Ritchey-Chretien + CCD
+
+COD V19
+OBS K. G. DeGroff
+COM Default details extracted from MPEC 2021-T130
+TEL 0.46-m f/4.2 Newtonian reflector + CCD
+
+COD V21
+OBS D. T. Durig
+COM Default details extracted from MPEC 2022-C56
+TEL 0.4-m f/8 Ritchey-Chretien + 4656x3520 CCD
+
+COD V22
+OBS D. Husar
+COM Default details extracted from MPEC 2022-J42
+TEL 0.4-m f/3.7 reflector + CCD
+
+COD V24
+OBS A. Helms
+COM Default details extracted from MPEC 2024-E188
+TEL 0.32-m f/6.7 reflector + CCD
+
+COD V26
+MEA A. Mokhnatkin
+OBS A. Mokhnatkin, R. Celaya
+COM Default details extracted from MPEC 2020-C98
+TEL 0.4-m f/4 Newtonian reflector + CCD
+
+COD V27
+OBS B. K. Kendrick
+COM Default details extracted from MPEC 2022-B138
+TEL 0.25-m f/6 reflector + CCD
+
+COD V28
+OBS R. Reszelewski, M. Zolnowski, M. Gedek, K. Zukowski, P. Baginska
+MEA R. Reszelewski
+COM Default details extracted from MPEC 2024-N62
+TEL 0.28-m f/2.2 reflector + CMOS
+
+COD V37
+MEA M. Wawerzonnek
+OBS P. Breitenstein
+COM Default details extracted from MPEC 2020-Y113
+TEL 1.0-m Ritchey-Chretien + CCD
+
+COD V38
+OBS A. Hale
+COM Default details extracted from MPEC 2023-J95
+TEL 0.40-m f/10 Schmidt-Cassegrain + CCD
+
+COD V39
+MEA T. Lister
+OBS T. Lister, M. Hui, M. S. P. Kelley, J. Chatelain, E. Gomez
+OBS S. Greenstreet
+COM Default details extracted from MPEC 2020-Y117
+TEL 1.0-m f/8.0 Ritchey-Chretien + CCD
+
+COD V72
+OBS J. Purcell
+COM Default details extracted from MPEC 2021-W138
+TEL 0.13-m refractor + CCD
+
+COD W13
+OBS C. J. Horowitz
+COM Default details extracted from MPEC 2024-F101
+TEL 0.20-m f/2 Schmidt-Cassegrain + CMO
+
+COD W16
+OBS M. Holbrook
+COM Default details extracted from MPEC 2021-C121
+TEL 0.36-m reflector + CCD
+
+COD W24
+OBS R. Townsend
+COM Default details extracted from MPEC 2022-S297
+TEL 0.20-m f/8 Richey Chretien + CCD
+
+COD W33
+OBS D. Wilde
+COM Default details extracted from MPEC 2021-B143
+TEL 0.36-m Schmidt-Cassegrain + CCD
+
+COD W34
+COM Find_Orb default details
+OBS R. L. Flynn
+COM Valid: 1900 - 2019 May 29
+TEL 0.20-m f/10 Schmidt-Cassegrain + f/7.0 focal reducer
+COM Valid: 2019 May 29 - 2100
+TEL 0.36-m f/1.9 Schmidt-Cassegrain + CCD
+COM Aplanatic Schmidt-Cassegrain
+COM Photo/astrometry Astrometrica 4.12.0.488
+COM (Default details from R. L. Flynn,  2019 Sep 4)
+
+COD W42
+OBS J. T. Grage
+COM Default details extracted from MPEC 2024-G74
+TEL 0.30-m f/3.3 SCT + CMO
+
+COD W46
+OBS J. Haidet
+COM Default details extracted from MPEC 2021-B143
+TEL 0.36-m f/6.3 Ritchey-Chretien + CCD
+
+COD W50
+OBS M. A. Phillips
+COM Default details extracted from MPEC 2024-L77
+TEL 0.36-m f/4.5 reflector + CCD
+
+COD W53
+OBS R. Jennings
+COM Default details extracted from MPEC 2021-N06
+TEL 0.20-m f/3.9 reflector + CCD
+
+COD W57
+MEA F. Ocana, M. Micheli
+OBS F. Ocana, R. Kresken, L. Conversi, M. Micheli
+COM Default details extracted from MPEC 2023-M29
+TEL 0.56-m f/2.52 astrograph prime-focus corrector + 4K CCD
+
+COD W58
+OBS M. Mabson
+COM Default details extracted from MPEC 2022-O116
+TEL 0.28-m f/2.0 Schmidt-Cassegrain + CCD
+
+COD W59
+OBS T. Wildoner
+COM Default details extracted from MPEC 2022-Y15
+TEL 0.30-m f/6.3 SCT + CCD
+
+COD W62
+OBS J. Maikner
+COM Default details extracted from MPEC 2021-J28
+TEL 0.30-m f/3.8 Riccardi-Honders + CCD
+
+COD W71
+OBS G. Viscome
+COM Default details extracted from MPEC 2023-C45
+TEL 0.37-m f/6.0 Newtonian reflector + CCD
+
+COD W73
+OBS E. Meza
+TEL 1.0-m f/8 Ritchey-Chretien + CCD
+COM Default details extracted from MPEC 2020-S168
+
+COD W74
+OBS K. Hornoch, P. Fatka, P. Kusnirak, P. Pravec, H. Kucakova
+MEA K. Hornoch
+TEL 1.54-m Danish Telescope + CCD
+COM Default details extracted from MPEC 2020-B86
+
+COD W76
+OBS E. Bryssinck
+COM Default details extracted from MPEC 2020-C98
+TEL 0.61-m f/6.5  astrograph + CCD
+
+COD W77
+COM Find_Orb default details
+OBS J. E. Mazur
+NET UCAC4
+TEL 0.36-m f/6 Schmidt-Cassegrain + CCD
+
+COD W79
+OBS T. Lister, J. Chatelain, E. Gomez, S. Greenstreet, I. Kosic
+MEA T. Lister
+COM Default details extracted from MPEC 2019-P22
+TEL 0.4-m f/8.0 Schmidt-Cassegrain + CCD
+
+COD W84
+MEA S. Deen
+COM Default details extracted from MPEC 2021-B143
+TEL 4.0-m reflector + CCD
+
+COD W85
+COM Find_Orb default details
+OBS T. Lister, S. Greenstreet, E. Gomez
+MEA T. Lister
+TEL 1.0-m f/8 Ritchey-Chretien + CCD
+
+COD W86
+COM Find_Orb default details
+OBS T. Lister
+TEL 1.0-m f/8 Ritchey-Chretien + CCD
+
+COD W87
+MEA T. Lister
+OBS T. Lister, J. Chatelain, E. Gomez, S. Greenstreet
+COM Default details extracted from MPEC 2021-F20
+TEL 1.0-m f/8.0 Ritchey-Chretien + CCD
+
+COD W88
+MEA B. Lutkenhoner, G. Gasparovic, Y. Chen, G. Y. Gasparovic
+MEA M. Kumrucu-Lohmiller, N. Paul, R. W. Anderson
+OBS B. Lutkenhoner, G. Gasparovic, Y. Chen, M. Kumrucu-Lohmiller, N. Paul
+OBS R. W. Anderson
+COM Default details extracted from MPEC 2021-B143
+TEL 0.43-m f/6.8 Corrected Dall- Kirkham + CCD
+TEL 0.35-m f/11.0 Schmidt-Cassegrain + CCD
+
+COD W89
+OBS A. Hale
+MEA R. Miles
+TEL 0.40-m f/8 Schmidt-Cassegrain + CCD
+COM Default details extracted from MPEC 2021-A100
+
+COD W91
+MEA S. Deen
+TEL 4.1-m f/3.26 reflector + CCD.
+
+COD W92
+OBS Y. Kechin, S. Bodrov, V. Lipunov, E. Gorbovskoy, N. Tiurina
+OBS P. Balanutsa, A. Kuznetsov, I. Gorbunov, F. Balakin, D. Zimnukhov
+OBS V. Kornilov, R. Podesta, F. Podesta, H. Levato, A. Krylov, C. Francile
+COM Default details extracted from MPEC 2020-G73
+TEL  0.4-m f/2.5 reflector + CCD
+
+COD W93
+COM Find_Orb default details
+OBS Y. JeongAhn
+TEL 1.6-m f/3.22 reflector + CCD
+
+COD W94
+MEA A. Maury, G. Attard, D. Parrott
+OBS A. Maury, G. Attard
+COM Default details extracted from MPEC 2021-E115
+TEL 0.28-m f/2.2 Schmidt + CCD
+
+COD W95
+MEA A. Maury, G. Attard, D. Parrott
+OBS A. Maury, G. Attard, J. Fabrega
+COM Default details extracted from MPEC 2021-E115
+TEL 0.40-m f/3.8 reflector + CCD
+
+COD W96
+OBS A. Maury, J.-B. de Vanssay, J.-F. Soulier
+MEA J.-F. Soulier
+COM Default details extracted from MPEC 2018-O38
+TEL 0.4-m f/5.2 Ritchey-Chretien + CCD
+
+COD W98
+COM Default details from private communication, 2020 May 30
+COM Also see http://www.6roads.com.pl/
+CON M. Micheli
+OBS R. Reszelewski, M. Zolnowski, M. Gedek, K. Zukowski
+OBS T. Santana-Ros, L. Conversi, M. Micheli
+MEA M. Micheli
+TEL 0.25-m f/3.6 Newtonian + CCD
+NET Gaia-DR2
+
+COD W99
+OBS A. Maury
+MEA G. Attard
+COM Default details extracted from MPEC 2021-L56
+TEL 0.35-m reflector + CCD
+
+COD X01
+OBS N. Dunckel
+COM Default details extracted from MPEC 2021-E03
+TEL 0.6-m f/6.5 Corrected Dall-Kirkham + CCD
+
+COD X02
+MEA E. Guido
+OBS E. Guido, M. Rocchetto, E. Bryssinck, M. Fulle, G. Milani, C. Nassef
+OBS G. Savini, A. Valvasori
+COM Default details extracted from MPEC 2021-C16
+TEL 0.6-m f/6.5 astrograph + CCD
+
+COD X03
+OBS J. L. Virlichie, P. Traverse
+COM Default details extracted from MPEC 2021-B143
+TEL 0.35-m f/4.7 Newtonian reflector + CCD
+
+COD X06
+MEA D. Husar
+OBS L. Demetz, D. Husar
+COM Default details extracted from MPEC 2023-E68
+TEL 0.40-m f/6.6 reflector + CCD
+
+COD X07
+OBS H. Sato
+COM Default details extracted from MPEC 2023-L26
+TEL 0.51-m f/6.8 astrograph + CCD
+
+COD X09
+OBS A. Schnabel, D. Ruhela
+MEA S. Deen
+COM Default details extracted from MPEC 2024-C67
+TEL 0.43-m reflector + CMOS
+
+COD X10
+MEA A. Maury, G. Attard, D. Parrott
+OBS A. Maury, G. Attard, F. Signoret
+COM Default details extracted from MPEC 2023-M100
+TEL 0.50-m f/4  reflector + CCD
+
+COD X11
+MEA M. Micheli, M.-T. Hui, Z. Huang
+COM Default details extracted from MPEC 2024-B57
+TEL 2.6-m f/5.44 reflector + CCD
+
+COD X12
+OBS A. Wilberger
+COM Default details extracted from MPEC 2020-L35
+TEL 0.20-m f/5 reflector + CCD
+
+COD X15
+OBS M. Park, G. Rochon
+COM Default details extracted from MPEC 2024-A150
+TEL 0.14-m f/7 refractor + CCD
+
+COD X19
+OBS A. Sankovich
+COM Default details extracted from MPEC 2024-U180
+TEL 0.5-m f/1.5 reflector + CMOS
+
+COD X31
+OBS C. Fornari
+COM Default details extracted from MPEC 2021-C16
+TEL 0.40-m f/8 Ritchey-Chretien + CCD
+
+COD X33
+OBS G. Nobre
+COM Default details extracted from MPEC 2023-F81
+TEL 0.20-m f/5.0 reflector + CCD
+
+COD X39
+OBS N. Suarez
+COM Default details extracted from MPEC 2022-O01
+TEL 0.25-m f/4.72 reflector + CCD
+
+COD X72
+OBS W. Reis
+COM Default details extracted from MPEC 2023-N01
+TEL 0.20-m f/6.0 RC8 + CCD
+
+COD X74
+OBS L. S. Amaral
+COM Default details extracted from MPEC 2021-B143
+TEL 0.3-m f/4 reflector + CCD
+
+COD X77
+MEA R. G. Nazar, M. Martins
+OBS R. G. Nazar, M. Martins, A. S. Portugal
+COM Default details extracted from MPEC 2024-A150
+TEL 0.30-m f/4.7 reflector + CMO
+
+COD X93
+OBS A. Brossel
+COM Default details extracted from MPEC 2023-H34
+TEL 0.30-m f/4.0 reflector + CMO
+
+COD X89
+OBS M. Andrade
+COM Default details extracted from MPEC 2023-P47
+TEL 0.28-m f/2.0 reflector + CMO
+
+COD Y00
+COM Find_Orb default details
+CON C. Jacques, Rua Bernardino S. Figueiredo 348, Belo Horizonte, MG, Brazil
+CON [cjacqueslf (at) gmail (dot) com]
+OBS C. Jacques, E. Pimentel, J. Barros
+MEA C. Jacques
+NET UCAC4
+COM Was TEL 0.28-m f/2.2 astrograph + CCD
+TEL 0.45-m f/2.9 astrograph + CCD
+
+COD Y01
+OBS C. Jacques, A. Caetano, E. Pimental
+MEA C. Jacques
+COM Default details extracted from MPEC 2023-O69
+TEL 0.28-m f/2.2 astrograph + CMO
+
+COD Y05
+OBS C. Jacques
+COM Default details extracted from MPEC 2023-M101
+TEL 0.45-m f/2.9 reflector + CMO
+
+COD Y16
+OBS C. H. Barreto
+COM Default details extracted from MPEC 2023-K136
+TEL 0.25-m f/4.8 reflector + CCD
+COD Y28
+COM Find_Orb default details
+CON M. Micheli
+CON [marco (dot) micheli (at) esa (dot) int]
+OBS F. Monteiro, H. Medeiros, P. Arcoverde, D. Lazzaro, R. Souza, T. Rodrigues
+MEA M. Micheli, F. Monteiro
+TEL 1.0-m f/7 reflector + CCD
+NET PPMXL
+
+COD Y64
+OBS M. R. Alarcon, M. Serra-Ricart
+MEA M. R. Alarcon
+COM Default details extracted from MPEC 2024-N112
+TEL 1.00-m f/1.3 reflector + CMO
+
+COD Y65
+MEA M. Hierro
+OBS M. Serra
+COM Default details extracted from MPEC 2024-E157
+TEL 0.80-m f/6.85 reflector + CCD
+
+COD Y66
+OBS M. Serra
+COM Default details extracted from MPEC 2024-D123
+MEA M. Hierro
+TEL 0.80-m f/4.38 reflector + CMO
+
+COD Y71
+OBS J. Ryske
+COM Default details extracted from MPEC 2024-X301
+TEL 0.30-m f/8 reflector + CMO
+
+COD Y83
+OBS O. Canales
+COM Default details extracted from MPEC 2024-J122
+TEL 0.28-m f:5.6 SC + CMO
+
+COD Y84
+MEA F. Spingler
+OBS F. Spingler, L. Spingler
+COM Default details extracted from MPEC 2024-J304
+TEL 0.20-m f/4 reflector + CMO
+
+COD Y87
+OBS J.-G. Bosch
+COM Default details extracted from MPEC 2024-E49
+TEL 0.25-m f/4.75 reflector + CMO
+
+COD Y89
+OBS R. Hahn
+COM Default details extracted from MPEC 2023-Y72
+TEL 0.36-m f/2.0 reflector + CMO
+
+COD Y90
+OBS E. F. Mananes
+COM Default details extracted from MPEC 2022-S297
+TEL 0.30-m f/5.96 QHY268M + RC304 + Reductor Focal 0.66 + CCD
+
+COD Y91
+OBS P. Benarque
+COM Default details extracted from MPEC 2022-Y232
+TEL 0.12-m f/8.3 refractor + CCD
+
+COD Y95
+OBS J. Lozano
+COM Default details extracted from MPEC 2024-E157
+TEL 0.25-m f/6.3 Corrected Dall-Kirkham + CCD
+
+COD Y99
+OBS Z. Banfalvy
+COM Default details extracted from MPEC 2024-D126
+TEL 0.12-m f/5.0 Refractor + CMO
+
+COD Z03
+OBS A. Garcia
+COM Default details extracted from MPEC 2021-W31
+TEL 0.25-m f/6.3 Schmidt-Cassegrain + CCD
+
+COD Z08
+MEA E. Bryssinck
+OBS E. Guido, M. Rocchetto, E. Bryssinck, M. Fulle, G. Milani, C. Nassef
+OBS G. Savini, A. Valvasori
+COM Default details extracted from MPEC 2021-A190
+TEL 0.7-m f/8 Ritchey-Chretien + CCD
+TEL 0.7-m f/6 reflector + CCD
+
+COD Z10
+OBS P. Carson
+COM Default details extracted from MPEC 2021-B143
+TEL 0.32-m f/8 reflector + CCD
+
+COD Z17
+OBS A. Hale
+COM Default details extracted from MPEC 2021-P05
+TEL 0.40-m f/10 Schmidt-Cassegrain + CCD
+
+COD Z18
+COM Find_Orb default details
+OBS J. Licandro, A. Cabrera-Lavers
+MEA M. Micheli, F. J. Pozuelos, D. Farnocchia
+TEL 10.40-m reflector + CCD
+
+COD Z21
+OBS T. Lister, J. Chatelain, E. Gomez, S. Greenstreet
+MEA T. Lister
+COM Default details extracted from MPEC 2019-K43
+TEL 0.4-m f/8.0 Schmidt-Cassegrain +  CCD.
+
+COD Z22
+OBS Y. Kechin, V. Lipunov, E. Gorbovskoy, R. Rebolo, M. Serra-ricart
+OBS N. Lodieu, P. Balanutsa, A. Kuznetsov, N. Tiurina, O. Gress, K. Ivanov
+COM Default details extracted from MPEC 2021-B143
+TEL 0.4-m f/2.5 reflector + CCD
+
+COD Z23
+COM Find_Orb default details
+TEL 2.56-m f/11 reflector + CCD
+
+COD Z24
+COM Default details extracted from MPEC 2021-T54
+OBS T. Santana-Ros, L. Conversi, M. Micheli
+MEA M. Micheli
+TEL 1.0-m f/8 Ritchey-Chretien + CCD
+
+COD Z28
+MEA L. Buzzi, G. Galli, A. Aletti
+OBS L. Buzzi, L. Demetz
+COM Default details extracted from MPEC 2021-W31
+TEL 0.50-m f/6.9 astrograph + CCD
+
+COD Z30
+OBS D. Storey
+COM Default details extracted from MPEC 2021-B143
+TEL 0.35-m Schmidt-Cassegrain + CCD
+
+COD Z31
+OBS M. Micheli, T. Santana-Ros, L. Conversi
+COM Default details extracted from MPEC 2022-M32
+MEA M. Micheli
+TEL 1.0-m reflector + CCD
+
+COD Z32
+MEA M. Mahlke
+OBS M. Mahlke, H. Vazquez Ramio, A. Alvarez-Candal, A. Ederoclite
+OBS A. Moreno, E. Solano, R. Iglesias Marzoa, B. B. Siffert, V. M. Placco
+COM Default details extracted from MPEC 2021-J28
+TEL 0.83-m reflector + CCD
+
+COD Z33
+COM Default details from http://www.6roads.com.pl/
+TEL 0.40-m f/7 Ritchey-Chretien + CCD
+
+COD Z37
+COM Find_Orb default details
+COM Details from D. Bamberger for Z37, Z48, Z80, 2018 Jul 7
+OBS G. Wells
+MEA D. Bamberger
+TEL 0.15-m f/10 Schmidt-Cassegrain + CCD + f/6.3 focal reducer
+COM Valid: 2015 Aug 20 - 2016 Jul 4
+NET USNO-B1.0
+COM Valid: 2016 Jul 4 - 2017 Jul 10
+NET UCAC-4
+COM Valid: 2017 Jul 10 - 2018 Jun 4
+NET Gaia-DR1
+COM Valid: 2018 Jun 4 - 2018 Jun 12
+NET UCAC-4
+COM Valid: 2018 Jun 12 - 2100
+NET Gaia-DR2
+
+COD Z39
+MEA A. Sofia, A.  Silvia
+OBS A. Acosta
+COM Default details extracted from MPEC 2020-C98
+TEL 0.25-m Schmidt-Cassegrain + CCD
+
+COD Z41
+COM Default details extracted from MPEC 2021-S43
+OBS F. Calvo
+TEL 0.16-m f/3.3 reflector + CCD
+
+COD Z43
+OBS C. Ratinaud
+COM Default details extracted from MPEC 2023-C59
+TEL 0.25-m f/4.7 Reflector + CCD
+COD Z45
+OBS F. Jackson
+COM Default details extracted from MPEC 2020-P19
+TEL 0.35-m f/8 Ritchey-Chretien + CCD
+
+COD Z46
+COM Default details extracted from MPEC 2021-A190
+TEL 0.20-m f/7 Schmidt-Cassegrain + CCD
+
+COD Z48
+COM Find_Orb default details
+COM Details from D. Bamberger for Z37, Z48, Z80, 2018 Jul 7
+OBS J. Tobrak
+MEA D. Bamberger
+TEL 0.30-m f/8 Ritchey-Chretien + CCD
+COM Valid: 2015 Aug 20 - 2016 Jul 4
+NET USNO-B1.0
+COM Valid: 2016 Jul 4 - 2017 Jul 10
+NET UCAC-4
+COM Valid: 2017 Jul 10 - 2018 Jun 4
+NET Gaia-DR1
+COM Valid: 2018 Jun 4 - 2018 Jun 12
+NET UCAC-4
+COM Valid: 2018 Jun 12 - 2100
+NET Gaia-DR2
+
+COD Z53
+MEA M. Micheli, E. Jehin
+OBS E. Jehin
+COM Default details extracted from MPEC 2024-L77
+TEL 0.60-m f/8 reflector + CCD
+
+COD Z55
+OBS R. Farfan
+COM Default details extracted from MPEC 2021-B143
+TEL 0.28-m f/6.3 Schmidt-Cassegrain + CCD
+
+COD Z57
+OBS C. Malagon
+COM Default details extracted from MPEC 2023-C42
+TEL 0.30-m f/5 Ritchey-Chretien + CCD
+
+COD Z58
+COM Find_Orb default details
+CON M. Micheli
+CON [marco (dot) micheli (at) esa.int]
+OBS F. Oca\~na, A. Montero, A. Ibarra
+MEA M. Micheli, F. Oca\~na, D. Koschny
+TEL 0.56-m f/2.52 astrograph prime-focus corrector + 4K CCD
+NET PPMXL
+COM Observations from ESA's TBT, obtained just around the time of separation
+ACK [ART SAT] ExoMars
+AC2 [francisco (dot) ocana (dot) gonzalez (at) gmail (dot) com]
+
+COD Z66
+COM Find_Orb default details
+OBS N. Sanchez-Ortiz, J. Nomen, M. Hurtado
+TEL 0.40-m f/2.2 reflector + CCD
+ACK WT1190F second sensor
+AC2 [jaime (dot) nomen (at) deimos-space (dot) com]
+NET UCAC-2
+
+COD Z80
+COM Find_Orb default details
+COM Details from D. Bamberger for Z37, Z48, Z80, 2018 Jul 7
+OBS G. Wells
+MEA D. Bamberger
+COM Valid: 2015 Aug 20 - 2015 Nov 1
+TEL 0.15-m f/10 Schmidt-Cassegrain + photographic
+COM Valid: 2015 Nov 1 - 2016 Dec 1
+TEL 0.15-m f/10 Schmidt-Cassegrain + CCD + f/6.3 focal reducer
+COM Valid: 2016 Dec 1 - 2100
+TEL 0.25-m f/8 Ritchey-Chretien + CCD
+COM Valid: 2015 Aug 20 - 2016 Jul 4
+NET USNO-B1.0
+COM Valid: 2016 Jul 4 - 2017 Jul 10
+NET UCAC-4
+COM Valid: 2017 Jul 10 - 2018 Jun 4
+NET Gaia-DR1
+COM Valid: 2018 Jun 4 - 2018 Jun 12
+NET UCAC-4
+COM Valid: 2018 Jun 12 - 2100
+NET Gaia-DR2
+
+COD Z84
+COM Find_Orb default details
+OBS R. Kresken, F. Oca\~na, M. Micheli, L. Conversi
+MEA F. Oca\~na, M. Micheli, R. Kresken
+TEL 0.8-m f/3 Schmidt + CCD
+
+COD Z92
+OBS A. R. Pratt
+COM Default details extracted from MPEC 2020-C98
+TEL 0.28-m f/10  Schmidt-Cassegrain + CCD + f/3.3 focal reducer
+
+COD Z93
+OBS F. Huet
+COM Default details extracted from MPEC 2022-C56
+TEL 0.20-m f/10 reflector + CCD
+TEL 0.20-m f/10.0 reflector + CCD
+
+COD Z99
+OBS A. Mickleburgh
+COM Default details extracted from MPEC 2021-B143
+TEL 0.36-m f/8 Schmidt-Cassegrain + CCD
+
+COD Multi F51  F52
+COM Valid: 2024 aug 1 - 2100
+MEA K. Chambers, T. de Boer, J. Fairlamb, H. Gao, M. Huber, C.-C. Lin
+MEA E. Magnier, Y. Ramanjooloo, R. Wainscoat, R. Weryk
+OBS J. Herman, T. Lowe, P. Minguez, A. Schultz, I. Smith
+COM Default details extracted from MPEC 2024-U09 (2024 Oct 17)
+TEL 1.8-m Ritchey-Chretien + CCD
+
+COM Valid: 2024 feb 1 - 2024 aug 1
+MEA K. Chambers, T. de Boer, J. Fairlamb, H. Gao, M. Huber, C.-C. Lin
+MEA E. Magnier, Y. Ramanjooloo, R. Wainscoat, R. Weryk
+OBS J. Herman, T. Lowe, P. Minguez, A. Schultz, I. Smith
+COM Default details extracted from MPEC 2024-K08 (2024 May 17)
+TEL 1.8-m Ritchey-Chretien + CCD
+
+COM Valid: 2023 aug 1 - 2024 feb 1
+MEA K. Chambers, T. de Boer, J. Fairlamb, H. Gao, M. Huber, C.-C. Lin
+MEA E. Magnier, Y. Ramanjooloo, R. Wainscoat, R. Weryk
+OBS J. Bulger, T. Lowe, P. Minguez, A. Schultz, I. Smith
+COM Default details extracted from MPEC 2023-U284
+TEL 1.8-m Ritchey-Chretien + CCD
+
+COM Valid: 2023 feb 1 - 2024 aug 1
+MEA K. Chambers, T. de Boer, J. Bulger, J. Fairlamb, H. Gao, M. Huber
+MEA C.-C. Lin, T. Lowe, E. Magnier, P. Minguez, Y. Ramanjooloo, A. Schultz
+MEA I. Smith, R. Wainscoat, R. Weryk
+OBS J. Bulger, T. Lowe, P. Minguez, A. Schultz, I. Smith
+COM Default details extracted from MPEC 2023-K192
+TEL 1.8-m Ritchey-Chretien + CCD
+
+COM Valid: 2022 aug 1 - 2023 feb 1
+MEA S. Chastel, J. Fairlamb, M. Huber, Y. Ramanjooloo, R. Wainscoat
+MEA R. Weryk
+OBS J. Bulger, K. Chambers, T. Lowe, A. Schultz, I. Smith
+COM Default details extracted from MPEC 2022-U406
+TEL 1.8-m Ritchey-Chretien + CCD
+
+COM Valid: 2021 nov 1 - 2022 aug 1
+MEA K. Chambers, S. Chastel, T. de Boer, J. Fairlamb, H. Gao, M. Huber
+MEA C.-C. Lin, E. Magnier, Y. Ramanjooloo, R. Wainscoat, R. Weryk
+OBS J. Bulger, T. Lowe, A. Schultz, I. Smith, K. Chambers, T. Dukes
+COM Default details extracted from MPEC 2022-K175
+TEL 1.8-m Ritchey-Chretien + CCD
+
+COM Valid: 2020 nov 1 - 2021 nov 1
+MEA S. Chastel, M. Huber, Y. Ramanjooloo, R. Wainscoat, R. Weryk
+OBS J. Bulger, K. Chambers, T. Lowe, A. Schultz, I. Smith
+COM Default details extracted from MPEC 2021-K106
+TEL 1.8-m Ritchey-Chretien + CCD
+
+COM Valid: 2019 nov 1 - 2020 nov 1
+MEA S. Chastel, M. Huber, Y. Ramanjooloo, R. Wainscoat, R. Weryk
+MEA K. Chambers, T. de Boer, L. Denneau, J. Fairlamb, H. Flewelling
+MEA C.-C. Lin, E. Magnier
+OBS J. Bulger, K. Chambers, T. Lowe, A. Schultz, M. Willman
+COM Default details extracted from MPEC 2020-K234
+TEL 1.8-m Ritchey-Chretien + CCD
+
+   MPECs with data for CSS sites (703),  (E12),  (I52),  (G96),  and (V06)
+   list everybody who worked at CSS at the time in question.  Properly speaking,
+   we should list one "observer" (person actually at the scope) and everybody
+   else as "measurers",  but we don't really know who that one person was.
+   For CSS,  unlike ATLAS and PanSTARRS,  the telescopes differ from site
+   to site;  look under COD 703,  COD E12,  etc. for scope details.
+
+COD Multi 703  E12  G96  I52  V00  V06
+COM Valid: 2024 aug 1 - 2100
+MEA T. Beuden, V. F. Carvajal, D. Fay, J. B. Fazekas, D. C. Fuls
+MEA A. R. Gibbs, A. D. Grauer, H. Groeller, J. K. Hogan, R. A. Kowalski
+MEA S. M. Larson, G. J. Leonard, D. Rankin, R. L. Seaman, F. C. Shelly
+MEA K. W. Wierzchos
+COM Default details extracted from MPEC 2024-U09 (2024 Oct 17)
+
+COM Valid: 2024 feb 1 - 2024 aug 1
+MEA T. Beuden, V. F. Carvajal, D. Fay, J. B. Fazekas, D. C. Fuls
+MEA A. R. Gibbs, A. D. Grauer, H. Groeller, J. K. Hogan, R. A. Kowalski
+MEA S. M. Larson, G. J. Leonard, D. Rankin, R. L. Seaman, F. C. Shelly
+MEA K. W. Wierzchos
+COM Default details extracted from MPEC 2024-K08 (2024 May 17)
+
+COM Valid: 2023 aug 1 - 2024 feb 1
+MEA E. C. Beshore, D. Fay, J. B. Fazekas, D. C. Fuls, A. R. Gibbs
+MEA A. D. Grauer, H. Groeller, J. K. Hogan, R. A. Kowalski, S. M. Larson
+MEA G. J. Leonard, D. Rankin, R. L. Seaman, F. C. Shelly, K. W. Wierzchos
+COM Default details extracted from MPEC 2023-U284
+
+COM Valid: 2023 feb 1 - 2023 aug 1
+MEA E. J. Christensen, D. Fay, J. B. Fazekas, D. C. Fuls, A. R. Gibbs
+MEA A. D. Grauer, H. Groeller, J. K. Hogan, R. A. Kowalski, S. M. Larson
+MEA G. J. Leonard, D. Rankin, R. L. Seaman, A. Serrano, F. C. Shelly
+MEA K. W. Wierzchos
+COM Default details extracted from MPEC 2023-K192
+
+COM Valid: 2022 aug 1 - 2023 feb 1
+MEA E. J. Christensen, D. Fay, J. B. Fazekas, D. C. Fuls, A. R. Gibbs
+MEA A. D. Grauer, H. Groeller, J. K. Hogan, R. A. Kowalski, S. M. Larson
+MEA G. J. Leonard, D. Rankin, R. L. Seaman, A. Serrano, F. C. Shelly
+MEA K. W. Wierzchos
+COM Default details extracted from MPEC 2022-U407
+
+COM Valid: 2021 nov 1 - 2022 aug 1
+MEA E. J. Christensen, D. Fay, J. B. Fazekas, D. C. Fuls, A. R. Gibbs
+MEA A. D. Grauer, H. Groeller, J. K. Hogan, R. A. Kowalski, S. M. Larson
+MEA G. J. Leonard, D. Rankin, R. L. Seaman, A. Serrano, F. C. Shelly
+MEA K. W. Wierzchos
+COM Default details extracted from MPEC 2022-K176
+
+COM Valid: 2020 nov 1 - 2021 nov 1
+MEA E. J. Christensen, G. A. Farneth, D. C. Fuls, A. R. Gibbs
+MEA A. D. Grauer, H. Groeller, R. A. Kowalski, S. M. Larson, G. J. Leonard
+MEA T. A. Pruyne, D. Rankin, R. L. Seaman, F. C. Shelly, K. W. Wierzchos
+COM Default details extracted from MPEC 2021-K105
+
+COM Valid: 2019 nov 1 - 2020 nov 1
+MEA E. J. Christensen, G. A. Farneth, D. C. Fuls, A. R. Gibbs
+MEA A. D. Grauer, H. Groeller, R. A. Kowalski, S. M. Larson, G. J. Leonard
+MEA T. A. Pruyne, D. Rankin, R. L. Seaman, F. C. Shelly, K. W. Wierzchos
+COM Default details extracted from MPEC 2020-K227
+
+COD Multi M22  T05  T08  W68
+
+COM Valid: 2024 jan 1 - 2100 nov 1
+MEA L. Denneau, N. Erasmus, A. Fitzsimmons, J. Robinson, R. Siverd
+MEA J. Tonry, H. Weiland
+OBS L. Denneau, R. Siverd, J. Tonry, H. Weiland
+COM Default details extracted from MPEC 2024-U02 (2024 Oct 16)
+TEL 0.5-m f/2.0 Schmidt + CCD
+
+COM Valid: 2021 dec 1 - 2024 jan 1
+MEA L. Denneau, N. Erasmus, A. Fitzsimmons, A. Lawrence, J. Robinson
+MEA R. Siverd, J. Tonry, H. Weiland
+OBS L. Denneau, R. Siverd, J. Tonry, H. Weiland
+COM Default details extracted from MPEC 2023-U150 (2023 oct 20)
+TEL 0.5-m f/2.0 Schmidt + CCD
+
+COM Valid: 2020 dec 1 - 2021 dec 1
+MEA L. Denneau, J. Tonry, A. Heinze, H. Weiland, A. Fitzsimmons
+MEA J. Robinson, N. Erasmus
+OBS L. Denneau, J. Tonry, A. Heinze, H. Weiland
+COM Default details extracted from MPEC 2021-K100
+TEL 0.5-m f/2.0 Schmidt + CCD
+
+COM Valid: 1900 dec 1 - 2020 dec 1
+MEA L. Denneau, J. Tonry, A. Heinze, H. Weiland, H. Flewelling, B. Stalder
+MEA A. Fitzsimmons, J. Robinson, N. Erasmus
+OBS L. Denneau, J. Tonry, A. Heinze, H. Weiland, H. Flewelling
+COM Default details extracted from MPEC 2020-K228
+TEL 0.5-m f/2.0 Schmidt + CCD
+
+COD Def
+COM For ADES,  you _must_ supply a contact, measurer,  and telescope.
+COM If none are supplied for a given obscode,  the following are used.
+CON U. N. Known
+MEA U. N. Known
+TEL 0.1-m unknown
