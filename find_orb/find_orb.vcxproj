@@ -180,11 +180,9 @@ copy /Y "$(SolutionDir)..\PDCursesMod_build\wincon\$(Configuration)\pdcurses.dll
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\about.h" />
-    <ClInclude Include="src\bmouse.h" />
     <ClInclude Include="src\constant.h" />
     <ClInclude Include="src\curs_lin.h" />
     <ClInclude Include="src\details.h" />
-    <ClInclude Include="src\ephem.h" />
     <ClInclude Include="src\expcalc.h" />
     <ClInclude Include="src\find_orb.h" />
     <ClInclude Include="src\generic.h" />

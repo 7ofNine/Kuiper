@@ -125,9 +125,6 @@
     <ClInclude Include="src\about.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\bmouse.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\constant.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -135,9 +132,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\details.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\ephem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\expcalc.h">
