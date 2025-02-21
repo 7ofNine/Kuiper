@@ -40,21 +40,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include "stringex.h"
 #include "constant.h"
 
-#ifndef _WIN32
-#include <fcntl.h>
-#include <unistd.h>
-
-bool findorb_already_running = false;
-#endif
-
             /* Pretty much every platform I've run into supports */
             /* Unicode display,  except OpenWATCOM and early     */
             /* versions of MSVC.                                 */
-#if !defined( __WATCOMC__)
-   #if !defined( _MSC_VER) || (_MSC_VER > 1100)
-      #define HAVE_UNICODE
-   #endif
-#endif
+
+  #define HAVE_UNICODE
+  
+
 
 static const char *_extras_filename = "hints.txt";
 static const char *_default_extras_filename = "hints.def";
@@ -182,7 +174,7 @@ int debug_printf( const char *format, ...)                 /* mpc_obs.cpp */
 
 /* Old MSVCs and OpenWATCOM lack erf() and many other math functions: */
 
-#if defined( _MSC_VER) && (_MSC_VER < 1800) || defined( __WATCOMC__)
+#if defined( _MSC_VER) && (_MSC_VER < 1800)
 double erf( double x);     /* orb_fun2.cpp */
 #endif
 
@@ -3944,7 +3936,7 @@ The first instance of Find_Orb,  fo,  or fo_serve will attempt to put a lock
 on /tmp/fo_lock.  Subsequent instances will see that and fail to get a lock.
 Basically,  an interprocess mutex.     */
 
-#if !defined( _WIN32) && !defined( __WATCOMC__)
+#if !defined( _WIN32)
 int check_for_other_processes( const int locking)
 {
    const char *lock_filename = "/tmp/fo_lock";
@@ -4060,7 +4052,7 @@ int get_defaults( ephem_option_t *ephemeris_output_options, int *element_format,
 
    if( !output_directory && *output_dir)
       output_directory = output_dir;
-#if !defined( _WIN32) && !defined( __WATCOMC__)
+#if !defined( _WIN32) 
    findorb_already_running = (check_for_other_processes( 1) != 0);
 #endif
    if( *language)

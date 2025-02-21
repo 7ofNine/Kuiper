@@ -2,7 +2,7 @@
 
 #define PDC_NCMOUSE
 
-#if defined( VT) || defined( XCURSES) || defined( _WIN32) || defined( __WATCOMC__)
+#if defined( VT) || defined( XCURSES) || defined( _WIN32) 
    #define PDC_FORCE_UTF8
    #include <curses.h>
 #else
@@ -55,20 +55,6 @@ int getn_wstr_ex( wint_t *wstr, int *loc, const int maxlen, const int size);
 #define _DLCHAR    0x15  /* Delete Line char (^U) */
 #define _ESCAPE    0x1B
 #define _TAB       0x09
-
-#ifdef __WATCOMC__
-int wget_wch(WINDOW *win, wint_t *wch)
-{
-   const int key = wgetch( win);
-
-    if (key == ERR)
-        return ERR;
-
-    *wch = (wint_t)key;
-
-    return( key >= KEY_MIN && key < KEY_MAX) ? KEY_CODE_YES : OK;
-}
-#endif
 
 /* At least for the nonce,  the cursor will be 'normal' in overwrite mode
 and 'very visible' in insert mode.     */

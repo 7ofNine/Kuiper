@@ -31,11 +31,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include "afuncs.h"
 #include "date.h"
 
-#ifdef __WATCOMC__
-#define floorl floor
-#define sinl sin
-#endif
-
 long double /*DLL_FUNC*/ split_timel( long double t2k, long *year, int *month, int *day,
                                  int *hr, int *min, const int time_format)
 {
@@ -68,7 +63,6 @@ double /*DLL_FUNC*/ split_time( double jd, long *year, int *month, int *day,
 }
 
 #ifndef memicmp
-#ifndef __WATCOMC__
 static int memicmp( const char *s1, const char *s2, int n)
 {
    int c1, c2;
@@ -80,7 +74,7 @@ static int memicmp( const char *s1, const char *s2, int n)
       }
    return( 0);
 }
-#endif
+
 #endif
 
 
@@ -174,7 +168,7 @@ static inline long double collect_time_offset( char *istr)
    return( rval);
 }
 
-#if (defined(_MSC_VER) && _MSC_VER < 1900) || defined __WATCOMC__
+#if (defined(_MSC_VER) && _MSC_VER < 1900)
       /* OpenWATCOM and older MSVCs lack strtold */
    #define strtold strtod
 #endif
@@ -261,17 +255,10 @@ static int get_phase_idx( const char *istr)
 }
 
 static const long double lunation = 29.530588853;
-#ifdef __WATCOMC__
-         /* OpenWATCOM insists on constants being 'explicit' : */
-   static const long double deg2rad =        /* pi / 180.; */
-            0.0174532925199432957692369076848861271344287188854172545609719144017;
-   static const long double lunar_phase_t0 = 5.09765;
-#else
-   static const long double pi =
-     3.1415926535897932384626433832795028841971693993751058209749445923;
-   static const long double deg2rad = pi / 180.;
-   static const long double lunar_phase_t0 = 2451550.09765 - J2000;
-#endif
+static const long double pi = 3.1415926535897932384626433832795028841971693993751058209749445923;
+static const long double deg2rad = pi / 180.;
+static const long double lunar_phase_t0 = 2451550.09765 - J2000;
+
 
 static long double get_phase_time( const long double k, const int phase_idx)
 {

@@ -31,10 +31,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include "afuncs.h"
 #include "date.h"
 
-#ifdef __WATCOMC__
-#define floorl floor
-#define sinl sin
-#endif
 
 static const double pi = 3.1415926535897932384626433832795028841971693993751058209749445923;
 static const long double j2000 = 2451545.0;

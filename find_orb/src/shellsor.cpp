@@ -17,11 +17,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 
 #include <string.h>
 
-#if defined( _WIN32) || defined( __WATCOMC__)
 #include <malloc.h>     /* for alloca() prototype */
-#else
-#include <stdlib.h>
-#endif
 
 /* The re-entrant version of qsort(),  qsort_r(),  is implemented in
 subtly but infuriatingly different ways on different platforms (including

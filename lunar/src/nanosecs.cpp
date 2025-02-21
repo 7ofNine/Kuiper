@@ -35,21 +35,13 @@ the computer's time is adjusted by NTP or the user,  the result may
 actually go backward.  If you want to know what time it is,  don't
 ask a computer.  */
 
-#ifdef _WIN32
 #include <windows.h>
-#endif
-
-#ifdef __WATCOMC__
-#include <sys/timeb.h>
-#endif
-
 #include <stdint.h>
 
 #include "afuncs.h"
 
 int64_t /*DLL_FUNC*/ nanoseconds_since_1970( void);                      /* afuncs.c */
 
-#ifdef _WIN32
 
 int64_t /*DLL_FUNC*/ nanoseconds_since_1970( void)
 {
@@ -65,54 +57,6 @@ int64_t /*DLL_FUNC*/ nanoseconds_since_1970( void)
                                 ((uint64_t)ft.dwHighDateTime << 32)) - diff;
    return( decimicroseconds_since_1970 * (int64_t)100);
 }
-#else
-#ifdef __WATCOMC__
-int64_t /*DLL_FUNC*/ nanoseconds_since_1970( void)
-{
-   struct timeb t;
-   const int64_t one_million = 1000000;
-   int64_t millisec;
-
-   ftime( &t);
-   millisec = (int64_t)t.millitm + (int64_t)1000 * (int64_t)t.time;
-   return( millisec * (int64_t)one_million);
-}
-#else      /* OS/X,  BSD,  and Linux */
-#include <sys/time.h>
-#include <unistd.h>
-
-int64_t /*DLL_FUNC*/ nanoseconds_since_1970( void)
-{
-   struct timeval now;
-   const int rv = gettimeofday( &now, NULL);
-   int64_t rval;
-   const int64_t one_billion = (int64_t)1000000000;
-
-   if( !rv)
-      rval = (int64_t)now.tv_sec * one_billion
-           + (int64_t)now.tv_usec * (int64_t)1000;
-   else
-      rval = 0;
-   return( rval);
-}
-#endif
-#endif
-
-/* At one time,  I was using the following in Linux.  It gives a
-"real" precision of nanoseconds,  instead of getting microseconds
-and multiplying by 1000 (or decimicroseconds and multiplying by 100).
-However,  it does require the realtime library to be linked in...
-I leave it here in case we someday need nanosecond precision.  */
-
-#ifdef NOT_CURRENTLY_IN_USE
-int64_t /*DLL_FUNC*/ nanoseconds_since_1970( void)
-{
-   struct timespec t;
-
-   clock_gettime( CLOCK_REALTIME, &t);
-   return( t.tv_sec * (int64_t)1000000000 + t.tv_nsec);
-}
-#endif    /* NOT_CURRENTLY_IN_USE */
 
 double /*DLL_FUNC*/ current_jd( void)
 {

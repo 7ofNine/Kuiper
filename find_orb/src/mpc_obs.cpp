@@ -17,9 +17,6 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 02110-1301, USA.    */
 
-#ifdef __WATCOMC__
-#include <io.h>          /* for unlink( ) prototype */
-#endif
 #include <stdio.h>
 #include <ctype.h>
 #include <stdlib.h>
@@ -27,10 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include <string.h>
 #include <math.h>
 #include <time.h>
-#include <stdbool.h>
-#ifdef _WIN32
 #include <windows.h>
-#endif
 #include <stdarg.h>
 #include <assert.h>
 #include <errno.h>

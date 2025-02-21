@@ -36,9 +36,9 @@ is a very small amount of speed.  If I learn of other cases where
 punning is possible,  the conditions under which USE_TYPE_PUNNING
 is defined can be modified.      */
 
-#if defined(__x86_64__) || defined(__i386__) || defined(__WATCOMC__) \
-                      || defined(_MSC_VER) || defined (__BORLANDC__) \
-                      || defined (__TURBOC__) || defined( __DMC__)
+#if defined(__x86_64__) || defined(__i386__) \
+                      || defined(_MSC_VER)
+                      
    #define USE_TYPE_PUNNING
 #endif
 

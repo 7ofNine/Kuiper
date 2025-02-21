@@ -39,7 +39,6 @@ ask a computer.  */
 
 int64_t nanoseconds_since_1970( void);                      /* nanosecs.c */
 
-#ifdef _WIN32
 #include <windows.h>
 
 int64_t nanoseconds_since_1970( void)
@@ -57,40 +56,6 @@ int64_t nanoseconds_since_1970( void)
                                 ((uint64_t)ft.dwHighDateTime << 32)) - diff;
    return( decimicroseconds_since_1970 * (int64_t)100);
 }
-#else
-#ifdef __WATCOMC__
-#include <sys/timeb.h>
-
-int64_t nanoseconds_since_1970( void)
-{
-   struct timeb t;
-   const int64_t one_million = 1000000;
-   int64_t millisec;
-
-   ftime( &t);
-   millisec = (int64_t)t.millitm + (int64_t)1000 * (int64_t)t.time;
-   return( millisec * (int64_t)one_million);
-}
-#else      /* OS/X,  BSD,  and Linux */
-#include <sys/time.h>
-#include <unistd.h>
-
-int64_t nanoseconds_since_1970( void)
-{
-   struct timeval now;
-   const int rv = gettimeofday( &now, NULL);
-   int64_t rval;
-   const int64_t one_billion = (int64_t)1000000000;
-
-   if( !rv)
-      rval = (int64_t)now.tv_sec * one_billion
-           + (int64_t)now.tv_usec * (int64_t)1000;
-   else
-      rval = 0;
-   return( rval);
-}
-#endif
-#endif
 
 /* At one time,  I was using the following in Linux.  It gives a
 "real" precision of nanoseconds,  instead of getting microseconds

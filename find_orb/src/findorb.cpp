@@ -365,13 +365,6 @@ is commented out by default. */
 #endif
 #endif
 
-#ifdef __WATCOMC__
-#undef endwin
-extern "C" {
-PDCEX  int     endwin_u64_4302(void);
-}
-#define endwin endwin_u64_4302
-#endif
 
 static int full_endwin( void)
 {
@@ -2202,11 +2195,8 @@ static MPC_STATION *mpc_color_codes = NULL;
    'default_color' unless it's excluded.  If it is,  the residuals
    are shown in COLOR_EXCLUDED_OBS. */
 
-#if defined( __APPLE__) || defined( __WATCOMC__)
-   static int make_unicode_substitutions = 0;
-#else
    static int make_unicode_substitutions = 1;
-#endif
+
 
 static const char *legend =
 "   YYYY MM DD.DDDDD   RA (J2000)   dec      sigmas   mag     ref Obs     Xres  Yres   delta  R";
@@ -3251,7 +3241,6 @@ static inline int initialize_curses([[maybe_unused]] const int argc, [[maybe_unu
    return( 0);
 }
 
-#ifdef _WIN32
 static int user_select_file( char *filename, const char *title, const int flags)
 {
    const bool is_save_dlg = (flags & 1);
@@ -3272,95 +3261,7 @@ static int user_select_file( char *filename, const char *title, const int flags)
    _wchdir( old_path);
    return 0;
 }
-#else
 
-/* In non-Windows situations,  file selection is delegated to the 'zenity'
-program. If that's unavailable,  we try 'yad' (fork of zenity with
-essentially the same options),  then 'kdialog' (used on KDE),  then
-'Xdialog'.  If all else fails, we go to the "traditional" curses
-'dialog' program.  (I may add other possibilities as I find them.
-The Curses 'dialog' is pretty bad.)
-
-Note that a Windows version of Zenity is available,  which may come in
-handy at some point (not used yet) :
-
-https://github.com/maravento/winzenity */
-
-#ifndef __WATCOMC__
-
-static int try_a_file_dialog_program( char *filename, const char *command)
-{
-   FILE *f = popen( command, "r");
-
-   assert( f);
-   if( !fgets_trimmed( filename, 256, f))
-      *filename = '\0';
-   return( (pclose( f) & 0x4000) ? -1 : 0);
-}
-#endif
-
-static int user_select_file( char *filename, const char *title, const int flags)
-{
-#ifndef __WATCOMC__
-   const bool is_save_dlg = (flags & 1);
-   char cmd[256];
-   int rval;
-   const bool x_is_running = (NULL != getenv( "DISPLAY"));
-
-   if( !x_is_running)
-      {
-      inquire( "Enter filename: ", filename, 80, COLOR_DEFAULT_INQUIRY);
-      fix_home_dir( filename);
-      return( 0);
-      }
-   strlcpy_error( cmd, "zenity --file-selection");
-   if( is_save_dlg)
-      strlcat_error( cmd, " --save --confirm-overwrite");
-   snprintf_append( cmd, sizeof( cmd), " --title \"%s\"", title);
-   strlcat_error( cmd, " 2>/dev/null");
-   if( !try_a_file_dialog_program( filename, cmd))
-      return( 0);
-
-   memcpy( cmd, "yad   ", 6);
-   if( !try_a_file_dialog_program( filename, cmd))
-      return( 0);
-
-   snprintf( cmd, sizeof( cmd),
-            "kdialog --get%sfilename :find_orb --title \"%s\"",
-            (is_save_dlg ? "save" : "open"), title);
-   strlcat_error( cmd, " 2>/dev/null");
-   if( !try_a_file_dialog_program( filename, cmd))
-      return( 0);
-
-   snprintf( cmd, sizeof( cmd), "Xdialog --stdout --title \"%s\"", title);
-   strlcat_error( cmd, " --fselect ~ 0 0");
-   rval = try_a_file_dialog_program( filename, cmd);
-   if( !rval)
-      return( 0);
-
-         /* dialog and Xdialog take the same options : */
-   full_endwin( );
-   snprintf_err( strchr( cmd, '~'), 12, "~ %d %d",
-                          getmaxy( stdscr) - 15, getmaxx( stdscr) - 3);
-   rval = try_a_file_dialog_program( filename, cmd + 1);
-   restart_curses( );
-   if( !rval)
-      return( 0);
-#endif
-
-            /* We have none of the 'usual' file dialogues available
-            to us.  So we'll just ask outright for the file name : */
-   if( !inquire( "Enter file name :", filename, 100, COLOR_DEFAULT_INQUIRY)
-                     && *filename)
-      {
-      if( *filename == '~')
-         text_search_and_replace( filename, "~", getenv( "HOME"));
-      return( 0);
-      }
-   else
-      return( -1);
-}
-#endif
 
 extern const char *elements_filename;
 
@@ -3503,9 +3404,6 @@ static OBJECT_INFO *load_file( char *ifilename, int *n_ids, char *err_buff,
                {
                snprintf_append( buff, buffsize, "\n%c ", hotkeys[n_prev]);
                strcat( buff, prev_files[i]);
-#ifndef _WIN32
-               text_search_and_replace( buff, getenv( "HOME"), "~");
-#endif
                prev_idx[n_prev++] = i;
                }
             else      /* file doesn't exist anymore;  remove from list */
@@ -3620,21 +3518,11 @@ static OBJECT_INFO *load_file( char *ifilename, int *n_ids, char *err_buff,
    else if( !is_temp_file)
       {
       FILE *ofile = fopen_ext( prev_fn, "fcw");
-#if defined( _WIN32)
       char canonical_path[MAX_PATH];
       DWORD len =
                  GetFullPathNameA( ifilename, MAX_PATH, canonical_path, NULL);
 
       assert( len && len < MAX_PATH);
-#else
-   #if defined( __WATCOMC__)
-      char *canonical_path = ifilename;
-   #else
-      char *canonical_path = realpath( ifilename, NULL);
-
-      assert( canonical_path);
-   #endif
-#endif
       set_solutions_found( ids, *n_ids);
       for( i = 0; i < n_lines; i++)
          if( prev_files[i] && strcmp( prev_files[i], canonical_path))
@@ -3642,9 +3530,6 @@ static OBJECT_INFO *load_file( char *ifilename, int *n_ids, char *err_buff,
       if( strcmp( canonical_path, temp_obs_filename))
          fprintf( ofile, "%s\n", canonical_path);
       fclose( ofile);
-#ifndef _WIN32
-      free( canonical_path);
-#endif
       }
    free( prev_files);
    return( ids);

@@ -56,13 +56,7 @@ namespace fs = ghc::filesystem;
 
 #endif
 
-#if defined( _WIN32) || defined( __WATCOMC__)
-   #include <direct.h>        /* for _mkdir() definition */
-#else
-   #include <sys/stat.h>
-   #include <sys/types.h>
-   #include <unistd.h>
-#endif
+#include <direct.h>        /* for _mkdir() definition */
 
 const char *get_find_orb_text( const int index);
 
@@ -227,14 +221,14 @@ int get_temp_dir( char *name, const size_t max_len)
       const bool first_time = (process_id == 0);
 
       if( first_time)
-#if defined( _WIN32) || defined( __WATCOMC__)
+#if defined( _WIN32) 
          process_id = 1;
 #else
          process_id = getpid( );
 #endif
       snprintf_err( name, max_len, "/tmp/find_orb%d", process_id);
       if( first_time)
-#if defined( _WIN32) || defined( __WATCOMC__)
+#if defined( _WIN32)
          _mkdir( name);
 #else
          mkdir( name, 0777);
@@ -262,11 +256,6 @@ FILE *fopen_ext( const char *filename, const char *permits)
 
    if( *permits == 't')
       {
-#if !defined( _WIN32) && !defined( __WATCOMC__)
-      extern bool findorb_already_running;
-
-      is_temporary = findorb_already_running || (output_directory != NULL);
-#endif
       permits++;
       }
    if( *permits == 'f')
@@ -434,11 +423,7 @@ int fetch_astrometry_from_mpc( FILE *ofile, const char *desig)
          }
       for( i = 0; desig[i]; i++)
          j = j * 314159u + (unsigned)desig[i];
-#if defined( _WIN32) || defined( __WATCOMC__)
       snprintf_err( filename, sizeof( filename),      "temp%02u.ast", j % 100);
-#else
-      snprintf_err( filename, sizeof( filename), "/tmp/temp%02u.ast", j % 100);
-#endif
       snprintf_err( tbuff, sizeof( tbuff), "%s %s %s", grab_program,
                                                 filename, desig);
       err_code = system( tbuff);

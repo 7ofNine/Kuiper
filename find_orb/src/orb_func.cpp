@@ -53,13 +53,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 int snprintf( char *string, const size_t max_len, const char *format, ...);
 #endif
 
-#ifdef __WATCOMC__
-#define sqrtl sqrt
-#define powl pow
-#define fabsl fabs
-#define ceill ceil
-#endif
-
 unsigned perturbers = 0;
 int integration_method = 0;
 extern int debug_level;
@@ -4922,10 +4915,6 @@ void update_environ_dot_dat( void);     /* mpc_obs.cpp */
 double galactic_confusion( const double ra, const double dec);
 void pop_all_orbits( void);         /* orb_func2.cpp */
 char *find_numbered_mp_info( const int number);    /* mpc_obs.cpp */
-#if !defined( _WIN32) && !defined( __WATCOMC__)
-int check_for_other_processes( const int locking);    /* elem_out.cpp */
-int get_temp_dir( char *name, const size_t max_len);   /* miscell.cpp */
-#endif
 int detect_perturbers( const double jd, const double * /*__restrict*/ xyz,
                        double *accel);
 
@@ -4955,20 +4944,7 @@ int clean_up_find_orb_memory( void)
    galactic_confusion( -99., 0.);
    find_numbered_mp_info( 0);
    detect_perturbers( 0, NULL, NULL);
-#if !defined( _WIN32) && !defined( __WATCOMC__)
-   if( check_for_other_processes( 0))
-      {
-      char cmd[100];
-
-      strcpy( cmd, "rm -r ");
-      get_temp_dir( cmd + 6, sizeof( cmd) - 6);
-      if( !memcmp( cmd + 6, "/tmp/", 5))
-         debug_printf( "Result %d\n", system( cmd));
-      }
-   unlink( temp_obs_filename);
-#else
    _unlink( temp_obs_filename);
-#endif
    free( temp_obs_filename);
    return( 0);
 }

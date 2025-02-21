@@ -27570,3 +27570,35 @@ for further information.
 Hit any key to continue.  Find_Orb will still work,  though it will
 be a little slower and less accurate.  You should eventually download
 a JPL ephemeris file,  per the instructions at the above link.
+22:30:55 You don't currently have JPL planetary ephemerides set up
+for use in Find_Orb.  This will result in some loss of accuracy
+and speed.  See https://www.projectpluto.com/find_orb.htm#de_eph
+for further information.
+
+Hit any key to continue.  Find_Orb will still work,  though it will
+be a little slower and less accurate.  You should eventually download
+a JPL ephemeris file,  per the instructions at the above link.
+22:50:02 You don't currently have JPL planetary ephemerides set up
+for use in Find_Orb.  This will result in some loss of accuracy
+and speed.  See https://www.projectpluto.com/find_orb.htm#de_eph
+for further information.
+
+Hit any key to continue.  Find_Orb will still work,  though it will
+be a little slower and less accurate.  You should eventually download
+a JPL ephemeris file,  per the instructions at the above link.
+22:58:51 You don't currently have JPL planetary ephemerides set up
+for use in Find_Orb.  This will result in some loss of accuracy
+and speed.  See https://www.projectpluto.com/find_orb.htm#de_eph
+for further information.
+
+Hit any key to continue.  Find_Orb will still work,  though it will
+be a little slower and less accurate.  You should eventually download
+a JPL ephemeris file,  per the instructions at the above link.
+00:15:24 You don't currently have JPL planetary ephemerides set up
+for use in Find_Orb.  This will result in some loss of accuracy
+and speed.  See https://www.projectpluto.com/find_orb.htm#de_eph
+for further information.
+
+Hit any key to continue.  Find_Orb will still work,  though it will
+be a little slower and less accurate.  You should eventually download
+a JPL ephemeris file,  per the instructions at the above link.

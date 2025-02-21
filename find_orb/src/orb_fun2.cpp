@@ -532,7 +532,7 @@ https://en.wikipedia.org/wiki/Error_function#Approximation_with_elementary_funct
 (Which isn't a problem here,  but some caution would be appropriate.)
 It's only used in early MSVCs which lack erf(),  and in OpenWATCOM.  */
 
-#if defined( _MSC_VER) && (_MSC_VER < 1800) || defined( __WATCOMC__)
+#if defined( _MSC_VER) && (_MSC_VER < 1800)
 double erf( double x)
 {
     const double a1 = 0.254829592, a2 = -0.284496736, a3 = 1.421413741;

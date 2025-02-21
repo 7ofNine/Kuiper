@@ -117,7 +117,7 @@ int lat_alt_to_parallax( const double lat, const double ht_in_meters,
 
 /* MS only got around to adding cbrt in VS2013 : */
 
-#if (defined( _MSC_VER) && (_MSC_VER < 1800)) || defined( __WATCOMC__)
+#if (defined( _MSC_VER) && (_MSC_VER < 1800))
 
 static double cbrt( const double z)
 {

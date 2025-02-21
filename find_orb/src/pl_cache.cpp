@@ -107,11 +107,7 @@ static int planet_posn_raw( int planet_no, const double jd,
       {
       FILE *ifile;
 
-#if defined (_WIN32) || defined( __WATCOMC__)
       jpl_filename = get_environment_ptr( "JPL_FILENAME");
-#else
-      jpl_filename = get_environment_ptr( "LINUX_JPL_FILENAME");
-#endif
       if( *jpl_filename)
          jpl_eph = jpl_init_ephemeris( jpl_filename, NULL, NULL);
       if( !jpl_eph)

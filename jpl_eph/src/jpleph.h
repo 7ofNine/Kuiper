@@ -34,15 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
    be useful to people who want to use the functions from languages other
    than C. */
 
-#ifdef _WIN32
 #define /*DLL_FUNC*/ __stdcall
-#else
-#define /*DLL_FUNC*/
-#endif
-
-#ifdef __WATCOMC__
-   #include <stdbool.h>
-#endif
 
 
 extern "C" {

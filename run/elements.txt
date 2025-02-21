@@ -14,7 +14,7 @@ From 20 observations 1997 Oct. 23-Nov. 15; mean residual 0".43
 # MOIDs: Me  0.722247 Ve  0.328634 Ea  0.061520 Ma  0.004966
 # MOIDs: Ju  1.240722 Sa  6.094528 Ur 15.718831 Ne 26.243211
 # 1 oppositions
-# Elements written: 20 Feb 2025 21:05:57 (JD 2460727.379134)
+# Elements written: 21 Feb 2025  0:15:29 (JD 2460727.510756)
 # Full range of obs: 1997 Oct. 12-Nov. 15 (37 observations)
 # Find_Orb ver: 2025 Jan 30
 # Perturbers: 00000000 (unperturbed orbit);  not using JPL DE

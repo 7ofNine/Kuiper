@@ -17,15 +17,8 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 02110-1301, USA.    */
 
-#if defined( _WIN32) || defined( __WATCOMC__)
-   #include <direct.h>        /* for _mkdir() definition */
-#else
-   #include <sys/stat.h>
-   #include <sys/types.h>
-#endif
-#ifdef __linux
-   #include <linux/limits.h>
-#endif
+
+#include <direct.h>        /* for _mkdir() definition */
 #include <sys/types.h>
 #include <math.h>
 #include <stdio.h>
@@ -556,7 +549,7 @@ static int put_ephemeris_posn_angle_sigma( char *obuff, const double dist,
 
 /* Old MSVCs and OpenWATCOM lack erf() and many other math functions: */
 
-#if defined( _MSC_VER) && (_MSC_VER < 1800) || defined( __WATCOMC__)
+#if defined( _MSC_VER) && (_MSC_VER < 1800)
 double erf( double x);     /* orb_fun2.cpp */
 #endif
 
@@ -1532,7 +1525,7 @@ void make_path_available( const char *filename)
       if( i && filename[i] == '/')
          {
          path[i] = '\0';
-#if defined( _WIN32) || defined( __WATCOMC__)
+#if defined( _WIN32)
          _mkdir( path);
 #else
          mkdir( path, 0777);

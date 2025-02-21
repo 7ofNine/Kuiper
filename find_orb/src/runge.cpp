@@ -23,9 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include <stdarg.h>
 #include <math.h>
 #include <assert.h>
-#ifdef __GNUC__
-#include <unistd.h>
-#endif
 //
 #include "lunar.h"
 #include "afuncs.h"
@@ -35,15 +32,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include "constant.h"
 
 #define ldouble long double
-
-#if defined( __WATCOMC__) || defined( __FreeBSD__)
-#define ceill ceil
-#define expl exp
-#define fabsl fabs
-#define isnanl isnan
-#define powl pow
-#define sqrtl sqrt
-#endif
 
 /* perturbers
    excluded_perturbers = -1;
@@ -1731,9 +1719,7 @@ ldouble take_rk_stepl( const ldouble jd, ELEMENTS *ref_orbit,
       bptr += j;
       if( j != 6)
          {
-#ifndef __WATCOMC__
          assert( fabsl( jd_j) < 1e+9);
-#endif
          calc_derivativesl( jd_j, state_j, ivals_p[j], ref_orbit->central_obj);
          for( k = 0; k < 6; k++)
             ivals_p[j][k] -= ref_state_j[k + 3];
