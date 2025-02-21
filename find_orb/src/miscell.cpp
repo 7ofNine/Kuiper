@@ -84,9 +84,6 @@ is 'true' is for console Find_Orb in Linux,  and even there,  you
 can turn it back to 'false'.
 */
 
-#ifndef _WIN32
-int get_temp_dir( char *name, const size_t max_len);      /* miscell.cpp */
-#endif
 int fetch_astrometry_from_mpc( FILE *ofile, const char *desig);
 int download_a_file( const char *ofilename, const char *url);
 int generic_message_box( const char *message, const char *box_type);
@@ -164,27 +161,13 @@ The following function replaces ~ with the home directory. */
 
 static FILE *fopen_tilde( const char *filename, const char *permits)
 {
-#ifdef _WIN32
-   return( fopen( filename, permits));
-#else
-   if( *filename != '~' || filename[1] != '/')
-      return( fopen( filename, permits));
-   else
-      {
-      char fullname[255];
 
-      strlcpy_err( fullname, getenv( "HOME"), sizeof( fullname));
-      strlcat_err( fullname, filename + 1, sizeof( fullname));
-      return( fopen( fullname, permits));
-      }
-#endif
+   return( fopen( filename, permits));
+
 }
 
 char *make_config_dir_name( char *oname, const char *iname)
 {
-#ifndef _WIN32
-   char *home_ptr = getenv( "HOME");
-#endif
 
    if( alt_config_directory && *alt_config_directory)
       {
@@ -192,51 +175,12 @@ char *make_config_dir_name( char *oname, const char *iname)
       strcat( oname, iname);
       return( oname);
       }
-#ifdef _WIN32
+
    strcpy( oname, iname);
-#else
-   if( home_ptr)
-      {
-      strcpy( oname, home_ptr);
-      strcat( oname, "/.find_orb/");
-      }
-   else
-      *oname = '\0';
-   strcat( oname, iname);
-#endif
    return( oname);
 }
 
 const char *output_directory = NULL;
-
-#ifndef _WIN32
-int get_temp_dir( char *name, const size_t max_len)
-{
-   static int process_id = 0;
-
-   if( output_directory)
-      strlcpy_err( name, output_directory, max_len);
-   else
-      {
-      const bool first_time = (process_id == 0);
-
-      if( first_time)
-#if defined( _WIN32) 
-         process_id = 1;
-#else
-         process_id = getpid( );
-#endif
-      snprintf_err( name, max_len, "/tmp/find_orb%d", process_id);
-      if( first_time)
-#if defined( _WIN32)
-         _mkdir( name);
-#else
-         mkdir( name, 0777);
-#endif
-      }
-   return( process_id);
-}
-#endif
 
 /* We use a lock file to determine if Find_Orb is already running,  and
 therefore putting some temporary files (ephemerides,  elements,  etc.)
@@ -274,16 +218,6 @@ FILE *fopen_ext( const char *filename, const char *permits)
       permits++;
       rval = fopen_tilde( filename, permits + 1);
       }
-#ifndef _WIN32
-   if( is_temporary)
-      {
-      char tname[255];
-
-      get_temp_dir( tname, sizeof( tname));
-      snprintf_append( tname, sizeof( tname), "/%s",  filename);
-      rval = fopen( tname, permits);
-      }
-#endif
    if( !rval && *permits == 'c' && !is_temporary)
       {
       char tname[255];

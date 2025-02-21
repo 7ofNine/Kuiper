@@ -2,38 +2,17 @@
 
 #define PDC_NCMOUSE
 
-#if defined( VT) || defined( XCURSES) || defined( _WIN32) 
-   #define PDC_FORCE_UTF8
-   #include <curses.h>
-#else
-   #define NCURSES_WIDECHAR 1
-   #define HAVE_NCURSESW
+ 
+#define PDC_FORCE_UTF8
+#include <curses.h>
 
-   #if defined( __cplusplus)
-       #if defined(__has_include)
-           #if __has_include( <ncursesw/cursesw.h>)
-               #include <ncursesw/cursesw.h>
-           #elif __has_include( <cursesw.h>)
-               #include <cursesw.h>
-           #else
-               #include <curses.h>
-           #endif
-       #else
-           #include <curses.h>
-       #endif
-   #else
-      #include <curses.h>
-   #endif
-#endif
 
 #include <wchar.h>
 #include <assert.h>
-#ifdef _WIN32
-   #include <stdbool.h>
-   #include <stdlib.h>
-#else
-   #include <unistd.h>
-#endif
+
+
+#include <stdlib.h>
+
 #include <string.h>
 
 #ifdef __cplusplus

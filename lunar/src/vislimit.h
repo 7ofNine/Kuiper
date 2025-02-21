@@ -51,21 +51,16 @@ BRIGHTNESS_DATA
    };
 #pragma pack( )
 
-#ifdef _WIN32
+//#ifdef _WIN32
 #define /*DLL_FUNC*/ __stdcall
-#else
-#define /*DLL_FUNC*/
-#endif
 
-#ifdef __cplusplus
+
 extern "C" {
-#endif
 
 int /*DLL_FUNC*/ set_brightness_params( BRIGHTNESS_DATA *b);
 int /*DLL_FUNC*/ compute_sky_brightness( BRIGHTNESS_DATA *b);
 double /*DLL_FUNC*/ compute_limiting_mag( BRIGHTNESS_DATA *b);
 int /*DLL_FUNC*/ compute_extinction( BRIGHTNESS_DATA *b);
 
-#ifdef __cplusplus
 }
-#endif
+

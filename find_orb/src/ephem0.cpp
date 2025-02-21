@@ -1525,28 +1525,11 @@ void make_path_available( const char *filename)
       if( i && filename[i] == '/')
          {
          path[i] = '\0';
-#if defined( _WIN32)
          _mkdir( path);
-#else
-         mkdir( path, 0777);
-#endif
          }
       path[i] = filename[i];
       }
 }
-#ifndef _WIN32
-void fix_home_dir( char *filename)
-{
-   if( filename[0] == '~' && filename[1] == '/')
-      {
-      const char *home_dir = getenv( "HOME");
-      const size_t len = strlen( home_dir);
-
-      memmove( filename + len, filename + 1, strlen( filename));
-      memcpy( filename, home_dir, len);
-      }
-}
-#endif
 
 char *real_packed_desig( char *obuff, const char *packed_id)
 {
@@ -1578,13 +1561,10 @@ FILE *open_json_file( char *filename, const char *env_ptr, const char *default_n
 {
    char tbuff[100], full_permits[20];
 
-#ifdef _WIN32
+
    strlcpy_error( tbuff, "WIN_");
    strlcat_error( tbuff, env_ptr);
    env_ptr = get_environment_ptr( tbuff);
-#else
-   env_ptr = get_environment_ptr( env_ptr);
-#endif
 
    if( !strcmp( env_ptr, "none"))
       return( NULL);
@@ -1606,9 +1586,6 @@ FILE *open_json_file( char *filename, const char *env_ptr, const char *default_n
       text_search_and_replace( filename, "%c", ephem_mpc_code);
       snprintf_err( tbuff, sizeof( tbuff), "%x", random_seed);
       text_search_and_replace( filename, "%r", tbuff);
-#ifndef _WIN32
-      fix_home_dir( filename);
-#endif
       strlcpy_error( full_permits, "f");
       make_path_available( filename);
       }

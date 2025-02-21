@@ -22,20 +22,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #define PDC_FORCE_UTF8
 #define MOUSE_MOVEMENT_EVENTS_ENABLED
 
-#ifdef _WIN32
-#include <windows.h>
-#else
-#include <unistd.h>
-#endif
 
-#if defined( _WIN32)
-   #ifdef MOUSE_MOVED
+#include <windows.h>
+
+
+   //#ifdef MOUSE_MOVED
       #undef MOUSE_MOVED
-   #endif
-   #ifdef COLOR_MENU
+   //#endif
+   //#ifdef COLOR_MENU
       #undef COLOR_MENU
-   #endif
-#endif
+   //#endif
+
    #include "curses.h"
 
       /* The 'usual' Curses library provided with Linux lacks a few things */
@@ -315,25 +312,11 @@ int curses_kbhit_without_mouse( )
 
 static int extended_getch( void)
 {
-#ifdef _WIN32
+
    int rval = getch( );
 
    if( !rval)
       rval = 256 + getch( );
-#else
-   int rval = getch( );
-
-   if( rval == 27)
-      {
-      nodelay( stdscr, TRUE);
-      rval = getch( );
-      nodelay( stdscr, FALSE);
-      if( rval == ERR)    /* no second key found */
-         rval = 27;       /* just a plain ol' Escape */
-      else
-         rval += (ALT_A - 'a');
-      }
-#endif
    return( rval);
 }
 
@@ -374,15 +357,6 @@ static int full_endwin( void)
    return( endwin( ));
 }
 
-#ifndef _WIN32
-static int restart_curses( void)
-{
-#ifdef VT_RECEIVE_ALL_MOUSE
-   printf( VT_RECEIVE_ALL_MOUSE);
-#endif
-   return( refresh( ));
-}
-#endif
 
 static void restore_screen( const int *screen)
 {
@@ -1933,13 +1907,6 @@ int select_object_in_file( OBJECT_INFO *ids, const int n_ids)
             case 'o': case 'O':
                rval = -3;
                break;
-#ifndef _WIN32
-            case KEY_F(8):     /* show original screens */
-               full_endwin( );
-               extended_getch( );
-               restart_curses( );
-               break;
-#endif
             case KEY_MOUSE:      /* already handled above */
                break;
 #ifdef KEY_RESIZE
@@ -3332,11 +3299,7 @@ else I know about,  it won't.  */
 
 static bool filename_fits_current_os( const char *filename)
 {
-#ifdef _WIN32
    return( strstr( filename, ":\\"));
-#else
-   return( !strstr( filename, ":\\"));
-#endif
 }
 
 static OBJECT_INFO *load_file( char *ifilename, int *n_ids, char *err_buff,
@@ -3387,7 +3350,6 @@ static OBJECT_INFO *load_file( char *ifilename, int *n_ids, char *err_buff,
       fclose( ifile);
 
       strlcpy_err( buff, get_find_orb_text( 2031), buffsize);
-#ifdef _WIN32
          {
          char *sel_ptr = strstr( buff, "S ");
 
@@ -3395,7 +3357,6 @@ static OBJECT_INFO *load_file( char *ifilename, int *n_ids, char *err_buff,
          sel_ptr[-1] = '\0';        /* it doesn't work in Windows */
          base_key--;
          }
-#endif
       for( i = n_lines - 1; i && hotkeys[n_prev]
                                      && n_prev + 12 < (size_t)getmaxy( stdscr); i--)
          if( prev_files[i][0] != '#' && filename_fits_current_os( prev_files[i]))
@@ -3450,11 +3411,6 @@ static OBJECT_INFO *load_file( char *ifilename, int *n_ids, char *err_buff,
          case 'c': case KEY_F( 3):
             strcpy( ifilename, "c");
             break;
-#ifndef _WIN32
-         case 's': case KEY_F( 4):
-            strcpy( ifilename, "s");
-            break;
-#endif
          case 'q': case 'Q': case 27:
             free( prev_files);
             *err_buff = '\0';    /* signals 'cancel' */
@@ -3479,11 +3435,8 @@ static OBJECT_INFO *load_file( char *ifilename, int *n_ids, char *err_buff,
 
       if( err_code)
          inquire( get_find_orb_text(
-#ifdef _WIN32
+
                         2076  /* "Clipboard is empty" */
-#else
-                        2039  /* "You need xclip to get at the clipboard" */
-#endif
                                     ), NULL, 0, COLOR_MESSAGE_TO_USER);
       strcpy( ifilename, temp_obs_filename);
       is_temp_file = true;
@@ -3863,13 +3816,7 @@ static int show_hint( const unsigned mouse_x, const unsigned mouse_y, size_t *in
 static unsigned get_random_seed( void)
 {
 
-#ifdef _WIN32
    int64_t zval = nanoseconds_since_1970( );
-#else
-   unsigned long zval;
-
-   zval = (unsigned long)&zval;
-#endif
    return( (unsigned)( zval ^ (zval >> 31)));
 }
 
@@ -5133,13 +5080,6 @@ int main( int argc, const char **argv)
                   }
                }
             break;
-#ifndef _WIN32
-         case KEY_F(8):     /* show original screens */
-            full_endwin( );
-            extended_getch( );
-            restart_curses( );
-            break;
-#endif
          case 'a': case 'A':
             perturbers ^= (7 << 20);
             strlcpy_error( message_to_user, "Asteroids toggled");
@@ -5680,9 +5620,6 @@ int main( int argc, const char **argv)
                char filename[85];
                double orbit2[MAX_N_PARAMS];
 
-#ifndef _WIN32
-               fix_home_dir( tbuff);
-#endif
                sscanf( tbuff, "%79s", filename);
                ofile = fopen( filename, "wb");
                if( ofile)
@@ -6255,11 +6192,8 @@ int main( int argc, const char **argv)
             memcpy( orbit2, orbit, n_orbit_params * sizeof( double));
             integrate_orbit( orbit2, curr_epoch, epoch_shown);
             create_obs_file( obs, n_obs, 0, residual_format);
-#ifdef _WIN32                /* MS is different. */
+            /* MS is different. */
             _unlink( get_file_name( tbuff, ephemeris_filename));
-#else
-            unlink( get_file_name( tbuff, ephemeris_filename));
-#endif
             write_residuals_to_file( get_file_name( tbuff, residual_filename),
                              ifilename, n_obs, obs, RESIDUAL_FORMAT_SHORT);
             snprintf_err( tbuff, sizeof( tbuff), "%s%s.htm", path, obs->packed_id);

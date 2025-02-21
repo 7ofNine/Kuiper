@@ -851,22 +851,6 @@ int calc_derivativesl( const ldouble jd, const ldouble *ival, ldouble *oval,
             0.57928, 0.02208 };                  /* nep, plu */
 
    assert( fabsl( jd) < 1e+9);
-#if !defined( _WIN32) && !defined( __APPLE__)
-   for( i = 0; i < 6; i++)
-      if( isnanl( ival[i]))
-         {
-         debug_printf( "Bad derivs; jd %Lf; ref %d\n", jd, reference_planet);
-         debug_printf( "%Lf %Lf %Lf\n", ival[0], ival[1], ival[2]);
-         debug_printf( "%Lf %Lf %Lf\n", ival[3], ival[4], ival[5]);
-         assert( 0);
-         }
-   assert( !isnanl( ival[0]));
-   assert( !isnanl( ival[1]));
-   assert( !isnanl( ival[2]));
-   assert( !isnanl( ival[3]));
-   assert( !isnanl( ival[4]));
-   assert( !isnanl( ival[5]));
-#endif
    oval[0] = ival[3];
    oval[1] = ival[4];
    oval[2] = ival[5];
@@ -934,9 +918,6 @@ int calc_derivativesl( const ldouble jd, const ldouble *ival, ldouble *oval,
       const ldouble g = comet_g_func( lagged_dist( ival, jd, lag)) * fraction_illum;
       ldouble transverse[3], dot_prod = 0.;
 
-#if !defined( _WIN32) && !defined( __APPLE__)
-      assert( !isnanl( g));
-#endif
       memcpy( transverse, ival + 3, 3 * sizeof( ldouble));
       for( i = 0; i < 3; i++)
          dot_prod += transverse[i] * ival[i];

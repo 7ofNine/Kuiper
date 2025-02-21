@@ -1,30 +1,26 @@
-Orbital elements: 
-Example1
-   Perihelion 1998 Mar 8.701924583 TT = 16:50:46.2839 (JD 2450881.201924583)
-Epoch 1997 Nov 15.0 TT = JDT 2450767.5   Earth MOID: 0.0615   Ma: 0.0050
-M 330.984250421423                  (J2000 ecliptic)             Find_Orb
-n   0.255191367120 Peri.   72.210055101
-a   2.461644855438 Node    47.856542611
-e   0.57527857741  Incl.    0.142517366
-P   3.86223        H   16.54    U  8.0     q 1.045513304912  Q 3.877776405964
-From 20 observations 1997 Oct. 23-Nov. 15; mean residual 0".43
+Orbital elements:  Example2
+   Perigee 1997 Apr 22.93393 TT = 22:24:52 (JD 2450561.43393)    Find_Orb
+Epoch 1997 Apr 22.0 TT = JDT 2450560.5
+q 15994.4604km                      (J2000 equator)
+H   22.74 G 0.15   Peri.  351.40932
+                   Node   316.66600
+e   6.1673520      Incl.    9.76425
+8 of 20 observations 1997 Apr. 21-22 (18.2 hr); mean residual 0".33
 # State vector (heliocentric equatorial J2000):
-#   +1.481981875971  +0.726694132514  +0.313521111425 AU
-#  -12.987811747943  +7.288658167054  +3.200609126751 mAU/day
-# MOIDs: Me  0.722247 Ve  0.328634 Ea  0.061520 Ma  0.004966
-# MOIDs: Ju  1.240722 Sa  6.094528 Ur 15.718831 Ne 26.243211
-# 1 oppositions
-# Elements written: 21 Feb 2025  0:15:29 (JD 2460727.510756)
-# Full range of obs: 1997 Oct. 12-Nov. 15 (37 observations)
+#   -0.858213944174  -0.491077667454  -0.212609460275 AU
+#  +14.524182936603 -10.349421855130  -4.769147350955 mAU/day
+# State vector relative to central body:
+#   -0.005312286581  -0.002376871962  -0.002127234703 AU
+#    5.703249356236   2.418955835563   2.205308231784 mAU/day
+# Elements written: 21 Feb 2025 20:05:57 (JD 2460728.337470)
+# Full range of obs: 1997 Apr. 21-22 (31.0 hr) (20 observations)
 # Find_Orb ver: 2025 Jan 30
-# Perturbers: 00000000 (unperturbed orbit);  not using JPL DE
-# Tisserand relative to Earth: 2.97291
-# Tisserand relative to Jupiter: 3.23896
-# Barbee-style encounter velocity: 6.2960 km/s
-# Diameter 2025.5 meters (assuming 10% albedo)
-# Score: 0.949981
-#  $Name=Example1  $Ty=1998  $Tm=03  $Td=08.701924  $MA=330.98425
-#  $ecc=0.5752786  $Eqnx=2000.
-#  $a=2.4616449  $Peri=72.21006  $Node=47.85654  $Incl=0.14252
-#  $EpJD=2450767.500  $q=1.045513  $T=2450881.201925  $H=16.5
-# Sigmas avail: 1
+# Perturbers: 00000408 (Sun/Earth/Moon);  JPL DE-440
+# Barbee-style encounter velocity: 11.3415 km/s
+# Diameter 116.2 meters (assuming 10% albedo)
+# Score: 0.697306
+#  $Name=Example2  $Ty=1997  $Tm=06  $Td=21.333272  $MA=315.37736
+#  $ecc=0.3746320  $Eqnx=2000.
+#  $a=1.2109804  $Peri=264.46550  $Node=32.99275  $Incl=0.84914
+#  $EpJD=2450560.500  $q=0.757308  $T=2450620.833272  $H=22.7
+# Sigmas avail: 0

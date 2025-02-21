@@ -4987,11 +4987,8 @@ int compute_observation_motion_details( const OBSERVE   *obs,
          /* motion is in arcminutes/hour */
 static void format_motion( char *obuff, const double motion)
 {
-#ifdef _WIN32
+
    static const char degree_symbol = (char)0xb0;
-#else
-   static const char degree_symbol = (char)0xf8;
-#endif
    const double fabs_motion = fabs( motion);
    const size_t obuff_size = 12;
 

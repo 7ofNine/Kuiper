@@ -148,17 +148,6 @@ void restore_ra_decs_mags_times( unsigned n_obs, OBSERVE *obs,
 /* Defining 64-bit constants portably and avoiding nuisance warnings
 is rather difficult to arrange,  but can be done. */
 
-#ifndef UINT64_C
-   #ifdef _MSC_VER
-      #define UINT64_C( a) (a##ui64)
-   #else
-      #ifdef _WIN32
-         #define UINT64_C( a) (a##ULL)
-      #else
-         #define UINT64_C( a) ((uint64_t)(a##UL))
-      #endif
-   #endif
-#endif
 
 #ifdef __clang__
 #pragma GCC diagnostic ignored "-Wc++11-long-long"

@@ -1,14 +1,9 @@
 /* Copyright (C) 2018, Project Pluto.  See LICENSE.  */
 
-#ifdef _WIN32
 #define /*DLL_FUNC*/ __stdcall
-#else
-#define /*DLL_FUNC*/
-#endif
 
-#ifdef __cplusplus
 extern "C" {
-#endif
+
 
 void /*DLL_FUNC*/ earth_lat_alt_to_parallax( const double lat,
                     const double ht_in_meters,
@@ -22,6 +17,5 @@ void /*DLL_FUNC*/ get_satellite_ra_dec_delta( const double *observer_loc,
 void /*DLL_FUNC*/ epoch_of_date_to_j2000( const double jd, double *ra, double *dec);
 void /*DLL_FUNC*/ j2000_to_epoch_of_date( const double jd, double *ra, double *dec);
 
-#ifdef __cplusplus
 }                       /* end of 'extern "C"' section */
-#endif
+

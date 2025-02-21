@@ -36,10 +36,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include "pl_cache.h"
 #include "constant.h"
 
-#ifndef _WIN32
-   #include <unistd.h>
-#endif
-
 /* MS only got around to adding 'isfinite' in VS2013 : */
 
 #if defined( _MSC_VER) && (_MSC_VER < 1800)

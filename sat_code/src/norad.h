@@ -81,17 +81,14 @@ reasonable position/velocity was determined.       */
 /* Function prototypes */
 /* norad.c */
 
-         /* The Win32 version can be compiled to make a .DLL,  if the     */
-         /* functions are declared to be of type __stdcall... _and_ the   */
-         /* functions must be declared to be extern "C",  something I     */
-         /* overlooked and added 24 Sep 2002.  The DLL_FUNC macro lets    */
-         /* this coexist peacefully with other OSes.                      */
+/* The Win32 version can be compiled to make a .DLL,  if the     */
+/* functions are declared to be of type __stdcall... _and_ the   */
+/* functions must be declared to be extern "C",  something I     */
+/* overlooked and added 24 Sep 2002.  The DLL_FUNC macro lets    */
+/* this coexist peacefully with other OSes.                      */
 
-#ifdef _WIN32     // only temporary until proper dll declaration/definition doesn't make much sense in 64 bit
+
 #define /*DLL_FUNC*/ __stdcall
-#else
-#define /*DLL_FUNC*/
-#endif
 
 
 extern "C" {
@@ -133,12 +130,12 @@ void /*DLL_FUNC*/ lunar_solar_position( const double jd,
 }                       /* end of 'extern "C"' section */
 
 
-         /* Following are in 'dynamic.cpp',  for C/C++ programs that want  */
-         /* to load 'sat_code.dll' and use its functions at runtime.  They */
-         /* only make sense in the Win32 world: */
-#ifdef _WIN32
+/* Following are in 'dynamic.cpp',  for C/C++ programs that want  */
+/* to load 'sat_code.dll' and use its functions at runtime.  They */
+/* only make sense in the Win32 world: */
+
 int SXPX_init( double *params, const tle_t *tle, const int sxpx_num);
 int SXPX( const double tsince, const tle_t *tle, const double *params,
                                double *pos, double *vel, const int sxpx_num);
-#endif
+
 #endif

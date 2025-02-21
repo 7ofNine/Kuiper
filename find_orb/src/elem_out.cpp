@@ -2965,31 +2965,6 @@ static int names_compare( const char *name1, const char *name2)
    return( strcmp( name1, name2));
 }
 
-#if !defined( _WIN32)
-int _memicmp( const char *s1, const char *s2, int n)
-{
-   int c1, c2;
-
-   while( n--)
-      {
-      if( (c1 = tolower( *s1++)) != (c2 = tolower( *s2++)))
-         return( c1 - c2);
-      }
-   return( 0);
-}
-
-int _stricmp( const char *s1, const char *s2)
-{
-   int c1, c2;
-
-   while( *s1 || *s2)
-      {
-      if( (c1 = tolower( *s1++)) != (c2 = tolower( *s2++)))
-         return( c1 - c2);
-      }
-   return( 0);
-}
-#endif
 
 /* You can specify a state vector on the command line (for fo and
 Find_Orb) using the -v(state vect) switch.  The state vector must
@@ -3931,37 +3906,6 @@ int store_defaults( const ephem_option_t ephemeris_output_options,
    return( 0);
 }
 
-/* Modified from code at https://www.informit.com/articles/article.aspx?p=23618&seqNum=4 .
-The first instance of Find_Orb,  fo,  or fo_serve will attempt to put a lock
-on /tmp/fo_lock.  Subsequent instances will see that and fail to get a lock.
-Basically,  an interprocess mutex.     */
-
-#if !defined( _WIN32)
-int check_for_other_processes( const int locking)
-{
-   const char *lock_filename = "/tmp/fo_lock";
-   static int lock_fd;
-   static struct flock lock;
-   int rval;
-
-   if( locking)
-      {
-      lock_fd = open( lock_filename, O_WRONLY | O_CREAT, S_IRUSR | S_IWUSR);
-      lock.l_type = F_WRLCK;
-      rval = fcntl( lock_fd, F_SETLK, &lock);
-      }
-   else           /* unlocking */
-      {
-      lock.l_type = F_UNLCK;
-      fcntl( lock_fd, F_SETLK, &lock);
-      close( lock_fd);
-      if( !findorb_already_running)
-         unlink( lock_filename);
-      rval = findorb_already_running;
-      }
-   return( rval);
-}
-#endif
 
 int set_language( const int language)
 {
@@ -4052,9 +3996,6 @@ int get_defaults( ephem_option_t *ephemeris_output_options, int *element_format,
 
    if( !output_directory && *output_dir)
       output_directory = output_dir;
-#if !defined( _WIN32) 
-   findorb_already_running = (check_for_other_processes( 1) != 0);
-#endif
    if( *language)
       set_language( *language);
    if( *override_fcct14_filename)

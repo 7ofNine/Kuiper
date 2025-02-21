@@ -604,11 +604,8 @@ static const ROCK rocks[N_ROCKS] = {
                /* mention that fact up front.  The following #ifdef      */
                /* lets us do that without confusing OSes that are        */
                /* blessedly ignorant of the weirdnesses of Windoze DLLs: */
-#ifdef _WIN32
+//#ifdef _WIN32
 #define /*DLL_FUNC*/ __stdcall
-#else
-#define /*DLL_FUNC*/
-#endif
 
    /* Given a JDE and a JPL ID number (see list at the top of this file), */
    /* evaluate_rock( ) will compute the J2000 equatorial Cartesian        */
