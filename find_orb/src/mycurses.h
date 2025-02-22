@@ -32,12 +32,6 @@ extern WINDOW *stdscr, *curscr;
 #endif
 
 /* Shamelessly lifted from (PD)Curses.h: */
-#ifndef FALSE
-# define FALSE 0
-#endif
-#ifndef TRUE
-# define TRUE 1
-#endif
 #ifndef NULL
 # define NULL (void *)0
 #endif

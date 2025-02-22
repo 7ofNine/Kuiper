@@ -81,8 +81,6 @@ details of the implementation encapsulated.
 #include "jpleph.h"
 #include "jpl_int.h"
 
-#define TRUE 1
-#define FALSE 0
 
 double /*DLL_FUNC*/ jpl_get_double( const void *ephem, const int value)
 {
@@ -199,7 +197,7 @@ long /*DLL_FUNC*/ jpl_get_long( const void *ephem, const int value)
 **           radians and radians/day.                                       **
 **                                                                          **
 **           The option is available to have the units in km and km/sec.    **
-**           for this, set km=TRUE at the beginning of the program.         **
+**           for this, set km = true at the beginning of the program.         **
 **                                                                          **
 **     calc_velocity = integer flag;  if nonzero,  velocities will be       **
 **           computed,  otherwise not.                                      **

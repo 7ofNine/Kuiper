@@ -270,7 +270,7 @@ int wgetn_wstr_ex(WINDOW *win, wint_t *wstr, int *loc, const int maxlen, const i
     oldecho ? echo( ) : noecho( );
 #endif
     if( oldnodelay)
-       nodelay( win, TRUE);
+       nodelay( win, true);
     curs_set( initial_cursor_state);
     return rval;
 }

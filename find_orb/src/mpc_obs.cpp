@@ -1862,7 +1862,7 @@ int separate_periodic_comet_apparitions = 0;
            /* or a temporary designation.  In practice,  some have both. */
            /* The 'separate_periodic_comet_apparitions' lets you tell    */
            /* Find_Orb which should be used when both are given;  if it's   */
-           /* set to TRUE,  it'll zap the permanent designation data     */
+           /* set to 'true',  it'll zap the permanent designation data     */
            /* (i.e.,  set it to spaces.)  Otherwise,  it'll zap the      */
            /* temporary designation.                                     */
            /*    For natural satellites,  the situation is a little      */

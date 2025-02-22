@@ -190,7 +190,6 @@ copy /Y "$(SolutionDir)..\PDCursesMod_build\wincon\$(Configuration)\pdcurses.dll
     <ClInclude Include="src\monte0.h" />
     <ClInclude Include="src\mpc_obs.h" />
     <ClInclude Include="src\mycurses.h" />
-    <ClInclude Include="src\orbitdlg.h" />
     <ClInclude Include="src\pl_cache.h" />
     <ClInclude Include="src\resource.h" />
     <ClInclude Include="src\rgb_defs.h" />

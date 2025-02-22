@@ -152,9 +152,6 @@
     <ClInclude Include="src\mycurses.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\orbitdlg.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\pl_cache.h">
       <Filter>Header Files</Filter>
     </ClInclude>

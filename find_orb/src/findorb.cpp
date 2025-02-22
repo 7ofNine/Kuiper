@@ -293,9 +293,9 @@ int curses_kbhit( )
 {
    int c;
 
-   nodelay( stdscr, TRUE);
+   nodelay( stdscr, true);
    c = getch( );
-   nodelay( stdscr, FALSE);
+   nodelay( stdscr, false);
    if( c != ERR)     /* no key waiting */
       ungetch( c);
    return( c);

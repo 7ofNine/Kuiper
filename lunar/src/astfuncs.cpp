@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include <stddef.h>
 #include <stdint.h>
 #include <assert.h>
-#include <stdbool.h>
 //
 #include "comets.h"
 #include "afuncs.h"

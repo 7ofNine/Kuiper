@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include <time.h>
 #include <assert.h>
 #include <ctype.h>
-#include <stdbool.h>
 #include <sys/stat.h>
 //
 #include "comets.h"

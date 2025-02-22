@@ -27,7 +27,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include <time.h>
 #include <ctype.h>
 #include <assert.h>
-#include <stdbool.h>
 //
 #include "afuncs.h"
 #include "lunar.h"
