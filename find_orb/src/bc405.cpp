@@ -75,11 +75,11 @@ static FILE *open_bc405_file( const bool shutting_down)
       {
       if( ifile)
          fclose( ifile);
-      ifile = NULL;
-      return( NULL);
+      ifile = nullptr;
+      return( nullptr);
       }
    if( failure_detected)
-      return( NULL);
+      return( nullptr);
    if( !ifile)
       ifile = fopen_ext( data_file_name, "crb");
    if( !ifile)
@@ -119,7 +119,7 @@ static FILE *open_bc405_file( const bool shutting_down)
          FILE *ofile = fopen_ext( data_file_name, "cwb");
 
          if( !ofile)
-            return( NULL);
+            return( nullptr);
          while( fgets( buff, sizeof( buff), ifile))
             {
             const double z = atof( buff);
@@ -129,7 +129,7 @@ static FILE *open_bc405_file( const bool shutting_down)
          fclose( ifile);
          fclose( ofile);
          ifile = fopen_ext( data_file_name, "crb");
-         assert( ifile != NULL);
+         assert( ifile != nullptr);
          }
       }
    if( !ifile)             /* no asteroid ephems;  show err msg */
@@ -168,7 +168,7 @@ static void grab_cached_elems( ELEMENTS *elems, const int chunk_number,
                                  const int asteroid_number)
 {
    static int astnums[N_CACHED_ELEMS], chunk_num[N_CACHED_ELEMS];
-   static ELEMENTS *cache = NULL;
+   static ELEMENTS *cache = nullptr;
    FILE *fp;
    int i;
 
@@ -176,7 +176,7 @@ static void grab_cached_elems( ELEMENTS *elems, const int chunk_number,
       {
       if( cache)
          free( cache);
-      cache = NULL;
+      cache = nullptr;
       for( i = 0; i < N_CACHED_ELEMS; i++)
          astnums[i] = chunk_num[i] = -1;
       return;
@@ -332,7 +332,7 @@ static double *masses;
 static double *load_asteroid_masses( void)
 {
    FILE *ifile = fopen_ext( "mu1.txt", "fcrb");
-   double *rval = NULL;
+   double *rval = nullptr;
 
    assert( ifile);
    if( ifile)
@@ -379,7 +379,7 @@ int asteroid_position_raw( const int astnum, const double jd,
 double *get_asteroid_mass( const int astnum)
 {
    int i;
-   double *rval = NULL;
+   double *rval = nullptr;
 
    if( !masses)
       masses = load_asteroid_masses( );
@@ -412,10 +412,10 @@ int detect_perturbers( const double jd, const double * /*__restrict*/ xyz,
          fclose( precomputed_fp);
       if( masses)
          free( masses);
-      precomputed_fp = NULL;
-      masses = NULL;
+      precomputed_fp = nullptr;
+      masses = nullptr;
       open_bc405_file( true);
-      grab_cached_elems( NULL, 0, 0);
+      grab_cached_elems( nullptr, 0, 0);
       return( 0);
       }
    thresh = atof( get_environment_ptr( "ASTEROID_THRESH"));

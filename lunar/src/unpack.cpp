@@ -75,7 +75,7 @@ int encode_value_in_mutant_hex( char *buff, size_t n_digits, int value)
 
 /* This will unpack a packed designation such as 'K04J42X' into
 '2004 JX42'. Returns 0 if it's a packed desig,  non-zero otherwise. Call
-with obuff == NULL just to find out if ibuff is actually a packed desig. */
+with obuff == nullptr just to find out if ibuff is actually a packed desig. */
 
 static int unpack_provisional_packed_desig( char *obuff, const size_t obuff_size,
                                         const char *ibuff)

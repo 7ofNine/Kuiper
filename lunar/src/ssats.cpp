@@ -524,7 +524,7 @@ int /*DLL_FUNC*/ calc_ssat_loc( const double t, double   *ssat,
    set_ssat_elems( &elems, &orbit);
 
    setup_orbit_vectors( &orbit);
-   comet_posn_part_ii( &orbit, IGNORED_DOUBLE, elems.loc, NULL);
+   comet_posn_part_ii( &orbit, IGNORED_DOUBLE, elems.loc, nullptr);
 
    if( sat_wanted < RHEA)    /* inner 4 satellites are returned in Saturnic */
       {                            /*  coords so gotta rotate to B1950.0 */

@@ -94,7 +94,7 @@ static int month_name_to_index( const char *str)
    if( len > 3)      /* compare up to,  but no more than,  three bytes */
       len = 3;
    for( i = 1; !rval && i <= 13; i++)
-      if( (month_text = set_month_name( i, NULL)) != NULL)
+      if( (month_text = set_month_name( i, nullptr)) != nullptr)
          if( !memicmp( month_text, str, len))
             rval = i;
    return( rval);
@@ -109,7 +109,7 @@ static int day_of_week_name_to_index( const char *str)
    if( len > 3)      /* compare up to,  but no more than,  three bytes */
       len = 3;
    for( i = 0; rval == -1 && i < 7; i++)
-      if( (dow_text = set_day_of_week_name( i, NULL)) != NULL)
+      if( (dow_text = set_day_of_week_name( i, nullptr)) != nullptr)
          if( !memicmp( dow_text, str, len))
             rval = i;
    return( rval);
@@ -377,7 +377,7 @@ In which case,  zero will continue to mean "time zone unspecified and
 assumed local",  and non-zero values will indicate specific zones.)
 
    If you're working only with UTC (as many of my programs do),  you
-can safely pass a NULL for is_ut.
+can safely pass a nullptr for is_ut.
 */
 
 #define AM_PM_UNSET        0
@@ -443,7 +443,7 @@ long double /*DLL_FUNC*/ get_time_from_stringl( long double initial_t2k,
       if( phase != PHASE_IDX_UNDEFINED)
          {
          str[i - 2] = '\0';
-         rval = get_time_from_stringl( initial_t2k, str, time_format, NULL);
+         rval = get_time_from_stringl( initial_t2k, str, time_format, nullptr);
          if( rval != -J2000 && is_ut)
             *is_ut = 1;
          return( find_nearest_lunar_phase_time( phase, rval) + offset);
@@ -456,17 +456,17 @@ long double /*DLL_FUNC*/ get_time_from_stringl( long double initial_t2k,
       {                       /* may begin with 'j' or 'jd' */
       if( str[1] == 'd')
          str++;
-      rval = strtold( str + 1, NULL) - J2000;
+      rval = strtold( str + 1, nullptr) - J2000;
       if( rval != -J2000 && is_ut)
          *is_ut = 1;
       }
 
    if( *str == 'y')      /* decimal years */
-      rval = (strtold( str + 1, NULL) - 2000.) * 365.25 - .5;
+      rval = (strtold( str + 1, nullptr) - 2000.) * 365.25 - .5;
 
    if( !strncmp( str, "mjd", 3))                 /* modified JD */
       {
-      rval = strtold( str + 3, NULL) + 2400000.5 - J2000;
+      rval = strtold( str + 3, nullptr) + 2400000.5 - J2000;
       if( is_ut)
          *is_ut = 1;
       }
@@ -491,7 +491,7 @@ long double /*DLL_FUNC*/ get_time_from_stringl( long double initial_t2k,
       str += 3;
       while( *str == ' ')
          str++;
-      initial_t2k = jan_1_1970 - J2000 + (long double)time( NULL) / seconds_per_day;
+      initial_t2k = jan_1_1970 - J2000 + (long double)time( nullptr) / seconds_per_day;
       }
 
    if( !*str)
@@ -781,7 +781,7 @@ long double /*DLL_FUNC*/ get_time_from_stringl( long double initial_t2k,
          if( year > 0 && year < 100 && !is_bc)
             if( time_format & FULL_CTIME_TWO_DIGIT_YEAR)
                {
-               const int curr_year = 1970 + (int)( time( NULL) / (1461 * 86400 / 4));
+               const int curr_year = 1970 + (int)( time( nullptr) / (1461 * 86400 / 4));
                                   /* two-digit years are assumed to be  */
                year += 1900;      /* between 60 years ago to 40 years hence */
                while( year < curr_year - 60)

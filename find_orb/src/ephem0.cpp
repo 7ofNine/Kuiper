@@ -353,9 +353,9 @@ double find_lat_lon_alt( const double ut, const double *ivect,
 /* 'get_step_size' parses input text to get a step size in days,  so that */
 /* '4h' becomes .16667 days,  '30m' becomes 1/48 day,  and '10s' becomes  */
 /* 10/(24*60*60) days.  The units (days, hours, minutes,  or seconds) are */
-/* returned in 'step_units' if the input pointer is non-NULL.  The number */
+/* returned in 'step_units' if the input pointer is non-nullptr.  The number */
 /* of digits necessary is returned in 'step_digits' if that pointer is    */
-/* non-NULL.  Both are used to ensure correct time format in ephemeris    */
+/* non-nullptr.  Both are used to ensure correct time format in ephemeris    */
 /* output;  that is,  if the step size is (say) .05d,  the output times   */
 /* ought to be in a format such as '2009 Mar 8.34', two places in days.   */
 
@@ -447,7 +447,7 @@ static void setup_obj_loc( obj_location_t *p, double *orbit,
    assert( p->jd > 2e+6);
    assert( p->jd < 3e+6);
    assert( mpc_code);
-   planet_no = get_observer_data( mpc_code, NULL, &cinfo);
+   planet_no = get_observer_data( mpc_code, nullptr, &cinfo);
    compute_observer_loc( p->jd, planet_no, cinfo.rho_cos_phi, cinfo.rho_sin_phi,
                                     cinfo.lon, obs_posn);
    for( i = 0; i < n_orbits; i++)
@@ -661,7 +661,7 @@ static int find_precovery_plates( OBSERVE *obs, const int n_obs,
                            const double min_jd, const double max_jd,
                            const double limiting_mag)
 {
-   FILE *ifile, *original_file = NULL;
+   FILE *ifile, *original_file = nullptr;
    int current_file_number = -1;
    double *orbi, stepsize = 1., max_jd_available, min_jd_available;
    obj_location_t *p1, *p2, *p3;
@@ -743,7 +743,7 @@ static int find_precovery_plates( OBSERVE *obs, const int n_obs,
                }
             margin += EARTH_RADIUS_IN_AU / p1->r;
             mag = abs_mag + calc_obs_magnitude(
-                                 p2->sun_obj, p2->r, p2->sun_earth, NULL);
+                                 p2->sun_obj, p2->r, p2->sun_earth, nullptr);
             if( mag < limiting_mag && precovery_in_field( &field, p3, n_orbits, margin) > .01)
                {                          /* approx posn is on plate;  compute */
                double *temp_orbit = orbi + n_orbit_params * n_orbits;
@@ -1566,7 +1566,7 @@ FILE *open_json_file( char *filename, const char *env_ptr, const char *default_n
    env_ptr = get_environment_ptr( tbuff);
 
    if( !strcmp( env_ptr, "none"))
-      return( NULL);
+      return( nullptr);
    if( !*env_ptr)
       {
       get_file_name( filename, default_name);
@@ -1759,8 +1759,8 @@ double galactic_confusion( const double ra, const double dec)
    static FILE *image_file;
    static long hdr_offset;
    static int xsize, ysize;
-   static unsigned char **buff = NULL;
-   static void *stack = NULL;
+   static unsigned char **buff = nullptr;
+   static void *stack = nullptr;
    int i, ix, iy, diff1, diff2, diff3;
    double x, y;
    const double half_a_pixel = 0.5;
@@ -1771,9 +1771,9 @@ double galactic_confusion( const double ra, const double dec)
          fclose( image_file);
       if( stack)
          destroy_stack( stack);
-      image_file = NULL;
-      stack = NULL;
-      buff = NULL;
+      image_file = nullptr;
+      stack = nullptr;
+      buff = nullptr;
       xsize = 0;
       return( 0);
       }
@@ -1907,7 +1907,7 @@ int add_ephemeris_details( FILE *ofile, const double start_jd,
    extern const char *elements_filename;
    const char *vector_options = get_environment_ptr( "VECTOR_OPTS");
 
-   t0 = time( NULL);
+   t0 = time( nullptr);
    fprintf( ofile, "\nCreated %s", ctime( &t0));
 
    full_ctime( tbuff, start_jd, CALENDAR_JULIAN_GREGORIAN);
@@ -2116,7 +2116,7 @@ static void set_group_loc( const char *group_data, const double jd_utc,
          }
 }
 
-static double *list_of_ephem_times = NULL;
+static double *list_of_ephem_times = nullptr;
 
 static int get_ephem_times_from_file( const char *filename)
 {
@@ -2143,12 +2143,12 @@ static int get_ephem_times_from_file( const char *filename)
       if( *buff != '#')
          {
          double jd = get_time_from_string( 0., buff + byte_offset,
-                         FULL_CTIME_YMD | CALENDAR_JULIAN_GREGORIAN, NULL);
+                         FULL_CTIME_YMD | CALENDAR_JULIAN_GREGORIAN, nullptr);
 
          if( jd > 1.)
             {
             if( time_system)   /* Input times are in TD;  cvt to UTC */
-               jd = utc_from_td( jd, NULL);
+               jd = utc_from_td( jd, nullptr);
             list_of_ephem_times[n_times++] = jd;
             }
          else if( !memcmp( buff, "OPTION ", 7))
@@ -2196,7 +2196,7 @@ static int _ephemeris_in_a_file( const char *filename, const double *orbit,
    int n_lines_shown = 0;
    unsigned date_format;
    const int ephem_type = ((int)(options & 7) == 6 ? 0 : (int)(options & 7));
-   FILE *ofile, *computer_friendly_ofile = NULL;
+   FILE *ofile, *computer_friendly_ofile = nullptr;
    const bool computer_friendly = ((options & OPTION_COMPUTER_FRIENDLY) ? true : false);
    char step_units;
    const char *timescale = get_environment_ptr( "TT_EPHEMERIS");
@@ -2207,7 +2207,7 @@ static int _ephemeris_in_a_file( const char *filename, const double *orbit,
    RADAR_DATA rdata;
    bool show_radar_data = (get_radar_data( note_text + 1, &rdata) == 0);
    int ra_format = 3, dec_format = 2;
-   char buff[440], *header = NULL, alt_buff[500];
+   char buff[440], *header = nullptr, alt_buff[500];
    const bool use_observation_times = !strncmp( stepsize, "Obs", 3);
    const bool show_geo_quantities = atoi( get_environment_ptr( "GEO_QUANTITIES"));
    const bool suppress_coloring = atoi( get_environment_ptr( "SUPPRESS_EPHEM_COLORING"));
@@ -2269,7 +2269,7 @@ static int _ephemeris_in_a_file( const char *filename, const double *orbit,
          min_jd = max_jd;
          max_jd = jd_start;
          }
-      setvbuf( ofile, NULL, _IONBF, 0);
+      setvbuf( ofile, nullptr, _IONBF, 0);
       fprintf( ofile, "#CSS precovery fields\n");
       fprintf( ofile, "%s", precovery_header_line);
       for( i = 0; i < 2; i++)
@@ -2297,7 +2297,7 @@ static int _ephemeris_in_a_file( const char *filename, const double *orbit,
    orbits_at_epoch = (double *)calloc( n_objects * (n_orbit_params + 2), sizeof( double));
    memcpy( orbits_at_epoch, orbit, n_objects * n_orbit_params * sizeof( double));
    stored_ra_decs = (DPT *)( orbits_at_epoch + n_orbit_params * n_objects);
-   setvbuf( ofile, NULL, _IONBF, 0);
+   setvbuf( ofile, nullptr, _IONBF, 0);
    switch( step_units)
       {
       case 'd':
@@ -2762,7 +2762,7 @@ static int _ephemeris_in_a_file( const char *filename, const double *orbit,
                else
                   {
                   const char *offset_dir = get_environment_ptr( "OFFSET_FILES");
-                  FILE *offset_ofile = NULL;
+                  FILE *offset_ofile = nullptr;
 
                   if( *offset_dir)
                      {
@@ -2973,7 +2973,7 @@ static int _ephemeris_in_a_file( const char *filename, const double *orbit,
                   ra_dec_to_alt_az_2( cinfo->planet, &obj_ra_dec, &alt_az[j], &temp_latlon,
                                 utc, &hour_angle[j]);
                   ra_dec_to_alt_az_2( cinfo->planet, &obj_ra_dec, &best_alt_az[j], &best_latlon,
-                                utc, NULL);
+                                utc, nullptr);
                   alt_az[j].x = centralize_ang( alt_az[j].x + PI);
                   best_alt_az[j].x = centralize_ang( best_alt_az[j].x + PI);
                   }
@@ -3606,7 +3606,7 @@ static int _ephemeris_in_a_file( const char *filename, const double *orbit,
                elem.epoch = curr_jd;
                calc_classical_elements( &elem, orbi, curr_jd, 1);
                setup_planet_elem( &planet_elem, j, (curr_jd - J2000) / 36525.);
-               moid = find_moid_full( &planet_elem, &elem, NULL);
+               moid = find_moid_full( &planet_elem, &elem, nullptr);
                snprintf_append( buff, sizeof( buff), "%8.4f", moid);
                }
          if( !obj_n && show_this_line)
@@ -3691,7 +3691,7 @@ static int _ephemeris_in_a_file( const char *filename, const double *orbit,
    if( list_of_ephem_times)
       {
       free( list_of_ephem_times);
-      list_of_ephem_times = NULL;
+      list_of_ephem_times = nullptr;
       }
    return( 0);
 }
@@ -3703,7 +3703,7 @@ figuring out which options are available for an ephemeris. */
 bool is_topocentric_mpc_code( const char *mpc_code)
 {
    mpc_code_t cinfo;
-   const int planet_idx = get_observer_data( mpc_code, NULL, &cinfo);
+   const int planet_idx = get_observer_data( mpc_code, nullptr, &cinfo);
 
    return( planet_idx >= 0 && (cinfo.rho_cos_phi != 0. || cinfo.rho_sin_phi != 0.));
 }
@@ -4014,7 +4014,7 @@ void format_observation( const OBSERVE   *obs, char *text,
    char *original_text_ptr = text;
    MOTION_DETAILS m;
 
-   utc = utc_from_td( obs->jd, NULL);
+   utc = utc_from_td( obs->jd, nullptr);
    day = decimal_day_to_dmy( utc, &year, &month, CALENDAR_JULIAN_GREGORIAN);
 
    if( base_format != RESIDUAL_FORMAT_SHORT)
@@ -4508,7 +4508,7 @@ void create_obs_file_with_computed_values( const OBSERVE   *obs,
 
    for( i = 0; i < n_obs; i++)
       {
-      tobs[i].obs_mag = tobs[i].computed_mag + mag_band_shift( tobs[i].mag_band, NULL);
+      tobs[i].obs_mag = tobs[i].computed_mag + mag_band_shift( tobs[i].mag_band, nullptr);
       tobs[i].ra  = tobs[i].computed_ra;
       tobs[i].dec = tobs[i].computed_dec;
       tobs[i].mag_precision = 2;
@@ -4602,7 +4602,7 @@ static bool get_details_from_here( const char *buff, const char *mpc_code,
        if( tptr[3] < ' ' || tptr[4] <= ' ')
           rval = true;
        else
-          rval = (NULL != strchr( program_codes, tptr[4]));
+          rval = (nullptr != strchr( program_codes, tptr[4]));
        }
    return( rval);
 }
@@ -4633,9 +4633,9 @@ static int get_observer_details( const char *observation_filename,
                assert( tptr);
                *tptr = '\0';
                jd_start = get_time_from_string( 0., buff + 10,
-                           CALENDAR_JULIAN_GREGORIAN, NULL);
+                           CALENDAR_JULIAN_GREGORIAN, nullptr);
                jd_end = get_time_from_string( 0., tptr + 1,
-                           CALENDAR_JULIAN_GREGORIAN, NULL);
+                           CALENDAR_JULIAN_GREGORIAN, nullptr);
                assert( jd_start > 2000000. && jd_start < 3000000.);
                assert( jd_end > 2000000. && jd_end < 3000000.);
                use_lines = got_obs_in_range( obs, n_obs, jd_start, jd_end);
@@ -4666,7 +4666,7 @@ static void get_observer_details_from_obs( const OBSERVE *obs,
    while( n_obs--)
       {
       if( obs->obs_details && !strcmp( mpc_code, obs->mpc_code))
-         for( i = 0; (tptr = obs->obs_details[i]) != NULL; i++)
+         for( i = 0; (tptr = obs->obs_details[i]) != nullptr; i++)
             {
             if( !memcmp( tptr, "OBS ", 4))
                tack_on_names( observers, tptr + 4);
@@ -4940,7 +4940,7 @@ static bool _is_redacted( const char *env_line, const char *mpc_line,
 {
    const char *tptr = env_line;
 
-   while( NULL != (tptr = strstr( tptr, mpc_line + 77)))
+   while( nullptr != (tptr = strstr( tptr, mpc_line + 77)))
       if( tptr != env_line && tptr[-1] != ' ')
          tptr += 3;     /* didn't actually find the code */
       else
@@ -5032,7 +5032,7 @@ static inline void redacted_locations( const char *terms[],
       return;
    while( terms[n_terms])
       n_terms++;
-   srand( (unsigned)time( NULL));
+   srand( (unsigned)time( nullptr));
    for( iteration = 0; iteration < max_iteration && !success; iteration++)
       {
       const unsigned max_column = 51;
@@ -5102,7 +5102,7 @@ static void _insert_links( char *buff, size_t buffsize)
       }
 }
 
-char *mpec_error_message = NULL;
+char *mpec_error_message = nullptr;
 
 void size_from_h_text( const double abs_mag, char *obuff, const int obuff_size)
 {
@@ -5143,7 +5143,7 @@ int make_pseudo_mpec( const char *mpec_filename, const char *obj_name)
    static const char *explanations_url = "https://www.projectpluto.com/mpec_xpl.htm";
 
    assert( ofile);
-   setvbuf( ofile, NULL, _IONBF, 0);
+   setvbuf( ofile, nullptr, _IONBF, 0);
    if( elements_file)
       {
       unsigned i;
@@ -5203,7 +5203,7 @@ int make_pseudo_mpec( const char *mpec_filename, const char *obj_name)
                   _insert_links( buff, sizeof( buff));
                   }
                }
-            while( (tptr = strchr( buff, '$')) != NULL && found_replacement_text)
+            while( (tptr = strchr( buff, '$')) != nullptr && found_replacement_text)
                {                       /* See comments in 'header.htm'.  */
                int i;                  /* code replaces text between $s  */
                                        /* in that file.                  */
@@ -5260,7 +5260,7 @@ int make_pseudo_mpec( const char *mpec_filename, const char *obj_name)
                      fseek( elements_file, 0L, SEEK_SET);
                      while( !found_replacement_text &&
                              fgets_trimmed( tbuff, sizeof( tbuff), elements_file))
-                        if( (tptr2 = strstr( tbuff, search_str)) != NULL
+                        if( (tptr2 = strstr( tbuff, search_str)) != nullptr
                                     && tptr2[i] == '=')
                            {
                            tptr2 += i + 1;
@@ -5299,7 +5299,7 @@ int make_pseudo_mpec( const char *mpec_filename, const char *obj_name)
       {
       unsigned max_term = 5, x[10], y[10];
       const char *terms[] = { "Astrometry", "redacted;",
-                      "click", "here", "for", "explanation", NULL };
+                      "click", "here", "for", "explanation", nullptr };
 
       redacted_locations( terms, n_redacted_lines, x, y);
       fseek( observations_ifile, 0L, SEEK_SET);
@@ -5513,7 +5513,7 @@ int make_pseudo_mpec( const char *mpec_filename, const char *obj_name)
       while( fgets_trimmed( buff, sizeof( buff), elements_file))
          if( *buff != '#')
             {
-            char *h_ptr = NULL;
+            char *h_ptr = nullptr;
 
             if( buff[19] == 'H')
                h_ptr = buff + 20;

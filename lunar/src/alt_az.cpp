@@ -46,7 +46,7 @@ static void ra_dec_to_alt_az( const double hr_ang, const double dec,
 
 /* Normally,  the following will take the J2000 RA/dec and compute
 the mean location at the epoch given by 'jd_utc'.  The result is
-then stored in *loc_epoch.  However,  one can pass a NULL RA/dec;
+then stored in *loc_epoch.  However,  one can pass a nullptr RA/dec;
 in that case,  it's assumed that the location at epoch is already
 stored in *loc_epoch.  The hour angle and nutation are then computed,
 and the alt/azimuth.  You can optionally pass in NULLs for 'hr_ang'
@@ -68,7 +68,7 @@ void /*DLL_FUNC*/ full_ra_dec_to_alt_az( const DPT   *ra_dec,
    else     /* no RA/dec at J2000 supplied */
       loc_at_epoch = *loc_epoch;
    ha = -loc_at_epoch.x - (green_sidereal_time( jd_utc) + latlon->x);
-   nutation( t_centuries, &nutation_lon, NULL);
+   nutation( t_centuries, &nutation_lon, nullptr);
    ha -= cos_obliq_2000 * nutation_lon * (PI / 180.) / 3600.;
    ha = fmod( ha, TWO_PI);
    if( ha > PI) ha -= TWO_PI;

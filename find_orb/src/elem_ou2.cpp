@@ -56,7 +56,7 @@ int put_elements_into_sof( char *obuff, const char *templat,
       double date_to_put = 0.;
       double angle_to_put = 0.;
       int integer_to_put = 0;
-      const char *text_to_put = NULL;
+      const char *text_to_put = nullptr;
       bool right_justify = true;
       char tbuff[80];
 
@@ -140,7 +140,7 @@ int put_elements_into_sof( char *obuff, const char *templat,
                {
                const double jd_1970 = 2440587.5;
 
-               date_to_put = jd_1970 + (double)time( NULL) / seconds_per_day;
+               date_to_put = jd_1970 + (double)time( nullptr) / seconds_per_day;
                }
                break;
             default:

@@ -16,7 +16,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 02110-1301, USA. */
 
 #include <math.h>       /* for floor() prototype */
-#include <stddef.h>     /* for NULL definition   */
+#include <stddef.h>     /* for nullptr definition   */
 #include <stdio.h>
 
 double cubic_spline_interpolate_within_table(      /* spline.cpp */
@@ -111,8 +111,8 @@ double cubic_spline_interpolate_within_table(
    return( table[0] + x * (c + x * (b + x * a)));
 }
 
-/* One can pass a NULL 'deriv' if one doesn't actually need the first
-derivative of the interpolated polynomial.  For a non-NULL value,  the
+/* One can pass a nullptr 'deriv' if one doesn't actually need the first
+derivative of the interpolated polynomial.  For a non-nullptr value,  the
 usual method for computing that derivative breaks down if you're exactly
 on a grid point (divisions by zero occur).  In such cases,  numerical
 differentiation is used instead.       */
@@ -133,9 +133,9 @@ double lagrange_interpolate_within_table( const double *table,
          double y1, y2;
 
          y1 = lagrange_interpolate_within_table( table, n_entries, x - epsilon,
-                              n_pts, NULL);
+                              n_pts, nullptr);
          y2 = lagrange_interpolate_within_table( table, n_entries, x + epsilon,
-                              n_pts, NULL);
+                              n_pts, nullptr);
          *deriv = (y2 - y1) / (2. * epsilon);
          }
       return( table[i]);
@@ -247,7 +247,7 @@ int main( const int argc, const char **argv)
       const double subtract = (show_differences ? sin( angle) : 0.);
 
       printf( "%3d %16.13f %16.13f", i, sin( angle),
-                cubic_spline_interpolate_within_table( table, NPTS, x, NULL)
+                cubic_spline_interpolate_within_table( table, NPTS, x, nullptr)
                                  - subtract);
       for( j = order1; j <= order2; j += order_step)
          {

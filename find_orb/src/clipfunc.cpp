@@ -36,7 +36,7 @@ int copy_buffer_to_clipboard( const char *contents, const long length)
    LPTSTR ptr2;
    int i, n_added;
 
-   if (!OpenClipboard(NULL))
+   if (!OpenClipboard(nullptr))
       return -3;
 
    for( i = n_added = 0; i < length; i++)
@@ -116,7 +116,7 @@ int clipboard_to_file( const char *filename, const int append,
 
             /* sadly,  we can't get at the selected text in MSWin */
     //INTENTIONALLY_UNUSED_PARAMETER( use_selection);
-    if( !OpenClipboard(NULL))
+    if( !OpenClipboard(nullptr))
         rval =  -1;
     else
         {
@@ -127,9 +127,9 @@ int clipboard_to_file( const char *filename, const int append,
 
         if( !handle)
             rval = -2;
-        else if( (text = GlobalLock( handle)) == NULL)
+        else if( (text = GlobalLock( handle)) == nullptr)
             rval = -4;
-        else if( (ofile = fopen( filename, permits)) != NULL)
+        else if( (ofile = fopen( filename, permits)) != nullptr)
             {
             rval = 0;
             fwrite( text, 1, strlen( (char *)text), ofile);

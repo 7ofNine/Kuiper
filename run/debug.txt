@@ -27621,3 +27621,18 @@ a JPL ephemeris file,  per the instructions at the above link.
 20:05:54     Example2 failed; trying more SR orbits
 20:07:22 Error opening link_def.json: No such file or directory
 21:26:13     Example2 failed; trying more SR orbits
+17:18:51     Example2 failed; trying more SR orbits
+17:18:53 Error opening link_def.json: No such file or directory
+17:19:13 Bad obs; error code -1:
+J009S         C1988 12 08.41665  3 49  9.89 +19 29 35.2         x            381
+17:19:13 Bad obs; error code -1:
+J009S         C1989 01 30.17059  3 40 20.32 +19 29 31.5         x            711
+17:19:13 Bad obs; error code -1:
+J009S         C1989 02 02.46740  3 41  1.32 +19 33  3.5         x            381
+17:19:13 Bad obs; error code -1:
+J009S         C1989 02 25.08233  3 49 27.27 +20  7 27.3         x            711
+17:19:13 J009S       :
+17:19:30 4 observations were incorrectly formatted.  These observations
+will be ignored.
+17:19:30  28 observations loaded
+17:19:30 1988 Nov. 3-1993 Apr. 17

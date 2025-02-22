@@ -520,7 +520,7 @@ static const char *net_codes[] = {
            "XGaia-3E",
            "YUCAC-5",
            "ZATLAS-2",
-           NULL };
+           nullptr };
 
 const char *byte_code_to_net_name( const char byte_code)
 {
@@ -529,7 +529,7 @@ const char *byte_code_to_net_name( const char byte_code)
    for( i = 0; net_codes[i]; i++)
       if( byte_code == net_codes[i][0])
          return( net_codes[i] + 1);
-   return( NULL);
+   return( nullptr);
 }
 
 /* Code to get around the fact that people (probably shouldn't,  but do)
@@ -695,7 +695,7 @@ inline int get_satellite_coordinate( const char *iptr, double coord[1])
       if( sscanf( tbuff + 1, "%lf%n", coord, &n_bytes_read) != 1
                      || n_bytes_read < 7)
          rval = SATELL_COORD_ERR_BAD_NUMBER;
-      else if( (tptr = strchr( tbuff, '.')) == NULL)
+      else if( (tptr = strchr( tbuff, '.')) == nullptr)
          rval = SATELL_COORD_ERR_NO_DECIMAL;
       else
          rval = (int)( tptr - tbuff);

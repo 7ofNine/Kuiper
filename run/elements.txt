@@ -1,26 +1,27 @@
-Orbital elements:  Example2
-   Perigee 1997 Apr 22.93393 TT = 22:24:52 (JD 2450561.43393)    Find_Orb
-Epoch 1997 Apr 22.0 TT = JDT 2450560.5
-q 15994.4604km                      (J2000 equator)
-H   22.74 G 0.15   Peri.  351.40932
-                   Node   316.66600
-e   6.1673520      Incl.    9.76425
-8 of 20 observations 1997 Apr. 21-22 (18.2 hr); mean residual 0".33
+Orbital elements:  Jupiter IX = Sinope
+   Perijove 1992 Oct 25.15409 +/- 9 TT =  3:41:53 (JD 2448920.65409)
+Epoch 1992 Mar 25.0 TT = JDT 2448706.5                           Find_Orb
+M 199.36295252 +/- 150              (J2000 ecliptic)
+n   0.75010030 +/- 0.709            Peri.    3.25425 +/- 46
+a   0.11812163 +/- 0.0745           Node   280.79579 +/- 21
+e   0.6003333 +/- 1.51              Incl.  142.90726 +/- 80
+P   1.314/479.927d         H 11.32  G  0.15   U 12.5
+q 0.04720927 +/- 0.208    Q 0.18903398 +/- 0.0597
+11 of 28 observations 1992 Feb. 24-Mar. 25; mean residual 0".63
 # State vector (heliocentric equatorial J2000):
-#   -0.858213944174  -0.491077667454  -0.212609460275 AU
-#  +14.524182936603 -10.349421855130  -4.769147350955 mAU/day
+#   -5.143935335780  +1.692337922741  +0.831373839380 AU
+#   -1.834660929629  -6.232242778257  -3.103401871922 mAU/day
 # State vector relative to central body:
-#   -0.005312286581  -0.002376871962  -0.002127234703 AU
-#    5.703249356236   2.418955835563   2.205308231784 mAU/day
-# Elements written: 21 Feb 2025 21:26:15 (JD 2460728.393239)
-# Full range of obs: 1997 Apr. 21-22 (31.0 hr) (20 observations)
+#   -0.010822614477   0.178162950646   0.057256432020 AU
+#    0.633333299834   0.059109648843  -0.466774474680 mAU/day
+# Elements written: 22 Feb 2025 17:19:32 (JD 2460729.221898)
+# Full range of obs: 1988 Nov. 3-1993 Apr. 17 (28 observations)
 # Find_Orb ver: 2025 Jan 30
-# Perturbers: 00000408 (Sun/Earth/Moon);  JPL DE-440
-# Barbee-style encounter velocity: 11.3415 km/s
-# Diameter 116.2 meters (assuming 10% albedo)
-# Score: 0.697306
-#  $Name=Example2  $Ty=1997  $Tm=06  $Td=21.333272  $MA=315.37736
-#  $ecc=0.3746320  $Eqnx=2000.
-#  $a=1.2109804  $Peri=264.46550  $Node=32.99275  $Incl=0.84914
-#  $EpJD=2450560.500  $q=0.757308  $T=2450620.833272  $H=22.7
-# Sigmas avail: 0
+# Perturbers: 00000020 ;  JPL DE-440
+# Diameter 22.4 km (assuming 10% albedo)
+# Score: 0.105796
+#  $Name=Jupiter%20IX%20=%20Sinope  $Ty=1995  $Tm=11  $Td=08.729803  $MA=252.05400
+#  $ecc=0.1017659  $Eqnx=2000.
+#  $a=5.2666111  $Peri=280.39375  $Node=358.03369  $Incl=3.00673
+#  $EpJD=2448706.500  $q=4.730650  $T=2450030.229803  $H=11.3
+# Sigmas avail: 1

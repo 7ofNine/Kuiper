@@ -303,7 +303,7 @@ static int find_tag( const char *buff, size_t len)
        "stn", "subFmt", "subFrm", "submitter", "sys", "telescope",
        "trkID", "trkMPC", "trkSub", "trx", "uncTime", "vel1",
        "vel2", "vel3",
-   NULL };
+   nullptr };
 
    int i, rval = -1;
 
@@ -574,7 +574,7 @@ static int process_ades_tag( char *obuff, ades2mpc_t *cptr, const int itag,
       case ADES_line:
       case ADES_institution:
          {
-         const char *format = NULL;
+         const char *format = nullptr;
 
          if( cptr->depth > 1)
             switch( cptr->tags[cptr->depth - 2])
@@ -619,7 +619,7 @@ static int process_ades_tag( char *obuff, ades2mpc_t *cptr, const int itag,
 
             if( zptr)
                *zptr = '\0';
-            cptr->full_t2k = get_time_from_stringl( 0., name, 0, NULL);
+            cptr->full_t2k = get_time_from_stringl( 0., name, 0, nullptr);
             if( too_far_in_future)
                cptr->line[15] = 'K';
             }
@@ -961,7 +961,7 @@ static int check_for_tholen_sigmas( ades2mpc_t *cptr, char *obuff, const char *i
       {
       memcpy( obuff, ibuff, 80);
       obuff[80] = '\0';
-      if( extract_date_from_mpc_report( obuff, NULL))
+      if( extract_date_from_mpc_report( obuff, nullptr))
          {
          char packed_desig[13];
 
@@ -1099,7 +1099,7 @@ int xlate_ades2mpc( void *context, char *obuff, const char *buff)
    int rval = 0;
    const char *tptr;
    ades2mpc_t *cptr = (ades2mpc_t *)context;
-   char temp_obuff[300], *orig_obuff = NULL;
+   char temp_obuff[300], *orig_obuff = nullptr;
    const size_t obuff_size = 221;
 
    if( cptr->prev_line_passed_through)
@@ -1122,7 +1122,7 @@ int xlate_ades2mpc( void *context, char *obuff, const char *buff)
       if( !rval)        /* we've reached the end of a PSV data section */
          {
          free( cptr->psv_tags);
-         cptr->psv_tags = NULL;
+         cptr->psv_tags = nullptr;
          cptr->n_psv_fields = 0;
          cptr->depth = 0;
          }

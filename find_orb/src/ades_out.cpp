@@ -186,7 +186,7 @@ static int output_names( FILE *ofile, const OBSERVE   *obs, const char *target)
    const bool only_one_line = (!strcmp( target, "TEL ") || !ofile);
 
    if( obs_details)
-      for( i = 0; (tptr = obs_details[i]) != NULL; i++)
+      for( i = 0; (tptr = obs_details[i]) != nullptr; i++)
          if( !strncmp( tptr, target, tlen))
             {
             n_found += dump_one_line_of_names( ofile, tptr);
@@ -236,14 +236,14 @@ static void create_ades_file_for_one_code( FILE *ofile,
    char buff[200];
    const char *code = obs->mpc_code;
    const char progcode = program_code( obs);
-   const bool is_sungrazer = (strstr( "249 C49 C50", code) != NULL);
+   const bool is_sungrazer = (strstr( "249 C49 C50", code) != nullptr);
 
    fprintf( ofile, "  <obsBlock>\n");
    fprintf( ofile, "    <obsContext>\n");
    fprintf( ofile, "      <observatory>\n");
    fprintf( ofile, "        <mpcCode>%s</mpcCode>\n", obs->mpc_code);
    fprintf( ofile, "      </observatory>\n");
-   if( output_names( NULL, obs, "CON ") || is_sungrazer)
+   if( output_names( nullptr, obs, "CON ") || is_sungrazer)
       {
       fprintf( ofile, "      <submitter>\n");
                /* Workaround for sungrazers without contact info */
@@ -251,19 +251,19 @@ static void create_ades_file_for_one_code( FILE *ofile,
          fprintf( ofile, "        <name>W. Gray</name>\n");
       fprintf( ofile, "      </submitter>\n");
       }
-   if( output_names( NULL, obs, "OBS "))
+   if( output_names( nullptr, obs, "OBS "))
       {
       fprintf( ofile, "      <observers>\n");
       output_names( ofile, obs, "OBS ");
       fprintf( ofile, "      </observers>\n");
       }
-   if( output_names( NULL, obs, "MEA "))
+   if( output_names( nullptr, obs, "MEA "))
       {
       fprintf( ofile, "      <measurers>\n");
       output_names( ofile, obs, "MEA ");
       fprintf( ofile, "      </measurers>\n");
       }
-   if( output_names( NULL, obs, "TEL "))
+   if( output_names( nullptr, obs, "TEL "))
       {
       fprintf( ofile, "      <telescope>\n");
       output_names( ofile, obs, "TEL ");
@@ -331,7 +331,7 @@ static void create_ades_file_for_one_code( FILE *ofile,
 //       if( progcode != ' ')
 //          fprintf( ofile, "        <prog>%c</prog>\n", progcode);
          fprintf( ofile, "        <obsTime>%s</obsTime>\n",
-                  iso_time( buff, utc_from_td( obs->jd, NULL), 3));
+                  iso_time( buff, utc_from_td( obs->jd, nullptr), 3));
          fprintf( ofile, "        <ra>%.9f</ra>\n",
                                     original_observed_ra( obs) * 180. / PI);
          fprintf( ofile, "        <dec>%.9f</dec>\n",
@@ -381,7 +381,7 @@ void create_ades_file( const char *filename, const OBSERVE   *obs,
    FILE *ofile = fopen_ext( get_file_name( buff, filename), "tfcwb");
 
    *codes = '\0';
-   setbuf( ofile, NULL);
+   setbuf( ofile, nullptr);
    fprintf( ofile, "<?xml version=\"1.0\" ?>\n");
    fprintf( ofile, "<ades version=\"2022\">\n");
    for( i = 0; i < n_obs; i++)

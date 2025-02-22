@@ -111,7 +111,7 @@ static double *store_ra_decs_mags_times( unsigned n_obs, const OBSERVE *obs)
 
    assert( stored_ra_decs);
    if( !stored_ra_decs)
-      return( NULL);
+      return( nullptr);
    while( n_obs--)
       {
       *tptr++ = obs->ra;
@@ -247,7 +247,7 @@ double *add_gaussian_noise_to_obs( int n_obs, OBSERVE *obs,
    if( !obs)         /* flag to free up memory */
       {
       uniform_random( 1);
-      return( NULL);
+      return( nullptr);
       }
    rval = store_ra_decs_mags_times( n_obs, obs);
    while( n_obs--)
@@ -309,7 +309,7 @@ char *put_double_in_buff( char *buff, const double ival)
       char *tptr;
 
       snprintf_err( buff, 20, format, ival);
-      while( (tptr = strchr( buff, 'e')) != NULL
+      while( (tptr = strchr( buff, 'e')) != nullptr
                      &&  tptr[2] == '0')
          {           /* remove a leading zero from exponent */
          memmove( buff + 1, buff, tptr - buff + 2);

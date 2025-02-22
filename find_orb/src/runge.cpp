@@ -827,7 +827,7 @@ void compute_effective_solar_multiplier( const char *constraints)
       {
       if( force_model == FORCE_MODEL_NO_NONGRAVS
                || force_model == FORCE_MODEL_DELTA_V)
-         if( NULL != (tptr = strstr( constraints, "A=")))
+         if( nullptr != (tptr = strstr( constraints, "A=")))
             solar_multiplier = 1. - atof( tptr + 2) * SRP1AU / SOLAR_GM;
       }
 }
@@ -865,7 +865,7 @@ int calc_derivativesl( const ldouble jd, const ldouble *ival, ldouble *oval,
       {
       double earth_loc[3];
 
-      earth_lunar_posn( jd, earth_loc, NULL);
+      earth_lunar_posn( jd, earth_loc, nullptr);
       fraction_illum = shadow_check( earth_loc, ival_as_double, EARTH_RADIUS_IN_AU);
       }
    if( force_model == FORCE_MODEL_SRP)
@@ -1091,10 +1091,10 @@ int calc_derivativesl( const ldouble jd, const ldouble *ival, ldouble *oval,
                   double drag[3];     /* drag acceleration,  in m/s^2 */
                   double accel_coeff;
 
-                  parallax_to_lat_alt( rho_cos_phi, rho_sin_phi, NULL,
+                  parallax_to_lat_alt( rho_cos_phi, rho_sin_phi, nullptr,
                                     &ht_in_meters, i);
                   rho = atmospheric_density( ht_in_meters / meters_per_km);
-                  earth_lunar_posn( jd + dt, earth_loc, NULL);
+                  earth_lunar_posn( jd + dt, earth_loc, nullptr);
                   for( j = 0; j < 3; j++)
                      {
                                     /* in degrees/day,  sidereal... */
@@ -1152,7 +1152,7 @@ int calc_derivativesl( const ldouble jd, const ldouble *ival, ldouble *oval,
                   {
                   double planet_posn[3];
 
-                  get_planet_posn_vel( jd, reference_planet, planet_posn, NULL);
+                  get_planet_posn_vel( jd, reference_planet, planet_posn, nullptr);
                   for( j = 0; j < 3; j++)
                      planet_loc[j + 12] -= planet_posn[j];
                   r = vector3_length( planet_loc + 12);
@@ -1205,9 +1205,9 @@ int get_planet_posn_vel( const double jd, const int planet_no,
       if( !planet_no)       /* sun doesn't move in the heliocentric frame */
          memset( posn, 0, 3 * sizeof( double));
       else if( planet_no == 3)
-         earth_lunar_posn( jd, posn, NULL);
+         earth_lunar_posn( jd, posn, nullptr);
       else if( planet_no == 10)
-         earth_lunar_posn( jd, NULL, posn);
+         earth_lunar_posn( jd, nullptr, posn);
       else
          planet_posn( planet_no, jd, posn);
       }
@@ -1221,8 +1221,8 @@ int get_planet_posn_vel( const double jd, const int planet_no,
          double loc1[3], loc2[3];
          const double delta = 1. / minutes_per_day;    /* one minute delta... */
 
-         get_planet_posn_vel( jd + delta, planet_no, loc2, NULL);
-         get_planet_posn_vel( jd - delta, planet_no, loc1, NULL);
+         get_planet_posn_vel( jd + delta, planet_no, loc2, nullptr);
+         get_planet_posn_vel( jd - delta, planet_no, loc1, nullptr);
          for( i = 0; i < 3; i++)
             vel[i] = (loc2[i] - loc1[i]) / (2. * delta);
          }
@@ -1285,7 +1285,7 @@ int find_best_fit_planet( const double jd, const double *ivect,
          {
          double planet_loc[3], delta[3], dist2 = 0., curr_fit;
 
-         get_planet_posn_vel( jd, i, planet_loc, NULL);
+         get_planet_posn_vel( jd, i, planet_loc, nullptr);
          for( j = 0; j < 3; j++)
             {
             delta[j] = ivect[j] - planet_loc[j];
@@ -1301,7 +1301,7 @@ int find_best_fit_planet( const double jd, const double *ivect,
             }
          }
 
-   get_planet_posn_vel( jd, rval, NULL, vel);
+   get_planet_posn_vel( jd, rval, nullptr, vel);
    for( j = 0; j < 3; j++)
       rel_vect[j + 3] = ivect[j + 3] - vel[j];
    return( rval);

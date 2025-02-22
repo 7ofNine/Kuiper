@@ -128,7 +128,7 @@ void ensure_config_directory_exists()
    }
 
    const char *home = getenv("HOME");
-   if (home == NULL) {
+   if (home == nullptr) {
       // home unknown; give up
       return;
    }
@@ -179,7 +179,7 @@ char *make_config_dir_name( char *oname, const char *iname)
    return( oname);
 }
 
-const char *output_directory = NULL;
+const char *output_directory = nullptr;
 
 /* We use a lock file to determine if Find_Orb is already running,  and
 therefore putting some temporary files (ephemerides,  elements,  etc.)
@@ -192,7 +192,7 @@ via command-line options.    */
 
 FILE *fopen_ext( const char *filename, const char *permits)
 {
-   FILE *rval = NULL;
+   FILE *rval = nullptr;
    bool is_fatal = false;
    bool try_local = true;
    bool is_temporary = false;
@@ -282,7 +282,7 @@ static int look_for_astrometry_in_file( FILE *ofile, const char *ifilename, cons
    int bytes_written = 0;
    FILE *ifile;
 
-   if( ifilename && *ifilename && (ifile = fopen( ifilename, "rb")) != NULL)
+   if( ifilename && *ifilename && (ifile = fopen( ifilename, "rb")) != nullptr)
       {
       char tbuff[100];
 
@@ -495,7 +495,7 @@ int reset_astrometry_filename( int *argc, const char **argv)
       argv[1] = temp_obs_filename;
       for( j = 2; i < *argc; j++, i++)
          argv[j] = argv[i];
-      argv[j] = NULL;
+      argv[j] = nullptr;
       *argc = j;
       rval = 1;
       }

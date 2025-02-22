@@ -364,7 +364,7 @@ void /*DLL_FUNC*/ full_ctimel( char *buff, long double t2k, const int format)
       day_of_week += 7;
    if( format & FULL_CTIME_DAY_OF_WEEK_FIRST)
       snprintf_err( buff, max_buff_size, "%s ",
-                     set_day_of_week_name( (int)day_of_week, NULL));
+                     set_day_of_week_name( (int)day_of_week, nullptr));
    else
       *buff = '\0';
 
@@ -381,7 +381,7 @@ void /*DLL_FUNC*/ full_ctimel( char *buff, long double t2k, const int format)
       if( format & FULL_CTIME_MONTHS_AS_DIGITS)
          snprintf_err( month_str, sizeof( month_str), (leading_zeroes ? "%02d" : "%2d"), month);
       else
-         strlcpy_err( month_str, set_month_name( month, NULL), sizeof( month_str));
+         strlcpy_err( month_str, set_month_name( month, nullptr), sizeof( month_str));
 
       if( format & FULL_CTIME_TWO_DIGIT_YEAR)
          snprintf_err( year_str, sizeof( year_str), "%02d", abs( (int)year % 100));
@@ -442,7 +442,7 @@ void /*DLL_FUNC*/ full_ctimel( char *buff, long double t2k, const int format)
       }
    if( format & FULL_CTIME_DAY_OF_WEEK_LAST)
       snprintf_append( buff, max_buff_size, " %s",
-                     set_day_of_week_name( (int)day_of_week, NULL));
+                     set_day_of_week_name( (int)day_of_week, nullptr));
    if( format & FULL_CTIME_NO_SPACES)
       remove_char( ibuff, ' ');
    if( format & FULL_CTIME_NO_COLONS)

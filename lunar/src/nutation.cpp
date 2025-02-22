@@ -53,7 +53,7 @@ least a little. */
       /* input is time in julian centuries from 2000. */
       /* *d_lon is nutation (delta phi) in arcseconds */
       /* *d_obliq is nutation (delta epsilon) in arcseconds */
-      /* Either pointer can be NULL,  in which case that value is  */
+      /* Either pointer can be nullptr,  in which case that value is  */
       /* not computed.  (I added this because sometimes,  you want */
       /* only d_lon or d_obliq;  in such cases,  computing _both_  */
       /* is a waste of perfectly good CPU time) */

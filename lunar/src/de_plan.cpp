@@ -114,7 +114,7 @@ problem;  the file will be opened (and closed) for you.
 offset within the file for the data concerning each planet.  Some checking
 is done to figure out which 'block' covers the current jd;  of course,
 it's possible that none will,  in which case we close up shop and return
-a NULL.
+a nullptr.
 
    Otherwise,  we figure out how much memory is needed and allocate one
 massive buffer to hold it all.  This may look a little odd,  but it
@@ -144,7 +144,7 @@ void * /*DLL_FUNC*/ load_ps1996_series( FILE *ifile, double jd, int planet_no)
       {
       ifile = fopen( "ps_1996.dat", "rb");
       if( !ifile)
-         return( NULL);
+         return( nullptr);
       close_file = 1;
       }
 
@@ -159,7 +159,7 @@ void * /*DLL_FUNC*/ load_ps1996_series( FILE *ifile, double jd, int planet_no)
       {
       if( close_file)
          fclose( ifile);
-      return( NULL);            /* outta bounds */
+      return( nullptr);            /* outta bounds */
       }
 
    p.tzero = header.tzero + (double)block * header.dt;
@@ -175,7 +175,7 @@ void * /*DLL_FUNC*/ load_ps1996_series( FILE *ifile, double jd, int planet_no)
       {
       if( close_file)
          fclose( ifile);
-      return( NULL);
+      return( nullptr);
       }
    p.fqs = (double *)( rval + 1);
    p.terms = p.fqs + header.total_fqs;
@@ -196,7 +196,7 @@ void * /*DLL_FUNC*/ load_ps1996_series( FILE *ifile, double jd, int planet_no)
          fclose( ifile);
       if( tbuff)
          free( tbuff);
-      return( NULL);
+      return( nullptr);
       }
    memcpy( p.secular, tbuff, 12 * sizeof( double));
    tptr = tbuff + 12 * sizeof( double);

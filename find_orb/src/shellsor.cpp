@@ -34,7 +34,7 @@ https://sourceware.org/ml/libc-alpha/2008-12/msg00007.html
 "right" way of doing things.  (*BSD and Windows have the context pointer as
 the first argument.)  The reason is that it means your non-reentrant
 qsort() can basically just call the reentrant qsort_r(), with an ignored
-NULL context pointer.  (Which,  you'll see,  I've done below.)
+nullptr context pointer.  (Which,  you'll see,  I've done below.)
 
    Note that Shellsort is decently fast,  but not nearly as fast as Quicksort.
 If sorting speed matters in your application,  either ignore this or modify
@@ -156,8 +156,8 @@ void shellsort_r( void *base, const size_t n_elements, const size_t elem_size,
 /*  https://sourceware.org/ml/libc-alpha/2008-12/msg00007.html mentions
 that, with the arguments given in the order used in glibc,  a non-re-entrant
 sort can be (and,  in glibc,  is) implemented simply by using the re-entrant
-version,  passing a NULL context pointer.  On all architectures of which the
-author was aware,  this can be done safely,  with the unused/unset NULL
+version,  passing a nullptr context pointer.  On all architectures of which the
+author was aware,  this can be done safely,  with the unused/unset nullptr
 context pointer never getting used.
 
    It seems like an excellent idea.  The weird cast is essentially the one
@@ -172,7 +172,7 @@ void shellsort( void *base, const size_t n_elements, const size_t elem_size,
    void (*p)() = (void (*)())compare;
 
    shellsort_r( base, n_elements, elem_size,
-               (int (*)( const void *, const void *, void *))p, NULL);
+               (int (*)( const void *, const void *, void *))p, nullptr);
 }
 #endif
 
@@ -189,15 +189,15 @@ _ext in the name) in two ways :
    -- It returns the first matching record.  (The original would return
 _a_ matching record,  not necessarily the first.)
 
-   -- If the additional parameter 'found' is non-NULL,  then the return
+   -- If the additional parameter 'found' is non-nullptr,  then the return
 value indicates the location of the first record matching the key if such
 a record exists, and *found is set to true.  If no matching record is
 found,  then the return value indicates the slot where the record would
 be inserted, and *found is set to false.  This allows one to find
 "nearby" records and/or to know there a new key would be inserted.
 
-   If 'found' is NULL,  the return value points to the first matching
-record,  or NULL if no match is found.       */
+   If 'found' is nullptr,  the return value points to the first matching
+record,  or nullptr if no match is found.       */
 
 void *bsearch_ext_r( const void *key, const void *base0, size_t nmemb,
       const size_t size, int (*compar)(const void *, const void *, void *),
@@ -221,7 +221,7 @@ void *bsearch_ext_r( const void *key, const void *base0, size_t nmemb,
       nmemb >>= 1;
       }
    if( !found && !found_it)
-      base = NULL;
+      base = nullptr;
    else if( found)
       *found = found_it;
    return( (void *)base);
@@ -240,5 +240,5 @@ void *bsearch_ext( const void *key, const void *base0,
 
    return( bsearch_ext_r( key, base0, nmemb, size,
                (int (*)( const void *, const void *, void *))p,
-               NULL, found));
+               nullptr, found));
 }

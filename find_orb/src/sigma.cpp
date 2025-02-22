@@ -142,7 +142,7 @@ void free_sigma_recs( void)
    if( sigma_recs)
       {
       free( sigma_recs);
-      sigma_recs = NULL;
+      sigma_recs = nullptr;
       }
    n_sigma_recs = 0;
 }

@@ -78,7 +78,7 @@ static double simplex_scoring( void *icontext, const double *ivect)
    if( context->n_params == 2)
       {
       if( herget_method( context->obs, context->n_obs, ivect[0], ivect[1],
-                           context->orbit, NULL, NULL, NULL))
+                           context->orbit, nullptr, nullptr, nullptr))
          return( 1e+30);
       if( adjust_herget_results( context->obs, context->n_obs, context->orbit))
          return( 1e+30);
@@ -236,7 +236,7 @@ static STORED_ORBIT
    double orbit[MAX_N_PARAMS];
    int n_orbit_params, force_model;
    unsigned perturbers;
-   } *stored = NULL;
+   } *stored = nullptr;
 
 extern unsigned perturbers;
 
@@ -282,7 +282,7 @@ int pop_orbit( double *epoch, double *orbit)
 
 void pop_all_orbits( void)
 {
-   while( !pop_orbit( NULL, NULL))
+   while( !pop_orbit( nullptr, nullptr))
       ;
 }
 
@@ -474,7 +474,7 @@ int find_circular_orbits( OBSERVE   *obs1, OBSERVE   *obs2,
          r1 += .05;
       else
          r1 *= 1.05;
-      set_up_circular_orbit( obs1, obs2, r1, &dt_1, &t0_1, NULL);
+      set_up_circular_orbit( obs1, obs2, r1, &dt_1, &t0_1, nullptr);
       if( t0_2)
          {
          int bug_out = 0;
@@ -491,7 +491,7 @@ int find_circular_orbits( OBSERVE   *obs1, OBSERVE   *obs2,
                const double r3 = (r1 * delta_2 - r2 * delta_1) / (delta_2 - delta_1);
                double delta_3, t0_3, dt_3;
 
-               set_up_circular_orbit( obs1, obs2, r3, &dt_3, &t0_3, NULL);
+               set_up_circular_orbit( obs1, obs2, r3, &dt_3, &t0_3, nullptr);
                delta_3 = t0_3 * (double)( soln_type / 2)
                      + ((soln_type & 1) ? t0_3 - dt_3 : dt_3) - dt;
 

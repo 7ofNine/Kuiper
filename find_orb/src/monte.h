@@ -31,7 +31,7 @@ class CMonteCarlo : public CDialog
 {
 // Construction
 public:
-   CMonteCarlo(CWnd* pParent = NULL);   // standard constructor
+   CMonteCarlo(CWnd* pParent = nullptr);   // standard constructor
 
 // Dialog Data
    //{{AFX_DATA(CMonteCarlo)

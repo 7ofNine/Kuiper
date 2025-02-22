@@ -147,7 +147,7 @@ static double find_point_moid_2( internal_moid_t *iptr, const double true_anomal
    double x, y;
 
    iptr->r2 = compute_posn_and_vel( iptr->elem2, true_anomaly2,
-                 iptr->xform_matrix, vect2, NULL);
+                 iptr->xform_matrix, vect2, nullptr);
    x = vect2[0] + iptr->elem1->q * iptr->elem1->ecc / (1. - iptr->elem1->ecc);
    y = vect2[1];   /* above shifts origin from focus to center of ellipse */
    iptr->lat = point_to_ellipse( iptr->elem1->major_axis, iptr->elem1_b,

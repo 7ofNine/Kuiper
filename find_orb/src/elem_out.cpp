@@ -347,7 +347,7 @@ static void collapse_findorb_txt( char **text)
                           strlen( text[i + 1] + 7));
          for( j = i + 1; text[j + 1]; j++)
             text[j] = text[j + 1];
-         text[j] = NULL;
+         text[j] = nullptr;
          i--;        /* may be more lines to concatenate */
          }
       }
@@ -355,7 +355,7 @@ static void collapse_findorb_txt( char **text)
 
 const char *get_find_orb_text( const int index)
 {
-   static char **text = NULL, **default_text = NULL;
+   static char **text = nullptr, **default_text = nullptr;
    size_t i;
    static char currently_loaded_language = '\0';
    char filename[20];
@@ -366,8 +366,8 @@ const char *get_find_orb_text( const int index)
          free( text);
       if( default_text)
          free( default_text);
-      default_text = text = NULL;
-      return( NULL);
+      default_text = text = nullptr;
+      return( nullptr);
       }
    get_find_orb_text_filename( filename);
    if( findorb_language != 'e' &&
@@ -375,14 +375,14 @@ const char *get_find_orb_text( const int index)
       {
       if( text)          /* 'text' = pointer to strings for current language */
          free( text);
-      text = load_file_into_memory( filename, NULL, true);
+      text = load_file_into_memory( filename, nullptr, true);
       collapse_findorb_txt( text);
       currently_loaded_language = findorb_language;
       }
    if( !default_text)     /* 'default_text' = strings for English,  and as */
       {                   /* a backstop when something isn't translated    */
       *filename = 'e';
-      default_text = load_file_into_memory( filename, NULL, true);
+      default_text = load_file_into_memory( filename, nullptr, true);
       collapse_findorb_txt( default_text);
       }
    if( text && findorb_language != 'e')  /* try non-default language... */
@@ -397,7 +397,7 @@ const char *get_find_orb_text( const int index)
    debug_printf( "Requested index %d in language %c not found\n",
                      index, findorb_language);
    assert( 0);             /* i.e.,  should never get here */
-   return( NULL);
+   return( nullptr);
 }
 
 /* observation_summary_data( ) produces the final line in an MPC report,
@@ -424,7 +424,7 @@ static void observation_summary_data( char *obuff, const OBSERVE   *obs,
    if( options != -1 && n_included)
       {
       const double rms = (options & ELEM_OUT_NORMALIZED_MEAN_RESID) ?
-                  compute_weighted_rms( obs, n_obs, NULL) :
+                  compute_weighted_rms( obs, n_obs, nullptr) :
                   compute_rms( obs, n_obs);
       char rms_buff[24];
       const char *rms_format = "%.2f";
@@ -646,7 +646,7 @@ static int _unpack_desig_for_linkage( const char *packed_id, char *reduced)
       i++;
    if( i == 12)                  /* both permanent and provisional desigs; */
       memset( reduced + 5, ' ', 7);          /* just use the permanent one */
-   return( unpack_mpc_desig( NULL, reduced));
+   return( unpack_mpc_desig( nullptr, reduced));
 }
 
 double utc_from_td( const double jdt, double *delta_t);     /* ephem0.cpp */
@@ -702,7 +702,7 @@ static int make_linkage_json( const int n_obs, const OBSERVE *obs, const ELEMENT
             }
          tptr = strstr( buff, "%v");
          if( tptr)
-            text_search_and_replace( buff, "%v", find_orb_version_jd( NULL));
+            text_search_and_replace( buff, "%v", find_orb_version_jd( nullptr));
          if( elem->central_obj == 3)
             text_search_and_replace( buff, "\"comment\": \"",
                      "\"comment\": \"Identified as artsat. ");
@@ -743,7 +743,7 @@ static int make_linkage_json( const int n_obs, const OBSERVE *obs, const ELEMENT
 
          if( desig_type == OBJ_DESIG_OTHER || desig_type == OBJ_DESIG_ARTSAT)
             {
-            const double obs_utc_jd = utc_from_td( obs[idx[i]].jd, NULL);
+            const double obs_utc_jd = utc_from_td( obs[idx[i]].jd, nullptr);
 
             strlcpy_error( buff, packed_id2);
             text_search_and_replace( buff, " ", "");
@@ -1045,15 +1045,15 @@ static int elements_in_json_format( FILE *ofile, const ELEMENTS *elem,
    fprintf( ofile, "\n        \"count\": %u,", n_obs);
    fprintf( ofile, "\n        \"used\": %u,", n_used);
 
-   jd_first = utc_from_td( obs[0].jd, NULL);
-   jd_last  = utc_from_td( obs[n_obs - 1].jd, NULL);
+   jd_first = utc_from_td( obs[0].jd, nullptr);
+   jd_last  = utc_from_td( obs[n_obs - 1].jd, nullptr);
    fprintf( ofile, "\n        \"earliest\": %16.8f,", jd_first);
    fprintf( ofile, "\n        \"latest\": %16.8f,", jd_last);
    fprintf( ofile, "\n        \"earliest iso\": \"%s\",", iso_time( buff, jd_first, 3));
    fprintf( ofile, "\n        \"latest iso\": \"%s\",", iso_time( buff, jd_last, 3));
 
-   jd_first = utc_from_td( obs[first].jd, NULL);
-   jd_last  = utc_from_td( obs[last].jd, NULL);
+   jd_first = utc_from_td( obs[first].jd, nullptr);
+   jd_last  = utc_from_td( obs[last].jd, nullptr);
    fprintf( ofile, "\n        \"earliest_used\": %16.8f,", jd_first);
    fprintf( ofile, "\n        \"latest_used\": %16.8f,", jd_last);
    fprintf( ofile, "\n        \"earliest_used iso\": \"%s\",", iso_time( buff, jd_first, 3));
@@ -1065,8 +1065,8 @@ static int elements_in_json_format( FILE *ofile, const ELEMENTS *elem,
    last = n_obs - 1;
    while( last > first && (obs[last].flags & OBS_DONT_USE))
       last--;
-   jd_first = utc_from_td( obs[first].jd, NULL);
-   jd_last  = utc_from_td( obs[last].jd, NULL);
+   jd_first = utc_from_td( obs[first].jd, nullptr);
+   jd_last  = utc_from_td( obs[last].jd, nullptr);
    fprintf( ofile, "\n        \"earliest_unbanned\": %16.8f,", jd_first);
    fprintf( ofile, "\n        \"latest_unbanned\": %16.8f,", jd_last);
    fprintf( ofile, "\n        \"earliest_unbanned iso\": \"%s\",", iso_time( buff, jd_first, 3));
@@ -1080,7 +1080,7 @@ static int elements_in_json_format( FILE *ofile, const ELEMENTS *elem,
       double total_resid, normalized_xresid, normalized_yresid;
       double ecliptic_lon, ecliptic_lat;
 
-      jd = utc_from_td( obs[i].jd, NULL);
+      jd = utc_from_td( obs[i].jd, nullptr);
       compute_observation_motion_details( obs + i, &m);
       fprintf( ofile, "\n          {\"JD\": %.6f, \"iso date\": \"%s\", \"obscode\": \"%s\",",
                   jd, iso_time( buff, jd, 3), obs[i].mpc_code);
@@ -1282,12 +1282,12 @@ static int get_uncertainty( const char *key, char *obuff, const bool in_km)
 {
    int rval = -1;
    FILE *ifile;
-   const char *filenames[4] = { NULL, "covar.txt", "monte.txt", "monte.txt" };
+   const char *filenames[4] = { nullptr, "covar.txt", "monte.txt", "monte.txt" };
    char buff[100];
 
    *obuff = '\0';
    if( available_sigmas && (ifile = fopen_ext(
-                  get_file_name( buff, filenames[available_sigmas]), "tcrb")) != NULL)
+                  get_file_name( buff, filenames[available_sigmas]), "tcrb")) != nullptr)
       {
       const size_t keylen = strlen( key);
 
@@ -1598,22 +1598,22 @@ static int _get_extra_orbit_info( const char *packed_id,
          {
          const char *tptr;
 
-         if( (tptr = strstr( lines[i], " p=")) != NULL)
+         if( (tptr = strstr( lines[i], " p=")) != nullptr)
             sscanf( tptr + 3, "%x", perturbers);
-         if( (tptr = strstr( lines[i], " model=")) != NULL)
+         if( (tptr = strstr( lines[i], " model=")) != nullptr)
             sscanf( tptr + 7, "%x", (unsigned *)&force_model);
          for( j = 0; j < 5; j++)
             {
             char tbuff[6];
 
             snprintf( tbuff, sizeof( tbuff), " A%d=", j + 1);
-            if( (tptr = strstr( lines[i], tbuff)) != NULL)
+            if( (tptr = strstr( lines[i], tbuff)) != nullptr)
                {
                sscanf( tptr + 4, "%lf", solar_pressure + j);
                *n_extra_params = j + 1;
                }
             }
-         if( (tptr = strstr( lines[i], " Constraint=")) != NULL)
+         if( (tptr = strstr( lines[i], " Constraint=")) != nullptr)
             if( constraints)
                sscanf( tptr + 12, "%s", constraints);
          if( strstr( lines[i], "ignore"))
@@ -1713,7 +1713,7 @@ void rotate_state_vector_to_current_frame( double *state_vect,
                   char *body_frame_note)
 {
    int elements_frame = atoi( get_environment_ptr( "ELEMENTS_FRAME"));
-   const char *frame_str = NULL;
+   const char *frame_str = nullptr;
    const size_t body_frame_note_len = 30;
 
             /* By default,  we use J2000 equatorial elements for geocentric
@@ -1907,7 +1907,7 @@ int write_out_elements_to_file( const double *orbit,
                            "Ce", "Pa", "Vt", "(29)", "(16)", "(15)" };
 
 
-   setvbuf( ofile, NULL, _IONBF, 0);
+   setvbuf( ofile, nullptr, _IONBF, 0);
    if( default_comet_magnitude_type == 'N')
       output_format |= SHOWELEM_COMET_MAGS_NUCLEAR;
    if (options & ELEM_OUT_ALTERNATIVE_FORMAT)
@@ -2351,7 +2351,7 @@ int write_out_elements_to_file( const double *orbit,
    observation_summary_data( tbuff, obs, n_obs, options);
    fprintf( ofile, "%s\n", tbuff);
    if( elem.central_obj == 3 && elem.ecc < .99 && _include_comment( "TLE"))
-      if( !write_tle_from_vector( tbuff, rel_orbit, elem.epoch, NULL, NULL))
+      if( !write_tle_from_vector( tbuff, rel_orbit, elem.epoch, nullptr, nullptr))
          {
          tbuff[69] = tbuff[140] = '\0';
          fprintf( ofile, "# %s\n# %s\n", tbuff, tbuff + 71);
@@ -2445,7 +2445,7 @@ int write_out_elements_to_file( const double *orbit,
          fprintf( ofile, "# Full range of obs: %s (%d observations)\n",
                               buff, n_obs);
       if( _include_comment( "Ver"))
-         fprintf( ofile, "# Find_Orb ver: %s\n", find_orb_version_jd( NULL));
+         fprintf( ofile, "# Find_Orb ver: %s\n", find_orb_version_jd( nullptr));
       if( _include_comment( "Per"))
          {
          fprintf( ofile, "# Perturbers: %08lx ", (unsigned long)perturbers);
@@ -2457,7 +2457,7 @@ int write_out_elements_to_file( const double *orbit,
          else if( perturbers == 0x408)
             fprintf( ofile, "(Sun/Earth/Moon)");
          }
-      get_jpl_ephemeris_info( &jpl_de_version, NULL, NULL);
+      get_jpl_ephemeris_info( &jpl_de_version, nullptr, nullptr);
       if( _include_comment( "DE"))
          {
          if( jpl_de_version)
@@ -2534,7 +2534,7 @@ int write_out_elements_to_file( const double *orbit,
          char *end_ptr;
          const double lon = latlon[0] * 180. / PI;
          const double impact_time_td = elem.perih_time + t0;
-         const double impact_time_utc = utc_from_td( impact_time_td, NULL);
+         const double impact_time_utc = utc_from_td( impact_time_td, nullptr);
 
          full_ctime( buff, impact_time_utc,
                        FULL_CTIME_HUNDREDTH_SEC | CALENDAR_JULIAN_GREGORIAN);
@@ -2684,7 +2684,7 @@ int write_out_elements_to_file( const double *orbit,
          if( !strcmp( monte_carlo_permits, "wb"))
             {        /* new file = write out a header for it */
             FILE *ifile = fopen_ext( "mpcorb.hdr", "fcrb");
-            time_t t0 = time( NULL);
+            time_t t0 = time( nullptr);
 
             fprintf( ofile, "Monte Carlo orbits from Find_Orb\nComputed %.24s\n",
                               asctime( gmtime( &t0)));
@@ -2707,7 +2707,7 @@ int write_out_elements_to_file( const double *orbit,
       }
 
    if( !elements_in_guide_format( tbuff, &elem, object_name, obs, n_obs)
-         && (ofile = fopen_ext( get_file_name( buff, "guide.txt"), "tfcwb")) != NULL)
+         && (ofile = fopen_ext( get_file_name( buff, "guide.txt"), "tfcwb")) != nullptr)
       {
       fprintf( ofile, "%s%s\n", tbuff, impact_buff);
       fclose( ofile);
@@ -2789,7 +2789,7 @@ void set_solutions_found( OBJECT_INFO *ids, const int n_ids)
       if( strlen( tname) == 12)    /* combined perm & provisional ID */
          tname[5] = '\0';
       if( bsearch_ext_r( &tptr, ilines, n_lines, sizeof( char *),
-                        string_compare_for_sort, &sort_column, NULL))
+                        string_compare_for_sort, &sort_column, nullptr))
          ids[i].solution_exists = 1;
       }
    free( ilines);
@@ -2855,7 +2855,7 @@ static int get_orbit_from_sof( const char *filename,
       while( !got_vectors && fgets_trimmed( buff, sizeof( buff), ifile))
          if( !memcmp( tname, buff, 12) && !_get_extra_orbit_info(
                        tname, &perturbers, &n_extra_params,
-                       orbit + 6, NULL))
+                       orbit + 6, nullptr))
             {
             double extra_info[10];
             extern int n_orbit_params, force_model;
@@ -2933,7 +2933,7 @@ int compute_canned_object_state_vect( double *loc, const char *mpc_code,
       ELEMENTS elems;
 
       memset( &elems, 0, sizeof( ELEMENTS));
-      extract_sof_data_ex( &elems, buff, header, NULL);
+      extract_sof_data_ex( &elems, buff, header, nullptr);
       if( elems.epoch < 2400000.)
          debug_printf( "JD %f\n", elems.epoch);
       assert( elems.epoch > 2400000.);
@@ -3008,7 +3008,7 @@ static double extract_state_vect_from_text( const char *text,
       {
       memcpy( tbuff, text, i);
       tbuff[i] = '\0';
-      epoch = get_time_from_string( 0., tbuff, CALENDAR_JULIAN_GREGORIAN, NULL);
+      epoch = get_time_from_string( 0., tbuff, CALENDAR_JULIAN_GREGORIAN, nullptr);
       }
    assert( epoch);
    text += i + 1;
@@ -3040,7 +3040,7 @@ static double extract_state_vect_from_text( const char *text,
          assert( i < 70);
          memcpy( tbuff, text + 3, i - 3);
          tbuff[i - 3] = '\0';
-         elem.perih_time = get_time_from_string( 0., tbuff, CALENDAR_JULIAN_GREGORIAN, NULL);
+         elem.perih_time = get_time_from_string( 0., tbuff, CALENDAR_JULIAN_GREGORIAN, nullptr);
          quantities_found |= FOUND_TPERIH;
          }
       else if( !memcmp( text, "M=", 2))
@@ -3191,7 +3191,7 @@ static void _reset_sr_orbits( void)
    assert( sr_orbits);
 }
 
-const char *state_vect_text = NULL;
+const char *state_vect_text = nullptr;
 int ignore_prev_solns;
 bool take_first_soln = false, force_final_full_improvement = false;
 int n_extra_full_steps = 0;
@@ -3259,7 +3259,7 @@ static int fetch_previous_solution( OBSERVE *obs, const int n_obs, double *orbit
       obs->ra = obs->computed_ra;
       obs->dec = obs->computed_dec;
       obs->obs_mag = abs_mag + calc_obs_magnitude( obs->solar_r,
-                 obs->r, vector3_length( obs->obs_posn), NULL);
+                 obs->r, vector3_length( obs->obs_posn), nullptr);
       obs->obs_mag = floor( obs->obs_mag * 10. + .5) * .1;
       obs->mag_precision = 1;         /* start out assuming mag to .1 mag */
       }
@@ -3300,7 +3300,7 @@ static int fetch_previous_solution( OBSERVE *obs, const int n_obs, double *orbit
             if( i)
                filter_obs( obs, n_obs, automatic_outlier_rejection_limit, 0);
             full_improvement( obs, n_obs, orbit, *orbit_epoch,
-                           (pass ? "e=1" : NULL),
+                           (pass ? "e=1" : nullptr),
                            ORBIT_SIGMAS_REQUESTED, *epoch_shown);
             }
          if( !pass)
@@ -3309,7 +3309,7 @@ static int fetch_previous_solution( OBSERVE *obs, const int n_obs, double *orbit
                if( i > 1)
                   filter_obs( obs, n_obs, automatic_outlier_rejection_limit, 0);
                full_improvement( obs, n_obs, orbit, *orbit_epoch,
-                              (pass ? "e=1" : NULL),
+                              (pass ? "e=1" : nullptr),
                               ORBIT_SIGMAS_REQUESTED, *epoch_shown);
 
                }
@@ -3321,7 +3321,7 @@ static int fetch_previous_solution( OBSERVE *obs, const int n_obs, double *orbit
          else        /* throw out the saved orbit;  we've got something better */
             {
             pass = 100;
-            pop_orbit( NULL, NULL);
+            pop_orbit( nullptr, nullptr);
             }
          }
       free( saved_obs);
@@ -3408,7 +3408,7 @@ static int obj_desig_to_perturber( const char *packed_desig)
                                      "     Saturn ",
                                      "     Uranus ",
                                      "     Neptune",
-                                     "     Pluto  ", NULL };
+                                     "     Pluto  ", nullptr };
 
                      /* The EXCLUDED environment variable provides a way */
                      /* to specifically exclude some perturbers,  either */
@@ -3478,7 +3478,7 @@ static void _log_problems( const OBJECT_INFO *id, const OBSERVE   *obs)
 {
    int i, n_obs_used = 0, n_real_obs = 0;
    double first_jd = -1., last_jd = obs->jd, arc_used, full_arc;
-   const double rms_err = compute_weighted_rms( obs, id->n_obs, NULL);
+   const double rms_err = compute_weighted_rms( obs, id->n_obs, nullptr);
    char error_message[200];
 
    error_message[0] = '\0';
@@ -3546,7 +3546,7 @@ OBSERVE   *load_object( FILE *ifile, OBJECT_INFO *id,
       excluded_asteroid_number = atoi( id->obj_name + 1);      /* itself */
    else
       excluded_asteroid_number = 0;
-   compute_effective_solar_multiplier( NULL);
+   compute_effective_solar_multiplier( nullptr);
    if( n_obs_actually_loaded > 0)
       {
       const int got_vector = fetch_previous_solution( obs, id->n_obs, orbit,
@@ -3716,7 +3716,7 @@ static double _calc_absolute_magnitude_internal( OBSERVE   *obs, int n_obs)
             if( obs->obs_mag == BLANK_MAG || !obs->is_included)
                use_obs = false;
             obs->computed_mag = calc_obs_magnitude(
-                  obs->solar_r, obs->r, earth_sun, NULL) - mag_band_shift( obs->mag_band, &err);
+                  obs->solar_r, obs->r, earth_sun, nullptr) - mag_band_shift( obs->mag_band, &err);
             if( use_obs)
                {
                rval += (obs->obs_mag - obs->computed_mag) / obs->mag_sigma;
@@ -4004,7 +4004,7 @@ int get_defaults( ephem_option_t *ephemeris_output_options, int *element_format,
       fcct14_bias_file_name = override_fcct14_filename;
       }
    if( eop_filename)
-      load_earth_orientation_params( eop_filename, NULL);
+      load_earth_orientation_params( eop_filename, nullptr);
    reset_td_minus_dt_string( get_environment_ptr( "DELTA_T"));
    sscanf( get_environment_ptr( "MAX_OBSERVATION_SPAN"), "%lf",
                                   &maximum_observation_span);

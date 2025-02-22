@@ -217,7 +217,7 @@ static const SMALL_VSOP_TERM nept_terms[N_NEPT_TERMS] = {
  { 2,  0.14936165806, 5.79694900665,      3.961750834610  },
  { 3,  0.92866054405, 1.44103930278,      3.813303563780  } };
 
-static const SMALL_VSOP_TERM *vsop_terms[] = { NULL,
+static const SMALL_VSOP_TERM *vsop_terms[] = { nullptr,
          merc_terms, venu_terms, eart_terms, mars_terms,
          jupi_terms, satu_terms, uran_terms, nept_terms };
 

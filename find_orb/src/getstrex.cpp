@@ -122,7 +122,7 @@ int wgetn_wstr_ex(WINDOW *win, wint_t *wstr, int *loc, const int maxlen, const i
         wrefresh(win);
 
         wget_wch_rval = wget_wch( win, &ch);
-        if( wget_wch_rval == OK && (ch == _ECHAR || ch == 127 || ch == KEY_BACKSPACE))
+        if( wget_wch_rval == 0 && (ch == _ECHAR || ch == 127 || ch == KEY_BACKSPACE))
         {
             wget_wch_rval = KEY_CODE_YES;
             ch = KEY_BACKSPACE;
@@ -204,7 +204,7 @@ int wgetn_wstr_ex(WINDOW *win, wint_t *wstr, int *loc, const int maxlen, const i
                   break;
             }
 
-        if( wget_wch_rval == OK)
+        if( wget_wch_rval == 0)
             switch( ch)
             {
                case _DLCHAR:       /* CTRL-U -- Delete line */

@@ -149,10 +149,10 @@ int /*DLL_FUNC*/ get_comet_file( const char *cd_path,
    uint16_t   *limit_data;
    uint16_t max_time, min_time;
    char *buff;
-   char   *   *periodics = NULL;
+   char   *   *periodics = nullptr;
    static const char * const local_file = "now_comt.dat";
    static char * const big_comet_file = "asteroid\\cometg.dat";
-   FILE *ifile = NULL, *ofile = NULL;
+   FILE *ifile = nullptr, *ofile = nullptr;
    int i, n_periodics = 0, rval = 0;
    int n_comets_in_file = 0, cometg_line_size;
    long lval1, lval2, lval3;
@@ -162,7 +162,7 @@ int /*DLL_FUNC*/ get_comet_file( const char *cd_path,
       return( -1);
 
    if( mag_limit >= 40.)      /* gotta use the whole thing */
-      limit_data = NULL;
+      limit_data = nullptr;
    else
       {
       long offset;
@@ -209,7 +209,7 @@ int /*DLL_FUNC*/ get_comet_file( const char *cd_path,
          }
 #endif
       fclose( ifile);
-      ifile = NULL;
+      ifile = nullptr;
       }
 
    lval1 = (long)(( year - MARGIN) * 100. + .5);

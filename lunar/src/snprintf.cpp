@@ -9,9 +9,9 @@
 #ifdef NO_BUILT_IN_SNPRINTF
      /* MSVC/C++ (up to VS2015) has no snprintf.  Yes,  you read that     */
      /* correctly.  MSVC has an _snprintf which doesn't add a '\0' at the */
-     /* end if max_len bytes are written.  You can't pass a NULL string   */
+     /* end if max_len bytes are written.  You can't pass a nullptr string   */
      /* to determine the necessary buffer size.  The following, however,  */
-     /* is a "good enough" replacement:  for a non-NULL string, the       */
+     /* is a "good enough" replacement:  for a non-nullptr string, the       */
      /* output will be "correct" (the '\0' will always be present and in  */
      /* the right place).  The only deviation from "proper" sprintf() is  */
      /* that the maximum return value is max_len;  you can never know how */

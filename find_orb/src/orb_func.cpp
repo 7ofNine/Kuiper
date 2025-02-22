@@ -444,7 +444,7 @@ int integrate_orbitl( long double *orbit, const long double t0, const long doubl
             reset_of_elements_needed = 0;
             }
       n_steps++;
-      if( !(n_steps % 500) && show_runtime_messages && time( NULL) != real_time)
+      if( !(n_steps % 500) && show_runtime_messages && time( nullptr) != real_time)
          {
          char buff[80];
          extern int best_fit_planet, n_posns_cached;
@@ -471,7 +471,7 @@ int integrate_orbitl( long double *orbit, const long double t0, const long doubl
                         n_steps - prev_n_steps);
          move_add_nstr( 10, 10, buff, -1);
          prev_n_steps = n_steps;
-         real_time = time( NULL);
+         real_time = time( nullptr);
          snprintf_err( buff, sizeof( buff), " %02d:%02d:%02d; %f; %d cached   ",
                      (int)( (real_time / 3600) % 24L),
                      (int)( (real_time / 60) % 60),
@@ -805,9 +805,9 @@ accumulated error,  but it does make the code more opaque than would
 otherwise be the case.
 
    If we don't actually need a state vector for a second epoch,  then
-we can set orbit2 = NULL.  Or use plain ol' set_locs(),  which -- as
+we can set orbit2 = nullptr.  Or use plain ol' set_locs(),  which -- as
 you can see below -- basically just calls set_locs_extended() with a
-NULL orbit2.                          */
+nullptr orbit2.                          */
 
 #define is_between( t1, t2, t3)  ((t2 - t1) * (t3 - t2) >= 0.)
 
@@ -910,7 +910,7 @@ static int set_locs_extended( const double *orbit, const double epoch_jd,
 int set_locs( const double *orbit, const double t0, OBSERVE   *obs,
                        const int n_obs)
 {
-   return( set_locs_extended( orbit, t0, obs, n_obs, t0, NULL));
+   return( set_locs_extended( orbit, t0, obs, n_obs, t0, nullptr));
 }
 
 double observation_rms( const OBSERVE   *obs)
@@ -1140,7 +1140,7 @@ static int find_parameterized_orbit( double *orbit, const double *params,
                 OBSERVE obs1, OBSERVE obs2, const unsigned parameter_type,
                 const int already_have_approximate_orbit)
 {
-   const double *ra_dec_offsets = NULL;
+   const double *ra_dec_offsets = nullptr;
    int rval;
 
    switch( parameter_type)
@@ -1443,7 +1443,7 @@ int search_for_trial_orbit( double *orbit, OBSERVE   *obs, int n_obs,
       find_trial_orbit( orbit, obs, n_obs, r1, ang_param);
       rms[0] = rms[1];
       rms[1] = rms[2];
-      rms[2] = compute_weighted_rms( obs, n_obs, NULL);
+      rms[2] = compute_weighted_rms( obs, n_obs, nullptr);
       if( !i || best_rms_found > rms[2])
          {
          best_rms_found = rms[2];
@@ -1468,7 +1468,7 @@ int search_for_trial_orbit( double *orbit, OBSERVE   *obs, int n_obs,
             debug_printf ("x: %f %f %f; y: %f %f %f\n",
                      x[0], x[1], x[2], y[0], y[1], y[2]);
             find_trial_orbit( orbit, obs, n_obs, r1, new_x);
-            new_rms = compute_weighted_rms( obs, n_obs, NULL);
+            new_rms = compute_weighted_rms( obs, n_obs, nullptr);
             if( y[1] > y[0])
                max_idx = 1;
             if( y[2] > y[max_idx])
@@ -1901,13 +1901,13 @@ int herget_method( OBSERVE   *obs, int n_obs, double r1, double r2,
    int i, n_real_obs;
    const int using_pseudo_vaisala = (r1 < 0.);
    double orbit2[6], end_jd;
-   double orbit_offset[6], *constraint = NULL;
+   double orbit_offset[6], *constraint = nullptr;
    int planet_orbiting = 0, n_constraints = 0;
    char tstr[80];
    OBSERVE temp_obs1, temp_obs2;
 
    if( limited_orbit && !*limited_orbit)
-      limited_orbit = NULL;
+      limited_orbit = nullptr;
 
    obs = get_real_arc( obs, &n_obs, &n_real_obs);
    if( n_real_obs < 2)        /* should never happen */
@@ -1956,7 +1956,7 @@ int herget_method( OBSERVE   *obs, int n_obs, double r1, double r2,
    if( find_transfer_orbit( orbit2, &temp_obs1, &temp_obs2, 0)
                    || is_unreasonable_orbit( orbit2))
       {
-      runtime_message = NULL;
+      runtime_message = nullptr;
       return( -2);
       }
                /* But now that we know it's a good result,  let's copy:     */
@@ -1965,10 +1965,10 @@ int herget_method( OBSERVE   *obs, int n_obs, double r1, double r2,
    strlcpy_error( tstr, using_pseudo_vaisala ? "Vaisala set_locs" : "H/set_locs (1)");
    if( set_locs( orbit, temp_obs1.jd, obs, n_obs))
       {
-      runtime_message = NULL;
+      runtime_message = nullptr;
       return( -3);
       }
-   runtime_message = NULL;
+   runtime_message = nullptr;
    if( !d_r1 || !d_r2 || using_pseudo_vaisala)
       return( 0);
 
@@ -2006,14 +2006,14 @@ int herget_method( OBSERVE   *obs, int n_obs, double r1, double r2,
    memcpy( orbit2, orbit, 6 * sizeof( double));
    if( find_transfer_orbit( orbit2, &temp_obs1, &temp_obs2, 1))
       {
-      runtime_message = NULL;
+      runtime_message = nullptr;
       free( xresid);
       return( -5);
       }
    strcpy( tstr, "H/set_locs (2)");
    if( set_locs( orbit2, temp_obs1.jd, obs, n_obs))
       {
-      runtime_message = NULL;
+      runtime_message = nullptr;
       free( xresid);
       return( -6);
       }
@@ -2051,14 +2051,14 @@ int herget_method( OBSERVE   *obs, int n_obs, double r1, double r2,
    memcpy( orbit2, orbit, 6 * sizeof( double));
    if( find_transfer_orbit( orbit2, &temp_obs1, &temp_obs2, 1))
       {
-      runtime_message = NULL;
+      runtime_message = nullptr;
       free( xresid);
       return( -7);
       }
    strcpy( tstr, "H/set_locs (3)");
    if( set_locs( orbit2, temp_obs1.jd, obs, n_obs))
       {
-      runtime_message = NULL;
+      runtime_message = nullptr;
       free( xresid);
       return( -8);
       }
@@ -2102,7 +2102,7 @@ int herget_method( OBSERVE   *obs, int n_obs, double r1, double r2,
 
    free( xresid);
    determ = a * e - b * b;
-   runtime_message = NULL;
+   runtime_message = nullptr;
    if( !determ)
       return( -9);
    else
@@ -2399,7 +2399,7 @@ static int evaluate_limited_orbit( const double *orbit,
             case 'T':
                {
                const double tp = get_time_from_string( 0., tbuff,
-                                          CALENDAR_JULIAN_GREGORIAN, NULL);
+                                          CALENDAR_JULIAN_GREGORIAN, nullptr);
 
                if( tp)
                   constraints[rval++] = (tp - elem.perih_time) * 1e+5;
@@ -2735,7 +2735,7 @@ int full_improvement( OBSERVE   *obs, int n_obs, double *orbit,
                  int sigmas_requested, double epoch2)
 {
    double *asteroid_mass = ((limited_orbit && *limited_orbit == 'm') ?
-               get_asteroid_mass( atoi( limited_orbit + 2)) : NULL);
+               get_asteroid_mass( atoi( limited_orbit + 2)) : nullptr);
    int n_params;
    void *lsquare;
    double   *xresids;
@@ -2765,7 +2765,7 @@ int full_improvement( OBSERVE   *obs, int n_obs, double *orbit,
    const char *covariance_filename = "covar.txt";
    char tstr[80];
    ELEMENTS elem;
-   OBSERVE *orig_obs = NULL;
+   OBSERVE *orig_obs = nullptr;
    const int showing_deltas_in_debug_file =
                       atoi( get_environment_ptr( "DEBUG_DELTAS"));
    const double r_mult = 1e+2;
@@ -2780,7 +2780,7 @@ int full_improvement( OBSERVE   *obs, int n_obs, double *orbit,
       if( eigenvects)
          {
          free( eigenvects);
-         eigenvects = NULL;
+         eigenvects = nullptr;
          }
       *delta_vals = 0.;
       return( 0);
@@ -2834,13 +2834,13 @@ int full_improvement( OBSERVE   *obs, int n_obs, double *orbit,
    if( n_included_observations < 3)
       {
       debug_printf( "full_improvement fail: %d obs\n", n_included_observations);
-      runtime_message = NULL;
+      runtime_message = nullptr;
       return( -3);
       }
    if( limited_orbit && !*limited_orbit)
-      limited_orbit = NULL;
+      limited_orbit = nullptr;
    if( n_params < 6 || asteroid_mass)
-      limited_orbit = NULL;
+      limited_orbit = nullptr;
 
             /* If no sigmas are requested,  we compute 'em anyway,  for */
             /* the default display epoch.                               */
@@ -2861,7 +2861,7 @@ int full_improvement( OBSERVE   *obs, int n_obs, double *orbit,
 
       debug_printf( "Hit planet %d in full_improvement : %d\n",
                       planet_hit, set_locs_rval);
-      runtime_message = NULL;
+      runtime_message = nullptr;
       return( -4);
       }
 
@@ -2891,7 +2891,7 @@ int full_improvement( OBSERVE   *obs, int n_obs, double *orbit,
             /* into an array form: */
    elem.gm = get_planet_mass( planet_orbiting);
    elem.abs_mag = calc_absolute_magnitude( obs, n_obs);
-   rotate_state_vector_to_current_frame( orbit2, epoch2, planet_orbiting, NULL);
+   rotate_state_vector_to_current_frame( orbit2, epoch2, planet_orbiting, nullptr);
    calc_classical_elements( &elem, orbit2, epoch2, 1);
 
    put_orbital_elements_in_array_form( &elem, elements_in_array);
@@ -3009,7 +3009,7 @@ int full_improvement( OBSERVE   *obs, int n_obs, double *orbit,
                   /* into an array form: */
          elem.gm = get_planet_mass( planet_orbiting);
          elem.abs_mag = calc_absolute_magnitude( obs, n_obs);
-         rotate_state_vector_to_current_frame( rel_orbit, epoch2, planet_orbiting, NULL);
+         rotate_state_vector_to_current_frame( rel_orbit, epoch2, planet_orbiting, nullptr);
          calc_classical_elements( &elem, rel_orbit, epoch2, 1);
 
          put_orbital_elements_in_array_form( &elem, element_slopes[i]);
@@ -3050,7 +3050,7 @@ int full_improvement( OBSERVE   *obs, int n_obs, double *orbit,
                free( xresids);
                free( orig_obs);
                memcpy( orbit, original_orbit, n_orbit_params * sizeof( double));
-               runtime_message = NULL;
+               runtime_message = nullptr;
                debug_printf( "Interrupted full step\n");
                return( -4);
                }
@@ -3124,7 +3124,7 @@ int full_improvement( OBSERVE   *obs, int n_obs, double *orbit,
             debug_printf( "Ran over iteration limit! %s\n", obs->packed_id);
             debug_printf( "Worst err %f sigmas\n", worst_error_in_sigmas);
             err_code = -3;
-            runtime_message = NULL;
+            runtime_message = nullptr;
             }
          }
       }
@@ -3252,7 +3252,7 @@ int full_improvement( OBSERVE   *obs, int n_obs, double *orbit,
       const int max_obs_in_covariance_file = 2000;
 
       assert( matrix);
-      setvbuf( ofile, NULL, _IONBF, 0);
+      setvbuf( ofile, nullptr, _IONBF, 0);
       fprintf( ofile, "Orbit: %.7f %.7f %.7f %.7f %.7f %.7f\nepoch JD %.5f (%.5f)\n",
                orbit[0], orbit[1], orbit[2],
                orbit[3], orbit[4], orbit[5], epoch2, epoch);
@@ -3352,7 +3352,7 @@ int full_improvement( OBSERVE   *obs, int n_obs, double *orbit,
       if( eigenvects)
          {
          free( eigenvects);
-         eigenvects = NULL;
+         eigenvects = nullptr;
          }
       if( n_params >= 6)
          {
@@ -3461,7 +3461,7 @@ int full_improvement( OBSERVE   *obs, int n_obs, double *orbit,
    if( levenberg_marquardt_lambda)
       levenberg_marquardt_lambda *=
              (compute_rms( obs, n_obs) < before_rms ? 0.5 : 2.0);
-   runtime_message = NULL;
+   runtime_message = nullptr;
    return( err_code);
 }
 
@@ -3720,7 +3720,7 @@ int is_interstellar = 0;
 double evaluate_initial_orbit( const OBSERVE   *obs,
                const int n_obs, const double *orbit, const double epoch)
 {
-   const double rms_err = compute_weighted_rms( obs, n_obs, NULL);
+   const double rms_err = compute_weighted_rms( obs, n_obs, nullptr);
    double rval, rel_orbit[MAX_N_PARAMS], planet_radius_in_au;
    ELEMENTS elem;
    int planet_orbiting = find_best_fit_planet( epoch,
@@ -3813,13 +3813,13 @@ static double attempt_improvements( double *orbit, OBSERVE *obs, const int n_obs
             double r1 = obs[0].r, r2 = obs[n_obs - 1].r;
             double d_r1, d_r2;
 
-            if( herget_method( obs, n_obs, r1, r2, temp_orbit, &d_r1, &d_r2, NULL))
+            if( herget_method( obs, n_obs, r1, r2, temp_orbit, &d_r1, &d_r2, nullptr))
                error_occurred = true;
             else
                {
                r1 += d_r1;
                r2 += d_r2;
-               if( herget_method( obs, n_obs, r1, r2, temp_orbit, NULL, NULL, NULL))
+               if( herget_method( obs, n_obs, r1, r2, temp_orbit, nullptr, nullptr, nullptr))
                   error_occurred = true;
                else if( adjust_herget_results( obs, n_obs, temp_orbit))
                   error_occurred = true;
@@ -3828,7 +3828,7 @@ static double attempt_improvements( double *orbit, OBSERVE *obs, const int n_obs
                debug_printf( "Adjusting Herget results\n");
             }
          else        /* doing a full step */
-            if( full_improvement( obs, n_obs, temp_orbit, obs->jd, NULL,
+            if( full_improvement( obs, n_obs, temp_orbit, obs->jd, nullptr,
                            NO_ORBIT_SIGMAS_REQUESTED, obs->jd))
                {
                debug_printf( "Full improvement failure! %s\n", obs->packed_id);
@@ -4025,7 +4025,7 @@ static void find_median_orbit( double *sr_orbits, const unsigned n_sr_orbits)
       {
       for( j = 0; j < n_sr_orbits; j++)
          temp_array[j] = sr_orbits[j * 6 + i];
-      shellsort_r( temp_array, n_sr_orbits, sizeof( double), compare_doubles, NULL);
+      shellsort_r( temp_array, n_sr_orbits, sizeof( double), compare_doubles, nullptr);
       median[i] = temp_array[n_sr_orbits / 2];
       }
    free( temp_array);
@@ -4103,7 +4103,7 @@ double initial_orbit( OBSERVE   *obs, int n_obs, double *orbit)
    if( arclen > 730.)         /* two-year maximum */
       arclen = 730.;
                              /* following resets internals of find_orb */
-   full_improvement( NULL, 0, NULL, 0., NULL, 0, 0.);
+   full_improvement( nullptr, 0, nullptr, 0., nullptr, 0, 0.);
    for( i = 0; i < n_obs; i++)      /* solely to ensure a non-zero r */
       obs[i].r = 1.;
    if( is_sungrazing_comet( obs, n_obs))
@@ -4156,7 +4156,7 @@ double initial_orbit( OBSERVE   *obs, int n_obs, double *orbit)
          memcpy( orbit, sr_orbits, 6 * sizeof( double));
          compute_sr_sigmas( sr_orbits, n_sr_orbits, orbit_epoch, epoch_shown);
          n_obs += n_radar_obs;
-         shellsort_r( obs, n_obs, sizeof( OBSERVE), compare_observations, NULL);
+         shellsort_r( obs, n_obs, sizeof( OBSERVE), compare_observations, nullptr);
          available_sigmas_hash = compute_available_sigmas_hash( obs, n_obs,
                      epoch_shown, perturbers, 0);
          set_locs( orbit, orbit_epoch, obs, n_obs);
@@ -4274,7 +4274,7 @@ double initial_orbit( OBSERVE   *obs, int n_obs, double *orbit)
                herget_rval = herget_method( obs + start, n_subarc_obs,
                                     pseudo_r_to_use,
                                     pseudo_r_to_use,
-                                    orbit, NULL, NULL, NULL);
+                                    orbit, nullptr, nullptr, nullptr);
                if( herget_rval < 0)    /* herget method failed */
                   score = 1.e+7;
                else if( herget_rval > 0)        /* vaisala method failed, */
@@ -4337,7 +4337,7 @@ double initial_orbit( OBSERVE   *obs, int n_obs, double *orbit)
    if( n_radar_obs)
       {
       n_obs += n_radar_obs;
-      shellsort_r( obs, n_obs, sizeof( OBSERVE), compare_observations, NULL);
+      shellsort_r( obs, n_obs, sizeof( OBSERVE), compare_observations, nullptr);
       set_locs( orbit, orbit_epoch, obs, n_obs);
       }
    integration_timeout = 0;
@@ -4358,7 +4358,7 @@ int orbital_monte_carlo( const double *orbit, OBSERVE *obs, const int n_obs,
    extern const char *elements_filename;
    const char *saved_name = elements_filename;
    const char *vects_filename = get_environment_ptr( "VARIANT_VECT_FILE");
-   FILE *ofile = (*vects_filename ? fopen( vects_filename, "wb") : NULL);
+   FILE *ofile = (*vects_filename ? fopen( vects_filename, "wb") : nullptr);
 
    assert( sr_orbits);
    n_sr_orbits = max_n_sr_orbits;
@@ -4695,7 +4695,7 @@ void attempt_extensions( OBSERVE *obs, int n_obs, double *orbit,
                          compute_rms( obs, n_obs));
             if( available_sigmas == COVARIANCE_AVAILABLE)
                {
-               double lov_sigmas, rms = compute_weighted_rms( obs, n_obs, NULL);
+               double lov_sigmas, rms = compute_weighted_rms( obs, n_obs, nullptr);
                double prev_rms = 1e+70;
                int j;
 
@@ -4707,13 +4707,13 @@ void attempt_extensions( OBSERVE *obs, int n_obs, double *orbit,
                   lov_sigmas = improve_along_lov( orbit, epoch, eigenvects[0],
                                                n_orbit_params, n_obs, obs);
 
-                  rms = compute_weighted_rms( obs, n_obs, NULL);
+                  rms = compute_weighted_rms( obs, n_obs, nullptr);
                   if( debug_level > 2)
                      debug_printf( "  iter %d; %d obs; minimum at %f sigmas; weighted RMS %f\n",
                                           j, n_obs, lov_sigmas, rms);
                   }
                }
-            if( full_improvement( obs, n_obs, orbit, epoch, NULL,
+            if( full_improvement( obs, n_obs, orbit, epoch, nullptr,
                            NO_ORBIT_SIGMAS_REQUESTED, epoch))
                result = -1;   /* full improvement failed */
             else
@@ -4756,7 +4756,7 @@ void attempt_extensions( OBSERVE *obs, int n_obs, double *orbit,
       available_sigmas = best_available_sigmas;
       perturbers = best_perturbers;
 #if 0
-      full_improvement( obs, n_obs, orbit, epoch, NULL,
+      full_improvement( obs, n_obs, orbit, epoch, nullptr,
                            NO_ORBIT_SIGMAS_REQUESTED, epoch);
 #endif
       }
@@ -4770,7 +4770,7 @@ void attempt_extensions( OBSERVE *obs, int n_obs, double *orbit,
                                      best_end + 1 - best_start) > 0; i++)
       {
       if( available_sigmas == COVARIANCE_AVAILABLE)
-         full_improvement( obs, n_obs, orbit, epoch, NULL,
+         full_improvement( obs, n_obs, orbit, epoch, nullptr,
                            NO_ORBIT_SIGMAS_REQUESTED, epoch);
       else
          {
@@ -4787,7 +4787,7 @@ void attempt_extensions( OBSERVE *obs, int n_obs, double *orbit,
    if( n_radar_obs)
       {
       n_obs += n_radar_obs;
-      shellsort_r( obs, n_obs, sizeof( OBSERVE), compare_observations, NULL);
+      shellsort_r( obs, n_obs, sizeof( OBSERVE), compare_observations, nullptr);
       }
    set_locs( orbit, epoch, obs, n_obs);
 }
@@ -4811,7 +4811,7 @@ int select_tracklet( OBSERVE *obs, const int n_obs, const int idx)
    double tracklet_span = 0.;
    const double min_tracklet_span = 30. / minutes_per_day;
    double jd = obs[idx].jd;
-   char *tptr = (obs[idx].ades_ids ? strstr( obs[idx].ades_ids, "trkID") : NULL);
+   char *tptr = (obs[idx].ades_ids ? strstr( obs[idx].ades_ids, "trkID") : nullptr);
 
    for( i = 0; i < n_obs; i++)
       obs[i].flags &= ~OBS_IS_SELECTED;
@@ -4865,7 +4865,7 @@ int metropolis_search( OBSERVE *obs, const int n_obs, double *orbit,
                const double epoch, int n_iterations, double scale)
 {
    int iter;
-   double rms = compute_weighted_rms( obs, n_obs, NULL);
+   double rms = compute_weighted_rms( obs, n_obs, nullptr);
    extern double **eigenvects;
    double zorbit[MAX_N_PARAMS];
 
@@ -4887,7 +4887,7 @@ int metropolis_search( OBSERVE *obs, const int n_obs, double *orbit,
             new_orbit[j] += n_sigmas * eigenvects[i][j];
          }
       set_locs( new_orbit, epoch, obs, n_obs);
-      new_rms = compute_weighted_rms( obs, n_obs, NULL);
+      new_rms = compute_weighted_rms( obs, n_obs, nullptr);
       debug_printf( "Iter %d: prev rms %f; new rms %f\n", iter, rms, new_rms);
       if( new_rms < rms)
          {
@@ -4918,27 +4918,27 @@ int clean_up_find_orb_memory( void)
    extern char *temp_obs_filename;     /* miscell.cpp */
 
    free_sigma_recs( );
-   get_observer_data( NULL, NULL, NULL);
-   get_object_name( NULL, NULL);
-   planet_posn( -1, 0., NULL);
-   add_gaussian_noise_to_obs( 0, NULL, 0.);
-   full_improvement( NULL, 0, NULL, 0., NULL, 0, 0.);
+   get_observer_data( nullptr, nullptr, nullptr);
+   get_object_name( nullptr, nullptr);
+   planet_posn( -1, 0., nullptr);
+   add_gaussian_noise_to_obs( 0, nullptr, 0.);
+   full_improvement( nullptr, 0, nullptr, 0., nullptr, 0, 0.);
    if( sr_orbits)
       {
       free( sr_orbits);
-      sr_orbits = NULL;
+      sr_orbits = nullptr;
       }
-   find_objects_in_file( NULL, NULL, NULL);
-   find_fcct_biases( 0., 0., -1, 0., NULL, NULL);
+   find_objects_in_file( nullptr, nullptr, nullptr);
+   find_fcct_biases( 0., 0., -1, 0., nullptr, nullptr);
    get_find_orb_text( 0);
-   load_cospar_file( NULL);
+   load_cospar_file( nullptr);
    update_environ_dot_dat( );
-   load_earth_orientation_params( NULL, NULL);
-   get_environment_ptr( NULL);
+   load_earth_orientation_params( nullptr, nullptr);
+   get_environment_ptr( nullptr);
    pop_all_orbits( );
    galactic_confusion( -99., 0.);
    find_numbered_mp_info( 0);
-   detect_perturbers( 0, NULL, NULL);
+   detect_perturbers( 0, nullptr, nullptr);
    _unlink( temp_obs_filename);
    free( temp_obs_filename);
    return( 0);

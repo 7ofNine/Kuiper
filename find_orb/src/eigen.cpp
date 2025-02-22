@@ -54,7 +54,7 @@ a[0...size * size - 1].
    - The NR routine is based on Fortran-like 1 to N indexing,  instead
 of C-like 0 to N-1.  The following uses the C convention.
 
-   - In this function,  you can call with eigenvects == NULL if you have
+   - In this function,  you can call with eigenvects == nullptr if you have
 no need for the eigenvectors.
 
    - Instead of doing various sweeps that look for "pretty big" values

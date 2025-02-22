@@ -115,7 +115,7 @@ void convert_ades_sigmas_to_error_ellipse( const double sig_ra,
    #define PATH_MAX 256
 #endif
 
-static void *_ades_ids_stack = NULL;
+static void *_ades_ids_stack = nullptr;
 
 int debug_printf( const char *format, ...)
 {
@@ -125,7 +125,7 @@ int debug_printf( const char *format, ...)
    if( ofile)
       {
       va_list argptr;
-      const time_t t0 = time( NULL);
+      const time_t t0 = time( nullptr);
       const long max_debug_file_size = 10000000;  /* 10 MBytes should be enough */
 
       if( ftell( ofile) > max_debug_file_size)
@@ -185,8 +185,8 @@ static void remove_html_tags( char *buff)
 {
    char *left_angle_bracket, *right_angle_bracket;
 
-   while( (left_angle_bracket = strchr( buff, '<')) != NULL
-        && (right_angle_bracket = strchr( left_angle_bracket, '>')) != NULL)
+   while( (left_angle_bracket = strchr( buff, '<')) != nullptr
+        && (right_angle_bracket = strchr( left_angle_bracket, '>')) != nullptr)
       {
       memmove( left_angle_bracket, right_angle_bracket + 1,
                      strlen( right_angle_bracket));
@@ -425,7 +425,7 @@ int generic_message_box( const char *message, const char *box_type)
 {
    int rval, color = (*box_type == '!' ? COLOR_ATTENTION : COLOR_DEFAULT_INQUIRY);
 
-   rval = inquire( message, NULL, 30, color);
+   rval = inquire( message, nullptr, 30, color);
    debug_printf( "%s", message);
    return( rval);
 }
@@ -466,7 +466,7 @@ static inline int get_lat_lon_from_header( double *lat,
    size_t i;
    int rval = -1;
 
-   *name_from_header = NULL;
+   *name_from_header = nullptr;
    for( i = 0; rval && lines && lines[i]; i++)
       {
       static bool warning_shown = false;
@@ -545,7 +545,7 @@ array of strings. */
 
 static inline char **load_mpc_stations( int *n_stations)
 {
-   char **rval = NULL, *codes = NULL;
+   char **rval = nullptr, *codes = nullptr;
    int pass, loop;
 
    for( pass = 0; pass < 2; pass++)
@@ -571,7 +571,7 @@ static inline char **load_mpc_stations( int *n_stations)
 
             while( fgets_trimmed( buff, sizeof( buff), ifile))
                {
-               const int planet_idx = extract_mpc_station_data( buff, NULL);
+               const int planet_idx = extract_mpc_station_data( buff, nullptr);
 
                if( planet_idx != -1)
                   {
@@ -680,7 +680,7 @@ static int get_rover_index( const char *obscode)
 /* The following function paws through the ObsCodes.htm or ObsCodes.html
    file,  looking for the observer code in question.  If found,  the
    line is simply copied into 'buff'.  If lon_in_radians and the
-   rho_xxx_phi values are non-NULL,  they're extracted from the buffer.
+   rho_xxx_phi values are non-nullptr,  they're extracted from the buffer.
 
    There are a few "supplemental" observers,  mostly satellite observers
    who don't have MPC codes.  These could be handled as roving observers
@@ -703,18 +703,18 @@ typedef struct
    double lon, lat, alt;         /* alt is in meters */
 } rover_t;
 
-static rover_t *rovers = NULL;
+static rover_t *rovers = nullptr;
 int n_obs_actually_loaded, n_rovers = 0;
 
 int get_observer_data( const char   *mpc_code, char *buff, mpc_code_t *cinfo)
 {
-   static char *curr_station = NULL;
-   static char **station_data = NULL;
+   static char *curr_station = nullptr;
+   static char **station_data = nullptr;
    static int n_stations = 0;
    const char *blank_line = "!!!   0.0000 0.000000 0.000000Unknown Station Code";
    int rval = -1, rover_idx;
    size_t i;
-   const char *override_observatory_name = NULL;
+   const char *override_observatory_name = nullptr;
    double lat0 = 0., lon0 = 0., alt0 = 0.;
    char temp_code[5];
    const size_t buffsize = 81;
@@ -722,10 +722,10 @@ int get_observer_data( const char   *mpc_code, char *buff, mpc_code_t *cinfo)
    if( !mpc_code)    /* freeing up resources */
       {
       free( station_data);
-      station_data = NULL;
-      curr_station = NULL;
+      station_data = nullptr;
+      curr_station = nullptr;
       n_stations = 0;
-      xref_designation( NULL);
+      xref_designation( nullptr);
       return( 0);
       }
 
@@ -833,9 +833,9 @@ int get_observer_data( const char   *mpc_code, char *buff, mpc_code_t *cinfo)
    if( !curr_station || mpc_code_cmp( &curr_station, &mpc_code))
       {
       char **search = (char **)bsearch_ext( &mpc_code, station_data, n_stations,
-                  sizeof( char *), mpc_code_cmp, NULL);
+                  sizeof( char *), mpc_code_cmp, nullptr);
 
-      curr_station = (search ? *search : NULL);
+      curr_station = (search ? *search : nullptr);
       }
    if( !curr_station)
       {
@@ -858,7 +858,7 @@ int get_observer_data( const char   *mpc_code, char *buff, mpc_code_t *cinfo)
          if( !download_a_file( path,
                   "http://www.minorplanetcenter.org/iau/lists/ObsCodes.html"))
             {
-            get_observer_data( NULL, NULL, NULL);
+            get_observer_data( nullptr, nullptr, nullptr);
             return( get_observer_data( mpc_code, buff, cinfo));
             }
          }
@@ -900,7 +900,7 @@ static int get_observer_data_latlon( const char   *mpc_code,
 
 /* Used in part for sanity checks ("is the observed RA/dec above the
    horizon?  Is the sun _below_ the horizon at that time?")  Either
-   alt/az can be NULL if you're only after one alt/az.
+   alt/az can be nullptr if you're only after one alt/az.
 
    Return value = 0 if successful,  nonzero otherwise.  (For the function
    to work,  the MPC station must be topocentric.  So you won't get alt/az
@@ -913,8 +913,8 @@ static int get_obs_alt_azzes( const OBSERVE   *obs, DPT *sun_alt_az,
 {
    DPT latlon;
    int i;
-   int rval = (get_observer_data_latlon( obs->mpc_code, NULL,
-                                    &latlon.x, &latlon.y, NULL) != 3);
+   int rval = (get_observer_data_latlon( obs->mpc_code, nullptr,
+                                    &latlon.x, &latlon.y, nullptr) != 3);
 
    if( !memcmp( obs->mpc_code, "500", 3))
       rval = -1;
@@ -951,7 +951,7 @@ static int get_obs_alt_azzes( const OBSERVE   *obs, DPT *sun_alt_az,
                   ra_dec.y = obs->dec;
                   }
                }
-            full_ra_dec_to_alt_az( &ra_dec, alt_az, NULL, &latlon, ut1, NULL);
+            full_ra_dec_to_alt_az( &ra_dec, alt_az, nullptr, &latlon, ut1, nullptr);
             }
          }
       }
@@ -989,7 +989,7 @@ char **load_file_into_memory( const char *filename, size_t *n_lines,
 {
    FILE *ifile = fopen_ext( filename, (fail_if_not_found ? "fcrb" : "crb"));
 
-   char **rval = NULL;
+   char **rval = nullptr;
 
    if( ifile)
       {
@@ -1003,7 +1003,7 @@ char **load_file_into_memory( const char *filename, size_t *n_lines,
          }
       rval = (char **)malloc( filesize + (lines_read + 1) *  sizeof( char *));
       if( rval &&
-             (rval[0] = (char *)( rval + lines_read + 1)) != NULL)
+             (rval[0] = (char *)( rval + lines_read + 1)) != nullptr)
          {
          fseek( ifile, 0L, SEEK_SET);
          lines_read = 0;
@@ -1013,7 +1013,7 @@ char **load_file_into_memory( const char *filename, size_t *n_lines,
             rval[lines_read + 1] = rval[lines_read] + strlen( buff) + 1;
             lines_read++;
             }
-         rval[lines_read] = NULL;
+         rval[lines_read] = nullptr;
          }
       fclose( ifile);
       if( n_lines)
@@ -1071,7 +1071,7 @@ char *find_numbered_mp_info( const int number)
    bool got_it = false;
    const int tolerance = 10;        /* try to get within ten lines */
    static int cached_number = -1;
-   static char *cached = NULL;
+   static char *cached = nullptr;
    char buff[200];
    FILE *ifile;
 
@@ -1079,17 +1079,17 @@ char *find_numbered_mp_info( const int number)
       {
       if( cached)
          free( cached);
-      cached = NULL;
+      cached = nullptr;
       cached_number = -1;
       return( 0);
       }
    if( cached_number == -2)      /* haven't got the file */
-      return( NULL);
+      return( nullptr);
    ifile = fopen_ext( "NumberedMPs.txt", "crb");
    if( !ifile)
       {
       cached_number = -2;
-      return( NULL);
+      return( nullptr);
       }
    while( !got_it)
       {
@@ -1102,7 +1102,7 @@ char *find_numbered_mp_info( const int number)
             if( !fgets( buff, sizeof( buff), ifile))
                {
                fclose( ifile);
-               return( NULL);
+               return( nullptr);
                }
          loc += 190;
          for( i = 0; i < 7 && buff[i] != '('; i++)
@@ -1115,7 +1115,7 @@ char *find_numbered_mp_info( const int number)
             if( !fgets( buff, 200, ifile))
                {
                fclose( ifile);
-               return( NULL);
+               return( nullptr);
                }
          got_it = true;    /* success */
          }
@@ -1206,15 +1206,15 @@ int get_object_name( char *obuff, const char *packed_desig)
    int rval;
    size_t i, gap;
    static size_t n_lines;
-   static char **extra_names = NULL;
-   static odd_name_t *added = NULL;
+   static char **extra_names = nullptr;
+   static odd_name_t *added = nullptr;
    char xdesig[40];
 
    if( !packed_desig && !obuff)   /* flag to free up internal memory */
       {
       if( extra_names)
          free( extra_names);
-      extra_names = NULL;
+      extra_names = nullptr;
       while( added)
          {
          odd_name_t *next = (odd_name_t *)added->next;
@@ -1262,7 +1262,7 @@ int get_object_name( char *obuff, const char *packed_desig)
                strcpy( obuff, extra_names[i] + 13);
                if( is_artsat_desig( obuff))
                   return( OBJ_DESIG_ARTSAT);
-               return( get_object_name( NULL, packed_desig));
+               return( get_object_name( nullptr, packed_desig));
                }
             }
 
@@ -1277,7 +1277,7 @@ int get_object_name( char *obuff, const char *packed_desig)
             strcpy( obuff, tptr->line + 13);
             if( is_artsat_desig( obuff))
                return( OBJ_DESIG_ARTSAT);
-            return( get_object_name( NULL, packed_desig));
+            return( get_object_name( nullptr, packed_desig));
             }
          tptr = (odd_name_t *)tptr->next;
          }
@@ -1442,7 +1442,7 @@ static int _compute_lagrange_point( double *vect, const int point_number,
       char buff[100], mpc_code[7];
 
       snprintf_err( mpc_code, sizeof( mpc_code), "@%d", point_number);
-      get_observer_data( mpc_code, buff, NULL);
+      get_observer_data( mpc_code, buff, nullptr);
       i = sscanf( buff + 5, "%d %d %lf", &obj1, &obj2, &multiplier);
       assert( i == 3);
       assert( obj1 >= 0 && obj1 <= 10);
@@ -1489,7 +1489,7 @@ int compute_observer_loc( const double jde, const int planet_no,
 {
 
    if( planet_no == -2)
-      return( get_canned_object_posn_vel( offset, NULL, jde));
+      return( get_canned_object_posn_vel( offset, nullptr, jde));
 
    if( planet_no > 9000)
       _compute_lagrange_point( offset, planet_no, jde, false);
@@ -1497,8 +1497,8 @@ int compute_observer_loc( const double jde, const int planet_no,
       planet_posn( planet_no >= 0 ? planet_no : 12, jde, offset);
                /* planet_no == -1 means SS Barycenter */
    else
-      earth_lunar_posn( jde, (planet_no == 3) ? offset : NULL,
-                             (planet_no == 3) ? NULL : offset);
+      earth_lunar_posn( jde, (planet_no == 3) ? offset : nullptr,
+                             (planet_no == 3) ? nullptr : offset);
 
    if( rho_sin_phi || rho_cos_phi)
       {
@@ -1508,7 +1508,7 @@ int compute_observer_loc( const double jde, const int planet_no,
 
       assert( planet_no < 9000);
       compute_topocentric_offset( ut, planet_no, rho_cos_phi, rho_sin_phi,
-                                        lon, geo_offset, NULL);
+                                        lon, geo_offset, nullptr);
       equatorial_to_ecliptic( geo_offset);
       for( i = 0; i < 3; i++)
          offset[i] += geo_offset[i];
@@ -1523,22 +1523,22 @@ int compute_observer_vel( const double jde, const int planet_no,
    int i;
 
    if( planet_no == -2)    /* spacecraft-based observation */
-      return( get_canned_object_posn_vel( NULL, vel, jde));
+      return( get_canned_object_posn_vel( nullptr, vel, jde));
    if( planet_no > 9000)
       _compute_lagrange_point( vel, planet_no, jde, true);
    else if( planet_no != 3 && planet_no != 10)
       planet_posn( (planet_no >= 0 ? planet_no : 12) + PLANET_POSN_VELOCITY_OFFSET,
                    jde, vel);        /* planet_no == -1 means SS Barycenter */
    else
-      earth_lunar_vel( jde, (planet_no == 3) ? vel : NULL,
-                            (planet_no == 3) ? NULL : vel);
+      earth_lunar_vel( jde, (planet_no == 3) ? vel : nullptr,
+                            (planet_no == 3) ? nullptr : vel);
    if( rho_sin_phi || rho_cos_phi)
       {
       const double ut = jde - td_minus_ut( jde) / seconds_per_day;
       double geo_vel_offset[3];
 
       compute_topocentric_offset( ut, planet_no, rho_cos_phi, rho_sin_phi,
-                                        lon, NULL, geo_vel_offset);
+                                        lon, nullptr, geo_vel_offset);
       equatorial_to_ecliptic( geo_vel_offset);
       for( i = 0; i < 3; i++)
          vel[i] += geo_vel_offset[i];
@@ -1691,7 +1691,7 @@ static int parse_observation( OBSERVE   *obs, const char *buff)
    obs->dec_bias = saved_obs.dec_bias;
    obs->ref_center = saved_obs.ref_center;
    obs->packed_id[12] = '\0';
-   obj_desig_type = get_object_name( NULL, obs->packed_id);
+   obj_desig_type = get_object_name( nullptr, obs->packed_id);
    if( obj_desig_type == OBJ_DESIG_OTHER)
       {
       size_t i = 7;
@@ -1815,8 +1815,8 @@ static int parse_observation( OBSERVE   *obs, const char *buff)
       {
       DPT latlon, alt_az, ra_dec;
 
-      if( get_observer_data_latlon( obs->mpc_code, NULL,
-              &latlon.x, &latlon.y, NULL) == 3)
+      if( get_observer_data_latlon( obs->mpc_code, nullptr,
+              &latlon.x, &latlon.y, nullptr) == 3)
          {
          alt_az.x = obs->ra;     /* because input coords were really alt/az */
          alt_az.y = obs->dec;
@@ -1974,7 +1974,7 @@ static const char *new_xdesig_indicator = "New xdesig";
 
 static int xref_designation( char *desig)
 {
-   static char *xlate_table = NULL;
+   static char *xlate_table = nullptr;
    static char prev_desig_in[12], prev_desig_out[12];
    static int n_lines = 0;
    char reduced_desig[13];
@@ -1984,7 +1984,7 @@ static int xref_designation( char *desig)
       {
       if( xlate_table)
          free( xlate_table);
-      xlate_table = NULL;
+      xlate_table = nullptr;
       n_lines = 0;
       return( 0);
       }
@@ -2016,7 +2016,7 @@ static int xref_designation( char *desig)
             i++;
             }
       fclose( ifile);
-      shellsort_r( xlate_table, n_lines, 26, qsort_strcmp, NULL);
+      shellsort_r( xlate_table, n_lines, 26, qsort_strcmp, nullptr);
       }
 
    if( strlen( desig) > 34 && !strcmp( desig + 26, new_xdesig_indicator))
@@ -2096,8 +2096,8 @@ ACCEPTED_STATIONS=253,251
 
 static bool observatory_is_acceptable( const char *mpc_code)
 {
-   static const char *rejects = NULL;
-   static const char *filter = NULL;
+   static const char *rejects = nullptr;
+   static const char *filter = nullptr;
 
    if( !rejects)
       rejects = get_environment_ptr( "REJECTED_STATIONS");
@@ -2116,7 +2116,7 @@ static bool observatory_is_acceptable( const char *mpc_code)
 
 static double observation_jd( const char *buff)
 {
-   const double utc = extract_date_from_mpc_report( buff, NULL);
+   const double utc = extract_date_from_mpc_report( buff, nullptr);
 
    if( utc && is_valid_mpc_code( buff + 77))
       {
@@ -2184,7 +2184,7 @@ static bool get_neocp_data( char *buff, char *desig, char *mpc_code)
       desig[len - 2] = '\0';
       neocp_file_type = NEOCP_FILE_TYPE_ASTERISKED;
       }
-   else if( len > 15 && (tptr = strstr( buff, "<p><b>")) != NULL)
+   else if( len > 15 && (tptr = strstr( buff, "<p><b>")) != nullptr)
       {
       char *endptr = strstr( tptr, "</b>");
 
@@ -2212,7 +2212,7 @@ static bool get_neocp_data( char *buff, char *desig, char *mpc_code)
          generic_message_box( get_find_orb_text( 2006), "!");
          }
       }
-   else if( (tptr = strstr( buff, " observatory code ")) != NULL)
+   else if( (tptr = strstr( buff, " observatory code ")) != nullptr)
       memcpy( mpc_code, tptr + 18, 3);
    else if( len > 64 && buff[26] == '.' && *desig && *mpc_code)
       {
@@ -2739,7 +2739,7 @@ typedef char mpc_line[81];
 static int look_for_matching_line( char *iline, char *oline, const size_t oline_size)
 {
    static int n_stored = 0;
-   static mpc_line *stored_lines = NULL;
+   static mpc_line *stored_lines = nullptr;
    int i;
 
    *oline = '\0';    /* assume no match found */
@@ -2773,7 +2773,7 @@ static int look_for_matching_line( char *iline, char *oline, const size_t oline_
       if( stored_lines)
          {
          free( stored_lines);
-         stored_lines = NULL;
+         stored_lines = nullptr;
          }
       return( rval);
       }
@@ -2947,7 +2947,7 @@ int sort_obs_by_date_and_remove_duplicates( OBSERVE *obs, const int n_obs)
 
    if( !n_obs)
       return( 0);
-   shellsort_r( obs, n_obs, sizeof( OBSERVE), compare_observations, NULL);
+   shellsort_r( obs, n_obs, sizeof( OBSERVE), compare_observations, nullptr);
    if( debug_level)
       debug_printf( "%d obs sorted by date\n", n_obs);
    for( i = j = 1; i < n_obs; i++)
@@ -3032,7 +3032,7 @@ static int fix_radar_obs( OBSERVE *obs, unsigned n_obs)
 static void fix_radar_time( char *buff)
 {
    char tbuff[70];
-   const double jd = extract_date_from_mpc_report( buff, NULL);
+   const double jd = extract_date_from_mpc_report( buff, nullptr);
 
    full_ctime( tbuff, jd, CALENDAR_JULIAN_GREGORIAN | FULL_CTIME_YMD
                  | FULL_CTIME_MONTHS_AS_DIGITS | FULL_CTIME_LEADING_ZEROES);
@@ -3072,17 +3072,17 @@ int unload_observations( OBSERVE   *obs, const int n_obs)
    if( obs_details)
       {
       free_observation_details( obs_details);
-      obs_details = NULL;
+      obs_details = nullptr;
       }
    if( _ades_ids_stack)
       {
       destroy_stack( _ades_ids_stack);
-      _ades_ids_stack = NULL;
+      _ades_ids_stack = nullptr;
       }
    if( rovers)
       {
       free( rovers);
-      rovers = NULL;
+      rovers = nullptr;
       n_rovers = 0;
       }
    available_sigmas = NO_SIGMAS_AVAILABLE;
@@ -3394,7 +3394,7 @@ static void reset_object_type( const OBSERVE *obs, const int n_obs)
 
 bool nighttime_only( const char *mpc_code)
 {
-   return( strstr( get_environment_ptr( "DAYTIME_OBS_OK1"), mpc_code) == NULL);
+   return( strstr( get_environment_ptr( "DAYTIME_OBS_OK1"), mpc_code) == nullptr);
 }
 
 #define INSUFFICIENT_PRECISION_MAG      1
@@ -3483,7 +3483,7 @@ OBSERVE   *load_observations( FILE *ifile, const char *packed_desig,
    get_object_name( obj_name, packed_desig);
    rval = (OBSERVE   *)calloc( n_obs + 1, sizeof( OBSERVE));
    if( !rval)
-      return( NULL);
+      return( nullptr);
    input_coordinate_epoch = 2000.;
             /* Start out assuming asteroid-type magnitudes.  The name */
             /* may tell you it's really a comet,  and the orbit may   */
@@ -3494,7 +3494,7 @@ OBSERVE   *load_observations( FILE *ifile, const char *packed_desig,
    if( rovers)
       {
       free( rovers);
-      rovers = NULL;
+      rovers = nullptr;
       }
    if( !obs_details)
       obs_details = init_observation_details( );
@@ -3532,7 +3532,7 @@ OBSERVE   *load_observations( FILE *ifile, const char *packed_desig,
             debug_printf( "Got .rwo data\n");
          }
       if( fixing_trailing_and_leading_spaces)
-         fixes_made = fix_up_mpc_observation( buff, NULL);
+         fixes_made = fix_up_mpc_observation( buff, nullptr);
       original_packed_desig[12] = '\0';
       memcpy( original_packed_desig, buff, 12);
       xref_designation( buff);
@@ -3886,7 +3886,7 @@ OBSERVE   *load_observations( FILE *ifile, const char *packed_desig,
             is_interstellar = 1;
          else if( !memcmp( buff, "#time ", 6))
             override_time = get_time_from_string( 0, buff + 6,
-                              CALENDAR_JULIAN_GREGORIAN, NULL);
+                              CALENDAR_JULIAN_GREGORIAN, nullptr);
                   /* Above allows one to reset the time of the preceding obs */
          else if( !memcmp( buff, "#comet", 6))
             object_type = OBJECT_TYPE_COMET;
@@ -3953,7 +3953,7 @@ OBSERVE   *load_observations( FILE *ifile, const char *packed_desig,
 
    monte_carlo_object_count = 0;
    n_monte_carlo_impactors = 0;
-   if( look_for_matching_line( NULL, buff, sizeof( buff)))
+   if( look_for_matching_line( nullptr, buff, sizeof( buff)))
       generic_message_box( buff, "!");
    if( n_fixes_made)
       {
@@ -4181,7 +4181,7 @@ void sort_object_info( OBJECT_INFO *ids, const int n_ids,
                                     &object_info_compare_method);
 }
 
-const char *desig_pattern = NULL, *fullname_pattern = NULL;
+const char *desig_pattern = nullptr, *fullname_pattern = nullptr;
 
 /* One can specify,  e.g.,  '-N C314159,K22Ea4C' to process only
 those two objects.  I may eventually implement something more
@@ -4255,7 +4255,7 @@ OBJECT_INFO *find_objects_in_file( const char *filename,
                                          int *n_found, const char *station)
 {
    static void *obj_name_stack;
-   FILE *ifile = (filename ? fopen( filename, "rb") : NULL);
+   FILE *ifile = (filename ? fopen( filename, "rb") : nullptr);
    char new_xdesig[80], new_name[90];
    OBJECT_INFO *rval;
    int i, n = 0, n_alloced = 20, prev_loc = -1;
@@ -4270,7 +4270,7 @@ OBJECT_INFO *find_objects_in_file( const char *filename,
    if( obj_name_stack)
       {
       destroy_stack( obj_name_stack);
-      obj_name_stack = NULL;
+      obj_name_stack = nullptr;
       }
 
    if( !ifile)
@@ -4280,7 +4280,7 @@ OBJECT_INFO *find_objects_in_file( const char *filename,
                  filename, strerror( errno));
       if( n_found)
          *n_found = -1;
-      return( NULL);
+      return( nullptr);
       }
    fseek( ifile, 0L, SEEK_END);
    filesize = ftell( ifile);
@@ -4314,7 +4314,7 @@ OBJECT_INFO *find_objects_in_file( const char *filename,
       if( debug_level > 8)
          debug_printf( "After get_neocp_data\n");
       if( iline_len > MINIMUM_RWO_LENGTH)
-         rwo_to_mpc( buff, NULL, NULL, NULL, NULL, NULL);
+         rwo_to_mpc( buff, nullptr, nullptr, nullptr, nullptr, nullptr);
       if( fixing_trailing_and_leading_spaces)
          fix_up_mpc_observation( buff, &jd);
       if( debug_level > 8)
@@ -4335,7 +4335,7 @@ OBJECT_INFO *find_objects_in_file( const char *filename,
          {
          memcpy( new_name, buff, 12);
          new_name[12] = ' ';
-         get_object_name( new_name, NULL);
+         get_object_name( new_name, nullptr);
          *new_name = '\0';
          }
       if( is_in_range( jd) && !is_second_line( buff))
@@ -4566,7 +4566,7 @@ int put_observer_data_in_text( const char   *mpc_code, char *buff)
 }
 
 static const char *environ_dot_dat = "environ.dat";
-static char **edata = NULL;
+static char **edata = nullptr;
 static size_t n_lines = 0, n_lines_allocated = 0;
 static bool is_default_environment = false;
 
@@ -4625,8 +4625,8 @@ const char *get_environment_ptr( const char *env_ptr)
             free( edata[i]);
          free( edata);
          }
-      edata = NULL;
-      return( NULL);
+      edata = nullptr;
+      return( nullptr);
       }
    if( !edata)
       load_default_environment_file( );
@@ -4653,7 +4653,7 @@ void set_environment_ptr( const char *env_ptr, const char *new_value)
       {
       memmove( edata + idx + 1, edata + idx, (n_lines - idx) * sizeof( edata[0]));
       n_lines++;
-      edata[idx] = NULL;
+      edata[idx] = nullptr;
       }
    edata[idx] = (char *)realloc( edata[idx],
                         strlen( env_ptr) + strlen( new_value) + 2);
@@ -4753,7 +4753,7 @@ int load_environment_file( const char *filename)
       }
    fseek( ifile, 0L, SEEK_SET);
    while( fgets_trimmed( buff, sizeof( buff), ifile))
-      if( *buff != ' ' && (tptr = strchr( buff, '=')) != NULL)
+      if( *buff != ' ' && (tptr = strchr( buff, '=')) != nullptr)
          {
          *tptr = '\0';
          set_environment_ptr( buff, tptr + 1);
@@ -4779,12 +4779,12 @@ void update_environ_dot_dat( void)
    if( is_default_environment)
       {
       size_t i, j;
-      char **text = load_file_into_memory( environ_dot_dat, NULL, false);
+      char **text = load_file_into_memory( environ_dot_dat, nullptr, false);
       FILE *ofile;
       char *found = (char *)calloc( n_lines, sizeof( char));
 
       if( !text)
-         text = load_file_into_memory( "environ.def", NULL, true);
+         text = load_file_into_memory( "environ.def", nullptr, true);
       ofile = fopen_ext( environ_dot_dat, "fcwb");
       assert( ofile);
       for( i = 0; text[i]; i++)
@@ -5068,7 +5068,7 @@ int compute_radar_info( const OBSERVE *obs, RADAR_INFO *rinfo)
    assert( obs->second_line);
    memcpy( tbuff, obs->second_line + 68, 3);
    tbuff[3] = '\0';
-   get_observer_data( tbuff, NULL, &cinfo);
+   get_observer_data( tbuff, nullptr, &cinfo);
    for( iter = 0; iter < 3; iter++)
       {
       int i;
@@ -5148,7 +5148,7 @@ static int set_data_from_obs_header( OBSERVE *obs)
       rval = 1;
    if( obs->mag_band != ' ' || obs->obs_mag == BLANK_MAG)
       rval |= 2;
-   if( obs_details && (lines = get_code_details( obs_details, obs->mpc_code)) != NULL)
+   if( obs_details && (lines = get_code_details( obs_details, obs->mpc_code)) != nullptr)
       for( i = 0; lines[i] && rval != 3; i++)
          {
          if( !(rval & 1) && !memcmp( lines[i], "NET ", 4))
@@ -5445,7 +5445,7 @@ static int generate_observation_text( const OBSERVE   *obs, const int idx,
             const int month = mutant_hex_char_to_int( optr->columns_57_to_65[4]);
 
             snprintf_append( buff, buffsize, "  TTag:%s %d %02d:%02d",
-                     set_month_name( month, NULL),
+                     set_month_name( month, nullptr),
                      mutant_hex_char_to_int( optr->columns_57_to_65[5]),
                      mutant_hex_char_to_int( optr->columns_57_to_65[6]),
                      mutant_hex_char_to_int( optr->columns_57_to_65[7]));
@@ -5486,7 +5486,7 @@ static int generate_observation_text( const OBSERVE   *obs, const int idx,
 static void _add_version_and_de_text( char *buff, const size_t buffsize)
 {
    snprintf_err( buff, buffsize, "Version %s\n",
-                        find_orb_version_jd( NULL));
+                        find_orb_version_jd( nullptr));
    format_jpl_ephemeris_info( buff + strlen( buff));
 }
 
@@ -5680,7 +5680,7 @@ int generate_obs_text( const OBSERVE   *obs, const int n_obs, char *buff,
 int sanity_test_observations( const char *filename)
 {
    FILE *ifile = fopen( filename, "rb");
-   FILE *ofile = NULL;
+   FILE *ofile = nullptr;
    long line_no = 0L;
    char buff[250];
    OBSERVE obs;

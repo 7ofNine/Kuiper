@@ -32,15 +32,10 @@ extern WINDOW *stdscr, *curscr;
 #endif
 
 /* Shamelessly lifted from (PD)Curses.h: */
-#ifndef NULL
-# define NULL (void *)0
-#endif
 #ifndef ERR
 # define ERR (-1)
 #endif
-#ifndef OK
-# define OK 0
-#endif
+
 
 typedef unsigned short chtype;
 

@@ -31,7 +31,7 @@ class CSettings : public CDialog
 {
 // Construction
 public:
-   CSettings(CWnd* pParent = NULL);   // standard constructor
+   CSettings(CWnd* pParent = nullptr);   // standard constructor
 
 // Dialog Data
    //{{AFX_DATA(CSettings)

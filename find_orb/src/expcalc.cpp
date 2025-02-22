@@ -397,7 +397,7 @@ int find_expcalc_config_from_mpc_code( const char *mpc_code,
          getting_data = false;
       else if( getting_data)
          {
-         if( (tptr = get_config( buff, "Filter")) != NULL)
+         if( (tptr = get_config( buff, "Filter")) != nullptr)
             c->filter = *tptr;
          set_config_double( buff, "Primary", &c->primary_diam);
          set_config_double( buff, "Obstruction", &c->obstruction_diam);
@@ -464,7 +464,7 @@ void free_expcalc_config_t( expcalc_config_t *c)
 {
    if( c->horizon)
       free( c->horizon);
-   c->horizon = NULL;
+   c->horizon = nullptr;
 }
 
 static int under_horizon_slice( const double alt, const double az,

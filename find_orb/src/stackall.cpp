@@ -54,7 +54,7 @@ void *create_stack( const size_t stack_size)
 
    rval->size = stack_size;
    rval->used = 0;
-   rval->next = NULL;
+   rval->next = nullptr;
    return( rval);
 }
 
@@ -116,7 +116,7 @@ int stack_free( void *stack, void *ptr)
             STACK *tptr = sptr->next;
 
             sptr->used = diff;
-            sptr->next = NULL;
+            sptr->next = nullptr;
             while( tptr)
                {
                STACK *next_ptr = tptr->next;

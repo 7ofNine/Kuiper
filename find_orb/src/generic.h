@@ -31,7 +31,7 @@ class CGenericEntry : public CDialog
 {
 // Construction
 public:
-   CGenericEntry(CWnd* pParent = NULL);   // standard constructor
+   CGenericEntry(CWnd* pParent = nullptr);   // standard constructor
    CString m_caption;
 
 // Dialog Data

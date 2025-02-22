@@ -61,16 +61,16 @@ or wasn't in the correct format,  or memory wasn't allocated for the data.
 Otherwise,  the MJD for the last day of EOPs,  including the predictions,
 is returned.  One can use that to tell the user,  "time to get new EOPs"
 (or to automatically download them without even telling the user).  If
-you set the 'file_date' parameter to a non-NULL value,  it will give the
+you set the 'file_date' parameter to a non-nullptr value,  it will give the
 MJD for the last line to give non-predicted values (i.e.,  EOPs based
 on observations rather than extrapolations).
 
    In a multi-threaded environment,  call load_earth_orientation_params()
 before forking/threading;  the following static values will then be set
 and used thereafter in a read-only manner.  Call the function again with
-a NULL filename and file date to release the eop_data buffer.
+a nullptr filename and file date to release the eop_data buffer.
 
-   If called with a NULL filename and _non_-null file date,  the MJDs
+   If called with a nullptr filename and _non_-null file date,  the MJDs
 of the start of the EOP array,  the last 'fully usable' day,  and the
 last day of nutations are provided in the returned array.
 
@@ -78,7 +78,7 @@ last day of nutations are provided in the returned array.
 
 double default_td_minus_ut( const double jd);      /* delta_t.cpp */
 
-static double *eop_data = NULL, eop_jd0;
+static double *eop_data = nullptr, eop_jd0;
 static int eop_size, eop_usable, eop_usable_nutation;
 const size_t eop_iline_len = 188;
 
@@ -112,7 +112,7 @@ int /*DLL_FUNC*/ load_earth_orientation_params( const char *filename,
    if( eop_data)
       {
       free( eop_data);
-      eop_data = NULL;
+      eop_data = nullptr;
       }
    if( filename)
       {
@@ -169,7 +169,7 @@ int /*DLL_FUNC*/ load_earth_orientation_params( const char *filename,
          if( i < 16371)    /* as of 2016 Oct 29,  should be _at least_ */
             rval = EOP_FILE_WRONG_FORMAT;           /* this many lines */
          if( rval)   /* slightly tricky method to free up eop_data,  if */
-            load_earth_orientation_params( NULL, NULL);  /* it's been alloced */
+            load_earth_orientation_params( nullptr, nullptr);  /* it's been alloced */
          else                            /* get MJD for preceding day */
             rval = atoi( buff + 7) - 1;
          }

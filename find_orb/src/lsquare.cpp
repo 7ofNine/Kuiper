@@ -180,7 +180,7 @@ static ldouble *calc_inverse( const ldouble *src, const int size)
 
    lsquare_determinant = 1.;
    if( !temp)
-      return( NULL);
+      return( nullptr);
                /* copy 'src' to 'temp',  doubling its width and putting */
                /* an identity matrix in the right half: */
    for( i = 0; i < size; i++)
@@ -211,10 +211,10 @@ static ldouble *calc_inverse( const ldouble *src, const int size)
             }
          }
 
-      if( pivot == -1)     /* un-invertable matrix:  return NULL */
+      if( pivot == -1)     /* un-invertable matrix:  return nullptr */
          {
          free( temp);
-         return( NULL);
+         return( nullptr);
          }
 
       if( pivot != i)                  /* swap rows */
@@ -344,7 +344,7 @@ static ldouble *invert_symmetric_positive_definite_matrix( const ldouble *a,
    if( cholesky_rval)
       {
       free( rval);
-      rval = NULL;
+      rval = nullptr;
       }
    return( rval);
 }
@@ -462,7 +462,7 @@ static double *convert_ldouble_matrix_to_double( const ldouble *matrix,
 double *lsquare_covariance_matrix( const void *lsquare)
 {
    const LSQUARE *lsq = (const LSQUARE *)lsquare;
-   ldouble *lrval = NULL;
+   ldouble *lrval = nullptr;
 
    if( lsq->n_params <= lsq->n_obs)       /* got enough observations */
       lrval = calc_inverse_improved( lsq->wtw, lsq->n_params);
@@ -475,7 +475,7 @@ double *lsquare_covariance_matrix( const void *lsquare)
       return( rval);
       }
    else
-      return( NULL);
+      return( nullptr);
 }
 
 double *lsquare_wtw_matrix( const void *lsquare)

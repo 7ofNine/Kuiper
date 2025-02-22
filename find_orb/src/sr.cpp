@@ -228,7 +228,7 @@ int main( const int argc, const char **argv)
              0.061886725027, -0.01861368496397, 0.002531828864788 };
    int i, n_roots;
 
-   setvbuf( stdout, NULL, _IONBF, 0);
+   setvbuf( stdout, nullptr, _IONBF, 0);
    n_roots = find_real_polynomial_roots( poly, 6, ranges);
    printf( "%d roots found\n", n_roots);
    for( i = 0; i < n_roots; i++)

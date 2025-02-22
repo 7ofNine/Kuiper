@@ -65,8 +65,8 @@ void brent_min_init( brent_min_t *b, const double x1, const double y1,
 }
 
 /* Fits a parabola y = ax^2 + bx + c to x[0, 1, 2] and y[0, 1, 2],  and
-returns a,  which is always computed.  If b is non-NULL,  it's computed.
-And if c is non-NULL,  it's computed also.  For some purposes -- specifically
+returns a,  which is always computed.  If b is non-nullptr,  it's computed.
+And if c is non-nullptr,  it's computed also.  For some purposes -- specifically
 those of determining the minimum point in a parabola -- you don't need c.
 But I think this function may prove more generally useful (which is why
 it's not static to this file). */
@@ -182,7 +182,7 @@ double brent_min_next( brent_min_t *b)
       {
       double quad, linear;
 
-      quad = fit_parabola( b->x, b->y, &linear, NULL);
+      quad = fit_parabola( b->x, b->y, &linear, nullptr);
       rval = -linear * .5 / quad;
       b->step_type = STEP_TYPE_QUADRATIC;
       }

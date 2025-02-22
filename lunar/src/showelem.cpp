@@ -178,7 +178,7 @@ int /*DLL_FUNC*/ elements_in_mpc_format( char *obuff, const size_t obuff_size,
                                              CALENDAR_JULIAN_GREGORIAN);
       snprintf_err( obuff, endptr - obuff, "   Peri%s %ld %s %.*f TT",
               pericenter_name, year,
-              set_month_name( month, NULL), precision, dday);
+              set_month_name( month, nullptr), precision, dday);
       if( format & SHOWELEM_PERIH_TIME_MASK)
          {
          char hhmmss[20];
@@ -197,7 +197,7 @@ int /*DLL_FUNC*/ elements_in_mpc_format( char *obuff, const size_t obuff_size,
    dday = decimal_day_to_dmy( elem->epoch, &year, &month,
                                              CALENDAR_JULIAN_GREGORIAN);
    snprintf_err( obuff, endptr - obuff, "Epoch %4ld %s %9.6f TT = JDT %.6f", year,
-              set_month_name( month, NULL), dday + 1.e-7, elem->epoch + 1.e-7);
+              set_month_name( month, nullptr), dday + 1.e-7, elem->epoch + 1.e-7);
                      /* lop off trailing zeroes after JD...: */
    for( i = 0; i < 5 && obuff[strlen( obuff) - (size_t)i - 1] == '0'; i++)
       ;

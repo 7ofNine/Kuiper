@@ -261,7 +261,7 @@ double quick_strtod( const char *ibuff, const char **endptr)
 
 double quick_atof( const char *ibuff)
 {
-   return( quick_strtod( ibuff, NULL));
+   return( quick_strtod( ibuff, nullptr));
 }
 
 /* Useful if floating-point text may be immediately followed by more
@@ -275,7 +275,7 @@ static double limited_atof( const char *ibuff, const size_t len)
    assert( len < sizeof( tbuff) - 1);
    memcpy( tbuff, ibuff, len);
    tbuff[len] = '\0';
-   return( quick_strtod( tbuff, NULL));
+   return( quick_strtod( tbuff, nullptr));
 }
 
 /* You can store locations in 'rovers.txt' in base-60 form,  with the
@@ -746,8 +746,8 @@ int get_xxx_location_info( mpc_code_t *cinfo, const char *buff)
       if( !alt_ptr)
          rval -= 8;
       if( lat_ptr && alt_ptr
-            && GOT_LON == extract_lat_lon( buff + 9, NULL, &cinfo->lon)
-            && GOT_LAT == extract_lat_lon( lat_ptr + 4, NULL, &cinfo->lat))
+            && GOT_LON == extract_lat_lon( buff + 9, nullptr, &cinfo->lon)
+            && GOT_LAT == extract_lat_lon( lat_ptr + 4, nullptr, &cinfo->lat))
          {
          if( cinfo->lon < 0.)
             cinfo->lon += 360.;
@@ -847,7 +847,7 @@ int main( const int argc, const char **argv)
                break;
             case 'g':
                {
-               const time_t t0 = time( NULL);
+               const time_t t0 = time( nullptr);
                FILE *hdr_ifile = fopen_ext( argv[0], "mpc_hdr.htm", "rb");
                bool showing_lines = true;
 

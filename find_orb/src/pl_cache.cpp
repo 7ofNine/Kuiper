@@ -48,7 +48,7 @@ int debug_printf( const char *format, ...)                 /* mpc_obs.cpp */
 extern int debug_level;
 
 int64_t planet_ns;
-static void *jpl_eph = NULL;
+static void *jpl_eph = nullptr;
 
 #define J2000 2451545.0
 #define J0 (J2000 - 2000. * 365.25)
@@ -71,7 +71,7 @@ static int planet_posn_raw( int planet_no, const double jd,
 {
    const int jpl_center = 11;         /* default to heliocentric */
    int rval = 0;
-   static const char *jpl_filename = NULL;
+   static const char *jpl_filename = nullptr;
    const int bc405_start = 100;
    const int calc_vel = (planet_no > PLANET_POSN_VELOCITY_OFFSET - 2);
 
@@ -94,8 +94,8 @@ static int planet_posn_raw( int planet_no, const double jd,
       double temp_loc[4];
 
       rval = asteroid_position_raw( planet_no - bc405_start, jd,
-               (calc_vel ? NULL : temp_loc),
-               (calc_vel ? temp_loc : NULL));
+               (calc_vel ? nullptr : temp_loc),
+               (calc_vel ? temp_loc : nullptr));
       if( debug_level > 8)
          debug_printf( "JD %f, minor planet %d: (%f %f %f)\n",
                      jd, planet_no, temp_loc[0], temp_loc[1], temp_loc[2]);
@@ -109,22 +109,22 @@ static int planet_posn_raw( int planet_no, const double jd,
 
       jpl_filename = get_environment_ptr( "JPL_FILENAME");
       if( *jpl_filename)
-         jpl_eph = jpl_init_ephemeris( jpl_filename, NULL, NULL);
+         jpl_eph = jpl_init_ephemeris( jpl_filename, nullptr, nullptr);
       if( !jpl_eph)
-         if( (ifile = fopen_ext( "jpl_eph.txt", "fcrb")) != NULL)
+         if( (ifile = fopen_ext( "jpl_eph.txt", "fcrb")) != nullptr)
             {
             char buff[100];
 
             while( !jpl_eph && fgets_trimmed( buff, sizeof( buff), ifile))
                if( *buff && *buff != ';')
                   {
-                  jpl_eph = jpl_init_ephemeris( buff, NULL, NULL);
+                  jpl_eph = jpl_init_ephemeris( buff, nullptr, nullptr);
                   if( !jpl_eph)
                      {
                      char tname[255];
 
                      make_config_dir_name( tname, buff);
-                     jpl_eph = jpl_init_ephemeris( tname, NULL, NULL);
+                     jpl_eph = jpl_init_ephemeris( tname, nullptr, nullptr);
                      }
                   }
             if( debug_level)
@@ -156,8 +156,8 @@ static int planet_posn_raw( int planet_no, const double jd,
       if( planet_no < 0)          /* flag to unload everything */
          {
          jpl_close_ephemeris( jpl_eph);
-         jpl_eph = NULL;
-         jpl_filename = NULL;
+         jpl_eph = nullptr;
+         jpl_filename = nullptr;
          return( 0);
          }
       else if( planet_no == 10)
@@ -196,7 +196,7 @@ static int planet_posn_raw( int planet_no, const double jd,
 
             assert( buff);
             debug_printf( "Failure on planet %d, JD %f\n", planet_no, jd);
-            get_jpl_ephemeris_info( NULL, &jd_start, &jd_end);
+            get_jpl_ephemeris_info( nullptr, &jd_start, &jd_end);
             snprintf( buff, 10000, get_find_orb_text( 2030), jpl_filename,
                         JD_TO_YEAR( jd_start),
                         JD_TO_YEAR( jd_end));
@@ -315,7 +315,7 @@ static void collapse_and_partition( POSN_CACHE *ovals, const POSN_CACHE *ivals)
       if( ivals[i].planet_no)
          ovals[array_size++] = ivals[i];
    assert( array_size == splitting_size);
-   shellsort_r( ovals, array_size, sizeof( POSN_CACHE), compare_cached_posns, NULL);
+   shellsort_r( ovals, array_size, sizeof( POSN_CACHE), compare_cached_posns, nullptr);
 }
 
 /*   The following three long ints keep track of the number of searches
@@ -422,7 +422,7 @@ Just Fine.)    */
 
 int planet_posn( const int planet_no, const double jd, double *vect_2000)
 {
-   static POSN_NODE *nodes = NULL;
+   static POSN_NODE *nodes = nullptr;
    static int n_nodes = 0, n_nodes_alloced = 0, curr_node = 0;
    int loc, rval = 0;
 #ifdef TIMING_ON
@@ -446,14 +446,14 @@ int planet_posn( const int planet_no, const double jd, double *vect_2000)
             free( nodes[i].data);
       if( nodes)
          free( nodes);
-      nodes = NULL;
+      nodes = nullptr;
       n_posns_cached = 0;
       n_nodes = n_nodes_alloced = curr_node = 0;
       }
 
    if( planet_no < 0)
       {
-      planet_posn_raw( -1, 0., NULL);
+      planet_posn_raw( -1, 0., nullptr);
       return( 0);
       }
 

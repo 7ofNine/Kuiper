@@ -46,7 +46,7 @@ that data.
 
 'cospar.txt' also has object dimensions.  These can be one number
 (for a sphere),  two (for an oblate spheroid),  or three (for a
-triaxial ellipsoid).  If 'radii' is non-NULL,  one,  two,  or three
+triaxial ellipsoid).  If 'radii' is non-nullptr,  one,  two,  or three
 numbers will be set accordingly,  with the remainder set to zero. */
 
 static int get_cospar_data_from_text_file( int object_number,
@@ -57,7 +57,7 @@ static int get_cospar_data_from_text_file( int object_number,
    const double J2000 = 2451545.0;        /* JD 2451545.0 = 1.5 Jan 2000 */
    const double d = (jde - J2000);
    const double t_cen = d / 36525.;
-   static char **cospar_text = NULL;
+   static char **cospar_text = nullptr;
    char buff[300];
    char planet = 0;
    int line, angular_coeffs_line = 0;
@@ -68,7 +68,7 @@ static int get_cospar_data_from_text_file( int object_number,
       {
       if( cospar_text)
          free( cospar_text);
-      cospar_text = NULL;
+      cospar_text = nullptr;
       return( 0);
       }
 
@@ -119,7 +119,7 @@ static int get_cospar_data_from_text_file( int object_number,
             cospar_text[0] = (char *)(cospar_text + line + 1);
             }
          }
-      cospar_text[line] = NULL;
+      cospar_text[line] = nullptr;
       fclose( ifile);
       if( !omega)        /* just loading coefficients;  not actually */
          return( 0);       /* computing orientations quite yet (see    */
@@ -162,7 +162,7 @@ static int get_cospar_data_from_text_file( int object_number,
          angular_coeffs_line = line - 1;
       else if( curr_obj_from_file == object_number)
          {
-         double *oval = NULL;
+         double *oval = nullptr;
 
          if( *tptr == 'r')
             {
@@ -292,7 +292,7 @@ int /*DLL_FUNC*/ load_cospar_file( const char *filename)
    cospar_filename = filename;
    for( pass = 0; pass < (filename ? 2 : 1); pass++)
       rval = get_cospar_data_from_text_file( (pass ? 0 : FREE_INTERNAL_DATA),
-                    0, 0., NULL, NULL, NULL, NULL, NULL);
+                    0, 0., nullptr, nullptr, nullptr, nullptr, nullptr);
    cospar_filename = temp_name;
    return( rval);
 }
@@ -307,7 +307,7 @@ double /*DLL_FUNC*/ planet_rotation_rate( const int planet_no, const int system_
    if( planet_no != prev_planet_no || system_no != prev_system_no)
       {
       const int rval = get_cospar_data_from_text_file( planet_no, system_no,
-              dummy_tdt, NULL, NULL, &omega, NULL, &is_retrograde);
+              dummy_tdt, nullptr, nullptr, &omega, nullptr, &is_retrograde);
 
       if( rval)
          omega = 0.;
@@ -322,7 +322,7 @@ int /*DLL_FUNC*/ planet_radii( const int planet_no, double *radii_in_km)
    const double dummy_tdt = 2451545.;     /* not really used */
    bool is_retrograde;
    const int rval = get_cospar_data_from_text_file( planet_no, 0,
-              dummy_tdt, NULL, NULL, NULL, radii_in_km, &is_retrograde);
+              dummy_tdt, nullptr, nullptr, nullptr, radii_in_km, &is_retrograde);
 
    return( rval);
 }
@@ -383,7 +383,7 @@ int /*DLL_FUNC*/ calc_planet_orientation( const int planet_no, const int system_
       }
 
    rval = get_cospar_data_from_text_file( planet_no, system_no,
-              tdt, &pole_ra, &pole_dec, &omega, NULL, &is_retrograde);
+              tdt, &pole_ra, &pole_dec, &omega, nullptr, &is_retrograde);
    pole_ra *= PI / 180.;
    pole_dec *= PI / 180.;
    polar3_to_cartesian( matrix, pole_ra - PI / 2., 0.);
@@ -413,7 +413,7 @@ void main( int argc, char **argv)
         i < (planet_number == -1 ? 100 : planet_number + 1); i++)
       {
       int err = get_cospar_data_from_text_file( i, system_number, jde,
-                      &pole_ra, &pole_dec, NULL, &omega);
+                      &pole_ra, &pole_dec, nullptr, &omega);
 
       printf( "Planet %d\n", i);
       if( !err)

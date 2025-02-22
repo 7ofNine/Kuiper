@@ -171,7 +171,7 @@ int main( void)
       printf( "This isn't supposed to happen.</p>\n");
       return( 0);
       }
-   while( !get_cgi_data( field, buff, NULL, sizeof( buff)))
+   while( !get_cgi_data( field, buff, nullptr, sizeof( buff)))
       {
       if( !strcmp( field, "iota"))
          incl = atof( buff) * PI / 180.;

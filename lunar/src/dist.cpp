@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 
 /* 2012 Jul 22:  (BJG) Debugging statements are now shown only if
 one defines DEBUGGING_STATEMENTS.  The Vincenty routine will compute
-a back-azimuth only if you pass it a non-NULL pointer to 'back_azimuth'.
+a back-azimuth only if you pass it a non-nullptr pointer to 'back_azimuth'.
 
    The following code implements three methods for computing the
 distance between two lat/lon points on the earth.  The first formula

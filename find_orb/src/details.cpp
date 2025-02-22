@@ -121,7 +121,7 @@ const char **get_code_details( const void *obs_details, const char *mpc_code)
    if( !compare)
       return( (const char **)det->code_details[idx].lines);
    else
-      return( NULL);
+      return( nullptr);
 }
 
 static int reset_mpc_code( observation_details_t *det, const char *mpc_code)

@@ -202,7 +202,7 @@ extern int object_type;
 
 int compare_observations( const void *a, const void *b, void *context);
 
-/* 'Context' can be NULL,  or a pointer to the following integers,  with
+/* 'Context' can be nullptr,  or a pointer to the following integers,  with
 other sort orders (perhaps reversed,  or by residuals) possible later. */
 
 #define SORT_OBS_BY_DATE                0
@@ -422,7 +422,7 @@ int get_sr_orbits( sr_orbit_t *orbits, OBSERVE   *obs,     /* orb_func.cpp */
 #define FIT_CLASSIC_HERGET          0x12
 #define FIT_HERGET_FULL             0x16
 
-/* You can call find_parameterized_orbit() with params = NULL and
+/* You can call find_parameterized_orbit() with params = nullptr and
    parameter_type == FIT_NOTHING.  In that case,  we fall through a lot
    of code and end up just getting the orbit connecting obs1 to obs2. */
 

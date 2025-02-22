@@ -200,7 +200,7 @@ int extract_sof_data_ex( ELEMENTS *elem, const char *buff, const char *header,
 
 int extract_sof_data( ELEMENTS *elem, const char *buff, const char *header)
 {
-   return( extract_sof_data_ex( elem, buff, header, NULL));
+   return( extract_sof_data_ex( elem, buff, header, nullptr));
 }
 
 #ifdef TEST_CODE

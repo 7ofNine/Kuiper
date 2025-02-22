@@ -154,9 +154,9 @@ static const char *default_delta_t_string =
 500,1600:o1000,1574.2,-556.01,71.23472,.319781,-.8503463,-.005050998,.0083572073;\
 1600,1620:o1600,120,-98.08,-153.2,140.272";
 // static const char *td_minus_dt_string = default_delta_t_string;
-static const char *td_minus_dt_string = NULL;
+static const char *td_minus_dt_string = nullptr;
 
-/* If a user attempts to set a NULL or "blank" Delta-T definition,   */
+/* If a user attempts to set a nullptr or "blank" Delta-T definition,   */
 /* we fall back on the above default_delta_t_string.                 */
 
 void /*DLL_FUNC*/ reset_td_minus_dt_string( const char *string)

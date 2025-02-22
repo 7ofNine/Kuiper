@@ -120,7 +120,7 @@ static long mod( const long x, const long y)
 static const char *month_names[N_MONTHS] = { "Jan", "Feb", "Mar",
                           "Apr", "May", "Jun",
                           "Jul", "Aug", "Sep",
-                          "Oct", "Nov", "Dec", NULL };
+                          "Oct", "Nov", "Dec", nullptr };
 
 static const char *day_of_week_names[7] = { "Sun", "Mon", "Tue", "Wed",
                                "Thu", "Fri", "Sat"};
@@ -583,7 +583,7 @@ jd = 365 * year + year / 4 + CHINESE_CALENDAR_EPOCH + offset
 Thus,  the offset can be a value from 0 to (2^11 / 14) = 186. */
 
 #ifdef LOAD_CHINESE_CALENDAR_DATA_FROM_FILE
-static const unsigned char *chinese_calendar_data = NULL;
+static const unsigned char *chinese_calendar_data = nullptr;
 
 void /*DLL_FUNC*/ set_chinese_calendar_data( const void *cdata)
 {

@@ -374,7 +374,7 @@ int copy_file_to_clipboard( const char *filename);    /* clipfunc.cpp */
 
 static bool curses_running = false;
 
-static const char *help_file_name = NULL;
+static const char *help_file_name = nullptr;
 static int mpc_code_select = 0;
 
 #define HINT_TEXT -1
@@ -596,13 +596,13 @@ static int full_inquire( const char *prompt, char *buff, const int max_len,
 
                         if( mpc_code_select && highlit_line < line - 1)
                            mvchgat( highlit_line, col + highlit_x - highlit_x % 4,
-                                               5, attr, color, NULL);
+                                               5, attr, color, nullptr);
                         else
                            mvchgat( highlit_line, col, real_width, attr, color,
-                                                     NULL);
+                                                     nullptr);
                         if( highlit_line == line - n_lines && help_file_name)
                            mvchgat( highlit_line, col + real_width - 4, 3,
-                                 attr ^ (A_REVERSE | A_NORMAL), color, NULL);
+                                 attr ^ (A_REVERSE | A_NORMAL), color, nullptr);
                         }
                      highlit_line = curr_line;
                      highlit_x = x;
@@ -628,7 +628,7 @@ static int full_inquire( const char *prompt, char *buff, const int max_len,
          flushinp( );
       refresh( );
       }
-   help_file_name = NULL;
+   help_file_name = nullptr;
    return( rval);
 }
 
@@ -679,7 +679,7 @@ static int select_mpc_code( const OBSERVE *obs, const int n_obs, int curr_obs)
    buff[n_codes * 4 - 1] = '\0';
    strlcat_err( buff, "\nCancel", buffsize);
    mpc_code_select = n_codes;
-   c = inquire( buff, NULL, 0, COLOR_DEFAULT_INQUIRY);
+   c = inquire( buff, nullptr, 0, COLOR_DEFAULT_INQUIRY);
    mpc_code_select = 0;
    c -= KEY_F( 1);
    if( c >= 0 && c < n_codes)
@@ -804,7 +804,7 @@ static void set_ra_dec_format( void)
       }
    buff[len] = '\0';
    help_file_name = "radecfmt.txt";
-   c = inquire( buff, NULL, 0, COLOR_DEFAULT_INQUIRY);
+   c = inquire( buff, nullptr, 0, COLOR_DEFAULT_INQUIRY);
    if( c >= '0' && c < '1' + (int)n_lines)
       c += KEY_F( 1) - '1';
    if( c >= KEY_F( 1) && c <= (int)KEY_F( n_lines))
@@ -830,13 +830,13 @@ static void select_angular_motion_units( void)
    if( !*curr_units)
       strlcpy( curr_units, "'/h", sizeof( curr_units));
    strlcpy_error( buff, get_find_orb_text( 2078));
-   if( (tptr = strstr( buff, curr_units)) != NULL)
+   if( (tptr = strstr( buff, curr_units)) != nullptr)
       {                    /* mark currently selected units */
       while( *tptr != '(')
          tptr--;
       tptr[1] = 'o';
       }
-   c = inquire( buff, NULL, 0, COLOR_DEFAULT_INQUIRY);
+   c = inquire( buff, nullptr, 0, COLOR_DEFAULT_INQUIRY);
    if( c >= '0' && c < '9')
       c += KEY_F( 1) - '1';
    c -= KEY_F( 0);
@@ -918,7 +918,7 @@ static void create_ephemeris( const double *orbit, const double epoch_jd,
       const int ephem_type = (int)(ephemeris_output_options & 7);
       bool reset_vect_units = false;
       extern double ephemeris_mag_limit;
-      const char *tptr, *err_msg = NULL;
+      const char *tptr, *err_msg = nullptr;
       char *end_of_location_text;
       char vect_epoch[9];
       const bool is_topocentric =
@@ -929,7 +929,7 @@ static void create_ephemeris( const double *orbit, const double epoch_jd,
       *message_to_user = '\0';
       jd_start = 0.;
       format_start = extract_date( ephemeris_start, &jd_start);
-      step = get_step_size( ephemeris_step_size, NULL, NULL);
+      step = get_step_size( ephemeris_step_size, nullptr, nullptr);
       if( format_start == 1 || format_start == 2)
          {
          if( step && format_start == 1)  /* time was relative to 'right now' */
@@ -1148,7 +1148,7 @@ static void create_ephemeris( const double *orbit, const double epoch_jd,
       snprintf_append( buff, sizeof( buff), "Q  Return to main display");
       n_lines += 4;
       help_file_name = "dosephem.txt";
-      c = inquire( buff, NULL, 0, COLOR_DEFAULT_INQUIRY);
+      c = inquire( buff, nullptr, 0, COLOR_DEFAULT_INQUIRY);
                      /* Convert mouse clicks inside the 'dialog box'     */
                      /* to the corresponding first letter on that line   */
                      /* (except for the first two lines,  which wouldn't */
@@ -1170,7 +1170,7 @@ static void create_ephemeris( const double *orbit, const double epoch_jd,
       else if( c == ALT_A)
          {                    /* loading configuration */
          c = inquire( "Hit letter of configuration to load",
-                         NULL, 30, COLOR_MESSAGE_TO_USER);
+                         nullptr, 30, COLOR_MESSAGE_TO_USER);
          if( c >= 'a' && c <= 'z')
             {
             char tstr[2];
@@ -1250,7 +1250,7 @@ static void create_ephemeris( const double *orbit, const double epoch_jd,
             strlcpy_error( buff, get_find_orb_text( 2064));
             _set_radio_button( buff, ephem_type);
             help_file_name = "eph_type.txt";
-            c = inquire( buff, NULL, 0, COLOR_DEFAULT_INQUIRY);
+            c = inquire( buff, nullptr, 0, COLOR_DEFAULT_INQUIRY);
             if( c >= KEY_F( 1))
                i = c - KEY_F( 1);
             else if( c >= '0' && c < '8')
@@ -1338,11 +1338,11 @@ static void create_ephemeris( const double *orbit, const double epoch_jd,
                if( strlen( buff) < 3)
                   err_msg = "MPC codes must be at least three characters long";
                else if( strlen( buff) < 5 || !memcmp( buff, "Ast", 3)
-                           || !get_lat_lon_info( NULL, buff))
+                           || !get_lat_lon_info( nullptr, buff))
                   strlcpy_error( mpc_code, buff);
                else if( strlen( buff) > 4)
                   {
-                  if( !get_observer_data( buff, buff, NULL))
+                  if( !get_observer_data( buff, buff, nullptr))
                      {
                      buff[4] = '\0';
                      if( buff[3] == ' ')
@@ -1532,7 +1532,7 @@ static void create_ephemeris( const double *orbit, const double epoch_jd,
             break;
          }
       if( err_msg)
-         inquire( err_msg, NULL, 0, COLOR_FINAL_LINE);
+         inquire( err_msg, nullptr, 0, COLOR_FINAL_LINE);
       if( reset_vect_units)
          {
          snprintf( buff, sizeof( buff), "%d,%f,%f,%s", vect_frame,
@@ -1557,7 +1557,7 @@ static void create_ephemeris( const double *orbit, const double epoch_jd,
             epoch_jd, jd_start, ephemeris_step_size,
             n_ephemeris_steps, mpc_code,
             ephemeris_output_options, n_orbits))
-         inquire( "Ephemeris generation failed!  Hit any key:", NULL, 0,
+         inquire( "Ephemeris generation failed!  Hit any key:", nullptr, 0,
                            COLOR_MESSAGE_TO_USER);
       else
          {
@@ -1595,7 +1595,7 @@ static void select_element_frame( void)
 
       element_frame_dialog_text( buff);
       help_file_name = "frame_he.txt";
-      c = inquire( buff, NULL, 0, COLOR_DEFAULT_INQUIRY);
+      c = inquire( buff, nullptr, 0, COLOR_DEFAULT_INQUIRY);
       if( c >= KEY_F( 1) && c <= KEY_F( 5))
          c += '0' - KEY_F( 1);
       if( c >= '0' && c <= '3')
@@ -2116,8 +2116,8 @@ static int select_central_object( char *buff, const size_t buffsize, const bool 
    if( dialog_text_only)
       return( 0);
    strlcat( buff, get_find_orb_text( 96002), buffsize);    /* 'Cancel' */
-   c = inquire( buff, NULL, 0, COLOR_DEFAULT_INQUIRY);
-   if( c && (tptr = strchr( hotkeys, toupper( c))) != NULL)
+   c = inquire( buff, nullptr, 0, COLOR_DEFAULT_INQUIRY);
+   if( c && (tptr = strchr( hotkeys, toupper( c))) != nullptr)
       c = KEY_F( 1) + (int)( tptr - hotkeys);
    if( c >= KEY_F( 1) && c <= KEY_F( 13))
       forced_central_body = c - KEY_F( 3);
@@ -2154,7 +2154,7 @@ void show_perturbers( const unsigned line)
 }
 
 int max_mpc_color_codes = 5;
-static MPC_STATION *mpc_color_codes = NULL;
+static MPC_STATION *mpc_color_codes = nullptr;
 
 /* Show the text for a given observation... which will be in
    'default_color' unless it's excluded.  If it is,  the residuals
@@ -2282,7 +2282,7 @@ static int show_station_info( const OBSERVE   *obs, const int n_obs,
 {
    int line_no, i;
    int n_obs_shown = getmaxy( stdscr) - top_line_residual_area;
-   const int n_mpc_codes = find_mpc_color( mpc_color_codes, NULL);
+   const int n_mpc_codes = find_mpc_color( mpc_color_codes, nullptr);
    int n_stations_shown = (list_codes == SHOW_MPC_CODES_MANY ?
                               n_obs_shown - 3 : n_obs_shown / 3);
 
@@ -2419,12 +2419,12 @@ static void show_residual_legend( const int line_no, const int residual_format)
       {         /* residuals in time & cross-time, not RA and dec */
       char *text_loc;
 
-      while( (text_loc = strstr( buff, "Xres")) != NULL)
+      while( (text_loc = strstr( buff, "Xres")) != nullptr)
          if( residual_format & RESIDUAL_FORMAT_TIME_RESIDS)
             *text_loc = 'T';
          else
             memcpy( text_loc, "Res1", 4);
-      while( (text_loc = strstr( buff, "Yres")) != NULL)
+      while( (text_loc = strstr( buff, "Yres")) != nullptr)
          if( residual_format & RESIDUAL_FORMAT_TIME_RESIDS)
             *text_loc = 'C';
          else
@@ -2489,7 +2489,7 @@ static int remove_rgb_code( char *buff, int *offset)
    size_t i;
    char *loc = buff;
 
-   while( (loc = strchr( loc, '$')) != NULL)
+   while( (loc = strchr( loc, '$')) != nullptr)
       {
       i = 1;
       while( i < 7 && isxdigit( loc[i]))
@@ -2515,7 +2515,7 @@ static void show_a_file( const char *filename, const int flags)
    int n_lines = 0, msg_num = 0;
    bool search_text_found = true;
    int n_lines_alloced = 0, search_text_length = 0;
-   int *index = NULL, find_text = 0, *backup_screen;
+   int *index = nullptr, find_text = 0, *backup_screen;
    char search_text[100];
    int calendar_line = -99, calendar_col = -1;
    int calendar_cell_width, calendar_cell_height;
@@ -2645,12 +2645,12 @@ static void show_a_file( const char *filename, const int flags)
 #else
                   init_pair( color_pair_idx, text_color, find_rgb( rgb[j]));
 #endif
-                  mvchgat( i, color_col[j] - start_column, 2, A_NORMAL, color_pair_idx, NULL);
+                  mvchgat( i, color_col[j] - start_column, 2, A_NORMAL, color_pair_idx, nullptr);
                   color_pair_idx++;
                   }
          if( calendar_col >= 0 && curr_line > calendar_line - 2
                    && curr_line < calendar_line + calendar_cell_height - 2)
-            mvchgat( i, calendar_col + 1, calendar_cell_width - 1, 0, COLOR_OBS_INFO, NULL);
+            mvchgat( i, calendar_col + 1, calendar_cell_width - 1, 0, COLOR_OBS_INFO, nullptr);
          }
                /* show "scroll bar" to right of text: */
       show_right_hand_scroll_bar( 0, n_lines_to_show, top_line, n_lines);
@@ -2819,14 +2819,14 @@ static void show_a_file( const char *filename, const int flags)
                   fseek( ifile, 0L, SEEK_SET);
                   while( fgets( tbuff, sizeof( tbuff), ifile))
                      {
-                     remove_rgb_code( tbuff, NULL);
+                     remove_rgb_code( tbuff, nullptr);
                      fputs( tbuff, ofile);
                      }
                   fclose( ofile);
                   }
                }
             if( c == ALT_C && copy_file_to_clipboard( buff))
-               inquire( get_find_orb_text( 2039), NULL, 0,
+               inquire( get_find_orb_text( 2039), nullptr, 0,
                                     COLOR_MESSAGE_TO_USER);
             }
             break;
@@ -2953,7 +2953,7 @@ static void put_colored_text( const char *text, const int line_no,
       }
    else              /* clear to end of line */
       {
-      const int len = (int)mbstowcs( NULL, text, 0);
+      const int len = (int)mbstowcs( nullptr, text, 0);
       int remains = getmaxx( stdscr) - len - column;
 
       if( len == -1)
@@ -3169,7 +3169,7 @@ static inline int initialize_curses([[maybe_unused]] const int argc, [[maybe_unu
 
    strlcpy_error( xterm_256color_name, "xterm-256color");
    if( force_eight_color_mode || !(screen_ptr = newterm( xterm_256color_name, stdout, stdin)))
-      screen_ptr = newterm( NULL, stdout, stdin);
+      screen_ptr = newterm( nullptr, stdout, stdin);
 #endif
    if( debug_level > 2)
       debug_printf( "Curses initialised, ");
@@ -3198,9 +3198,9 @@ static inline int initialize_curses([[maybe_unused]] const int argc, [[maybe_unu
       debug_printf( "(3)\n");
    keypad( stdscr, 1);
 #ifdef MOUSE_MOVEMENT_EVENTS_ENABLED
-   mousemask( default_mouse_events | REPORT_MOUSE_POSITION, NULL);
+   mousemask( default_mouse_events | REPORT_MOUSE_POSITION, nullptr);
 #else
-   mousemask( default_mouse_events, NULL);
+   mousemask( default_mouse_events, nullptr);
 #endif
    set_color_table( );
    return( 0);
@@ -3366,11 +3366,11 @@ static OBJECT_INFO *load_file( char *ifilename, int *n_ids, char *err_buff,
                prev_idx[n_prev++] = i;
                }
             else      /* file doesn't exist anymore;  remove from list */
-               prev_files[i] = NULL;
+               prev_files[i] = nullptr;
             }
       strlcat_err( buff, (already_got_obs ? "\nQ Cancel" : "\nQ Quit"), buffsize);
 
-      while( 'C' == (c = inquire( buff, NULL, 30, COLOR_DEFAULT_INQUIRY)))
+      while( 'C' == (c = inquire( buff, nullptr, 30, COLOR_DEFAULT_INQUIRY)))
          show_calendar( );
       free( buff);
       if( c >= ' ' && c < 127)
@@ -3412,7 +3412,7 @@ static OBJECT_INFO *load_file( char *ifilename, int *n_ids, char *err_buff,
          case 'q': case 'Q': case 27:
             free( prev_files);
             *err_buff = '\0';    /* signals 'cancel' */
-            return( NULL);
+            return( nullptr);
             break;
          }
       }
@@ -3422,7 +3422,7 @@ static OBJECT_INFO *load_file( char *ifilename, int *n_ids, char *err_buff,
       strlcpy_err( err_buff,
                "'findorb' needs the name of an input file of MPC-formatted\n"
                "astrometry as a command-line argument.\n", err_buff_size);
-      return( NULL);
+      return( nullptr);
       }
 
    if( !strcmp( ifilename, "c") || !strcmp( ifilename, "c+")
@@ -3435,13 +3435,13 @@ static OBJECT_INFO *load_file( char *ifilename, int *n_ids, char *err_buff,
          inquire( get_find_orb_text(
 
                         2076  /* "Clipboard is empty" */
-                                    ), NULL, 0, COLOR_MESSAGE_TO_USER);
+                                    ), nullptr, 0, COLOR_MESSAGE_TO_USER);
       strcpy( ifilename, temp_obs_filename);
       is_temp_file = true;
       }
 
    show_splash_screen( );
-   ids = find_objects_in_file( ifilename, n_ids, NULL);
+   ids = find_objects_in_file( ifilename, n_ids, nullptr);
    if( *n_ids > 0 && drop_single_obs)
       {
       int i, j;
@@ -3464,14 +3464,14 @@ static OBJECT_INFO *load_file( char *ifilename, int *n_ids, char *err_buff,
       snprintf_err( err_buff, err_buff_size, err_msg, ifilename);
       if( ids)
          free( ids);
-      ids = NULL;
+      ids = nullptr;
       }
    else if( !is_temp_file)
       {
       FILE *ofile = fopen_ext( prev_fn, "fcw");
       char canonical_path[MAX_PATH];
       DWORD len =
-                 GetFullPathNameA( ifilename, MAX_PATH, canonical_path, NULL);
+                 GetFullPathNameA( ifilename, MAX_PATH, canonical_path, nullptr);
 
       assert( len && len < MAX_PATH);
       set_solutions_found( ids, *n_ids);
@@ -3505,7 +3505,7 @@ static int non_grav_menu( char *message_to_user)
    strlcpy_error( buff, get_find_orb_text( 2060));
    _set_radio_button( buff, (int)i);
    help_file_name = "nongravs.txt";
-   c = full_inquire( buff, NULL, 0, COLOR_MENU, -1, -1);
+   c = full_inquire( buff, nullptr, 0, COLOR_MENU, -1, -1);
    if( c >= KEY_F(1) && c <= KEY_F(8))
       c -= KEY_F( 1);
    else
@@ -3541,7 +3541,7 @@ static int _obs_format_menu( int residual_format, const bool is_time_fmt)
    assert( curr_format < n_formats);
    _set_radio_button( tbuff, curr_format);
 // help_file_name = (is_time_fmt ? "time_fmt.txt" : "radecfmt.txt");
-   c = full_inquire( tbuff, NULL, 0, COLOR_MENU, -1, -1);
+   c = full_inquire( tbuff, nullptr, 0, COLOR_MENU, -1, -1);
    if( c >= KEY_F(1) && c <= KEY_F(14))
       c -= KEY_F( 1);
    else
@@ -3568,7 +3568,7 @@ static int resid_format_menu( char *message_to_user, int resid_format)
       option_selected = 1;
    _set_radio_button( buff, option_selected);
    help_file_name = "residfmt.txt";
-   c = full_inquire( buff, NULL, 0, COLOR_MENU, -1, -1);
+   c = full_inquire( buff, nullptr, 0, COLOR_MENU, -1, -1);
    if( c >= KEY_F(1) && c <= KEY_F(3))
       c += '0' - KEY_F( 1);
    if( c >= '0' && c <= '2')
@@ -3633,7 +3633,7 @@ static void setup_elements_dialog( char *buff, const char *constraints)
       }
    while( fgets( tbuff, sizeof( tbuff), ifile))
       if( !memcmp( tbuff, "Epoch ", 6)
-                     && (tptr = strstr( tbuff + 6, " TT")) != NULL)
+                     && (tptr = strstr( tbuff + 6, " TT")) != nullptr)
          {
          *tptr = '\0';
          text_search_and_replace( buff, "$EPO", tbuff + 6);
@@ -3645,7 +3645,7 @@ static void eop_info_text( char *buff, const size_t buffsize)
 {
    int eop_range[3];
 
-   load_earth_orientation_params( NULL, eop_range);
+   load_earth_orientation_params( nullptr, eop_range);
    if( eop_range[0])
       {
       char date_buff[3][50];
@@ -3665,7 +3665,7 @@ static void eop_info_text( char *buff, const size_t buffsize)
 static void debias_info_text( char *buff, const size_t buffsize)
 {
    const int debias_version = find_fcct_biases( 1., 1., 0,
-                           0., NULL, NULL);
+                           0., nullptr, nullptr);
 
    if( debias_version > 2000)
       {
@@ -3708,7 +3708,7 @@ static void show_splash_screen( void)
             for( i = 0; i < lines && fgets_trimmed( buff, sizeof( buff), ifile); i++)
                if( show_it)
                   {
-                  text_search_and_replace( buff, "$v", find_orb_version_jd( NULL));
+                  text_search_and_replace( buff, "$v", find_orb_version_jd( nullptr));
                   text_search_and_replace( buff, "$d", debias_text);
                   text_search_and_replace( buff, "$e1", eop_line_1);
                   text_search_and_replace( buff, "$e2", (eop_line_2 ? eop_line_2 : ""));
@@ -3756,7 +3756,7 @@ static void show_hint_text( const unsigned mouse_x, const unsigned mouse_y,
          prev_scr[i] ^= A_REVERSE;
       mvaddchnstr( line, col, prev_scr, len);
       if( !pass)
-         full_inquire( text, NULL, HINT_TEXT, COLOR_MENU, mouse_y, mouse_x);
+         full_inquire( text, nullptr, HINT_TEXT, COLOR_MENU, mouse_y, mouse_x);
       }
 }
 
@@ -3842,7 +3842,7 @@ int main( int argc, const char **argv)
    bool is_monte_orbit = false;
    unsigned list_codes = SHOW_MPC_CODES_NORMAL;
    int i, quit = 0, n_obs = 0, clock_line = 0;
-   OBSERVE   *obs = NULL;
+   OBSERVE   *obs = nullptr;
    int curr_obs = 0;
    double epoch_shown, curr_epoch, orbit[MAX_N_PARAMS];
    double r1 = 1., r2 = 1.;
@@ -3851,7 +3851,7 @@ int main( int argc, const char **argv)
    int residual_format = RESIDUAL_FORMAT_80_COL, bad_elements = 0;
    int element_format = 0, debug_mouse_messages = 0, prev_getch = 0;
    int auto_repeat_full_improvement = 0, n_ids = 0, planet_orbiting = 0;
-   OBJECT_INFO *ids = NULL;
+   OBJECT_INFO *ids = nullptr;
    double noise_in_sigmas = 1.;
    double monte_data[MONTE_DATA_SIZE];
    extern int monte_carlo_object_count;
@@ -3911,7 +3911,7 @@ int main( int argc, const char **argv)
                   {           /* warn that packed desig is overlong */
                   snprintf_err( tbuff, sizeof( tbuff), get_find_orb_text( 2066),
                         arg, (int)strlen( arg));
-                  inquire( tbuff, NULL, 30, COLOR_DEFAULT_INQUIRY);
+                  inquire( tbuff, nullptr, 30, COLOR_DEFAULT_INQUIRY);
                   return( -1);
                   }
                }
@@ -4020,11 +4020,11 @@ int main( int argc, const char **argv)
                   if( len)
                      minimum_observation_jd =
                           get_time_from_string( 0., tbuff,
-                          FULL_CTIME_YMD | CALENDAR_JULIAN_GREGORIAN, NULL);
+                          FULL_CTIME_YMD | CALENDAR_JULIAN_GREGORIAN, nullptr);
                   if( comma[1])
                      maximum_observation_jd =
                           get_time_from_string( 0., comma + 1,
-                          FULL_CTIME_YMD | CALENDAR_JULIAN_GREGORIAN, NULL);
+                          FULL_CTIME_YMD | CALENDAR_JULIAN_GREGORIAN, nullptr);
                   else
                      maximum_observation_jd = 1e+9;
                   }
@@ -4144,7 +4144,7 @@ int main( int argc, const char **argv)
             if( !new_ids && *tbuff)
                {
                *ifilename = '\0';
-               inquire( tbuff, NULL, 30, COLOR_DEFAULT_INQUIRY);
+               inquire( tbuff, nullptr, 30, COLOR_DEFAULT_INQUIRY);
                }
             if( new_ids)
                {
@@ -4308,7 +4308,7 @@ int main( int argc, const char **argv)
                text_search_and_replace( tbuff, "\xf8", "\xc2\xb0 ");
             }
          if( sort_obs_by_code)
-            shellsort_r( obs, n_obs, sizeof( OBSERVE), compare_observations, NULL);
+            shellsort_r( obs, n_obs, sizeof( OBSERVE), compare_observations, nullptr);
          while( *tptr)
             {
             size_t i;
@@ -4464,10 +4464,10 @@ int main( int argc, const char **argv)
       top_line_residuals = line_no;
 /*    if( c != KEY_TIMER) */
          {
-         const int n_mpc_codes = find_mpc_color( mpc_color_codes, NULL);
+         const int n_mpc_codes = find_mpc_color( mpc_color_codes, nullptr);
          int lines_available;
 
-         n_stations_shown = show_station_info( NULL, n_obs,
+         n_stations_shown = show_station_info( nullptr, n_obs,
                      line_no, curr_obs, list_codes);
 
          lines_available = getmaxy( stdscr) - n_stations_shown - line_no;
@@ -4512,7 +4512,7 @@ int main( int argc, const char **argv)
          refresh( );
       show_final_line( n_obs, curr_obs, COLOR_FINAL_LINE);
       if( sort_obs_by_code)
-         shellsort_r( obs, n_obs, sizeof( OBSERVE), compare_observations, NULL);
+         shellsort_r( obs, n_obs, sizeof( OBSERVE), compare_observations, nullptr);
       if( debug_level)
          refresh( );
       if( *message_to_user)
@@ -4555,7 +4555,7 @@ int main( int argc, const char **argv)
                {
                if( (n_ticks_elapsed % 20 == 0) && clock_line)
                   {                          /* update clock once a second */
-                  const time_t t0 = time( NULL);
+                  const time_t t0 = time( nullptr);
 
                   strlcpy_error( tbuff, ctime( &t0) + 11);
                   tbuff[9] = '\0';
@@ -4606,7 +4606,7 @@ int main( int argc, const char **argv)
                            {
                            double dt, utc;
 
-                           utc = utc_from_td( obs[i].jd, NULL);
+                           utc = utc_from_td( obs[i].jd, nullptr);
                            dt = current_jd( ) - utc;
 
                            full_ctime( tbuff, utc, CALENDAR_JULIAN_GREGORIAN
@@ -4672,7 +4672,7 @@ int main( int argc, const char **argv)
       *message_to_user = '\0';
       if( c == KEY_MOUSE && !(button & REPORT_MOUSE_POSITION))
          {
-         c = find_command_area( mouse_x, mouse_y, NULL);
+         c = find_command_area( mouse_x, mouse_y, nullptr);
          if( c == KEY_OBSCODE_CLICKED)
             {
             curr_obs = top_obs_shown + (mouse_y - top_line_residuals);
@@ -4727,7 +4727,7 @@ int main( int argc, const char **argv)
             else
                {
                help_file_name = "mpc_area.txt";
-               c1 = full_inquire( tbuff, NULL, 0, COLOR_MENU, mouse_y, mouse_x);
+               c1 = full_inquire( tbuff, nullptr, 0, COLOR_MENU, mouse_y, mouse_x);
                }
             if( c1 >= KEY_F(1) && c1 <= KEY_F(3))
                list_codes = c1 - KEY_F(1);
@@ -4820,7 +4820,7 @@ int main( int argc, const char **argv)
 
                         strlcpy_error( tbuff, get_find_orb_text( 2022));
                         text_search_and_replace( tbuff, "$", search_code);
-                        i = full_inquire( tbuff, NULL, 0, COLOR_MENU, mouse_y, mouse_x);
+                        i = full_inquire( tbuff, nullptr, 0, COLOR_MENU, mouse_y, mouse_x);
                         switch( i)
                            {
                            case KEY_F( 1) :       /* toggle obs */
@@ -4877,7 +4877,7 @@ int main( int argc, const char **argv)
                {                 /* right or middle button click/release */
                setup_elements_dialog( tbuff, orbit_constraints);
                help_file_name = "elem_pop.txt";
-               i = full_inquire( tbuff, NULL, 0,
+               i = full_inquire( tbuff, nullptr, 0,
                                COLOR_MENU, mouse_y, mouse_x);
                c = KEY_MOUSE;
                switch( i)
@@ -5072,7 +5072,7 @@ int main( int argc, const char **argv)
                   if( !inquire( get_find_orb_text( 2099), tbuff, sizeof( tbuff),
                             COLOR_DEFAULT_INQUIRY) && *tbuff)
                      orbit[9] = get_time_from_string( obs->jd, tbuff,
-                             FULL_CTIME_YMD | CALENDAR_JULIAN_GREGORIAN, NULL);
+                             FULL_CTIME_YMD | CALENDAR_JULIAN_GREGORIAN, nullptr);
                   if( orbit[9] < obs->jd || orbit[9] > obs[n_obs - 1].jd)
                      force_model = FORCE_MODEL_NO_NONGRAVS;
                   }
@@ -5172,7 +5172,7 @@ int main( int argc, const char **argv)
          case CTRL( 'A'):           /* statistical ranging */
          case AUTO_REPEATING:
             {
-            double *stored_ra_decs = NULL;
+            double *stored_ra_decs = nullptr;
             int err = 0;
             extern int using_sr;
             const clock_t t0 = clock( );
@@ -5208,7 +5208,7 @@ int main( int argc, const char **argv)
                memcpy( orbit, sr.orbit, 6 * sizeof( double));
                adjust_herget_results( obs, n_obs, orbit);
                         /* epoch is that of first included observation: */
-               get_epoch_range_of_included_obs( obs, n_obs, &curr_epoch, NULL);
+               get_epoch_range_of_included_obs( obs, n_obs, &curr_epoch, nullptr);
                }
             else
                {
@@ -5371,7 +5371,7 @@ int main( int argc, const char **argv)
                   {
                   r1 += d_r1;
                   r2 += d_r2;
-                  herget_method( obs, n_obs, r1, r2, orbit, NULL, NULL, NULL);
+                  herget_method( obs, n_obs, r1, r2, orbit, nullptr, nullptr, nullptr);
                   }
                }
             if( c != 'H')
@@ -5394,7 +5394,7 @@ int main( int argc, const char **argv)
             break;
          case '<':
             push_orbit( curr_epoch, orbit);
-            herget_method( obs, n_obs, r1, r2, orbit, NULL, NULL, NULL);
+            herget_method( obs, n_obs, r1, r2, orbit, nullptr, nullptr, nullptr);
             for( i = 0; i < n_obs - 1 && !obs[i].is_included; i++)
                ;
             curr_epoch = obs[i].jd;
@@ -5729,8 +5729,8 @@ int main( int argc, const char **argv)
             push_orbit( curr_epoch, orbit);
             if( n_fields == 1)      /* simple Vaisala */
                {
-               herget_method( obs, n_obs, -vaisala_dist, 0., orbit, NULL, NULL,
-                                                   NULL);
+               herget_method( obs, n_obs, -vaisala_dist, 0., orbit, nullptr, nullptr,
+                                                   nullptr);
                if( c != 'V')
                   adjust_herget_results( obs, n_obs, orbit);
                success = 1;
@@ -5780,7 +5780,7 @@ int main( int argc, const char **argv)
             if( success == 1)
                {
                         /* epoch is that of first included observation: */
-               get_epoch_range_of_included_obs( obs, n_obs, &curr_epoch, NULL);
+               get_epoch_range_of_included_obs( obs, n_obs, &curr_epoch, nullptr);
                get_r1_and_r2( n_obs, obs, &r1, &r2);
                update_element_display = 1;
                }
@@ -5794,7 +5794,7 @@ int main( int argc, const char **argv)
             if( prev_getch == 'w')
                {
                if( residual_format & RESIDUAL_FORMAT_NORMALIZED)
-                  top_rms = compute_weighted_rms( obs + curr_obs, 1, NULL);
+                  top_rms = compute_weighted_rms( obs + curr_obs, 1, nullptr);
                else
                   top_rms = compute_rms( obs + curr_obs, 1);
                }
@@ -5803,7 +5803,7 @@ int main( int argc, const char **argv)
                 if( obs[i].is_included)
                    {
                    if( residual_format & RESIDUAL_FORMAT_NORMALIZED)
-                      rms = compute_weighted_rms( obs + i, 1, NULL);
+                      rms = compute_weighted_rms( obs + i, 1, nullptr);
                    else
                       rms = compute_rms( obs + i, 1);
                    if( rms > worst_rms && rms < top_rms)
@@ -6078,7 +6078,7 @@ int main( int argc, const char **argv)
                         "%d pairs of %d colors\n", COLOR_PAIRS, COLORS);
             if( can_change_color( ))
                strlcat_error( tbuff, "Colors are changeable\n");
-            inquire( tbuff, NULL, 0, COLOR_DEFAULT_INQUIRY);
+            inquire( tbuff, nullptr, 0, COLOR_DEFAULT_INQUIRY);
             }
             break;
 #ifdef KEY_RESIZE
@@ -6225,7 +6225,7 @@ int main( int argc, const char **argv)
                else
                   {
                   const double jd = get_time_from_string( obs[curr_obs].jd,
-                                 tbuff, CALENDAR_JULIAN_GREGORIAN, NULL);
+                                 tbuff, CALENDAR_JULIAN_GREGORIAN, nullptr);
 
                   if( jd)
                      for( curr_obs = 0; curr_obs < n_obs &&
@@ -6271,7 +6271,7 @@ int main( int argc, const char **argv)
             }
             break;
          case 'u': case 'U':
-            full_improvement( NULL, 0, NULL, 0., NULL, 0, 0.);
+            full_improvement( nullptr, 0, nullptr, 0., nullptr, 0, 0.);
             break;
          case ALT_E:
             full_ctime( tbuff, curr_epoch, FULL_CTIME_YMD | FULL_CTIME_MILLIDAYS);
@@ -6293,7 +6293,7 @@ int main( int argc, const char **argv)
             {
             const char *language_letters = "efirsd";
 
-            c = inquire( get_find_orb_text( 2035), NULL, 0, COLOR_DEFAULT_INQUIRY);
+            c = inquire( get_find_orb_text( 2035), nullptr, 0, COLOR_DEFAULT_INQUIRY);
             if( c >= KEY_F( 1) && c <= KEY_F( 6))
                c = language_letters[c - KEY_F( 1)];
             if( strchr( language_letters, c))
@@ -6339,7 +6339,7 @@ int main( int argc, const char **argv)
             make_config_dir_name( tbuff, elements_filename);
             i = copy_file_to_clipboard( tbuff);
             if( i)
-               inquire( get_find_orb_text( 2039), NULL, 0,
+               inquire( get_find_orb_text( 2039), nullptr, 0,
                                     COLOR_MESSAGE_TO_USER);
             else
                strlcpy_error( message_to_user, "Elements copied to clipboard");

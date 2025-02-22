@@ -352,7 +352,7 @@ int /*DLL_FUNC*/ comet_posn_and_vel( ELEMENTS   *elem, double t,
 
 int /*DLL_FUNC*/ comet_posn( ELEMENTS   *elem, double t, double   *loc)
 {
-   return( comet_posn_and_vel( elem, t, loc, NULL));
+   return( comet_posn_and_vel( elem, t, loc, nullptr));
 }
 
 double /*DLL_FUNC*/ phase_angle_correction_to_magnitude( const double phase_angle,

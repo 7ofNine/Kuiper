@@ -107,11 +107,11 @@ double gauss_method( const OBSERVE   *obs1, const OBSERVE   *obs2,
    double poly[9], roots[8], r2;
    int i, n_roots, iteration, keep_iterating = 1;
    extern int process_count;
-   FILE *ofile = (process_count? NULL : fopen_ext( "gauss.out", "tfcwb"));
+   FILE *ofile = (process_count? nullptr : fopen_ext( "gauss.out", "tfcwb"));
 
    if( ofile)
       {
-      setvbuf( ofile, NULL, _IONBF, 0);
+      setvbuf( ofile, nullptr, _IONBF, 0);
       fprintf( ofile, "jds: %f %f %f; d0 = %g\n", obs1->jd, obs2->jd, obs3->jd, d0);
       fprintf( ofile, "Loc1: %f %f\n", obs1->ra * 180. / pi, obs1->dec * 180. / pi);
       fprintf( ofile, "Loc2: %f %f\n", obs2->ra * 180. / pi, obs2->dec * 180. / pi);
