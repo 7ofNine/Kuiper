@@ -1,9 +1,9 @@
-#include <string.h>
+#include <cstring>
 #include "stringex.h"
-#include <stdio.h>
-#include <stdint.h>
-#include <assert.h>
-#include <math.h>
+#include <cstdio>
+#include <cstdint>
+#include <cassert>
+#include <cmath>
 #include "mpc_func.h"
 
 static int64_t ten_to_the_nth( int n)

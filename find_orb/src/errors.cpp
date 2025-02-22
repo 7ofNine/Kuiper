@@ -15,11 +15,11 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 02110-1301, USA. */
 
-#include <math.h>
-#include <assert.h>
+#include <cmath>
+#include <cassert>
 #ifdef TEST_CODE
-#include <stdio.h>
-#include <stdlib.h>
+#include <cstdio>
+#include <cstdlib>
 #endif          /* #ifdef TEST_CODE */
 
 #define PI 3.1415926535897932384626433832795028841971693993751058209749445923

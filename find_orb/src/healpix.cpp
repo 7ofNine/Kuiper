@@ -15,7 +15,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 02110-1301, USA. */
 
-#include <math.h>
+#include <cmath>
 
 /* HEALPix functions.   The algorithm to subdivide the sky in equal area
 tiles is described by Gorsky et al. 2005
@@ -203,8 +203,8 @@ unsigned xy_to_healpix_nested( const double x, const double y, const unsigned N)
    return( rval);
 }
 
-#include <stdio.h>
-#include <stdlib.h>
+#include <cstdio>
+#include <cstdlib>
 
 #ifdef OLD_TEST_MAIN
 

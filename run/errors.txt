@@ -12,3 +12,6 @@ J009S        :  29.975250/1625.899815 of arclength used
     Example2 :  no sigmas
     Example2 :  no sigmas
 J009S        :  29.975250/1625.899815 of arclength used
+     Mir     :  0.000695/0.006250 of arclength used
+     Mir     :  0.000695/0.006250 of arclength used
+     Mir     :  0.000695/0.006250 of arclength used

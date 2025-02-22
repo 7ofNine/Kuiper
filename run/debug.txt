@@ -27636,3 +27636,10 @@ J009S         C1989 02 25.08233  3 49 27.27 +20  7 27.3         x            711
 will be ignored.
 17:19:30  28 observations loaded
 17:19:30 1988 Nov. 3-1993 Apr. 17
+20:25:04 Full improvement failure!      Mir    
+20:25:04      Mir     failed; trying more SR orbits
+20:25:05 Error opening link_def.json: No such file or directory
+20:26:48 Full improvement failure!      Mir    
+20:26:48      Mir     failed; trying more SR orbits
+20:38:24 Full improvement failure!      Mir    
+20:38:24      Mir     failed; trying more SR orbits

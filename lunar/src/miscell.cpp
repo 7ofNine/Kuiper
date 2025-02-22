@@ -20,12 +20,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #define __USE_MINGW_ANSI_STDIO 1
          /* above causes MinGW to use "real" long doubles */
 
-#include <stdio.h>
-#include <math.h>
-#include <stdlib.h>
-#include <assert.h>
-#include <string.h>
-#include <ctype.h>
+#include <cstdio>
+#include <cmath>
+#include <cstdlib>
+#include <cassert>
+#include <cstring>
+#include <cctype>
 
 #include "stringex.h"
 #include "afuncs.h"

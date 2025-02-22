@@ -1,10 +1,10 @@
 /* Copyright (C) 2018, Project Pluto.  See LICENSE.  */
 
-#include <string.h>
-#include <stdint.h>
-#include <assert.h>
-#include <stdlib.h>
-#include <stdio.h>
+#include <cstring>
+#include <cstdint>
+#include <cassert>
+#include <cstdlib>
+#include <cstdio>
 #include "norad.h"
 
 #define PI 3.141592653589793238462643383279502884197

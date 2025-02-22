@@ -15,12 +15,12 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 02110-1301, USA. */
 
-#include <math.h>
-#include <string.h>
-#include <stdlib.h>
-#include <assert.h>
-#include <stdio.h>
-#include <ctype.h>
+#include <cmath>
+#include <cstring>
+#include <cstdlib>
+#include <cassert>
+#include <cstdio>
+#include <cctype>
 #include <time.h>
 
 #include "mpc_func.h"

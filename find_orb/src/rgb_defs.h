@@ -8,9 +8,9 @@ colors are shown at https://xkcd.com/color/rgb/ .
    Code snippet used to convert 'rgb.txt' to the following
 #defines is...
 
-#include <stdio.h>
-#include <string.h>
-#include <assert.h>
+#include <cstdio>
+#include <cstring>
+#include <cassert>
 
 int main( const int argc, const char **argv)
 {

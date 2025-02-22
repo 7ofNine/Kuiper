@@ -8,12 +8,12 @@
 
 
 #include <wchar.h>
-#include <assert.h>
+#include <cassert>
 
 
-#include <stdlib.h>
+#include <cstdlib>
 
-#include <string.h>
+#include <cstring>
 
 
 extern "C" {

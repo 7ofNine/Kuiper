@@ -20,13 +20,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 
 #include <direct.h>        /* for _mkdir() definition */
 #include <sys/types.h>
-#include <math.h>
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
+#include <cmath>
+#include <cstdio>
+#include <cstring>
+#include <cstdlib>
 #include <time.h>
-#include <ctype.h>
-#include <assert.h>
+#include <cctype>
+#include <cassert>
 //
 #include "afuncs.h"
 #include "lunar.h"

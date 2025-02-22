@@ -1,7 +1,7 @@
-#include <stdio.h>
-#include <ctype.h>
-#include <string.h>
-#include <stdlib.h>
+#include <cstdio>
+#include <cctype>
+#include <cstring>
+#include <cstdlib>
 
 #include "mpc_func.h"
 #include "stringex.h"

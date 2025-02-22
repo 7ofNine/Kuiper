@@ -65,16 +65,16 @@ multiplies the two matrices. (With some logic to skip some steps if
 t1=2000 or t2=2000,  where you'd get identity matrices anyway.)  Thus,
 precession and inverse precession are exactly inverse operations.    */
 
-#include <math.h>
-#include <string.h>
-#include <stdio.h>
+#include <cmath>
+#include <cstring>
+#include <cstdio>
 
 #include "afuncs.h"
 #include "lunar.h"         /* for obliquity( ) prototype */
 
 #define PI 3.1415926535897932384626433832795028841971693993751058209749445923078
 
-#include <stdlib.h>
+#include <cstdlib>
 
 int /*DLL_FUNC*/ setup_precession_with_nutation( double   *matrix,
                     const double year);         /* precess.c */
@@ -341,8 +341,8 @@ int /*DLL_FUNC*/ precess_ra_dec( const double   *matrix,
 
 #ifdef TEST_PRECESS
 
-#include <stdio.h>
-#include <stdlib.h>
+#include <cstdio>
+#include <cstdlib>
 
 int main( const int argc, const char **argv)
 {

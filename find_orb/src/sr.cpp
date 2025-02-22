@@ -210,7 +210,7 @@ int find_sr_ranges( double *ranges, const double *q1, const double *p1,
 
 gcc -DTEST_MAIN -o sr sr.cpp roots.cpp       */
 
-#include <stdio.h>
+#include <cstdio>
 
 #define GAUSS_K .01720209895
 #define SOLAR_GM (GAUSS_K * GAUSS_K)

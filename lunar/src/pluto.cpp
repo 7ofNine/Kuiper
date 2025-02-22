@@ -17,9 +17,9 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 02110-1301, USA.    */
 
-#include <math.h>
-#include <stdlib.h>
-#include <stdint.h>
+#include <cmath>
+#include <cstdlib>
+#include <cstdint>
 
 #include "lunar.h"
 
@@ -111,9 +111,9 @@ int /*DLL_FUNC*/ calc_pluto_loc( const void   *data, double   *loc,
 
 g++ -Wall -Wextra -pedantic -DTEST_PROGRAM -o pluto pluto.cpp        */
 
-#include <assert.h>
-#include <stdio.h>
-#include <stdlib.h>
+#include <cassert>
+#include <cstdio>
+#include <cstdlib>
 
 int main([[maybe_unused]] const int argc, [[maybe_unused]] const char **argv)
 {

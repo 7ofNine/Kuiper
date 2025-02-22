@@ -22,13 +22,13 @@ parsing in my software.
 
    See 'adestest.cpp' for a simple example of its use.   */
 
-#include <string.h>
-#include <assert.h>
-#include <stdlib.h>
-#include <math.h>
+#include <cstring>
+#include <cassert>
+#include <cstdlib>
+#include <cmath>
 #include "stringex.h"
-#include <stdio.h>
-#include <ctype.h>
+#include <cstdio>
+#include <cctype>
 //
 #include "date.h"
 #include "mpc_func.h"

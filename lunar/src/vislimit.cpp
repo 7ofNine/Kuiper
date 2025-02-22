@@ -91,10 +91,10 @@ V = 3.8312 - 2.5 * log10( Bm / 1.11e-6)
 See the 'test program' below for example usage. */
 
 #ifdef TEST_STATEMENTS
-#include <stdio.h>
+#include <cstdio>
 #endif
 
-#include <math.h>
+#include <cmath>
 #include "vislimit.h"
 
 #define MAG_TO_BRIGHTNESS( X) (exp( -.4 * (X) * LOG_10))
@@ -310,8 +310,8 @@ int /*DLL_FUNC*/ compute_sky_brightness( BRIGHTNESS_DATA *b)
 }
 
 #ifdef TEST_PROGRAM
-#include <stdio.h>
-#include <stdlib.h>
+#include <cstdio>
+#include <cstdlib>
 
 int main( const int argc, const char **argv)
 {

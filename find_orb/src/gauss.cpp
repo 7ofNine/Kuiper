@@ -17,9 +17,9 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 02110-1301, USA.    */
 
-#include <stdio.h>
-#include <stdint.h>
-#include <math.h>
+#include <cstdio>
+#include <cstdint>
+#include <cmath>
 //
 #include "mpc_obs.h"
 #include "afuncs.h"

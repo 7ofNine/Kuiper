@@ -53,12 +53,12 @@ The code has been modified to be a separately linkable component,  with
 details of the implementation encapsulated.
 *****************************************************************************/
 
-#include <stdio.h>
-#include <assert.h>
-#include <math.h>
-#include <string.h>
-#include <stdlib.h>
-#include <stdint.h>
+#include <cstdio>
+#include <cassert>
+#include <cmath>
+#include <cstring>
+#include <cstdlib>
+#include <cstdint>
 
 /**** include variable and type definitions, specific for this C version */
 

@@ -17,16 +17,16 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 02110-1301, USA.    */
 
-#include <stdio.h>
-#include <ctype.h>
-#include <stdlib.h>
-#include <stdint.h>
-#include <string.h>
-#include <math.h>
+#include <cstdio>
+#include <cctype>
+#include <cstdlib>
+#include <cstdint>
+#include <cstring>
+#include <cmath>
 #include <time.h>
 #include <windows.h>
 #include <stdarg.h>
-#include <assert.h>
+#include <cassert>
 #include <errno.h>
 //
 #include "details.h"

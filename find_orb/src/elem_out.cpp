@@ -19,13 +19,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 
 #define __STDC_FORMAT_MACROS
 
-#include <math.h>
-#include <stdlib.h>
-#include <string.h>
-#include <stdio.h>
+#include <cmath>
+#include <cstdlib>
+#include <cstring>
+#include <cstdio>
 #include <time.h>
-#include <assert.h>
-#include <ctype.h>
+#include <cassert>
+#include <cctype>
 #include <sys/stat.h>
 //
 #include "comets.h"

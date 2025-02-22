@@ -5,11 +5,12 @@ elements into the "standard" TLE (Two-Line Element) form described at
 
 https://en.wikipedia.org/wiki/Two-line_elements       */
 
-#include <stdio.h>
-#include <string.h>
-#include <stdint.h>
-#include <math.h>
-#include <assert.h>
+#include <cstdio>
+#include <cstring>
+#include <cstdint>
+#include <cmath>
+#include <cassert>
+
 #include "norad.h"
 
       /* Useful constants to define,  in case the value of PI or the number

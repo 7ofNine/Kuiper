@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 02110-1301, USA.    */
 
 #ifdef TEST_PROGRAM
-#include <stdio.h>
+#include <cstdio>
 #endif
-#include <stdint.h>
-#include <math.h>
+#include <cstdint>
+#include <cmath>
 
 #include "lunar.h"
 
@@ -245,7 +245,7 @@ int /*DLL_FUNC*/ nutation( const double t, double   *d_lon,
 
 #ifdef TEST_PROGRAM
 
-#include <stdlib.h>
+#include <cstdlib>
 
 int main( const int argc, const char **argv)
 {

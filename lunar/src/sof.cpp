@@ -18,11 +18,11 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 02110-1301, USA.    */
 
-#include <string.h>
-#include <assert.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <math.h>
+#include <cstring>
+#include <cassert>
+#include <cstdlib>
+#include <cstdio>
+#include <cmath>
 
 #include "comets.h"
 #include "date.h"

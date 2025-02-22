@@ -85,8 +85,8 @@ bother finishing it, because the code is plenty fast enough for my needs
 at present;  the slight loss of precision inherent in removing roots this
 way is more worrisome than the slight gain in speed. */
 
-#include <math.h>       /* used for fabs( ) prototype */
-#include <assert.h>
+#include <cmath>       /* used for fabs( ) prototype */
+#include <cassert>
 
 int find_real_polynomial_roots( const double *poly, int poly_degree,
                                 double *real_roots);        /* roots.cpp */
@@ -441,8 +441,8 @@ int find_real_polynomial_roots( const double *poly, int poly_degree,
 test routine which can be run with coefficients on the command line.  The
 roots are then printed out on the console. */
 
-#include <stdio.h>
-#include <stdlib.h>
+#include <cstdio>
+#include <cstdlib>
 
 int main( const int argc, const char **argv)
 {

@@ -87,13 +87,13 @@ report is received. */
 static bool _mouse_movements_are_reported = false;
 
 #include <wchar.h>
-#include <math.h>
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <ctype.h>
+#include <cmath>
+#include <cstdio>
+#include <cstring>
+#include <cstdlib>
+#include <cctype>
 #include <time.h>
-#include <assert.h>
+#include <cassert>
 #include <sys/stat.h>
 #include <locale.h>
 //

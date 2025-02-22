@@ -1,6 +1,6 @@
 /* Copyright (C) 2018, Project Pluto.  See LICENSE.  */
 
-#include <math.h>
+#include <cmath>
 #include "observe.h"
 
 /*  Assorted functions useful in conjunction with the satellite code

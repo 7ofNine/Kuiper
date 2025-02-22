@@ -46,10 +46,10 @@ two minima may exist between points in the search grid.)
 https://www.researchgate.net/publication/325922027_On_the_minimum_orbital_intersection_distance_computation_A_new_effective_method
 */
 
-#include <assert.h>
-#include <string.h>
-#include <math.h>
-#include <stdio.h>
+#include <cassert>
+#include <cstring>
+#include <cmath>
+#include <cstdio>
 
 #include "brentmin.h"
 #include "comets.h"

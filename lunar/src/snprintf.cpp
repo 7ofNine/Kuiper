@@ -1,8 +1,8 @@
-#include <stdio.h>
+#include <cstdio>
 #include <stdarg.h>
-#include <assert.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cassert>
+#include <cstdlib>
+#include <cstring>
 
 #include "stringex.h"
 

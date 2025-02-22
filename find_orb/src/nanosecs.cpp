@@ -35,7 +35,7 @@ the computer's time is adjusted by NTP or the user,  the result may
 actually go backward.  If you want to know what time it is,  don't
 ask a computer.  */
 
-#include <stdint.h>
+#include <cstdint>
 
 int64_t nanoseconds_since_1970( void);                      /* nanosecs.c */
 

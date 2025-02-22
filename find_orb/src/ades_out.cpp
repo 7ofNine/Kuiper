@@ -26,14 +26,14 @@ current code is suitable for one very specific instance where I've been
 tasked to provide ADES output;  a solution to the more general case will
 have to wait for another day.       */
 
-#include <stdio.h>
-#include <stdint.h>
-#include <string.h>
+#include <cstdio>
+#include <cstdint>
+#include <cstring>
 #include <stringex.h>
-#include <stdlib.h>
-#include <assert.h>
-#include <math.h>
-#include <ctype.h>
+#include <cstdlib>
+#include <cassert>
+#include <cmath>
+#include <cctype>
 //
 #include "mpc_obs.h"
 #include "mpc_func.h"

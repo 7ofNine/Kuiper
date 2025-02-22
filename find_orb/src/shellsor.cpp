@@ -15,7 +15,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 02110-1301, USA. */
 
-#include <string.h>
+#include <cstring>
 
 #include <malloc.h>     /* for alloca() prototype */
 
@@ -93,7 +93,7 @@ the gap sequence and their factorizations.
 
 #if defined _GNU_SOURCE
    #define HAVE_REENTRANT_QSORT
-   #include <stdlib.h>
+   #include <cstdlib>
 #endif
 
 void shellsort_r( void *base, const size_t n_elements, const size_t elem_size,

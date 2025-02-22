@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 02110-1301, USA.    */
 
 
-#include <stdlib.h>
-#include <string.h>
-#include <assert.h>
-#include <math.h>
-#include <stdio.h>
+#include <cstdlib>
+#include <cstring>
+#include <cassert>
+#include <cmath>
+#include <cstdio>
 //
 #include "stringex.h"
 #include "comets.h"

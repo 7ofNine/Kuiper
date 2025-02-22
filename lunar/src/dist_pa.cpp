@@ -17,7 +17,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 02110-1301, USA.    */
 
-#include <math.h>
+#include <cmath>
 
 #include "afuncs.h"
 
@@ -155,8 +155,8 @@ void /*DLL_FUNC*/ reverse_dist_and_posn_ang( double *to, const double *from,
 
 #ifdef TEST_MAIN
 
-#include <stdlib.h>
-#include <stdio.h>
+#include <cstdlib>
+#include <cstdio>
 
 #include "afuncs.h"
 

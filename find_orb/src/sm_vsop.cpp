@@ -17,8 +17,8 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 02110-1301, USA.    */
 
-#include <math.h>
-#include <stdlib.h>
+#include <cmath>
+#include <cstdlib>
 //
 #include "afuncs.h"     /* for vector3_length() proto */
 
@@ -651,7 +651,7 @@ int check_for_perturbers( const double t_cen, const double *vect)
 /* A little test routine I used to verify that the above functions were
 computing reasonably correct planetary positions. */
 
-#include <stdio.h>
+#include <cstdio>
 
 void main( int argc, char **argv)
 {

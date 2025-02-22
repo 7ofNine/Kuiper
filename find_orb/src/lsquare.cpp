@@ -27,10 +27,10 @@ idea for nearly-singular matrices.  */
 
 // #define LSQUARE_ERROR_DEBUGGING
 
-#include <stdlib.h>
-#include <string.h>
-#include <math.h>
-#include <assert.h>
+#include <cstdlib>
+#include <cstring>
+#include <cmath>
+#include <cassert>
 #include "lsquare.h"
 
 #ifdef DEBUG_MEM
@@ -77,7 +77,7 @@ static inline ldouble lfabs( ldouble ival)
    return( ival > 0. ? ival : -ival);
 }
 
-#include <stdio.h>
+#include <cstdio>
 
 static FILE *debug_file;
 
@@ -494,7 +494,7 @@ void lsquare_free( void *lsquare)
 }
 
 #ifdef TEST_CODE
-#include <stdio.h>
+#include <cstdio>
 
 void main( int argc, char **argv)
 {

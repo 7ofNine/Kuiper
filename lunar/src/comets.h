@@ -38,7 +38,7 @@ ELEMENTS
 
 extern "C" {
 
-#include <stdint.h>
+#include <cstdint>
 
 // void calc_vectors( ELEMENTS *elem, const double sqrt_gm);
 int /*DLL_FUNC*/ calc_classical_elements( ELEMENTS *elem, const double *r,

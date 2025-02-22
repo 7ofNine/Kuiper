@@ -1,5 +1,5 @@
-#include <string.h>
-#include <stdint.h>
+#include <cstring>
+#include <cstdint>
 
 #include "afuncs.h"
 
@@ -369,8 +369,8 @@ bits (the uppermost bit is unused).  */
 #define RA(i)  (bounds[i].ra_spd & 0x1ffff)
 
 #ifdef TEST_MAIN
-   #include <stdio.h>
-   #include <stdlib.h>
+   #include <cstdio>
+   #include <cstdlib>
 #endif
 
 int /*DLL_FUNC*/ constell_from_ra_dec( const double ra_degrees_1875,

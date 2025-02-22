@@ -73,7 +73,7 @@ with URA091 on 22 Dec 2009.
       500 km of Horizons.  Added comments converting epoch JDs to
       calendar dates.  Improved the test routine.        */
 
-#include <math.h>
+#include <cmath>
 
 #define ROCK struct rock
 
@@ -712,9 +712,9 @@ int /*DLL_FUNC*/ evaluate_rock( const double jde, const int jpl_id,
 /* the result of evaluate_rock.  Comparison to Horizons is straightforward, */
 /* and indicates agreement to better than a meter.                          */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
 
 #define AU_IN_KM 1.495978707e+8
 

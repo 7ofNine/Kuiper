@@ -1,11 +1,13 @@
 /* Copyright (C) 2018, Project Pluto.  See LICENSE.  */
 
-#include <stddef.h>
-#include <math.h>
+#include <cstddef>
+#include <cmath>
+#include <cstdio>
+
 #include "norad.h"
 #include "norad_in.h"
 
-#include <stdio.h>
+
 
 /* For high satellites,  we do a numerical integration that uses a
 rather drastic set of simplifications.  We include the earth,

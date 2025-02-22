@@ -17,12 +17,12 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 02110-1301, USA.    */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
 #include <stdarg.h>
-#include <math.h>
-#include <assert.h>
+#include <cmath>
+#include <cassert>
 //
 #include "lunar.h"
 #include "afuncs.h"

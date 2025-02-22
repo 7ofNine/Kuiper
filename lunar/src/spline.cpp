@@ -15,9 +15,9 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 02110-1301, USA. */
 
-#include <math.h>       /* for floor() prototype */
-#include <stddef.h>     /* for nullptr definition   */
-#include <stdio.h>
+#include <cmath>       /* for floor() prototype */
+#include <cstddef>     /* for nullptr definition   */
+#include <cstdio>
 
 double cubic_spline_interpolate_within_table(      /* spline.cpp */
          const double *table, const int n_entries, double x, int *err_code);
@@ -180,8 +180,8 @@ double lagrange_interpolate_within_table( const double *table,
 
 #ifdef TEST_CODE
 
-#include <math.h>
-#include <stdio.h>
+#include <cmath>
+#include <cstdio>
 
 static void show_explanation( void)
 {

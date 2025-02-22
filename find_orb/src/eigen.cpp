@@ -17,8 +17,8 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 02110-1301, USA.    */
 
-#include <math.h>
-#include <assert.h>
+#include <cmath>
+#include <cassert>
 
 #define MAX_MATRIX_SIZE 40
 
@@ -26,7 +26,7 @@ void jacobi_eigenvalues( double *a, const int size, double *eigenvals,
                         double *eigenvects);       /* eigen.cpp */
 
 #ifdef TEST_PROGRAM
-#include <stdio.h>
+#include <cstdio>
 
 static void show_matrix( const double *a, const int size)
 {

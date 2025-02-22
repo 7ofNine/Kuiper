@@ -15,11 +15,11 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 02110-1301, USA. */
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <stdint.h>
-#include <string.h>
-#include <assert.h>
+#include <cstdlib>
+#include <cstdio>
+#include <cstdint>
+#include <cstring>
+#include <cassert>
 
 void ra_dec_to_xy( const double ra, const double dec, double *x, double *y);
 unsigned xy_to_healpix( const double x, const double y, const unsigned N);

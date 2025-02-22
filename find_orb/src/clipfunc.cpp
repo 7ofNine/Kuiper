@@ -17,7 +17,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 02110-1301, USA.    */
 
-#include <stdio.h>
+#include <cstdio>
 
 int copy_buffer_to_clipboard( const char *contents, const long length);
 int copy_file_to_clipboard( const char *filename);    /* clipfunc.cpp */

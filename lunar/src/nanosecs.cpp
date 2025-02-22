@@ -36,7 +36,7 @@ actually go backward.  If you want to know what time it is,  don't
 ask a computer.  */
 
 #include <windows.h>
-#include <stdint.h>
+#include <cstdint>
 
 #include "afuncs.h"
 

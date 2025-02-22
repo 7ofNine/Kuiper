@@ -1,6 +1,6 @@
 /* Copyright (C) 2018, Project Pluto.  See LICENSE.  */
 
-#include <math.h>
+#include <cmath>
 #include "norad.h"
 #include "norad_in.h"
 

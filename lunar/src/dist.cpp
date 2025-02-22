@@ -15,9 +15,9 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 02110-1301, USA. */
 
-#include <math.h>
-#include <stdio.h>
-#include <stdlib.h>
+#include <cmath>
+#include <cstdio>
+#include <cstdlib>
 
 /* 2012 Jul 22:  (BJG) Debugging statements are now shown only if
 one defines DEBUGGING_STATEMENTS.  The Vincenty routine will compute

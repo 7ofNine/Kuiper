@@ -15,11 +15,11 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 02110-1301, USA. */
 
-#include <stdlib.h>
-#include <math.h>
-#include <stdio.h>
-#include <string.h>
-#include <assert.h>
+#include <cstdlib>
+#include <cmath>
+#include <cstdio>
+#include <cstring>
+#include <cassert>
 //
 #include "comets.h"
 #include "mpc_obs.h"
@@ -143,7 +143,7 @@ void restore_ra_decs_mags_times( unsigned n_obs, OBSERVE *obs,
       }
 }
 
-#include <stdint.h>
+#include <cstdint>
 
 /* Defining 64-bit constants portably and avoiding nuisance warnings
 is rather difficult to arrange,  but can be done. */

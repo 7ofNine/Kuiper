@@ -15,13 +15,13 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 02110-1301, USA. */
 
-#include <stdio.h>
-#include <ctype.h>
-#include <string.h>
-#include <stdlib.h>
-#include <stdint.h>
+#include <cstdio>
+#include <cctype>
+#include <cstring>
+#include <cstdlib>
+#include <cstdint>
 #include <stdarg.h>
-#include <assert.h>
+#include <cassert>
 #include <errno.h>
 #include "stringex.h"
 #include "mpc_func.h"

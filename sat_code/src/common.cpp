@@ -1,7 +1,7 @@
 /* Copyright (C) 2018, Project Pluto.  See LICENSE. */
 
-#include <math.h>
-#include <assert.h>
+#include <cmath>
+#include <cassert>
 #include "norad.h"
 #include "norad_in.h"
 
@@ -162,7 +162,7 @@ int sxpx_posn_vel( const double xnode, const double a, const double ecc,
    for( i = 0; i < 3; i++)
       {
       pos[i] = 0.;
-      if( vel)
+      if(vel)
          vel[i] = 0.;
       }
    if( rval)

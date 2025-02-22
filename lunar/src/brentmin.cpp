@@ -1,6 +1,6 @@
-#include <assert.h>
-#include <stddef.h>
-#include <math.h>
+#include <cassert>
+#include <cstddef>
+#include <cmath>
 #include "brentmin.h"
 
 /* A modified version of Brent's minimization algorithm.  You

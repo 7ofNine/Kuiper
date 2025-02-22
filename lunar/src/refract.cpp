@@ -17,7 +17,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 02110-1301, USA.    */
 
-#include <math.h>
+#include <cmath>
 
 #include "afuncs.h"
 
@@ -107,8 +107,8 @@ double /*DLL_FUNC*/ reverse_saasta_refraction( const double true_alt,
 }
 
 #ifdef TEST_PROGRAM
-#include <stdio.h>
-#include <stdlib.h>
+#include <cstdio>
+#include <cstdlib>
 
 int main( const int argc, const char **argv)
 {

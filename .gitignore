@@ -33,9 +33,9 @@ run/*.dll
 run/*.exe
 run/*.json
 run/*.out
-/run/debug.txt
-/run/debug.txt
-/run/elements.txt
-/run/errors.txt
-/run/sof.txt
-/run/sofv.txt
+run/debug.txt
+run/debug.txt
+run/elements.txt
+run/errors.txt
+run/sof.txt
+run/sofv.txt

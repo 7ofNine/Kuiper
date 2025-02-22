@@ -26,7 +26,7 @@ gcc -Wall -Wextra -pedantic -I../include -DCGI_VERSION -o cvt_elem conv_ele.cpp 
 */
 
 
-#include <math.h>
+#include <cmath>
 //
 #include "afuncs.h"
 
@@ -88,7 +88,7 @@ void convert_elements( const double epoch_from, const double epoch_to,
 
 #ifdef TEST_CODE
 
-#include <stdio.h>
+#include <cstdio>
 
 static void show_angles( const double incl, const double Omega, const double omega)
 {
@@ -135,8 +135,8 @@ int main( const int argc, const char **argv)
 
 #ifdef CGI_VERSION
 
-#include <string.h>
-#include <stdio.h>
+#include <cstring>
+#include <cstdio>
 #ifdef __has_include
    #if __has_include("cgi_func.h")
        #include "cgi_func.h"

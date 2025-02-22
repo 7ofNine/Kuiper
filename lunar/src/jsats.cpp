@@ -37,8 +37,8 @@ L1.2 theory due to Lainey (2004).  Some discussion of this is at
 
 ftp://ftp.imcce.fr/pub/ephem/satel/galilean/L1/L1.2/     */
 
-#include <math.h>
-#include <string.h>
+#include <cmath>
+#include <cstring>
 
 #include "lunar.h"
 

@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #ifndef AFUNCS_H_INCLUDED
 #define AFUNCS_H_INCLUDED
 
-#include <stdint.h>              /* required for int64_t #define */
+#include <cstdint>              /* required for int64_t #define */
 
 #ifndef DPT
 #define DPT struct dpt

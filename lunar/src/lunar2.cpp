@@ -42,10 +42,10 @@ term stored as a 32-bit integer.  */
 #define LUNAR_LAT_OFFSET         LUNAR_LON_DIST_OFFSET + LON_R_TERM_SIZE * N_TERMS
 #define LUNAR_FUND_OFFSET        LUNAR_LAT_OFFSET + LAT_TERM_SIZE * N_TERMS
 
-#include <math.h>
-#include <stdlib.h>
-#include <stdint.h>
-#include <assert.h>
+#include <cmath>
+#include <cstdlib>
+#include <cstdint>
+#include <cassert>
 
 #include "lunar.h"
 #include "get_bin.h"

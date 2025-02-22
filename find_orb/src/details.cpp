@@ -20,10 +20,10 @@ data for 80-column MPC-formatted astrometry,  as documented at
 
 https://www.minorplanetcenter.net/iau/info/ObsDetails.html */
 
-#include <string.h>
-#include <assert.h>
-#include <stdlib.h>
-#include <stdio.h>
+#include <cstring>
+#include <cassert>
+#include <cstdlib>
+#include <cstdio>
 #include "stackall.h"
 #include "details.h"
 
