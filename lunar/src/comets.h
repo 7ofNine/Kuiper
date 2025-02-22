@@ -35,9 +35,8 @@ ELEMENTS
 /* Note that in the above structure,  t0 = 1/n = time to move */
 /* one radian in mean anomaly = orbital period / (2*pi).      */
 
-#ifdef __cplusplus
+
 extern "C" {
-#endif
 
 #include <stdint.h>
 
@@ -68,6 +67,5 @@ typedef struct
 
 double /*DLL_FUNC*/ find_moid_full( const ELEMENTS *elem1, const ELEMENTS *elem2, moid_data_t *mdata);
 
-#ifdef __cplusplus
 }
-#endif
+

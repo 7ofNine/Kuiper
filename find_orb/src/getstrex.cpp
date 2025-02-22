@@ -15,18 +15,16 @@
 
 #include <string.h>
 
-#ifdef __cplusplus
+
 extern "C" {
-#endif /* #ifdef __cplusplus */
 
 int wgetnstr_ex(WINDOW *win, char *str, int *loc, int maxlen, const int size);
 int wgetn_wstr_ex(WINDOW *win, wint_t *wstr, int *loc, const int maxlen, const int size);
 int getnstr_ex( char *str, int *loc, int maxlen, const int size);
 int getn_wstr_ex( wint_t *wstr, int *loc, const int maxlen, const int size);
 
-#ifdef __cplusplus
 }
-#endif  /* #ifdef __cplusplus */
+
 
 #define MAXLINE 255
 #define _ECHAR     0x08  /* Erase char       (^H) */

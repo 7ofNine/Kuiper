@@ -614,9 +614,8 @@ static const ROCK rocks[N_ROCKS] = {
    /* hypothetically,  something indicating you're outside the valid time */
    /* coverage for the orbit in question would be nice.                   */
 
-#ifdef __cplusplus
+
 extern "C" {
-#endif
 
 int /*DLL_FUNC*/ evaluate_rock( const double jde, const int jpl_id,
                                                   double *output_vect)
@@ -703,9 +702,9 @@ int /*DLL_FUNC*/ evaluate_rock( const double jde, const int jpl_id,
    return( -1);
 }
 
-#ifdef __cplusplus
+
 }
-#endif
+
 
 #ifdef TEST_PROGRAM
 

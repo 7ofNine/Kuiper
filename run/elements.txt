@@ -12,7 +12,7 @@ e   6.1673520      Incl.    9.76425
 # State vector relative to central body:
 #   -0.005312286581  -0.002376871962  -0.002127234703 AU
 #    5.703249356236   2.418955835563   2.205308231784 mAU/day
-# Elements written: 21 Feb 2025 20:05:57 (JD 2460728.337470)
+# Elements written: 21 Feb 2025 21:26:15 (JD 2460728.393239)
 # Full range of obs: 1997 Apr. 21-22 (31.0 hr) (20 observations)
 # Find_Orb ver: 2025 Jan 30
 # Perturbers: 00000408 (Sun/Earth/Moon);  JPL DE-440

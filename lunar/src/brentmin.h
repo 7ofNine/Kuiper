@@ -20,9 +20,9 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 02110-1301, USA.    */
 
-#ifdef __cplusplus
+
 extern "C" {
-#endif /* #ifdef __cplusplus */
+
 
 typedef struct
 {
@@ -97,7 +97,7 @@ of the cubic polynomial gives us a clue as to how far the function departs
 from being a parabola.
 */
 
-#ifdef __cplusplus
+
 }
-#endif  /* #ifdef __cplusplus */
+
 #endif  /* #ifndef BRENTMIN_H_INCLUDED */

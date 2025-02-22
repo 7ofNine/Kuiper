@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 
 #define N_FUND 9
 
-#ifdef __cplusplus
+
 extern "C" {
-#endif
+
 
 #ifndef AU_IN_KM
 #define AU_IN_KM 1.495978707e+8
@@ -85,8 +85,8 @@ int /*DLL_FUNC*/ evaluate_rock( const double jd, const int jpl_id,
 double planet_radius_in_meters( const int planet_idx);   /* mpc_code.cpp */
 double planet_axis_ratio( const int planet_idx);         /* mpc_code.cpp */
 
-#ifdef __cplusplus
+
 }
-#endif
+
 
 #endif /* #ifndef LUNAR_H_INCLUDED */

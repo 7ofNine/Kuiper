@@ -27,7 +27,6 @@
     <ClInclude Include="src\comets.h" />
     <ClInclude Include="src\date.h" />
     <ClInclude Include="src\get_bin.h" />
-    <ClInclude Include="src\gust86.h" />
     <ClInclude Include="src\jpl_xref.h" />
     <ClInclude Include="src\lunar.h" />
     <ClInclude Include="src\lun_tran.h" />
@@ -50,7 +49,7 @@
     <ClCompile Include="src\brentmin.cpp" />
     <ClCompile Include="src\classel.cpp" />
     <ClCompile Include="src\com_file.cpp" />
-    <ClCompile Include="src\conbound.c" />
+    <ClCompile Include="src\conbound.cpp" />
     <ClCompile Include="src\cospar.cpp" />
     <ClCompile Include="src\date.cpp" />
     <ClCompile Include="src\delta_t.cpp" />
@@ -85,6 +84,18 @@
     <ClCompile Include="src\unpack.cpp" />
     <ClCompile Include="src\vislimit.cpp" />
     <ClCompile Include="src\vsopson.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="src\big_vsop.txt" />
+    <Text Include="src\cgicheck.txt" />
+    <Text Include="src\changes.txt" />
+    <Text Include="src\cospar.txt" />
+    <Text Include="src\get_out.txt" />
+    <Text Include="src\get_test.txt" />
+    <Text Include="src\license.txt" />
+    <Text Include="src\ll_test.txt" />
+    <Text Include="src\moidtest.txt" />
+    <Text Include="src\test_des.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

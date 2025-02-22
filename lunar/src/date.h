@@ -16,9 +16,9 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 02110-1301, USA.    */
 
-#ifdef __cplusplus
+
 extern "C" {
-#endif
+
 
 long /*DLL_FUNC*/ dmy_to_day( const int day, const int month, const long year,
                             const int calendar);
@@ -169,6 +169,6 @@ are plenty of candidates for the remaining seven: */
 void /*DLL_FUNC*/ set_chinese_calendar_data( const void *cdata);
 int /*DLL_FUNC*/ get_chinese_intercalary_month( void);
 
-#ifdef __cplusplus
+
 }
-#endif
+

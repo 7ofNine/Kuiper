@@ -296,14 +296,14 @@ static long double get_phase_time( const long double k, const int phase_idx)
    return( rval);
 }
 
-#ifdef __cplusplus
+
 extern "C" {
-#endif /* #ifdef __cplusplus */
+
 long double /*DLL_FUNC*/ find_nearest_lunar_phase_time(
                          const int phase_idx, const long double t2k);
-#ifdef __cplusplus
+
 }
-#endif  /* #ifdef __cplusplus */
+
 
 long double /*DLL_FUNC*/ find_nearest_lunar_phase_time(
                          const int phase_idx, const long double t2k)

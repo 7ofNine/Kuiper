@@ -22,9 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 //   
 //#endif
 
-#ifdef __cplusplus
+
 extern "C" {
-#endif
+
 
 bool is_valid_mpc_code( const char *mpc_code);        /* mpc_fmt.cpp */
 double extract_date_from_mpc_report( const char *buff, unsigned *format);
@@ -114,8 +114,8 @@ recover from such things,  but may fail.        */
 
 int /*DLL_FUNC*/ get_satellite_offset( const char *iline, double xyz[3]);
 
-#ifdef __cplusplus
+
 }
-#endif
+
 
 #endif

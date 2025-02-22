@@ -27620,3 +27620,4 @@ be a little slower and less accurate.  You should eventually download
 a JPL ephemeris file,  per the instructions at the above link.
 20:05:54     Example2 failed; trying more SR orbits
 20:07:22 Error opening link_def.json: No such file or directory
+21:26:13     Example2 failed; trying more SR orbits

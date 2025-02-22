@@ -42,9 +42,6 @@
     <ClInclude Include="src\get_bin.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\gust86.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\jpl_xref.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -100,7 +97,7 @@
     <ClCompile Include="src\com_file.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\conbound.c">
+    <ClCompile Include="src\conbound.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\cospar.cpp">
@@ -208,5 +205,37 @@
     <ClCompile Include="src\obliquit.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="src\big_vsop.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="src\cgicheck.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="src\changes.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="src\cospar.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="src\get_out.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="src\get_test.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="src\license.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="src\ll_test.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="src\moidtest.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="src\test_des.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>

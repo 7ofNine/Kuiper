@@ -1,6 +1,6 @@
 #include <string.h>
 #include <stdint.h>
-//
+
 #include "afuncs.h"
 
 /* See 'constbnd.c' in the 'constbnd' repository for a description of

@@ -129,6 +129,7 @@
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <AdditionalDependencies>lunar.lib;sat_code.lib;jpleph.lib;pdcurses.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>I:\Project Pluto\PDCursesMod_build\wincon\Release;$(SolutionDir)$(PlatformTarget)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <ShowProgress>NotSet</ShowProgress>
     </Link>
     <PostBuildEvent>
       <Command>xcopy "$(SolutionDir)$(Platform)\$(Configuration)\*.exe"  "$(SolutionDir)run\" /Y /F
@@ -179,12 +180,10 @@ copy /Y "$(SolutionDir)..\PDCursesMod_build\wincon\$(Configuration)\pdcurses.dll
     <ClCompile Include="src\stackall.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\about.h" />
     <ClInclude Include="src\constant.h" />
     <ClInclude Include="src\curs_lin.h" />
     <ClInclude Include="src\details.h" />
     <ClInclude Include="src\expcalc.h" />
-    <ClInclude Include="src\find_orb.h" />
     <ClInclude Include="src\generic.h" />
     <ClInclude Include="src\lsquare.h" />
     <ClInclude Include="src\monte.h" />
@@ -202,6 +201,53 @@ copy /Y "$(SolutionDir)..\PDCursesMod_build\wincon\$(Configuration)\pdcurses.dll
   </ItemGroup>
   <ItemGroup>
     <None Include="src\mpcorb.hdr" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="src\calendar.txt" />
+    <Text Include="src\command.txt" />
+    <Text Include="src\cospar.txt" />
+    <Text Include="src\details.txt" />
+    <Text Include="src\dfindorb.txt" />
+    <Text Include="src\dosephem.txt" />
+    <Text Include="src\dosfhelp.txt" />
+    <Text Include="src\dos_help.txt" />
+    <Text Include="src\efindorb.txt" />
+    <Text Include="src\elem_pop.txt" />
+    <Text Include="src\eph2tle.txt" />
+    <Text Include="src\eph_expl.txt" />
+    <Text Include="src\eph_type.txt" />
+    <Text Include="src\example.txt" />
+    <Text Include="src\ffindorb.txt" />
+    <Text Include="src\force.txt" />
+    <Text Include="src\frame_he.txt" />
+    <Text Include="src\full.txt" />
+    <Text Include="src\geo_rect.txt" />
+    <Text Include="src\ifindorb.txt" />
+    <Text Include="src\jpl_eph.txt" />
+    <Text Include="src\mpc_area.txt" />
+    <Text Include="src\mu1.txt" />
+    <Text Include="src\nongravs.txt" />
+    <Text Include="src\obj_help.txt" />
+    <Text Include="src\obj_name.txt" />
+    <Text Include="src\odd_name.txt" />
+    <Text Include="src\openfile.txt" />
+    <Text Include="src\pl_cache.txt" />
+    <Text Include="src\precover.txt" />
+    <Text Include="src\progcode.txt" />
+    <Text Include="src\radecfmt.txt" />
+    <Text Include="src\residfmt.txt" />
+    <Text Include="src\rfindorb.txt" />
+    <Text Include="src\rovers.txt" />
+    <Text Include="src\sat_xref.txt" />
+    <Text Include="src\scopes.txt" />
+    <Text Include="src\sfindorb.txt" />
+    <Text Include="src\sigma.txt" />
+    <Text Include="src\site_310.txt" />
+    <Text Include="src\splash.txt" />
+    <Text Include="src\timehelp.txt" />
+    <Text Include="src\time_fmt.txt" />
+    <Text Include="src\worldmap.txt" />
+    <Text Include="src\xdesig.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

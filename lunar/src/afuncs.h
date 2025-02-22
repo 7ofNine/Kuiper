@@ -59,9 +59,9 @@ DPT
 #define seconds_per_day    (seconds_per_hour * hours_per_day)
 #define minutes_per_day    (minutes_per_hour * hours_per_day)
 
-#ifdef __cplusplus
+
 extern "C" {
-#endif /* #ifdef __cplusplus */
+
 
 int /*DLL_FUNC*/ constell_from_ra_dec( const double ra_degrees_1875,
                                    const double dec_degrees_1875,
@@ -178,7 +178,7 @@ int /*DLL_FUNC*/ setup_precession_with_nutation_eops( double   *matrix,
 int64_t /*DLL_FUNC*/ nanoseconds_since_1970( void);    /* nanosecs.c */
 double /*DLL_FUNC*/ current_jd( void);                 /* nanosecs.c */
 
-#ifdef __cplusplus
+
 }
-#endif  /* #ifdef __cplusplus */
+
 #endif  /* #ifndef AFUNCS_H_INCLUDED */

@@ -50,9 +50,9 @@ extern WINDOW *stdscr, *curscr;
 
 typedef unsigned short chtype;
 
-#ifdef __cplusplus
+
 extern "C" {
-#endif
+
 int wmove( WINDOW *w, const int y, const int x);
 int waddch( WINDOW*w, const char c);
 int wrefresh( const WINDOW *w);
@@ -298,6 +298,6 @@ mmask_t mousemask(mmask_t, mmask_t *);
 #define BUTTON_CONTROL      0x0010  /* PDCurses */
 #define ALL_MOUSE_EVENTS        0x1fffffffL
 
-#ifdef __cplusplus
+
 }
-#endif
+

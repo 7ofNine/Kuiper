@@ -38,9 +38,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
       /* The 'usual' Curses library provided with Linux lacks a few things */
       /* that PDCurses and MyCurses have, such as definitions for ALT_A    */
       /* and such.  'curs_lin.h' fills in these gaps.   */
-#ifndef ALT_A
-   #include "curs_lin.h"
-#endif
+//#ifndef ALT_A
+//   #include "curs_lin.h"
+//#endif
 
 #ifndef BUTTON_CTRL
    #define BUTTON_CTRL BUTTON_CONTROL
@@ -257,15 +257,13 @@ int load_ephemeris_settings( ephem_option_t *ephemeris_output_options,
       const char *config);                               /* elem_out.cpp */
 void compute_effective_solar_multiplier( const char *constraints);  /* runge.c */
 
-#ifdef __cplusplus
+
 extern "C" {
-#endif /* #ifdef __cplusplus */
 
 int getnstr_ex( char *str, int *loc, int maxlen, const int size);  /* getstrex.c */
 
-#ifdef __cplusplus
 }
-#endif  /* #ifdef __cplusplus */
+
 
 double comet_g_func( const long double r);                   /* runge.cpp */
 

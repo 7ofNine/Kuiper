@@ -122,9 +122,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\about.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\constant.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -135,9 +132,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\expcalc.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\find_orb.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\generic.h">
@@ -187,5 +181,142 @@
     <None Include="src\mpcorb.hdr">
       <Filter>Header Files</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="src\calendar.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="src\command.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="src\cospar.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="src\details.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="src\dfindorb.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="src\dos_help.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="src\dosephem.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="src\dosfhelp.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="src\efindorb.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="src\elem_pop.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="src\eph_expl.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="src\eph_type.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="src\eph2tle.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="src\example.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="src\ffindorb.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="src\force.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="src\frame_he.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="src\full.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="src\geo_rect.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="src\ifindorb.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="src\jpl_eph.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="src\mpc_area.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="src\mu1.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="src\nongravs.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="src\obj_help.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="src\obj_name.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="src\odd_name.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="src\openfile.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="src\pl_cache.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="src\precover.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="src\progcode.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="src\radecfmt.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="src\residfmt.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="src\rfindorb.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="src\rovers.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="src\sat_xref.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="src\scopes.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="src\sfindorb.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="src\sigma.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="src\site_310.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="src\splash.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="src\time_fmt.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="src\timehelp.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="src\worldmap.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="src\xdesig.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>

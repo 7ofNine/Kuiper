@@ -7,9 +7,9 @@ have such overruns.
 
 First, the OpenBSD strlcxx functions.  See comments in 'stringex.cpp'. */
 
-#ifdef __cplusplus
+
 extern "C" {
-#endif /* #ifdef __cplusplus */
+
 
 
 #if !defined( __APPLE__) && !defined( __OpenBSD__)
@@ -55,7 +55,7 @@ int snprintf_err( char *string, const size_t max_len,
 #endif
 ;
 
-#ifdef __cplusplus
+
 }
-#endif  /* #ifdef __cplusplus */
+
 #endif  /* #ifndef STRINGEX_H_INCLUDED */

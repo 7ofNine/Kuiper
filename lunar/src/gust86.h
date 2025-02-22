@@ -22,13 +22,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #define __stdcall
 #endif
 
-#ifdef __cplusplus
+
 extern "C" {
-#endif
+
 void __stdcall gust86_posn( const double jde, const int isat, double *r );
-#ifdef __cplusplus
+
 }
-#endif
+
 
 #define GUST86_ARIEL          0
 #define GUST86_UMBRIEL        1
