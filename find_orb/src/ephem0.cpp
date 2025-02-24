@@ -42,13 +42,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include "stringex.h"
 #include "constant.h"
 
+#include "ephem0.h"
+#include "miscell.h"
+#include "elem_out.h"
+
 #define LOG_10 2.3025850929940456840179914546843642076011014886287729760333279009675726
 #define LIGHT_YEAR_IN_KM    (365.25 * seconds_per_day * SPEED_OF_LIGHT)
 
 int generic_message_box( const char *message, const char *box_type);
 double centralize_ang( double ang);             /* elem_out.cpp */
 double vector_to_polar( double *lon, double *lat, const double *vector);
-char *fgets_trimmed( char *buff, size_t max_bytes, FILE *ifile); /*elem_out.c*/
+
 int parallax_to_lat_alt( const double rho_cos_phi, const double rho_sin_phi,
        double *lat, double *ht_in_meters, const int planet_idx); /* ephem0.c */
 double calc_obs_magnitude( const double obj_sun,
@@ -77,10 +81,9 @@ int debug_printf( const char *format, ...)                 /* mpc_obs.cpp */
 ;
 int calc_derivatives( const double jd, const double *ival, double *oval,
                            const int reference_planet);     /* runge.cpp */
-char *iso_time( char *buff, const double jd, const int precision);   /* elem_out.c */
+
 double mag_band_shift( const char mag_band, int *err_code);   /* elem_out.c */
-char *get_file_name( char *filename, const char *template_file_name);
-double utc_from_td( const double jdt, double *delta_t);     /* ephem0.cpp */
+
 double diameter_from_abs_mag( const double abs_mag,      /* ephem0.cpp */
                                      const double optical_albedo);
 double shadow_check( const double *planet_loc,           /* ephem0.cpp */
@@ -93,7 +96,7 @@ int setup_planet_elem( ELEMENTS *elem, const int planet_idx,
 void calc_approx_planet_orientation( const int planet,        /* runge.cpp */
          const int system_number, const double jde, double *matrix);
 char *mpc_station_name( char *station_data);       /* mpc_obs.cpp */
-FILE *fopen_ext( const char *filename, const char *permits);   /* miscell.cpp */
+
 static void put_residual_into_text( char *text, const double resid,
                                  const int resid_format);    /* ephem0.cpp */
 FILE *open_json_file( char *filename, const char *env_ptr, const char *default_name,

@@ -26,6 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include "afuncs.h"
 #include "constant.h"
 
+#include "miscell.h"
+
 /* BC-405 gives orbital elements for 300 large asteroids at 40-day intervals,
 running from JD 2378495.0 = 1799 Dec 30.5 to JD 2524615.0 = 2200 Jan 22.5.
 That's data for 3654 epochs.  For each,  elements are given...
@@ -52,7 +54,7 @@ int generic_message_box( const char *message, const char *box_type);
 int asteroid_position_raw( const int astnum, const double jd,
                               double *posn, double *vel);      /* bc405.cpp */
 int planet_posn( const int planet_no, const double jd, double *vect_2000);
-FILE *fopen_ext( const char *filename, const char *permits);   /* miscell.cpp */
+
 const char *get_environment_ptr( const char *env_ptr);     /* mpc_obs.cpp */
 
 #define BC405_INVALID_CHUNK            (-1)

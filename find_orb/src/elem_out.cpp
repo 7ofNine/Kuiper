@@ -39,6 +39,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include "stringex.h"
 #include "constant.h"
 
+#include "ephem0.h"
+#include "miscell.h"
+#include "elem_out.h"
+
             /* Pretty much every platform I've run into supports */
             /* Unicode display,  except OpenWATCOM and early     */
             /* versions of MSVC.                                 */
@@ -95,14 +99,14 @@ int setup_planet_elem( ELEMENTS *elem, const int planet_idx,
                                           const double t_cen);   /* moid4.c */
 void set_environment_ptr( const char *env_ptr, const char *new_value);
 double find_collision_time( ELEMENTS *elem, double *latlon, const int is_impact);
-char *fgets_trimmed( char *buff, size_t max_bytes, FILE *ifile); /*elem_out.c*/
+
 int get_idx1_and_idx2( const int n_obs, const OBSERVE   *obs,
                                 int *idx1, int *idx2);      /* elem_out.c */
 double mag_band_shift( const char mag_band, int *err_code);   /* elem_out.c */
 int get_jpl_ephemeris_info( int *de_version, double *jd_start, double *jd_end);
 double *get_asteroid_mass( const int astnum);   /* bc405.cpp */
 double centralize_ang( double ang);             /* elem_out.cpp */
-char *get_file_name( char *filename, const char *template_file_name);
+
 void get_relative_vector( const double jd, const double *ivect,
           double *relative_vect, const int planet_orbiting);  /* orb_func.c */
 void push_orbit( const double epoch, const double *orbit);  /* orb_fun2.c */
@@ -119,10 +123,10 @@ char **load_file_into_memory( const char *filename, size_t *n_lines,
 const char *get_find_orb_text( const int index);      /* elem_out.cpp */
 int set_language( const int language);                      /* elem_out.cpp */
 void get_find_orb_text_filename( char *filename);     /* elem_out.cpp */
-FILE *fopen_ext( const char *filename, const char *permits);   /* miscell.cpp */
+
 static int names_compare( const char *name1, const char *name2);
 static int get_uncertainty( const char *key, char *obuff, const bool in_km);
-char *iso_time( char *buff, const double jd, const int precision); /* elem_out.cpp */
+
 int compute_canned_object_state_vect( double *loc, const char *mpc_code,
                      const double jd);                /* elem_out.cpp */
 char *real_packed_desig( char *obuff, const char *packed_id);  /* ephem0.cpp */
@@ -649,7 +653,6 @@ static int _unpack_desig_for_linkage( const char *packed_id, char *reduced)
    return( unpack_mpc_desig( nullptr, reduced));
 }
 
-double utc_from_td( const double jdt, double *delta_t);     /* ephem0.cpp */
 
 /* This is ludicrously high,  but let's say that we'll never
 report a linkage between 50 or more tracklets at once. */

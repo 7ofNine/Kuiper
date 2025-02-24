@@ -35,6 +35,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include "pl_cache.h"
 #include "constant.h"
 
+#include "ephem0.h"
+#include "miscell.h"
+
 /* MS only got around to adding 'isfinite' in VS2013 : */
 
 #if defined( _MSC_VER) && (_MSC_VER < 1800)
@@ -98,7 +101,7 @@ double find_r_given_solar_r( const OBSERVE   *obs, const double solar_r);
 void attempt_extensions( OBSERVE *obs, const int n_obs, double *orbit,
                   const double epoch);                  /* orb_func.cpp */
 double *get_asteroid_mass( const int astnum);   /* bc405.cpp */
-char *get_file_name( char *filename, const char *template_file_name);
+
 int compute_observer_loc( const double jde, const int planet_no,
              const double rho_cos_phi,           /* mpc_obs.cpp */
              const double rho_sin_phi, const double lon, double   *offset);
@@ -122,7 +125,7 @@ double observation_rms( const OBSERVE   *obs);            /* elem_out.cpp */
 double compute_weighted_rms( const OBSERVE   *obs, const int n_obs,
                            int *n_resids);                  /* orb_func.cpp */
 double find_epoch_shown( const OBSERVE *obs, const int n_obs); /* elem_out */
-FILE *fopen_ext( const char *filename, const char *permits);   /* miscell.cpp */
+
 void rotate_state_vector_to_current_frame( double *state_vect,
                   const double epoch_shown, const int planet_orbiting,
                   char *body_frame_note);               /* elem_out.cpp */

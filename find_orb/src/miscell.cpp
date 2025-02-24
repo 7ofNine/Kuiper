@@ -26,6 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include "stringex.h"
 #include "mpc_func.h"
 
+#include "miscell.h"
+
 int debug_printf( const char *format, ...)                 /* mpc_obs.cpp */
 #ifdef __GNUC__
          __attribute__ (( format( printf, 1, 2)))
@@ -87,7 +89,7 @@ int fetch_astrometry_from_mpc( FILE *ofile, const char *desig);
 int download_a_file( const char *ofilename, const char *url);
 int generic_message_box( const char *message, const char *box_type);
 const char *get_environment_ptr( const char *env_ptr);     /* mpc_obs.cpp */
-FILE *fopen_ext( const char *filename, const char *permits);   /* miscell.cpp */
+
 char *make_config_dir_name( char *oname, const char *iname);  /* miscell.cpp */
 int reset_astrometry_filename( int *argc, const char **argv);
 uint64_t parse_bit_string( const char *istr);                /* miscell.cpp */

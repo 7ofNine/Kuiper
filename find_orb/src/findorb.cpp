@@ -106,6 +106,11 @@ static bool _mouse_movements_are_reported = false;
 #include "stringex.h"
 #include "constant.h"
 
+#include "ephem0.h"
+#include "miscell.h"
+#include "elem_out.h"
+
+
 int debug_level = 0;
 
 extern unsigned perturbers;
@@ -170,7 +175,7 @@ int find_trial_orbit( double *orbit, OBSERVE   *obs, int n_obs,
 int search_for_trial_orbit( double *orbit, OBSERVE   *obs, int n_obs,
               const double r1, double *angle_param);  /* orb_func.cpp */
 void create_ades_file( const char *filename, const OBSERVE   *obs, int n_obs);
-char *fgets_trimmed( char *buff, size_t max_bytes, FILE *ifile);
+
 int generic_message_box( const char *message, const char *box_type);
 int write_excluded_observations_file( const OBSERVE *obs, int n_obs);
 int debug_printf( const char *format, ...)                 /* mpc_obs.cpp */
@@ -192,7 +197,7 @@ int get_defaults( ephem_option_t *ephemeris_output_options, int *element_format,
 int text_search_and_replace( char   *str, const char *oldstr,
                                      const char *newstr);   /* ephem0.cpp */
 int sort_obs_by_date_and_remove_duplicates( OBSERVE *obs, const int n_obs);
-double utc_from_td( const double jdt, double *delta_t);     /* ephem0.cpp */
+
 void fix_home_dir( char *filename);                /* ephem0.cpp */
 int write_environment_pointers( void);             /* mpc_obs.cpp */
 int add_ephemeris_details( FILE *ofile, const double start_jd,  /* ephem0.c */
@@ -203,7 +208,6 @@ int link_arcs( OBSERVE *obs, int n_obs, const double r1, const double r2);
 int find_circular_orbits( OBSERVE   *obs1, OBSERVE   *obs2,
                double *orbit, const int desired_soln);   /* orb_fun2.cpp */
 void set_up_observation( OBSERVE   *obs);               /* mpc_obs.cpp */
-char *get_file_name( char *filename, const char *template_file_name);
 double euler_function( const OBSERVE   *obs1, const OBSERVE   *obs2);
 int find_relative_orbit( const double jd, const double *ivect,
                ELEMENTS *elements, const int ref_planet);     /* runge.cpp */
@@ -218,7 +222,7 @@ int metropolis_search( OBSERVE *obs, const int n_obs, double *orbit,
                const double epoch, int n_iterations, double scale);
 const char *get_find_orb_text( const int index);
 int set_tholen_style_sigmas( OBSERVE *obs, const char *buff);  /* mpc_obs.c */
-FILE *fopen_ext( const char *filename, const char *permits);   /* miscell.cpp */
+
 int find_vaisala_orbit( double *orbit, const OBSERVE *obs1,   /* orb_func.c */
                      const OBSERVE *obs2, const double solar_r);
 int extended_orbit_fit( double *orbit, OBSERVE *obs, int n_obs,

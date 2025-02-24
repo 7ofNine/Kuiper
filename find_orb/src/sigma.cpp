@@ -27,6 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include "afuncs.h"
 #include "date.h"
 
+#include "miscell.h"
+
 #define SIGMA_RECORD struct sigma_record
 
 SIGMA_RECORD
@@ -46,7 +48,6 @@ int debug_printf( const char *format, ...)                 /* mpc_obs.cpp */
          __attribute__ (( format( printf, 1, 2)))
 #endif
 ;
-FILE *fopen_ext( const char *filename, const char *permits);   /* miscell.cpp */
 
 static int parse_sigma_record( SIGMA_RECORD *w, const char *buff)
 {

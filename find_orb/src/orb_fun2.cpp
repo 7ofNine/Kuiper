@@ -30,6 +30,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include "mpc_obs.h"
 #include "date.h"
 
+#include "miscell.h"
+
 #define PI 3.1415926535897932384626433832795028841971693993751058209749445923078
 #define GAUSS_K .01720209895
 #define SOLAR_GM (GAUSS_K * GAUSS_K)
@@ -286,7 +288,6 @@ void pop_all_orbits( void)
       ;
 }
 
-FILE *fopen_ext( const char *filename, const char *permits);   /* miscell.cpp */
 void set_distance( OBSERVE   *obs, double r);             /* orb_func.c */
 
 /* The linear regression fit here is used to determine a perihelion distance

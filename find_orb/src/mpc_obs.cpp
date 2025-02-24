@@ -42,16 +42,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include "pl_cache.h"
 #include "constant.h"
 
+#include "miscell.h"
+#include "elem_out.h"
+#include "ephem0.h"
+
 int pattern_match(const char* pattern, const char* string);   /* miscell.c */
 int text_search_and_replace( char   *str, const char *oldstr,
                                      const char *newstr);   /* ephem0.cpp */
-double utc_from_td( const double jdt, double *delta_t);     /* ephem0.cpp */
+
 int apply_excluded_observations_file( OBSERVE *obs, const int n_obs);
 void set_up_observation( OBSERVE   *obs);                 /* mpc_obs.c */
 static double observation_jd( const char *buff);
 double centralize_ang( double ang);             /* elem_out.cpp */
 int sort_obs_by_date_and_remove_duplicates( OBSERVE *obs, const int n_obs);
-char *fgets_trimmed( char *buff, size_t max_bytes, FILE *ifile); /*elem_out.c*/
+
 int lat_alt_to_parallax( const double lat, const double ht_in_meters,
              double *rho_cos_phi, double *rho_sin_phi, const int planet_idx);
 int parallax_to_lat_alt( const double rho_cos_phi, const double rho_sin_phi,
@@ -93,7 +97,7 @@ int string_compare_for_sort( const void *a, const void *b, void *context);
 const char *get_find_orb_text( const int index);      /* elem_out.cpp */
 static void reduce_designation( char *desig, const char *idesig);
 int set_tholen_style_sigmas( OBSERVE *obs, const char *buff);  /* mpc_obs.c */
-FILE *fopen_ext( const char *filename, const char *permits);   /* miscell.cpp */
+
 #ifdef _MSC_VER
      /* Microsoft Visual C/C++ has no strncasecmp.  strncmp will do.  */
 #define strncasecmp strncmp

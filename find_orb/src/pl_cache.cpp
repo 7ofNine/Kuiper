@@ -38,6 +38,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include "afuncs.h"
 #include "jpleph.h"
 
+#include "miscell.h"
+#include "elem_out.h"
+
 const char *get_find_orb_text( const int index);          /* elem_out.cpp */
 const char *get_environment_ptr( const char *env_ptr);     /* mpc_obs.cpp */
 int debug_printf( const char *format, ...)                 /* mpc_obs.cpp */
@@ -54,9 +57,9 @@ static void *jpl_eph = nullptr;
 #define J0 (J2000 - 2000. * 365.25)
 #define JD_TO_YEAR( jd)  (((jd)-J2000) / 365.25 + 2000.)
 
-FILE *fopen_ext( const char *filename, const char *permits);   /* miscell.cpp */
+
 char *make_config_dir_name( char *oname, const char *iname);  /* miscell.cpp */
-char *fgets_trimmed( char *buff, size_t max_bytes, FILE *ifile); /*elem_out.c*/
+
 int generic_message_box( const char *message, const char *box_type);
 
 int compute_rough_planet_loc( const double t_cen, const int planet_idx,

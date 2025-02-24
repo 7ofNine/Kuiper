@@ -173,6 +173,15 @@
     <ClInclude Include="src\stdafx.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\ephem0.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\miscell.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\elem_out.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\mpcorb.hdr">

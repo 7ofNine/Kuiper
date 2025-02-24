@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include <cstring>
 #include <cassert>
 
+#include "miscell.h"
+
 void ra_dec_to_xy( const double ra, const double dec, double *x, double *y);
 unsigned xy_to_healpix( const double x, const double y, const unsigned N);
 int find_fcct_biases( const double ra, const double dec, const char catalog,
@@ -65,7 +67,7 @@ computes the bias in RA and dec for a particular JD,  storing them in
 const char *fcct14_bias_file_name = nullptr;
          /* override this if the bias file is elsewhere */
 
-FILE *fopen_ext( const char *filename, const char *permits);   /* miscell.cpp */
+
 
 int find_fcct_biases( const double ra, const double dec, const char catalog,
                  const double jd, double *bias_ra, double *bias_dec)

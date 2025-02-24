@@ -40,15 +40,18 @@ have to wait for another day.       */
 #include "details.h"
 #include "afuncs.h"
 
-char *get_file_name( char *filename, const char *template_file_name);
-FILE *fopen_ext( const char *filename, const char *permits);   /* miscell.cpp */
-char *fgets_trimmed( char *buff, size_t max_bytes, FILE *ifile); /*elem_out.c*/
-double utc_from_td( const double jdt, double *delta_t);     /* ephem0.cpp */
-char *iso_time( char *buff, const double jd, const int precision);   /* elem_out.c */
+#include "ephem0.h"
+#include "miscell.h"
+#include "elem_out.h"
+
+
+
+
+
 int text_search_and_replace( char   *str, const char *oldstr,
-                                     const char *newstr);   /* ephem0.cpp */
-double original_observed_ra( const OBSERVE *obs);     /* ephem0.cpp */
-double original_observed_dec( const OBSERVE *obs);    /* ephem0.cpp */
+                                     const char *newstr);   /* ephem0.cpp */ // in lunar used there in a single case
+
+
 
 #define PI 3.1415926535897932384626433832795028841971693993751058209749445923
 

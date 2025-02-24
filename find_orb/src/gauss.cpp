@@ -24,7 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include "mpc_obs.h"
 #include "afuncs.h"
 
-FILE *fopen_ext( const char *filename, const char *permits);   /* miscell.cpp */
+#include "miscell.h"
+
+
 double gauss_method( const OBSERVE   *obs1, const OBSERVE   *obs2,
                      const OBSERVE   *obs3, double *orbit, const double mu,
                      const int desired_soln);               /* gauss.cpp */
