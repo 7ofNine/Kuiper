@@ -40,6 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include "miscell.h"
 #include "elem_out.h"
 #include "bc405.h"
+#include "bias.h"
 
 /* MS only got around to adding 'isfinite' in VS2013 : */
 
@@ -58,8 +59,6 @@ unsigned perturbers = 0;
 int integration_method = 0;
 extern int debug_level;
 
-int find_fcct_biases( const double ra, const double dec, const char catalog,
-                 const double jd, double *bias_ra, double *bias_dec);
 
 #define AUTOMATIC_PERTURBERS  1
 #define MAX_CONSTRAINTS 5

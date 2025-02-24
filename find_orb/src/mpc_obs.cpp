@@ -45,6 +45,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include "miscell.h"
 #include "elem_out.h"
 #include "ephem0.h"
+#include "bias.h"
 
 int pattern_match(const char* pattern, const char* string);   /* miscell.c */
 int text_search_and_replace( char   *str, const char *oldstr,
@@ -1670,8 +1671,6 @@ static void adjust_for_aberration( OBSERVE   *obs)
 int apply_debiasing = 0;
 int object_type;
 
-int find_fcct_biases( const double ra, const double dec, const char catalog,
-                 const double jd, double *bias_ra, double *bias_dec);
 
 static int parse_observation( OBSERVE   *obs, const char *buff)
 {

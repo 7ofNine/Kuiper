@@ -17,6 +17,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 
 #include <cmath>
 
+#include "healpix.h"
+
 /* HEALPix functions.   The algorithm to subdivide the sky in equal area
 tiles is described by Gorsky et al. 2005
 (http://adsabs.harvard.edu/abs/2005ApJ...622..759G).  All that is implemented
@@ -26,8 +28,6 @@ that's needed to figure out which lines in the bias data should be read. */
 #define ASIN_TWO_THIRDS 0.7297276562269663634547966598133206953965059140477136907089494914618189
 #define pi 3.1415926535897932384626433832795028841971693993751058209749445923
 
-void ra_dec_to_xy( const double ra, const double dec, double *x, double *y);
-unsigned xy_to_healpix( const double x, const double y, const unsigned N);
 
 /* The HEALPix projection uses an equal-area cylindrical projection for the
 central 2/3 (by area) zone nearest the equator,  and puts each polar region

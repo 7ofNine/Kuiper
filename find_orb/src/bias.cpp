@@ -22,11 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include <cassert>
 
 #include "miscell.h"
+#include "healpix.h"
+#include "bias.h"
 
-void ra_dec_to_xy( const double ra, const double dec, double *x, double *y);
-unsigned xy_to_healpix( const double x, const double y, const unsigned N);
-int find_fcct_biases( const double ra, const double dec, const char catalog,
-                 const double jd, double *bias_ra, double *bias_dec);
+
 
 #define BIAS_NO_DATA_FOR_THAT_CATALOG     -1
 #define BIAS_NO_BIAS_FILE                 -2

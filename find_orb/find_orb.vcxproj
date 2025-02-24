@@ -182,6 +182,7 @@ copy /Y "$(ProjectDir)\src\link_def.json" /A "$(SolutionDir)run\link_def.json" /
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\bc405.h" />
+    <ClInclude Include="src\bias.h" />
     <ClInclude Include="src\constant.h" />
     <ClInclude Include="src\curs_lin.h" />
     <ClInclude Include="src\details.h" />
@@ -189,6 +190,7 @@ copy /Y "$(ProjectDir)\src\link_def.json" /A "$(SolutionDir)run\link_def.json" /
     <ClInclude Include="src\ephem0.h" />
     <ClInclude Include="src\expcalc.h" />
     <ClInclude Include="src\generic.h" />
+    <ClInclude Include="src\healpix.h" />
     <ClInclude Include="src\lsquare.h" />
     <ClInclude Include="src\miscell.h" />
     <ClInclude Include="src\monte.h" />

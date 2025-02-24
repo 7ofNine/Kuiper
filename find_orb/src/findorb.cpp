@@ -109,6 +109,7 @@ static bool _mouse_movements_are_reported = false;
 #include "ephem0.h"
 #include "miscell.h"
 #include "elem_out.h"
+#include "bias.h"
 
 
 int debug_level = 0;
@@ -242,8 +243,6 @@ void make_observatory_info_text( char *text, const size_t textlen,
              const OBSERVE *obs, int n_obs, const char *mpc_code);
 void size_from_h_text( const double abs_mag, char *obuff,
                                  const int obuff_size);  /* ephem0.c */
-int find_fcct_biases( const double ra, const double dec, const char catalog,
-                 const double jd, double *bias_ra, double *bias_dec);
 int select_tracklet( OBSERVE *obs, const int n_obs, const int idx);
 int get_orbit_from_mpcorb_sof( const char *object_name, double *orbit,
              ELEMENTS *elems, const double full_arc_len, double *max_resid);
