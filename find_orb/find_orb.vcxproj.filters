@@ -188,6 +188,9 @@
     <ClInclude Include="src\bias.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\clipfunc.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\mpcorb.hdr">

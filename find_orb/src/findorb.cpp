@@ -110,6 +110,7 @@ static bool _mouse_movements_are_reported = false;
 #include "miscell.h"
 #include "elem_out.h"
 #include "bias.h"
+#include "clipfunc.h"
 
 
 int debug_level = 0;
@@ -368,9 +369,7 @@ static void restore_screen( const int *screen)
       mvaddchnstr( y, 0, cptr, n_out);
 }
 
-int clipboard_to_file( const char *filename, const int append,
-                           const bool use_selection); /* clipfunc.cpp */
-int copy_file_to_clipboard( const char *filename);    /* clipfunc.cpp */
+
 
 static bool curses_running = false;
 

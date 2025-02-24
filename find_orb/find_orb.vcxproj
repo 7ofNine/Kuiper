@@ -183,6 +183,7 @@ copy /Y "$(ProjectDir)\src\link_def.json" /A "$(SolutionDir)run\link_def.json" /
   <ItemGroup>
     <ClInclude Include="src\bc405.h" />
     <ClInclude Include="src\bias.h" />
+    <ClInclude Include="src\clipfunc.h" />
     <ClInclude Include="src\constant.h" />
     <ClInclude Include="src\curs_lin.h" />
     <ClInclude Include="src\details.h" />
