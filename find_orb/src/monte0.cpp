@@ -37,7 +37,6 @@ double get_planet_mass( const int planet_idx);                /* orb_func.c */
 void remove_insignificant_digits( char *tbuff);          /* monte0.c */
 void set_up_observation( OBSERVE   *obs);                 /* mpc_obs.c */
 void set_obs_vect( OBSERVE   *obs);        /* mpc_obs.h */
-const char *get_environment_ptr( const char *env_ptr);     /* mpc_obs.cpp */
 
 #define PI 3.1415926535897932384626433832795028841971693993751058209749445923
 

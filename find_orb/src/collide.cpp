@@ -23,12 +23,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include "comets.h"
 #include "afuncs.h"
 #include "lunar.h"
+#include "mpc_obs.h"
 
 #define PI 3.141592653589793238462643383279502884197169399375
 
 int parallax_to_lat_alt( const double rho_cos_phi, const double rho_sin_phi,
        double *lat, double *ht_in_meters, const int planet_idx); /* ephem0.c */
-const char *get_environment_ptr( const char *env_ptr);     /* mpc_obs.cpp */
 double find_collision_time( ELEMENTS *elem, double *latlon, const int is_impact);
 double find_lat_lon_alt( const double ut, const double *ivect,
                   const int planet_no, double *lat_lon, const bool geometric);

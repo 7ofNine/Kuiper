@@ -84,7 +84,6 @@ int debug_printf( const char *format, ...)                 /* mpc_obs.cpp */
 ;
 char *make_config_dir_name( char *oname, const char *iname);  /* miscell.cpp */
 int download_a_file( const char *ofilename, const char *url);
-const char *get_environment_ptr( const char *env_ptr);     /* mpc_obs.cpp */
 void set_environment_ptr( const char *env_ptr, const char *new_value);
 char **load_file_into_memory( const char *filename, size_t *n_lines,
                         const bool fail_if_not_found);      /* mpc_obs.cpp */
@@ -94,7 +93,6 @@ void *bsearch_ext( const void *key, const void *base0,
       size_t nmemb, const size_t size,                   /* shellsor.cpp */
       int (*compar)(const void *, const void *), bool *found);
 int string_compare_for_sort( const void *a, const void *b, void *context);
-const char *get_find_orb_text( const int index);      /* elem_out.cpp */
 static void reduce_designation( char *desig, const char *idesig);
 int set_tholen_style_sigmas( OBSERVE *obs, const char *buff);  /* mpc_obs.c */
 

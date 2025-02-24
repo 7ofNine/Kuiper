@@ -42,7 +42,6 @@ double generate_mc_variant_from_covariance( double *var_orbit,
                                                      const double *orbit);
 double improve_along_lov( double *orbit, const double epoch, const double *lov,
           const unsigned n_params, unsigned n_obs, OBSERVE *obs);
-const char *get_environment_ptr( const char *env_ptr);     /* mpc_obs.cpp */
 int adjust_herget_results( OBSERVE   *obs, int n_obs, double *orbit);
 double current_jd( void);                       /* elem_out.cpp */
 double evaluate_for_simplex_method( const OBSERVE   *obs,

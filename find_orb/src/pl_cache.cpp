@@ -40,8 +40,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 
 #include "miscell.h"
 #include "elem_out.h"
+#include "mpc_obs.h"
+#include "bc405.h"
 
-const char *get_find_orb_text( const int index);          /* elem_out.cpp */
 const char *get_environment_ptr( const char *env_ptr);     /* mpc_obs.cpp */
 int debug_printf( const char *format, ...)                 /* mpc_obs.cpp */
 #ifdef __GNUC__
@@ -60,12 +61,9 @@ static void *jpl_eph = nullptr;
 
 char *make_config_dir_name( char *oname, const char *iname);  /* miscell.cpp */
 
-int generic_message_box( const char *message, const char *box_type);
 
 int compute_rough_planet_loc( const double t_cen, const int planet_idx,
                                           double *vect);    /* sm_vsop.cpp */
-int asteroid_position_raw( const int astnum, const double jd,
-                              double *posn, double *vel);      /* bc405.cpp */
 int64_t nanoseconds_since_1970( void);                      /* mpc_obs.c */
 int format_jpl_ephemeris_info( char *buff);                 /* pl_cache.c */
 

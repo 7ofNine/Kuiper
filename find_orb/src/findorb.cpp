@@ -176,7 +176,6 @@ int search_for_trial_orbit( double *orbit, OBSERVE   *obs, int n_obs,
               const double r1, double *angle_param);  /* orb_func.cpp */
 void create_ades_file( const char *filename, const OBSERVE   *obs, int n_obs);
 
-int generic_message_box( const char *message, const char *box_type);
 int write_excluded_observations_file( const OBSERVE *obs, int n_obs);
 int debug_printf( const char *format, ...)                 /* mpc_obs.cpp */
 #ifdef __GNUC__
@@ -220,14 +219,12 @@ bool is_topocentric_mpc_code( const char *mpc_code);
 int64_t nanoseconds_since_1970( void);                      /* mpc_obs.c */
 int metropolis_search( OBSERVE *obs, const int n_obs, double *orbit,
                const double epoch, int n_iterations, double scale);
-const char *get_find_orb_text( const int index);
 int set_tholen_style_sigmas( OBSERVE *obs, const char *buff);  /* mpc_obs.c */
 
 int find_vaisala_orbit( double *orbit, const OBSERVE *obs1,   /* orb_func.c */
                      const OBSERVE *obs2, const double solar_r);
 int extended_orbit_fit( double *orbit, OBSERVE *obs, int n_obs,
                   const unsigned fit_type, double epoch);     /* orb_func.c */
-const char *get_environment_ptr( const char *env_ptr);     /* mpc_obs.cpp */
 int load_environment_file( const char *filename);          /* mpc_obs.cpp */
 void set_environment_ptr( const char *env_ptr, const char *new_value);
 int orbital_monte_carlo( const double *orbit, OBSERVE *obs, const int n_obs,

@@ -26,7 +26,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include "afuncs.h"
 #include "constant.h"
 
+#include "bc405.h"
 #include "miscell.h"
+#include "elem_out.h"
+#include "mpc_obs.h"
+#include "pl_cache.h"
+
 
 /* BC-405 gives orbital elements for 300 large asteroids at 40-day intervals,
 running from JD 2378495.0 = 1799 Dec 30.5 to JD 2524615.0 = 2200 Jan 22.5.
@@ -46,16 +51,10 @@ is to convert the data to binary,  8-byte double-precision floats,  resulting
 in a file of 6 * 300 * 3654 = 52 617 600 bytes.  The input file is called
 'asteroid_ephemeris.txt';  we create 'bc405.dat'.    */
 
-const char *get_find_orb_text( const int index);      /* elem_out.cpp */
-int detect_perturbers( const double jd, const double * /*__restrict*/ xyz,
-                       double *accel);          /* bc405.cpp */
-double *get_asteroid_mass( const int astnum);   /* bc405.cpp */
-int generic_message_box( const char *message, const char *box_type);
-int asteroid_position_raw( const int astnum, const double jd,
-                              double *posn, double *vel);      /* bc405.cpp */
-int planet_posn( const int planet_no, const double jd, double *vect_2000);
 
-const char *get_environment_ptr( const char *env_ptr);     /* mpc_obs.cpp */
+
+
+
 
 #define BC405_INVALID_CHUNK            (-1)
 #define NO_BC405_FILE                  (-2)

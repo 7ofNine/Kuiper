@@ -49,7 +49,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #define LOG_10 2.3025850929940456840179914546843642076011014886287729760333279009675726
 #define LIGHT_YEAR_IN_KM    (365.25 * seconds_per_day * SPEED_OF_LIGHT)
 
-int generic_message_box( const char *message, const char *box_type);
 double centralize_ang( double ang);             /* elem_out.cpp */
 double vector_to_polar( double *lon, double *lat, const double *vector);
 
@@ -70,7 +69,6 @@ int earth_lunar_posn( const double jd, double   *earth_loc,
 bool nighttime_only( const char *mpc_code);                 /* mpc_obs.cpp */
 double get_planet_mass( const int planet_idx);                /* orb_func.c */
 void remove_trailing_cr_lf( char *buff);      /* ephem0.cpp */
-const char *get_environment_ptr( const char *env_ptr);     /* mpc_obs.cpp */
 void set_environment_ptr( const char *env_ptr, const char *new_value);
 uint64_t parse_bit_string( const char *istr);                /* miscell.cpp */
 void format_dist_in_buff( char *buff, const double dist_in_au); /* ephem0.c */

@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include "mpc_func.h"
 
 #include "miscell.h"
+#include "mpc_obs.h"
 
 int debug_printf( const char *format, ...)                 /* mpc_obs.cpp */
 #ifdef __GNUC__
@@ -58,8 +59,8 @@ namespace fs = ghc::filesystem;
 #endif
 
 #include <direct.h>        /* for _mkdir() definition */
+#include "elem_out.h"
 
-const char *get_find_orb_text( const int index);
 
 /* This function allows one to put the following options in front of
 the 'permits' string :
@@ -87,8 +88,6 @@ can turn it back to 'false'.
 
 int fetch_astrometry_from_mpc( FILE *ofile, const char *desig);
 int download_a_file( const char *ofilename, const char *url);
-int generic_message_box( const char *message, const char *box_type);
-const char *get_environment_ptr( const char *env_ptr);     /* mpc_obs.cpp */
 
 char *make_config_dir_name( char *oname, const char *iname);  /* miscell.cpp */
 int reset_astrometry_filename( int *argc, const char **argv);

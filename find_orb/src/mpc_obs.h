@@ -288,6 +288,11 @@ int write_out_elements_to_file( const double *orbit,
 int extend_orbit_solution( OBSERVE   *obs, const int n_obs,
             const double limit, const double time_limit);
 int clean_up_find_orb_memory( void);         /* orb_func.cpp */
+//
+int generic_message_box(const char* message, const char* box_type);
+const char* get_environment_ptr(const char* env_ptr); 
+
+
 
 #define ELEM_OUT_NORMALIZED_MEAN_RESID 16
 #define ELEM_OUT_PRECISE_MEAN_RESIDS   8

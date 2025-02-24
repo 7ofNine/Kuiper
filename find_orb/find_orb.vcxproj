@@ -181,6 +181,7 @@ copy /Y "$(ProjectDir)\src\link_def.json" /A "$(SolutionDir)run\link_def.json" /
     <ClCompile Include="src\stackall.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\bc405.h" />
     <ClInclude Include="src\constant.h" />
     <ClInclude Include="src\curs_lin.h" />
     <ClInclude Include="src\details.h" />
@@ -200,7 +201,6 @@ copy /Y "$(ProjectDir)\src\link_def.json" /A "$(SolutionDir)run\link_def.json" /
     <ClInclude Include="src\settings.h" />
     <ClInclude Include="src\sigma.h" />
     <ClInclude Include="src\stackall.h" />
-    <ClInclude Include="src\stdafx.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\mpcorb.hdr" />

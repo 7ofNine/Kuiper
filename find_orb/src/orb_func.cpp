@@ -35,8 +35,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include "pl_cache.h"
 #include "constant.h"
 
+#include "sigma.h"
 #include "ephem0.h"
 #include "miscell.h"
+#include "elem_out.h"
+#include "bc405.h"
 
 /* MS only got around to adding 'isfinite' in VS2013 : */
 
@@ -55,7 +58,6 @@ unsigned perturbers = 0;
 int integration_method = 0;
 extern int debug_level;
 
-int generic_message_box( const char *message, const char *box_type);
 int find_fcct_biases( const double ra, const double dec, const char catalog,
                  const double jd, double *bias_ra, double *bias_dec);
 
@@ -84,7 +86,6 @@ int search_for_trial_orbit( double *orbit, OBSERVE   *obs, int n_obs,
 int set_locs( const double *orbit, double t0, OBSERVE   *obs, int n_obs);
 int find_best_fit_planet( const double jd, const double *ivect,
                                  double *rel_vect);         /* runge.cpp */
-const char *get_environment_ptr( const char *env_ptr);     /* mpc_obs.cpp */
 static int evaluate_limited_orbit( const double *orbit,
                     const int planet_orbiting, const double epoch,
                     const char *limited_orbit, double *constraints);
@@ -100,7 +101,6 @@ void set_distance( OBSERVE   *obs, double r);             /* orb_func.c */
 double find_r_given_solar_r( const OBSERVE   *obs, const double solar_r);
 void attempt_extensions( OBSERVE *obs, const int n_obs, double *orbit,
                   const double epoch);                  /* orb_func.cpp */
-double *get_asteroid_mass( const int astnum);   /* bc405.cpp */
 
 int compute_observer_loc( const double jde, const int planet_no,
              const double rho_cos_phi,           /* mpc_obs.cpp */
@@ -129,7 +129,6 @@ double find_epoch_shown( const OBSERVE *obs, const int n_obs); /* elem_out */
 void rotate_state_vector_to_current_frame( double *state_vect,
                   const double epoch_shown, const int planet_orbiting,
                   char *body_frame_note);               /* elem_out.cpp */
-const char *get_find_orb_text( const int index);      /* elem_out.cpp */
 void set_obs_vect( OBSERVE   *obs);        /* mpc_obs.h */
 double improve_along_lov( double *orbit, const double epoch, const double *lov,
           const unsigned n_params, unsigned n_obs, OBSERVE *obs);
@@ -4906,15 +4905,11 @@ int metropolis_search( OBSERVE *obs, const int n_obs, double *orbit,
    return( 0);
 }
 
-#include "sigma.h"
-#include "pl_cache.h"
 
 void update_environ_dot_dat( void);     /* mpc_obs.cpp */
 double galactic_confusion( const double ra, const double dec);
 void pop_all_orbits( void);         /* orb_func2.cpp */
 char *find_numbered_mp_info( const int number);    /* mpc_obs.cpp */
-int detect_perturbers( const double jd, const double * /*__restrict*/ xyz,
-                       double *accel);
 
 int clean_up_find_orb_memory( void)
 {

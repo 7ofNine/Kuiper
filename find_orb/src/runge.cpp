@@ -27,9 +27,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include "lunar.h"
 #include "afuncs.h"
 #include "comets.h"
-#include "afuncs.h"
 #include "mpc_obs.h"
 #include "constant.h"
+#include "bc405.h"
+#include "pl_cache.h"
+
 
 #define ldouble long double
 
@@ -58,10 +60,8 @@ int debug_printf( const char *format, ...)                 /* mpc_obs.cpp */
          __attribute__ (( format( printf, 1, 2)))
 #endif
 ;
-int planet_posn( const int planet_no, const double jd, double *vect_2000);
-                                                /* mpc_obs.cpp */
+
 int earth_lunar_posn( const double jd, double   *earth_loc, double   *lunar_loc);
-const char *get_environment_ptr( const char *env_ptr);     /* mpc_obs.cpp */
 ldouble take_rk_stepl( const ldouble jd, ELEMENTS *ref_orbit,
                  const ldouble *ival, ldouble *ovals,
                  const int n_vals, const ldouble step);     /* runge.cpp */

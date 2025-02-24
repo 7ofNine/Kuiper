@@ -42,6 +42,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include "ephem0.h"
 #include "miscell.h"
 #include "elem_out.h"
+#include "bc405.h"
+
 
             /* Pretty much every platform I've run into supports */
             /* Unicode display,  except OpenWATCOM and early     */
@@ -91,7 +93,6 @@ void find_relative_state_vect( const double jd, const double *ivect,
 void compute_effective_solar_multiplier( const char *constraints);   /* runge.c */
 int get_orbit_from_mpcorb_sof( const char *object_name, double *orbit,
              ELEMENTS *elems, const double full_arc_len, double *max_resid);
-const char *get_environment_ptr( const char *env_ptr);     /* mpc_obs.cpp */
 void remove_trailing_cr_lf( char *buff);      /* ephem0.cpp */
 int write_tle_from_vector( char *buff, const double *state_vect,
         const double epoch, const char *norad_desig, const char *intl_desig);
@@ -104,7 +105,6 @@ int get_idx1_and_idx2( const int n_obs, const OBSERVE   *obs,
                                 int *idx1, int *idx2);      /* elem_out.c */
 double mag_band_shift( const char mag_band, int *err_code);   /* elem_out.c */
 int get_jpl_ephemeris_info( int *de_version, double *jd_start, double *jd_end);
-double *get_asteroid_mass( const int astnum);   /* bc405.cpp */
 double centralize_ang( double ang);             /* elem_out.cpp */
 
 void get_relative_vector( const double jd, const double *ivect,
@@ -120,7 +120,6 @@ double diameter_from_abs_mag( const double abs_mag,      /* ephem0.cpp */
                                      const double optical_albedo);
 char **load_file_into_memory( const char *filename, size_t *n_lines,
                         const bool fail_if_not_found);      /* mpc_obs.cpp */
-const char *get_find_orb_text( const int index);      /* elem_out.cpp */
 int set_language( const int language);                      /* elem_out.cpp */
 void get_find_orb_text_filename( char *filename);     /* elem_out.cpp */
 
@@ -3604,7 +3603,6 @@ double calc_obs_magnitude( const double obj_sun,
    return( rval);
 }
 
-int generic_message_box( const char *message, const char *box_type);
 
 /* Almost all mag band shifts,  as of 2021 Sep 19,  come from
 
