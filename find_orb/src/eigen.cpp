@@ -20,10 +20,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include <cmath>
 #include <cassert>
 
+#include "eigen.h"
+
 #define MAX_MATRIX_SIZE 40
 
-void jacobi_eigenvalues( double *a, const int size, double *eigenvals,
-                        double *eigenvects);       /* eigen.cpp */
 
 #ifdef TEST_PROGRAM
 #include <cstdio>

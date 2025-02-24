@@ -41,6 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include "elem_out.h"
 #include "bc405.h"
 #include "bias.h"
+#include "eigen.h"
 
 /* MS only got around to adding 'isfinite' in VS2013 : */
 
@@ -2434,8 +2435,6 @@ static int evaluate_limited_orbit( const double *orbit,
 }
 
 double **eigenvects;
-void jacobi_eigenvalues( double *a, const int size, double *eigenvals,
-                        double *eigenvects);       /* eigen.cpp */
 
 void **calloc_double_dimension_array( const size_t x, const size_t y,
                                     const size_t obj_size)
