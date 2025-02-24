@@ -31,14 +31,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include "mpc_obs.h"
 #include "monte0.h"     /* for put_double_in_buff() proto */
 #include "date.h"
+#include "elem_ou2.h"
 
    /* MSVC/C++ lacks snprintf.  See 'ephem0.cpp' for details. */
 #if defined(_MSC_VER) && _MSC_VER < 1900
 int snprintf( char *string, const size_t max_len, const char *format, ...);
 #endif
-int put_elements_into_sof( char *obuff, const char *templat,
-         const ELEMENTS *elem, const double *nongravs,
-         const int n_obs, const OBSERVE *obs);                /* elem_ou2.cpp */
 
 const double PI = 3.1415926535897932384626433832795028841971693993751058209749445923;
 

@@ -43,6 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include "miscell.h"
 #include "elem_out.h"
 #include "bc405.h"
+#include "elem_ou2.h"
 
 
             /* Pretty much every platform I've run into supports */
@@ -146,9 +147,6 @@ char *make_config_dir_name( char *oname, const char *iname);  /* miscell.cpp */
 int earth_lunar_posn( const double jd, double   *earth_loc, double   *lunar_loc);
 double vect_diff2( const double *a, const double *b);
 int get_residual_data( const OBSERVE *obs, double *xresid, double *yresid);
-int put_elements_into_sof( char *obuff, const char *templat,
-         const ELEMENTS *elem, const double *nongravs,
-         const int n_obs, const OBSERVE *obs);                /* elem_ou2.cpp */
 int qsort_strcmp( const void *a, const void *b, void *ignored_context);
 uint64_t parse_bit_string( const char *istr);                /* miscell.cpp */
 const char *write_bit_string( char *ibuff, const uint64_t bits,

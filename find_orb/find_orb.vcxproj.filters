@@ -197,6 +197,9 @@
     <ClInclude Include="src\eigen.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\elem_ou2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\mpcorb.hdr">
