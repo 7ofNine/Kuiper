@@ -45,6 +45,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include "ephem0.h"
 #include "miscell.h"
 #include "elem_out.h"
+#include "collide.h"
 
 #define LOG_10 2.3025850929940456840179914546843642076011014886287729760333279009675726
 #define LIGHT_YEAR_IN_KM    (365.25 * seconds_per_day * SPEED_OF_LIGHT)
@@ -52,8 +53,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 double centralize_ang( double ang);             /* elem_out.cpp */
 double vector_to_polar( double *lon, double *lat, const double *vector);
 
-int parallax_to_lat_alt( const double rho_cos_phi, const double rho_sin_phi,
-       double *lat, double *ht_in_meters, const int planet_idx); /* ephem0.c */
 double calc_obs_magnitude( const double obj_sun,
           const double obj_earth, const double earth_sun, double *phase_ang);
 int lat_alt_to_parallax( const double lat, const double ht_in_meters,
@@ -348,8 +347,6 @@ track' option in ephemerides has since been expanded to allow geodetic
 output,  with the possibility of creating such ephemerides from other
 planets as well. */
 
-double find_lat_lon_alt( const double ut, const double *ivect,
-                  const int planet_no, double *lat_lon, const bool geometric);
 
 /* 'get_step_size' parses input text to get a step size in days,  so that */
 /* '4h' becomes .16667 days,  '30m' becomes 1/48 day,  and '10s' becomes  */

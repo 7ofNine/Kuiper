@@ -19,9 +19,14 @@
 #ifndef EPHEM0_H_INCLUDED
 #define EPHEM0_H_INCLUDED
 
+struct observe;
+
 char* get_file_name(char* filename, const char* template_file_name);
 double utc_from_td(const double jdt, double* delta_t);
 double original_observed_ra(const OBSERVE* obs);
 double original_observed_dec(const OBSERVE* obs);
+int parallax_to_lat_alt(const double rho_cos_phi, const double rho_sin_phi,
+       double* lat, double* ht_in_meters, const int planet_idx);
+
 
 #endif

@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include "constant.h"
 #include "bc405.h"
 #include "pl_cache.h"
+#include "ephem0.h"
 
 
 #define ldouble long double
@@ -82,8 +83,6 @@ int find_relative_orbit( const double jd, const double *ivect,
                ELEMENTS *elements, const int ref_planet);     /* runge.cpp */
 static void compute_ref_state( ELEMENTS *ref_orbit, double *ref_state,
                                           const double jd);
-int parallax_to_lat_alt( const double rho_cos_phi, const double rho_sin_phi,
-       double *lat, double *ht_in_meters, const int planet_idx); /* ephem0.c */
 void calc_approx_planet_orientation( const int planet,        /* runge.cpp */
          const int system_number, const double jde, double *matrix);
 void compute_effective_solar_multiplier( const char *constraints);   /* runge.c */

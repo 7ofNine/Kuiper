@@ -59,8 +59,6 @@ int sort_obs_by_date_and_remove_duplicates( OBSERVE *obs, const int n_obs);
 
 int lat_alt_to_parallax( const double lat, const double ht_in_meters,
              double *rho_cos_phi, double *rho_sin_phi, const int planet_idx);
-int parallax_to_lat_alt( const double rho_cos_phi, const double rho_sin_phi,
-       double *lat, double *ht_in_meters, const int planet_idx); /* ephem0.c */
 void set_obs_vect( OBSERVE   *obs);        /* mpc_obs.h */
 void remove_trailing_cr_lf( char *buff);            /* ephem0.cpp */
 void format_dist_in_buff( char *buff, const double dist_in_au); /* ephem0.c */

@@ -191,6 +191,9 @@
     <ClInclude Include="src\clipfunc.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\collide.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\mpcorb.hdr">
