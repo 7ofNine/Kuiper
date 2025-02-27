@@ -111,6 +111,7 @@ static bool _mouse_movements_are_reported = false;
 #include "elem_out.h"
 #include "bias.h"
 #include "clipfunc.h"
+#include "orbfunc.h"
 
 
 int debug_level = 0;
@@ -166,19 +167,19 @@ devoted to station data.   */
 void ensure_config_directory_exists(); /* miscell.c */
 static int user_select_file( char *filename, const char *title, const int flags);
 double get_planet_mass( const int planet_idx);                /* orb_func.c */
-int simplex_method( OBSERVE   *obs, int n_obs, double *orbit,
+int simplex_method(Observe *obs, int n_obs, double *orbit,
                const double r1, const double r2, const char *constraints);
-int superplex_method( OBSERVE   *obs, int n_obs, double *orbit, const char *constraints);
+int superplex_method(Observe *obs, int n_obs, double *orbit, const char *constraints);
 static void show_a_file( const char *filename, const int flags);
 static void put_colored_text( const char *text, const int line_no,
                const int column, const int n_bytes, const int color);
-int find_trial_orbit( double *orbit, OBSERVE   *obs, int n_obs,
+int find_trial_orbit( double *orbit, Observe *obs, int n_obs,
              const double r1, const double angle_param);   /* orb_func.cpp */
-int search_for_trial_orbit( double *orbit, OBSERVE   *obs, int n_obs,
+int search_for_trial_orbit( double *orbit, Observe *obs, int n_obs,
               const double r1, double *angle_param);  /* orb_func.cpp */
-void create_ades_file( const char *filename, const OBSERVE   *obs, int n_obs);
+void create_ades_file(const char *filename, const Observe *obs, int n_obs);
 
-int write_excluded_observations_file( const OBSERVE *obs, int n_obs);
+int write_excluded_observations_file(const Observe *obs, int n_obs);
 int debug_printf( const char *format, ...)                 /* mpc_obs.cpp */
 #ifdef __GNUC__
          __attribute__ (( format( printf, 1, 2)))
@@ -195,41 +196,40 @@ int store_defaults( const ephem_option_t ephemeris_output_options,
 int get_defaults( ephem_option_t *ephemeris_output_options, int *element_format,
          int *element_precision, double *max_residual_for_filtering,
          double *noise_in_sigmas);                /* elem_out.cpp */
-int text_search_and_replace( char   *str, const char *oldstr,
+int text_search_and_replace(char   *str, const char *oldstr,
                                      const char *newstr);   /* ephem0.cpp */
-int sort_obs_by_date_and_remove_duplicates( OBSERVE *obs, const int n_obs);
+int sort_obs_by_date_and_remove_duplicates(Observe *obs, const int n_obs);
 
 void fix_home_dir( char *filename);                /* ephem0.cpp */
 int write_environment_pointers( void);             /* mpc_obs.cpp */
 int add_ephemeris_details( FILE *ofile, const double start_jd,  /* ephem0.c */
                                                const double end_jd);
-void set_distance( OBSERVE   *obs, double r);             /* orb_func.c */
+void set_distance(Observe *obs, double r);             /* orb_func.c */
 void set_statistical_ranging( const int new_using_sr);      /* elem_out.cpp */
-int link_arcs( OBSERVE *obs, int n_obs, const double r1, const double r2);
-int find_circular_orbits( OBSERVE   *obs1, OBSERVE   *obs2,
-               double *orbit, const int desired_soln);   /* orb_fun2.cpp */
-void set_up_observation( OBSERVE   *obs);               /* mpc_obs.cpp */
-double euler_function( const OBSERVE   *obs1, const OBSERVE   *obs2);
+int link_arcs(Observe *obs, int n_obs, const double r1, const double r2);
+int find_circular_orbits(Observe *obs1, Observe *obs2, double *orbit, const int desired_soln);   /* orb_fun2.cpp */
+void set_up_observation(Observe *obs);               /* mpc_obs.cpp */
+double euler_function(const Observe *obs1, const Observe *obs2);
 int find_relative_orbit( const double jd, const double *ivect,
                ELEMENTS *elements, const int ref_planet);     /* runge.cpp */
-int find_parabolic_orbit( OBSERVE   *obs, const int n_obs,
+int find_parabolic_orbit(Observe *obs, const int n_obs,
             double *orbit, const int direction);         /* orb_func.cpp */
 int format_jpl_ephemeris_info( char *buff);
 double improve_along_lov( double *orbit, const double epoch, const double *lov,
-          const unsigned n_params, unsigned n_obs, OBSERVE *obs);
+          const unsigned n_params, unsigned n_obs, Observe *obs);
 bool is_topocentric_mpc_code( const char *mpc_code);
 int64_t nanoseconds_since_1970( void);                      /* mpc_obs.c */
-int metropolis_search( OBSERVE *obs, const int n_obs, double *orbit,
+int metropolis_search(Observe *obs, const int n_obs, double *orbit,
                const double epoch, int n_iterations, double scale);
-int set_tholen_style_sigmas( OBSERVE *obs, const char *buff);  /* mpc_obs.c */
+int set_tholen_style_sigmas(Observe *obs, const char *buff);  /* mpc_obs.c */
 
-int find_vaisala_orbit( double *orbit, const OBSERVE *obs1,   /* orb_func.c */
-                     const OBSERVE *obs2, const double solar_r);
-int extended_orbit_fit( double *orbit, OBSERVE *obs, int n_obs,
+int find_vaisala_orbit( double *orbit, const Observe *obs1,   /* orb_func.c */
+                     const Observe *obs2, const double solar_r);
+int extended_orbit_fit( double *orbit, Observe *obs, int n_obs,
                   const unsigned fit_type, double epoch);     /* orb_func.c */
 int load_environment_file( const char *filename);          /* mpc_obs.cpp */
 void set_environment_ptr( const char *env_ptr, const char *new_value);
-int orbital_monte_carlo( const double *orbit, OBSERVE *obs, const int n_obs,
+int orbital_monte_carlo( const double *orbit, Observe *obs, const int n_obs,
          const double curr_epoch, const double epoch_shown);   /* orb_func.cpp */
 char *make_config_dir_name( char *oname, const char *iname);    /* miscell.cpp */
 int reset_astrometry_filename( int *argc, const char **argv);
@@ -241,13 +241,13 @@ static int count_wide_chars_in_utf8_string( const char *iptr, const char *endptr
 char **load_file_into_memory( const char *filename, size_t *n_lines,
                         const bool fail_if_not_found);      /* mpc_obs.cpp */
 void make_observatory_info_text( char *text, const size_t textlen,
-             const OBSERVE *obs, int n_obs, const char *mpc_code);
+             const Observe *obs, int n_obs, const char *mpc_code);
 void size_from_h_text( const double abs_mag, char *obuff,
                                  const int obuff_size);  /* ephem0.c */
-int select_tracklet( OBSERVE *obs, const int n_obs, const int idx);
+int select_tracklet(Observe *obs, const int n_obs, const int idx);
 int get_orbit_from_mpcorb_sof( const char *object_name, double *orbit,
              ELEMENTS *elems, const double full_arc_len, double *max_resid);
-int improve_sr_orbits( sr_orbit_t *orbits, OBSERVE   *obs,
+int improve_sr_orbits( sr_orbit_t *orbits, Observe *obs,
                const unsigned n_obs, const unsigned n_orbits,  /* orb_func.c */
                const double noise_in_sigmas, const int writing_sr_elems);
 int save_ephemeris_settings( const ephem_option_t ephemeris_output_options,
@@ -647,7 +647,7 @@ int inquire( const char *prompt, char *buff, const int max_len,
    return( full_inquire( prompt, buff, max_len, color, -1, -1));
 }
 
-static int select_mpc_code( const OBSERVE *obs, const int n_obs, int curr_obs)
+static int select_mpc_code(const Observe *obs, const int n_obs, int curr_obs)
 {
    const int max_n_codes = 500;
    const int buffsize = max_n_codes * 4 + 70;
@@ -758,7 +758,7 @@ static double *set_up_alt_orbits( const double *orbit, unsigned *n_orbits)
 /* Outputs residuals in the 'short',  three-columns-wide format
 used in MPECs and pseudo-MPECs.   */
 
-static void create_resid_file( const OBSERVE *obs, const int n_obs,
+static void create_resid_file(const Observe *obs, const int n_obs,
          const char *input_filename, int residual_format)
 {
    char buff[260];
@@ -897,7 +897,7 @@ static int n_ephemeris_steps;
 static ephem_option_t ephemeris_output_options;
 
 static void create_ephemeris( const double *orbit, const double epoch_jd,
-         OBSERVE *obs, const int n_obs, const char *obj_name,
+         Observe *obs, const int n_obs, const char *obj_name,
          const char *input_filename, const int residual_format)
 {
    int c = 1;
@@ -2018,7 +2018,7 @@ static int get_character_code( const char *buff)
    return( rval);
 }
 
-static unsigned show_basic_info( const OBSERVE   *obs, const int n_obs,
+static unsigned show_basic_info(const Observe *obs, const int n_obs,
                                           const unsigned max_lines_to_show)
 {
    char buff[81];
@@ -2274,7 +2274,7 @@ static void show_right_hand_scroll_bar( const int line_start,
       }
 }
 
-static int show_station_info( const OBSERVE   *obs, const int n_obs,
+static int show_station_info(const Observe *obs, const int n_obs,
               const int top_line_residual_area,
               const int curr_obs,
               const int list_codes)
@@ -2321,7 +2321,7 @@ static int show_station_info( const OBSERVE   *obs, const int n_obs,
 }
 
 
-static void show_one_observation( OBSERVE obs, const int line,
+static void show_one_observation(Observe obs, const int line,
                         const int residual_format, bool is_underlined)
 {
    char buff[200];
@@ -2383,7 +2383,7 @@ static void show_one_observation( OBSERVE obs, const int line,
       }
 }
 
-static void show_observations( const OBSERVE *obs, const int first_obs_idx,
+static void show_observations(const Observe *obs, const int first_obs_idx,
                 int line_no, const int residual_format, const int n_obs_shown,
                 const int n_obs)
 {
@@ -2885,7 +2885,7 @@ static void show_a_file( const char *filename, const int flags)
    free( index);
 }
 
-static int get_epoch_range_of_included_obs( const OBSERVE   *obs,
+static int get_epoch_range_of_included_obs(const Observe *obs,
                   const int n_obs, double *start_jd, double *end_jd)
 {
    int idx1, idx2, rval;
@@ -2981,33 +2981,33 @@ static void put_colored_text( const char *text, const int line_no,
    attroff( color & attrib_mask);
 }
 
-OBSERVE *add_observations( FILE *ifile, OBSERVE *obs,
+Observe *add_observations(FILE *ifile, Observe *obs,
                   const OBJECT_INFO *ids, int *n_obs)
 {
-   OBSERVE *obs2 = load_observations( ifile, ids->packed_desig, ids->n_obs);
+    Observe *obs2 = load_observations( ifile, ids->packed_desig, ids->n_obs);
    extern int n_obs_actually_loaded;
 
    if( debug_level)
       printf( "Got %d new obs\n", n_obs_actually_loaded);
    fclose( ifile);
-   obs = (OBSERVE *)realloc( obs,
-                 (*n_obs + n_obs_actually_loaded) * sizeof( OBSERVE));
-   memcpy( obs + *n_obs, obs2, n_obs_actually_loaded * sizeof( OBSERVE));
+   obs = (Observe*)realloc( obs,
+                 (*n_obs + n_obs_actually_loaded) * sizeof(Observe));
+   memcpy( obs + *n_obs, obs2, n_obs_actually_loaded * sizeof(Observe));
    *n_obs += n_obs_actually_loaded;
    free( obs2);
    *n_obs = sort_obs_by_date_and_remove_duplicates( obs, *n_obs);
    return( obs);
 }
 
-int find_first_and_last_obs_idx( const OBSERVE *obs, const int n_obs,
+int find_first_and_last_obs_idx(const Observe *obs, const int n_obs,
          int *last);       /* elem_out.cpp */
-double mid_epoch_of_arc( const OBSERVE *obs, const int n_obs);
+double mid_epoch_of_arc(const Observe *obs, const int n_obs);
 
 
 /* I really should use getopt() or a portable variant.  However,  this has
 been sufficiently effective thus far... */
 
-static const char *get_arg( const int argc, const char **argv, const int idx)
+static const char *get_arg(const int argc, const char **argv, const int idx)
 {
    const char *rval;
 
@@ -3267,7 +3267,7 @@ static int count_wide_chars_in_utf8_string( const char *iptr, const char *endptr
    return( rval);
 }
 
-static int toggle_selected_observations( OBSERVE *obs, const unsigned n_obs,
+static int toggle_selected_observations(Observe *obs, const unsigned n_obs,
                                  unsigned *n_found)
 {
    unsigned n_on = 0, n_off = 0, i;
@@ -3841,7 +3841,7 @@ int main( int argc, const char **argv)
    bool is_monte_orbit = false;
    unsigned list_codes = SHOW_MPC_CODES_NORMAL;
    int i, quit = 0, n_obs = 0, clock_line = 0;
-   OBSERVE   *obs = nullptr;
+   Observe *obs = nullptr;
    int curr_obs = 0;
    double epoch_shown, curr_epoch, orbit[MAX_N_PARAMS];
    double r1 = 1., r2 = 1.;
@@ -4296,7 +4296,7 @@ int main( int argc, const char **argv)
 
          clock_line = 0;
          if( sort_obs_by_code)
-            shellsort_r( obs, n_obs, sizeof( OBSERVE), compare_observations,
+            shellsort_r( obs, n_obs, sizeof(Observe), compare_observations,
                                                    &sort_obs_by_code);
          generate_obs_text( obs, n_obs, tbuff, sizeof( tbuff));
          if( make_unicode_substitutions)
@@ -4307,7 +4307,7 @@ int main( int argc, const char **argv)
                text_search_and_replace( tbuff, "\xf8", "\xc2\xb0 ");
             }
          if( sort_obs_by_code)
-            shellsort_r( obs, n_obs, sizeof( OBSERVE), compare_observations, nullptr);
+            shellsort_r( obs, n_obs, sizeof(Observe), compare_observations, nullptr);
          while( *tptr)
             {
             size_t i;
@@ -4457,7 +4457,7 @@ int main( int argc, const char **argv)
          debug_printf( "resid legend shown\n");
 
       if( sort_obs_by_code)
-         shellsort_r( obs, n_obs, sizeof( OBSERVE), compare_observations,
+         shellsort_r( obs, n_obs, sizeof(Observe), compare_observations,
                                                      &sort_obs_by_code);
 
       top_line_residuals = line_no;
@@ -4511,7 +4511,7 @@ int main( int argc, const char **argv)
          refresh( );
       show_final_line( n_obs, curr_obs, COLOR_FINAL_LINE);
       if( sort_obs_by_code)
-         shellsort_r( obs, n_obs, sizeof( OBSERVE), compare_observations, nullptr);
+         shellsort_r( obs, n_obs, sizeof(Observe), compare_observations, nullptr);
       if( debug_level)
          refresh( );
       if( *message_to_user)
@@ -6243,7 +6243,7 @@ int main( int argc, const char **argv)
          case KEY_F(12):
             {
             int last, first;
-            OBSERVE tobs1, tobs2;
+            Observe tobs1, tobs2;
             static int desired_soln = 0;
 
             first = find_first_and_last_obs_idx( obs, n_obs, &last);

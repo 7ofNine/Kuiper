@@ -12,7 +12,7 @@
 /* #define RETAIN_PERTURBATION_VALUES_AT_EPOCH 1 */
 
 /* Two-line-element satellite orbital data */
-typedef struct
+struct tle_t
 {
   double epoch, xndt2o, xndd6o, bstar;
   double xincl, xnodeo, eo, omegao, xmo, xno;
@@ -20,7 +20,7 @@ typedef struct
   char classification;    /* "U" = unclassified;  only type I've seen */
   char ephemeris_type;
   char intl_desig[9];
-} tle_t;
+};
 
    /* NOTE: xndt2o and xndt6o are used only in the "classic" SGP, */
    /* not in SxP4 or SxP8. */

@@ -1,3 +1,7 @@
+#ifndef CONSTANTS_H_INCLUDE
+#define CONSTANTS_H_INCLUDE
+
+
 /* Miscellaneous constants used throughout Find_Orb */
 
 #define J2000 2451545.
@@ -52,3 +56,5 @@ area/mass ratio for 1I/`Oumuamua of 1.15 m^2/kg,  but if you fit A1
 and A2,  you get A1 = 2.39e-7 AU/day^2... somewhat lower than you'd
 expect if you just multiplied 1.15 by SRP1AU,  but pretty close;  the
 tangential components are rarely large.  */
+
+#endif // !CONSTANTS_H_INCLUDE

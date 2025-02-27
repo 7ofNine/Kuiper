@@ -25,12 +25,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include "afuncs.h"
 
 #include "miscell.h"
+#include "orbfunc.h"
 
 
-double gauss_method( const OBSERVE   *obs1, const OBSERVE   *obs2,
-                     const OBSERVE   *obs3, double *orbit, const double mu,
+double gauss_method( const Observe *obs1, const Observe *obs2,
+                     const Observe *obs3, double *orbit, const double mu,
                      const int desired_soln);               /* gauss.cpp */
-double convenient_gauss( const OBSERVE   *obs, int n_obs, double *orbit,
+double convenient_gauss( const Observe *obs, int n_obs, double *orbit,
                   const double mu, const int desired_soln); /* gauss.cpp */
 int find_real_polynomial_roots( const double *poly, int poly_order,
                                 double *real_roots);        /* roots.cpp */
@@ -63,8 +64,8 @@ static double cross_then_dot( const double   *a, const double   *b,
 #define GAUSS_K .01720209895
 #define P_MAX 10000.
 
-double gauss_method( const OBSERVE   *obs1, const OBSERVE   *obs2,
-                     const OBSERVE   *obs3, double *orbit, const double mu,
+double gauss_method( const Observe *obs1, const Observe *obs2,
+                     const Observe *obs3, double *orbit, const double mu,
                      const int desired_soln)
 {
    double tau1 = GAUSS_K * (obs1->jd - obs2->jd);
@@ -320,7 +321,7 @@ a few pairs at pseudo-random,  then look for a third observation
 that maximizes d0... you'd have a bit more processing time,  but also
 some chance of improving d0.  */
 
-static double find_best_obs_for_gauss( const OBSERVE   *obs,
+static double find_best_obs_for_gauss( const Observe *obs,
                const unsigned n_obs, unsigned *idx)
 {
    double max_d0 = 0.;
@@ -351,7 +352,7 @@ and last valid observations.  Then it looks for the valid observation
 that comes closest to the mid-time of the end points, and calls the
 above function with the start,  end,  and middle observations. */
 
-double convenient_gauss( const OBSERVE   *obs, int n_obs, double *orbit,
+double convenient_gauss( const Observe *obs, int n_obs, double *orbit,
                   const double mu, const int desired_soln)
 {
    double p2, old_orbit[6], d0;

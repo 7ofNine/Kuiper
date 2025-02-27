@@ -16,6 +16,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 02110-1301, USA. */
 
 #include <cstdlib>
+#include <cstdint>
 #include <cmath>
 #include <cstdio>
 #include <cstring>
@@ -26,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include "stringex.h"
 #include "afuncs.h"
 #include "monte0.h"
+#include "orbfunc.h"
 
 double gaussian_random( void);                           /* monte0.c */
 int debug_printf( const char *format, ...)                 /* mpc_obs.cpp */
@@ -35,8 +37,8 @@ int debug_printf( const char *format, ...)                 /* mpc_obs.cpp */
 ;
 double get_planet_mass( const int planet_idx);                /* orb_func.c */
 void remove_insignificant_digits( char *tbuff);          /* monte0.c */
-void set_up_observation( OBSERVE   *obs);                 /* mpc_obs.c */
-void set_obs_vect( OBSERVE   *obs);        /* mpc_obs.h */
+void set_up_observation(Observe *obs);                 /* mpc_obs.c */
+void set_obs_vect(Observe *obs);        /* mpc_obs.h */
 
 #define PI 3.1415926535897932384626433832795028841971693993751058209749445923
 
@@ -103,7 +105,7 @@ void compute_monte_sigmas( double *sigmas, const double *monte_data,
       }
 }
 
-static double *store_ra_decs_mags_times( unsigned n_obs, const OBSERVE *obs)
+static double *store_ra_decs_mags_times(unsigned n_obs, const Observe *obs)
 {
    double *stored_ra_decs = (double *)calloc( 4 * n_obs, sizeof( double));
    double *tptr = stored_ra_decs;
@@ -122,8 +124,7 @@ static double *store_ra_decs_mags_times( unsigned n_obs, const OBSERVE *obs)
    return( stored_ra_decs);
 }
 
-void restore_ra_decs_mags_times( unsigned n_obs, OBSERVE *obs,
-                           const double *stored_ra_decs)
+void restore_ra_decs_mags_times(unsigned n_obs, Observe *obs, const double *stored_ra_decs)
 {
    const double *tptr = stored_ra_decs;
 
@@ -142,7 +143,7 @@ void restore_ra_decs_mags_times( unsigned n_obs, OBSERVE *obs,
       }
 }
 
-#include <cstdint>
+
 
 /* Defining 64-bit constants portably and avoiding nuisance warnings
 is rather difficult to arrange,  but can be done. */
@@ -237,7 +238,7 @@ enable us to assume that any problems are _not_ due to insufficiently random
 numbers.  Also, if one uses the C-library PRNG,  you'll get different results
 on different systems with different implementations.  */
 
-double *add_gaussian_noise_to_obs( int n_obs, OBSERVE *obs,
+double *add_gaussian_noise_to_obs(int n_obs, Observe *obs,
                  const double noise_in_sigmas)
 {
    const double noise_in_radians = noise_in_sigmas * PI / (180. * 3600.);

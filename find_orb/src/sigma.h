@@ -1,3 +1,5 @@
+#ifndef SIGMA_H_INCLUDE
+#define SIGMA_H_INCLUDE
 /* Copyright (C) 2018, Project Pluto
 
 This program is free software; you can redistribute it and/or
@@ -20,3 +22,6 @@ void free_sigma_recs( void);
 double get_observation_sigma( const double jd, const int mag_in_tenths,
                   const char *mpc_code, double *mag_sigma,
                   double *time_sigma, const char program_code);
+
+#endif // !SIGMA_H_INCLUDE
+

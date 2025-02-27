@@ -46,6 +46,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include "miscell.h"
 #include "elem_out.h"
 #include "collide.h"
+#include "orbfunc.h"
 
 #define LOG_10 2.3025850929940456840179914546843642076011014886287729760333279009675726
 #define LIGHT_YEAR_IN_KM    (365.25 * seconds_per_day * SPEED_OF_LIGHT)
@@ -57,8 +58,8 @@ double calc_obs_magnitude( const double obj_sun,
           const double obj_earth, const double earth_sun, double *phase_ang);
 int lat_alt_to_parallax( const double lat, const double ht_in_meters,
              double *rho_cos_phi, double *rho_sin_phi, const int planet_idx);
-int write_residuals_to_file( const char *filename, const char *ast_filename,
-          const int n_obs, const OBSERVE   *obs_data, const int format);
+int write_residuals_to_file(const char *filename, const char *ast_filename,
+          const int n_obs, const Observe *obs_data, const int format);
 void light_time_lag( const double jde, const double *orbit,       /* orb_func.c */
              const double *observer, double *result, const int is_heliocentric);
 int make_pseudo_mpec( const char *mpec_filename, const char *obj_name);
@@ -87,7 +88,7 @@ double shadow_check( const double *planet_loc,           /* ephem0.cpp */
                             const double *obs_posn,
                             const double planet_radius_in_au);
 int get_object_name( char *obuff, const char *packed_desig);   /* mpc_obs.c */
-int get_residual_data( const OBSERVE *obs, double *xresid, double *yresid);
+int get_residual_data(const Observe *obs, double *xresid, double *yresid);
 int setup_planet_elem( ELEMENTS *elem, const int planet_idx,
                                           const double t_cen);   /* moid4.c */
 void calc_approx_planet_orientation( const int planet,        /* runge.cpp */
@@ -131,7 +132,7 @@ int lat_alt_to_parallax( const double lat, const double ht_in_meters,
 /* Parallax constants (rho_cos_phi, rho_sin_phi) should be in units of the
 planet's equatorial radius.  */
 
-int parallax_to_lat_alt( const double rho_cos_phi, const double rho_sin_phi,
+int parallax_to_lat_alt(const double rho_cos_phi, const double rho_sin_phi,
                double *lat, double *ht_in_meters, const int planet_idx)
 {
    double talt = 0.;
@@ -652,7 +653,7 @@ static void extract_field( field_location_t *field, const char *buff,
    strlcpy_error( field->obscode, groups->obscode);
 }
 
-static int find_precovery_plates( OBSERVE *obs, const int n_obs,
+static int find_precovery_plates(Observe *obs, const int n_obs,
                            const char *idx_filename,
                            FILE *ofile, const double *orbit,
                            const int n_orbits, double epoch_jd,
@@ -2181,7 +2182,7 @@ double ephemeris_mag_limit = 22.;
 const char *mpc_code_for_ephems = "";
 
 static int _ephemeris_in_a_file( const char *filename, const double *orbit,
-         OBSERVE *obs, const int n_obs,
+         Observe *obs, const int n_obs,
          const double epoch_jd, const double jd_start, const char *stepsize,
          mpc_code_t *cinfo,
          const int n_steps, const char *note_text,
@@ -2549,7 +2550,7 @@ static int _ephemeris_in_a_file( const char *filename, const double *orbit,
          double topo[3], topo_vel[3], geo[3], r;
          double topo_ecliptic[3];
          double orbi_after_light_lag[MAX_N_PARAMS];
-         OBSERVE temp_obs;
+         Observe temp_obs;
          int j;
          const char *sigma_delta_placeholder = "!sigma_delta!";
          const char *sigma_rvel_placeholder = "!sigma_rv!";
@@ -2600,7 +2601,7 @@ static int _ephemeris_in_a_file( const char *filename, const double *orbit,
                }
             }
 
-         memset( &temp_obs, 0, sizeof( OBSERVE));
+         memset(&temp_obs, 0, sizeof(Observe));
          temp_obs.r = vector3_length( topo);
          for( j = 0; j < 3; j++)
             {
@@ -3771,12 +3772,9 @@ static void get_scope_params( const char *mpc_code, expcalc_config_t *c)
       }
 }
 
-int ephemeris_in_a_file_from_mpc_code( const char *filename,
-         const double *orbit,
-         OBSERVE *obs, const int n_obs,
-         const double epoch_jd, const double jd_start, const char *stepsize,
-         const int n_steps, const char *mpc_code,
-         ephem_option_t options, const unsigned n_objects)
+int ephemeris_in_a_file_from_mpc_code( const char *filename, const double *orbit,
+         Observe *obs, const int n_obs, const double epoch_jd, const double jd_start, const char *stepsize,
+         const int n_steps, const char *mpc_code, ephem_option_t options, const unsigned n_objects)
 {
    mpc_code_t cinfo;
    char note_text[200], buff[100];
@@ -3967,7 +3965,7 @@ double utc_from_td( const double jdt, double *delta_t)
 i.e.,  those without debiasing applied,  as seen in the original ADES
 or 80-column data.   */
 
-double original_observed_ra( const OBSERVE *obs)
+double original_observed_ra(const Observe *obs)
 {
    extern int apply_debiasing;
    double rval = obs->ra;
@@ -3981,7 +3979,7 @@ double original_observed_ra( const OBSERVE *obs)
    return( rval);
 }
 
-double original_observed_dec( const OBSERVE *obs)
+double original_observed_dec(const Observe *obs)
 {
    extern int apply_debiasing;
    double rval = obs->dec;
@@ -3995,7 +3993,7 @@ double original_observed_dec( const OBSERVE *obs)
    suitable for display on a console (findorb) or in a Windoze scroll
    box (FIND_ORB),  or for writing to a file.  */
 
-void format_observation( const OBSERVE   *obs, char *text,
+void format_observation(const Observe *obs, char *text,
                                         const int resid_format)
 {
    double angle;
@@ -4335,12 +4333,11 @@ static void put_sigma( char *buff, const double val)
 
 int sigmas_in_columns_57_to_65 = 0;
 
-void recreate_observation_line( char *obuff, const OBSERVE   *obs,
-                           const int residual_format)
+void recreate_observation_line(char *obuff, const Observe *obs, const int residual_format)
 {
    char buff[100];
    int mag_digits_to_erase = 0;
-   OBSERVE tobs = *obs;
+   Observe tobs = *obs;
 
    if( obs->note2 == 'R')     /* for radar obs,  we simply store the */
       {                       /* original observation line           */
@@ -4450,8 +4447,7 @@ char *get_file_name( char *filename, const char *template_file_name)
    return( filename);
 }
 
-void create_obs_file( const OBSERVE   *obs, int n_obs, const int append,
-                  const int resid_format)
+void create_obs_file(const Observe *obs, int n_obs, const int append, const int resid_format)
 {
    char filename[81], curr_sigma_text[81];
    FILE *ofile;
@@ -4495,14 +4491,14 @@ file back into Find_Orb,  and you get near-zero residuals (there is
 rounding error).  Computed mags are supplied for all observations,
 and they're all V mags. */
 
-void create_obs_file_with_computed_values( const OBSERVE   *obs,
+void create_obs_file_with_computed_values(const Observe *obs,
                   int n_obs, const int append,
                   const int resid_format)
 {
-   OBSERVE *tobs = (OBSERVE *)calloc( n_obs, sizeof( OBSERVE));
+    Observe *tobs = (Observe *)calloc( n_obs, sizeof(Observe));
    int i;
 
-   memcpy( tobs, obs, n_obs * sizeof( OBSERVE));
+   memcpy(tobs, obs, n_obs * sizeof(Observe));
 
    for( i = 0; i < n_obs; i++)
       {
@@ -4557,7 +4553,7 @@ static void tack_on_names( char *list, const char *names)
       }
 }
 
-static bool got_obs_in_range( const OBSERVE *obs, int n_obs,
+static bool got_obs_in_range(const Observe *obs, int n_obs,
                const double jd_start, const double jd_end)
 {
    bool rval = false;
@@ -4605,10 +4601,9 @@ static bool get_details_from_here( const char *buff, const char *mpc_code,
    return( rval);
 }
 
-static int get_observer_details( const char *observation_filename,
-      const OBSERVE *obs, const int n_obs,
-      const char *mpc_code, const char *prog_codes,
-      char *observers, char *measurers, char *scope)
+static int get_observer_details(const char* observation_filename,
+    const Observe* obs, const int n_obs, const char* mpc_code, const char* prog_codes,
+    char* observers, char* measurers, char* scope)
 {
    FILE *ifile = fopen_ext( observation_filename, "fclrb");
    char buff[700];
@@ -4653,7 +4648,7 @@ static int get_observer_details( const char *observation_filename,
    return( 0);
 }
 
-static void get_observer_details_from_obs( const OBSERVE *obs,
+static void get_observer_details_from_obs(const Observe *obs,
       size_t n_obs, const char *mpc_code, char *observers,
       char *measurers, char *scope)
 {
@@ -4712,8 +4707,8 @@ static void observer_link_substitutions( char *buff)
       }
 }
 
-static unsigned get_list_of_stations( const unsigned n_obs,
-               const OBSERVE   *obs_data, const unsigned max_n_stations,
+static unsigned get_list_of_stations(const unsigned n_obs,
+               const Observe *obs_data, const unsigned max_n_stations,
                char stations[][5])
 {
    unsigned n_stations = 0, i, j;
@@ -4739,7 +4734,7 @@ static unsigned get_list_of_stations( const unsigned n_obs,
 }
 
 static int write_observer_data_to_file( FILE *ofile, [[maybe_unused]]  const char *ast_filename,
-                 const int n_obs, const OBSERVE   *obs_data)
+                 const int n_obs, const Observe *obs_data)
 {
    unsigned n_stations = 0, i, j;
    char stations[400][5];
@@ -4834,7 +4829,7 @@ static int write_observer_data_to_file( FILE *ofile, [[maybe_unused]]  const cha
 bool residual_file_in_config_dir = true;
 
 int write_residuals_to_file( const char *filename, const char *ast_filename,
-       const int n_obs, const OBSERVE   *obs_data, const int resid_format)
+       const int n_obs, const Observe *obs_data, const int resid_format)
 {
    FILE *ofile = fopen_ext( filename,
                residual_file_in_config_dir ? "tfcw" : "fw");
@@ -4850,7 +4845,7 @@ int write_residuals_to_file( const char *filename, const char *ast_filename,
          for( i = 0; i < number_lines * 3; i++)
             {
             int num = (i % 3) * number_lines + i / 3;
-            OBSERVE   *obs = ((OBSERVE   *)obs_data) + num;
+            Observe *obs = ((Observe *)obs_data) + num;
 
             if( num < n_obs)
                {

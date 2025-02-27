@@ -15,6 +15,9 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 02110-1301, USA.    */
+#ifndef COMETS_H_NCLUDE
+#define COMETS_H_NCLUDE
+
 
 #define ELEMENTS struct elements
 
@@ -41,11 +44,11 @@ extern "C" {
 #include <cstdint>
 
 // void calc_vectors( ELEMENTS *elem, const double sqrt_gm);
-int /*DLL_FUNC*/ calc_classical_elements( ELEMENTS *elem, const double *r,
+int /*DLL_FUNC*/ calc_classical_elements(ELEMENTS *elem, const double *r,
                              const double t, const int ref);
-int /*DLL_FUNC*/ comet_posn_and_vel( ELEMENTS   *elem, double t,
+int /*DLL_FUNC*/ comet_posn_and_vel(ELEMENTS   *elem, double t,
                   double   *loc, double   *vel);
-int /*DLL_FUNC*/ comet_posn( ELEMENTS   *elem, double t, double   *loc);       /* astfuncs.c */
+int /*DLL_FUNC*/ comet_posn(ELEMENTS   *elem, double t, double   *loc);       /* astfuncs.c */
 void /*DLL_FUNC*/ derive_quantities( ELEMENTS   *e, const double gm);
 int /*DLL_FUNC*/ setup_elems_from_ast_file( ELEMENTS   *class_elem,
               const uint32_t   *elem, const double t_epoch);
@@ -68,4 +71,6 @@ typedef struct
 double /*DLL_FUNC*/ find_moid_full( const ELEMENTS *elem1, const ELEMENTS *elem2, moid_data_t *mdata);
 
 }
+
+#endif // !COMETS_H_NCLUDE
 

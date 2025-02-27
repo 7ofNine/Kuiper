@@ -44,6 +44,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include "elem_out.h"
 #include "bc405.h"
 #include "elem_ou2.h"
+#include "orbfunc.h"
 
 
             /* Pretty much every platform I've run into supports */
@@ -64,26 +65,22 @@ extern unsigned perturbers;
 #define ssnprintf_append( obuff, ...) snprintf_append( obuff, sizeof( obuff), __VA_ARGS__)
 #define ssnprintf( obuff, ...) snprintf( obuff, sizeof( obuff), __VA_ARGS__)
 #endif
-int store_defaults( const ephem_option_t ephemeris_output_options,
-         const int element_format, const int element_precision,
-         const double max_residual_for_filtering,
-         const double noise_in_sigmas);           /* elem_out.cpp */
 int get_defaults( ephem_option_t *ephemeris_output_options, int *element_format,
          int *element_precision, double *max_residual_for_filtering,
          double *noise_in_sigmas);                /* elem_out.cpp */
 int64_t nanoseconds_since_1970( void);                      /* mpc_obs.c */
-static int elements_in_mpcorb_format( char *buff, const char *packed_desig,
+static int elements_in_mpcorb_format(char *buff, const char *packed_desig,
                 const char *full_desig, const ELEMENTS *elem,
-                const OBSERVE   *obs, const int n_obs);   /* orb_func.c */
-static int elements_in_guide_format( char *buff, const ELEMENTS *elem,
-                     const char *obj_name, const OBSERVE *obs,
+                const Observe *obs, const int n_obs);   /* orb_func.c */
+static int elements_in_guide_format(char *buff, const ELEMENTS *elem,
+                     const char *obj_name, const Observe *obs,
                      const unsigned n_obs);                /* orb_func.c */
 FILE *open_json_file( char *filename, const char *env_ptr, const char *default_name,
                   const char *packed_desig, const char *permits); /* ephem0.cpp */
-int find_worst_observation( const OBSERVE   *obs, const int n_obs);
-double initial_orbit( OBSERVE   *obs, int n_obs, double *orbit);
-int set_locs( const double *orbit, double t0, OBSERVE   *obs, int n_obs);
-void attempt_extensions( OBSERVE *obs, const int n_obs, double *orbit,
+int find_worst_observation(const Observe *obs, const int n_obs);
+double initial_orbit(Observe *obs, int n_obs, double *orbit);
+int set_locs(const double *orbit, double t0, Observe *obs, int n_obs);
+void attempt_extensions(Observe *obs, const int n_obs, double *orbit,
                   const double epoch);                  /* orb_func.cpp */
 double calc_obs_magnitude( const double obj_sun,
           const double obj_earth, const double earth_sun, double *phase_ang);
@@ -102,7 +99,7 @@ int setup_planet_elem( ELEMENTS *elem, const int planet_idx,
 void set_environment_ptr( const char *env_ptr, const char *new_value);
 double find_collision_time( ELEMENTS *elem, double *latlon, const int is_impact);
 
-int get_idx1_and_idx2( const int n_obs, const OBSERVE   *obs,
+int get_idx1_and_idx2( const int n_obs, const Observe *obs,
                                 int *idx1, int *idx2);      /* elem_out.c */
 double mag_band_shift( const char mag_band, int *err_code);   /* elem_out.c */
 int get_jpl_ephemeris_info( int *de_version, double *jd_start, double *jd_end);
@@ -113,9 +110,9 @@ void get_relative_vector( const double jd, const double *ivect,
 void push_orbit( const double epoch, const double *orbit);  /* orb_fun2.c */
 int pop_orbit( double *epoch, double *orbit);               /* orb_fun2.c */
 double get_planet_mass( const int planet_idx);                /* orb_func.c */
-double observation_rms( const OBSERVE   *obs);            /* elem_out.cpp */
-double find_epoch_shown( const OBSERVE *obs, const int n_obs); /* elem_out */
-double evaluate_initial_orbit( const OBSERVE   *obs,      /* orb_func.c */
+double observation_rms( const Observe *obs);            /* elem_out.cpp */
+double find_epoch_shown( const Observe *obs, const int n_obs); /* elem_out */
+double evaluate_initial_orbit( const Observe *obs,      /* orb_func.c */
                const int n_obs, const double *orbit, const double epoch);
 double diameter_from_abs_mag( const double abs_mag,      /* ephem0.cpp */
                                      const double optical_albedo);
@@ -146,7 +143,7 @@ void compute_variant_orbit( double *variant, const double *ref_orbit,
 char *make_config_dir_name( char *oname, const char *iname);  /* miscell.cpp */
 int earth_lunar_posn( const double jd, double   *earth_loc, double   *lunar_loc);
 double vect_diff2( const double *a, const double *b);
-int get_residual_data( const OBSERVE *obs, double *xresid, double *yresid);
+int get_residual_data(const Observe *obs, double *xresid, double *yresid);
 int qsort_strcmp( const void *a, const void *b, void *ignored_context);
 uint64_t parse_bit_string( const char *istr);                /* miscell.cpp */
 const char *write_bit_string( char *ibuff, const uint64_t bits,
@@ -198,7 +195,7 @@ char *fgets_trimmed( char *buff, size_t max_bytes, FILE *ifile)
    return( rval);
 }
 
-void get_first_and_last_included_obs( const OBSERVE *obs,
+void get_first_and_last_included_obs(const Observe *obs,
               const int n_obs, int *first, int *last)       /* elem_out.c */
 {
    int i = 0;
@@ -214,7 +211,7 @@ void get_first_and_last_included_obs( const OBSERVE *obs,
 }
 
 void make_observatory_info_text( char *text, const size_t textlen,
-             const OBSERVE *obs, int n_obs, const char *mpc_code)
+             const Observe *obs, int n_obs, const char *mpc_code)
 {
    double jd_start = 0., jd_end = 0.;
    int n_found = 0, n_used = 0;
@@ -407,7 +404,7 @@ const char *get_find_orb_text( const int index)
    oddity is handled using the text_search_and_replace() function.
 */
 
-static void observation_summary_data( char *obuff, const OBSERVE   *obs,
+static void observation_summary_data( char *obuff, const Observe *obs,
                               const int n_obs, const int options)
 {
    int i, n_included, first_idx, last_idx;
@@ -445,12 +442,13 @@ static void observation_summary_data( char *obuff, const OBSERVE   *obs,
       }                                 /* "; mean residual %s." */
 }
 
-double centralize_ang( double ang)
+double centralize_ang(double ang)
 {
    ang = fmod( ang, PI + PI);
-   if( ang < 0.)
-      ang += PI + PI;
-   return( ang);
+   if (ang < 0.) {
+       ang += PI + PI;
+   }
+   return ang;
 }
 
 void convert_elements( const double epoch_from, const double epoch_to,
@@ -490,12 +488,12 @@ fairly close to the MPC value.         */
 
 const double opposition_time = 238.;
 
-bool opposition_break( const OBSERVE *obs)
+bool opposition_break( const Observe *obs)
 {
    return( obs[1].jd - obs[0].jd > opposition_time);
 }
 
-static int _n_oppositions( const OBSERVE *obs, const int n)
+static int _n_oppositions( const Observe *obs, const int n)
 {
    int i, j, rval = 1;
 
@@ -512,7 +510,7 @@ int n_clones_accepted = 0;
 
 static int elements_in_mpcorb_format( char *buff, const char *packed_desig,
                 const char *full_desig, const ELEMENTS *elem,
-                const OBSERVE   *obs, const int n_obs)   /* orb_func.c */
+                const Observe *obs, const int n_obs)   /* orb_func.c */
 {
    int month, day, i, first_idx, last_idx, n_included_obs = 0;
    long year;
@@ -656,7 +654,7 @@ report a linkage between 50 or more tracklets at once. */
 
 #define MAX_LINKAGE_IDS 50
 
-static int make_linkage_json( const int n_obs, const OBSERVE *obs, const ELEMENTS *elem)
+static int make_linkage_json( const int n_obs, const Observe *obs, const ELEMENTS *elem)
 {
    int i, j, n_ids = 0, idx[MAX_LINKAGE_IDS], n_designated = 0;
    FILE *ofile, *ifile;
@@ -870,7 +868,7 @@ int geo_score( const double *orbit, const double epoch)
 
 static int elements_in_json_format( FILE *ofile, const ELEMENTS *elem,
                      const double *orbit,
-                     const char *obj_name, const OBSERVE *obs,
+                     const char *obj_name, const Observe *obs,
                      const unsigned n_obs, const double *moids,
                      const char *body_frame_note, const bool show_obs,
                      const int geocentric_score)
@@ -1179,7 +1177,7 @@ static int write_horizons_elems( const char *filename, const ELEMENTS *elem, con
 }
 
 static int elements_in_guide_format( char *buff, const ELEMENTS *elem,
-                     const char *obj_name, const OBSERVE *obs,
+                     const char *obj_name, const Observe *obs,
                      const unsigned n_obs)
 {
    int month, q_prec = 10, e_prec = 8;
@@ -1275,7 +1273,7 @@ static int show_reference( char *buff)
    return( rval);
 }
 
-int compute_available_sigmas_hash( const OBSERVE   *obs, const int n_obs,
+int compute_available_sigmas_hash(const Observe *obs, const int n_obs,
          const double epoch, const unsigned perturbers, const int central_obj);
 
 static int get_uncertainty( const char *key, char *obuff, const bool in_km)
@@ -1348,7 +1346,7 @@ static void consider_replacing( char *buff, const char *search_text,
    x-axis is the cross-product of z with the J2000 pole of the earth;
    and the y-axis is the cross-product of x and z. */
 
-static void ecliptic_to_planetary_plane( const int planet_no,
+static void ecliptic_to_planetary_plane(const int planet_no,
                const double epoch_jd, double *state_vect)
 {
    double planet_matrix[9], xform[3][3];
@@ -1414,9 +1412,9 @@ existing file,  one in which the first line is the header.  If it turns
 out the file doesn't actually exist yet,  we use the 'fallback_filename'
 to get the template line. */
 
-static int add_sof_to_file( const char *filename,
+static int add_sof_to_file(const char *filename,
              const ELEMENTS *elem, const double *nongravs,
-             const int n_obs, const OBSERVE *obs, const char *fallback_filename)
+             const int n_obs, const Observe *obs, const char *fallback_filename)
 {
    char templat[MAX_SOF_LEN], obuff[MAX_SOF_LEN];
    char output_filename[100];
@@ -1871,7 +1869,7 @@ bool saving_elements_for_reuse = false;
 int write_out_elements_to_file( const double *orbit,
             const double curr_epoch,
             const double epoch_shown,
-            OBSERVE   *obs, const int n_obs, const char *constraints,
+            Observe *obs, const int n_obs, const char *constraints,
             const int precision, const int monte_carlo,
             const int options)
 {
@@ -3140,7 +3138,7 @@ static double extract_state_vect_from_text( const char *text,
    return( epoch);
 }
 
-int find_first_and_last_obs_idx( const OBSERVE *obs, const int n_obs,
+int find_first_and_last_obs_idx( const Observe *obs, const int n_obs,
          int *last)
 {
    int i;
@@ -3172,7 +3170,7 @@ int get_orbit_from_mpcorb_sof( const char *object_name, double *orbit,
 be helpful to use an epoch that is at the mid-point of the arc of
 observations that is being fitted.  This improves stability.  */
 
-double mid_epoch_of_arc( const OBSERVE *obs, const int n_obs)
+double mid_epoch_of_arc(const Observe *obs, const int n_obs)
 {
    int first, last;
 
@@ -3196,7 +3194,7 @@ int ignore_prev_solns;
 bool take_first_soln = false, force_final_full_improvement = false;
 int n_extra_full_steps = 0;
 
-static int fetch_previous_solution( OBSERVE *obs, const int n_obs, double *orbit,
+static int fetch_previous_solution(Observe *obs, const int n_obs, double *orbit,
                double *orbit_epoch, double *epoch_shown)
 {
    int got_vectors = 0, i;
@@ -3271,13 +3269,13 @@ static int fetch_previous_solution( OBSERVE *obs, const int n_obs, double *orbit
    if( do_full_improvement || available_sigmas == NO_SIGMAS_AVAILABLE)
       {
       extern double automatic_outlier_rejection_limit;
-      OBSERVE *saved_obs = (OBSERVE *)calloc( n_obs, sizeof( OBSERVE));
+      Observe *saved_obs = (Observe*)calloc( n_obs, sizeof(Observe));
       double prev_score = 0.;
       int pass;
 
       if( !*get_environment_ptr( "KEEP_PREVIOUS_EPOCH") && !got_vectors)
          *epoch_shown = find_epoch_shown( obs, n_obs);
-      memcpy( saved_obs, obs, n_obs * sizeof( OBSERVE));
+      memcpy( saved_obs, obs, n_obs * sizeof(Observe));
       filter_obs( obs, n_obs, automatic_outlier_rejection_limit, 0);
       for( i = 0; i < n_obs; i++)
          if( obs[i].note2 == 'R')
@@ -3316,7 +3314,7 @@ static int fetch_previous_solution( OBSERVE *obs, const int n_obs, double *orbit
          if( prev_score < evaluate_initial_orbit( obs, n_obs, orbit, *orbit_epoch) - .001)
             {
             pop_orbit( orbit_epoch, orbit);    /* we were better off with the old orbit */
-            memcpy( obs, saved_obs, n_obs * sizeof( OBSERVE));
+            memcpy( obs, saved_obs, n_obs * sizeof(Observe));
             }
          else        /* throw out the saved orbit;  we've got something better */
             {
@@ -3359,7 +3357,7 @@ static int fetch_previous_solution( OBSERVE *obs, const int n_obs, double *orbit
 
 double override_epoch_shown = 0.;
 
-double find_epoch_shown( const OBSERVE *obs, const int n_obs)
+double find_epoch_shown(const Observe *obs, const int n_obs)
 {
    int first, last;
    double rval;
@@ -3456,7 +3454,7 @@ static int obj_desig_to_perturber( const char *packed_desig)
    return( rval);
 }
 
-double get_max_included_resid( const OBSERVE *obs, int n_obs)
+double get_max_included_resid(const Observe *obs, int n_obs)
 {
    double rval = 0.;
 
@@ -3474,7 +3472,7 @@ double get_max_included_resid( const OBSERVE *obs, int n_obs)
    return( rval);
 }
 
-static void _log_problems( const OBJECT_INFO *id, const OBSERVE   *obs)
+static void _log_problems(const OBJECT_INFO *id, const Observe *obs)
 {
    int i, n_obs_used = 0, n_real_obs = 0;
    double first_jd = -1., last_jd = obs->jd, arc_used, full_arc;
@@ -3521,13 +3519,13 @@ static void _log_problems( const OBJECT_INFO *id, const OBSERVE   *obs)
       }
 }
 
-OBSERVE   *load_object( FILE *ifile, OBJECT_INFO *id,
+Observe *load_object(FILE *ifile, OBJECT_INFO *id,
                        double *curr_epoch, double *epoch_shown, double *orbit)
 {
    extern int n_obs_actually_loaded;
    extern int debug_level;
    extern int excluded_asteroid_number;
-   OBSERVE   *obs = load_observations( ifile, id->packed_desig,
+   Observe *obs = load_observations( ifile, id->packed_desig,
                                                 id->n_obs);
 
    if( debug_level || n_obs_actually_loaded != id->n_obs)
@@ -3691,7 +3689,7 @@ double mag_band_shift( const char mag_band, int *err_code)
 
 double override_abs_mag = 0.;
 
-static double _calc_absolute_magnitude_internal( OBSERVE   *obs, int n_obs)
+static double _calc_absolute_magnitude_internal(Observe *obs, int n_obs)
 {
    int obs_no;
    double n_mags = 0.;
@@ -3753,17 +3751,17 @@ _That_ may fail because _none_ of the observations has a magnitude.
 If so,  and if the DEFAULT_V_MAG is set,  we try again with all
 observations temporarily set to that magnitude.  */
 
-double calc_absolute_magnitude( OBSERVE   *obs, const int n_obs)
+double calc_absolute_magnitude(Observe *obs, const int n_obs)
 {
    double rval = _calc_absolute_magnitude_internal( obs, n_obs);
 
    if( !rval)        /* no mag computed;  try first w/all obs on */
       {
       const double default_v_mag = atof( get_environment_ptr( "DEFAULT_V_MAG"));
-      OBSERVE *temp_obs = (OBSERVE *)calloc( n_obs, sizeof( OBSERVE));
+      Observe *temp_obs = (Observe*)calloc( n_obs, sizeof(Observe));
       int obs_no;
 
-      memcpy( temp_obs, obs, n_obs * sizeof( OBSERVE));
+      memcpy( temp_obs, obs, n_obs * sizeof(Observe));
       for( obs_no = 0; obs_no < n_obs; obs_no++)
          temp_obs[obs_no].is_included = 1;
       rval = _calc_absolute_magnitude_internal( temp_obs, n_obs);
@@ -3800,7 +3798,7 @@ double calc_absolute_magnitude( OBSERVE   *obs, const int n_obs)
    return( rval);
 }
 
-int find_worst_observation( const OBSERVE   *obs, const int n_obs)
+int find_worst_observation(const Observe *obs, const int n_obs)
 {
    int i, rval = -1;
    double worst_rms = 0., rms;
@@ -3825,7 +3823,7 @@ int find_worst_observation( const OBSERVE   *obs, const int n_obs)
    *idx2.  These are shown near the top of the display,  and are used in
    the method of Herget.  Return value is the number of included obs.   */
 
-int get_idx1_and_idx2( const int n_obs, const OBSERVE   *obs,
+int get_idx1_and_idx2(const int n_obs, const Observe *obs,
                                           int *idx1, int *idx2)
 {
    int i, rval = 0;
@@ -3847,7 +3845,7 @@ int get_idx1_and_idx2( const int n_obs, const OBSERVE   *obs,
    return( rval);
 }
 
-int get_r1_and_r2( const int n_obs, const OBSERVE   *obs,
+int get_r1_and_r2(const int n_obs, const Observe *obs,
                            double *r1, double *r2)
 {
    int idx1, idx2, rval = get_idx1_and_idx2( n_obs, obs, &idx1, &idx2);
@@ -4116,7 +4114,7 @@ the time to write a tree search version.)
 
 #define NO_MPC_COLOR_SET   -1
 
-int find_mpc_color( const MPC_STATION *sdata, const char *mpc_code)
+int find_mpc_color(const MPC_STATION *sdata, const char *mpc_code)
 {
    int rval = NO_MPC_COLOR_SET;
 
@@ -4166,7 +4164,7 @@ there are _no_ blue neighbors,  of course.)
    We keep trying this until no color changes are made.
 */
 
-static void improve_mpc_colors( const int n_obs, const OBSERVE   *obs,
+static void improve_mpc_colors(const int n_obs, const Observe *obs,
                    const int max_n_colors, MPC_STATION *sdata)
 {
    int i, changes_made = 1, n_iterations = 0;
@@ -4219,7 +4217,7 @@ static void improve_mpc_colors( const int n_obs, const OBSERVE   *obs,
 
 extern int debug_level;
 
-MPC_STATION *find_mpc_color_codes( const int n_obs, const OBSERVE   *obs,
+MPC_STATION *find_mpc_color_codes(const int n_obs, const Observe *obs,
                    const int max_n_colors)
 {
    int n_codes = 0, i, j, n_alloced = 10;

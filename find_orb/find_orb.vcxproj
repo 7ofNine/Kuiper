@@ -189,6 +189,7 @@ copy /Y "$(ProjectDir)\src\link_def.json" /A "$(SolutionDir)run\link_def.json" /
     <ClInclude Include="src\curs_lin.h" />
     <ClInclude Include="src\details.h" />
     <ClInclude Include="src\eigen.h" />
+    <ClInclude Include="src\elem2tle.h" />
     <ClInclude Include="src\elem_ou2.h" />
     <ClInclude Include="src\elem_out.h" />
     <ClInclude Include="src\ephem0.h" />
@@ -201,6 +202,7 @@ copy /Y "$(ProjectDir)\src\link_def.json" /A "$(SolutionDir)run\link_def.json" /
     <ClInclude Include="src\monte0.h" />
     <ClInclude Include="src\mpc_obs.h" />
     <ClInclude Include="src\mycurses.h" />
+    <ClInclude Include="src\orbfunc.h" />
     <ClInclude Include="src\pl_cache.h" />
     <ClInclude Include="src\resource.h" />
     <ClInclude Include="src\rgb_defs.h" />

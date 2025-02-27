@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include "date.h"
 
 #include "miscell.h"
+#include "orbfunc.h"
 
 #define PI 3.1415926535897932384626433832795028841971693993751058209749445923078
 #define GAUSS_K .01720209895
@@ -41,31 +42,33 @@ int pop_orbit( double *epoch, double *orbit);               /* orb_fun2.c */
 double generate_mc_variant_from_covariance( double *var_orbit,
                                                      const double *orbit);
 double improve_along_lov( double *orbit, const double epoch, const double *lov,
-          const unsigned n_params, unsigned n_obs, OBSERVE *obs);
-int adjust_herget_results( OBSERVE   *obs, int n_obs, double *orbit);
+          const unsigned n_params, unsigned n_obs, Observe *obs);
+int adjust_herget_results(Observe *obs, int n_obs, double *orbit);
 double current_jd( void);                       /* elem_out.cpp */
-double evaluate_for_simplex_method( const OBSERVE   *obs,
+double evaluate_for_simplex_method(const Observe *obs,
                     const int n_obs, const double *orbit,
                     const int planet_orbiting,
                     const char *limited_orbit);     /* orb_func.cpp */
 void init_simplex( double **vects, double *fvals,
          double (*f)( void *context, const double *vect),
                void *context, const int n);        /* simplex.c */
-int get_residual_data( const OBSERVE *obs, double *xresid, double *yresid);
+int get_residual_data( const Observe *obs, double *xresid, double *yresid);
 int simplex_step( double **vects, double *fvals,
          double (*f)( void *context, const double *vect),
                void *context, const int n);        /* simplex.c */
-int apply_excluded_observations_file( OBSERVE *obs, const int n_obs);
-int write_excluded_observations_file( const OBSERVE *obs, int n_obs);
+int apply_excluded_observations_file(Observe *obs, const int n_obs);
+int write_excluded_observations_file( const Observe *obs, int n_obs);
 char **load_file_into_memory( const char *filename, size_t *n_lines,
                         const bool fail_if_not_found);      /* mpc_obs.cpp */
+
+double find_r_given_solar_r(const Observe* obs, const double solar_r);
 
 extern int n_orbit_params, force_model;
 extern int available_sigmas;
 
 typedef struct
    {
-   OBSERVE   *obs;
+   Observe *obs;
    int n_obs, n_params;
    const char *constraints;
    double orbit[MAX_N_PARAMS];
@@ -95,7 +98,7 @@ static double simplex_scoring( void *icontext, const double *ivect)
    return( rval);
 }
 
-int simplex_method( OBSERVE   *obs, int n_obs, double *orbit,
+int simplex_method(Observe *obs, int n_obs, double *orbit,
                const double r1, const double r2, const char *constraints)
 {
    int i, iter;
@@ -141,7 +144,7 @@ static void adjust_orbit_to_constraints( double *orbit, const char *constraints)
 }
 #endif
 
-int superplex_method( OBSERVE   *obs, int n_obs, double *orbit, const char *constraints)
+int superplex_method(Observe *obs, int n_obs, double *orbit, const char *constraints)
 {
    int i, iter;
    int max_iter = atoi( get_environment_ptr( "SUPERPLEX_ITER"));
@@ -180,7 +183,7 @@ int superplex_method( OBSERVE   *obs, int n_obs, double *orbit, const char *cons
  /* no changes and return -1.  If we succeed,  we return the number   */
  /* of 'flipped' observations.                                        */
 
-int filter_obs( OBSERVE   *obs, const int n_obs,
+int filter_obs(Observe *obs, const int n_obs,
                   const double max_residual, const int filter_type)
 {
    int i, pass, n_active = 0, rval = 0;
@@ -287,7 +290,7 @@ void pop_all_orbits( void)
       ;
 }
 
-void set_distance( OBSERVE   *obs, double r);             /* orb_func.c */
+void set_distance(Observe *obs, double r);             /* orb_func.c */
 
 /* The linear regression fit here is used to determine a perihelion distance
 q,  eccentricity ecc,  and longitude of perihelion omega.  The idea is that
@@ -306,9 +309,9 @@ we can solve for best-fit versions of a, b, and c;  from these,  we can
 then determine z=1/a, ecc = sqrt( b^2+c^2) * z, omega = atan2(c, b),
 then q = z/(1+ecc).   */
 
-int link_arcs( OBSERVE *obs, int n_obs, const double r1, const double r2)
+int link_arcs(Observe *obs, int n_obs, const double r1, const double r2)
 {
-   OBSERVE *end_obs = obs + n_obs - 1;
+   Observe *end_obs = obs + n_obs - 1;
    double a, b, c;
    double rvect[3], rlen, *theta, *r;
    double avect[3], bvect[3], ecc, omega, q;
@@ -423,9 +426,9 @@ int link_arcs( OBSERVE *obs, int n_obs, const double r1, const double r2)
    return( 0);
 }
 
-double find_r_given_solar_r( const OBSERVE   *obs, const double solar_r);
 
-static int set_up_circular_orbit( OBSERVE   *obs1, OBSERVE   *obs2,
+
+static int set_up_circular_orbit(Observe *obs1, Observe *obs2,
                   const double solar_r, double *dt, double *t0,
                   double *orbit)
 {
@@ -457,7 +460,7 @@ static int set_up_circular_orbit( OBSERVE   *obs1, OBSERVE   *obs2,
    return( obs1->r > 0. && obs2->r > 0.);
 }
 
-int find_circular_orbits( OBSERVE   *obs1, OBSERVE   *obs2,
+int find_circular_orbits( Observe *obs1, Observe   *obs2,
                double *orbit, const int desired_soln)
 {
    double dt = obs2->jd - obs1->jd, t0;
@@ -601,7 +604,7 @@ the plane of the ecliptic,  and the y-axis is perpendicular to both.
 In this system,  x/z and y/z are decent approximations to the
 residuals... which we'll try to minimize in the subsequent code. */
 
-static void rotate_obs_vect( const OBSERVE *obs, double *vect)
+static void rotate_obs_vect(const Observe *obs, double *vect)
 {
    double sideways[3], xprod[3], x, y, z;
    const double r = sqrt( obs->vect[0] * obs->vect[0]
@@ -610,7 +613,7 @@ static void rotate_obs_vect( const OBSERVE *obs, double *vect)
    sideways[0] =  obs->vect[1] / r;
    sideways[1] = -obs->vect[0] / r;
    sideways[2] = 0.;
-   vector_cross_product( xprod, sideways, obs->vect);
+   vector_cross_product(xprod, sideways, obs->vect);
             /* obs->vect, sideways,  xprod now form an orthonormal matrix */
    x = dot_product( sideways, vect);
    y = dot_product( xprod, vect);
@@ -687,8 +690,8 @@ If,  between those points,  we find a minimum "score" (sum of the squares
 of the residuals,  unweighted),  we do a parabolic search for the real
 minimum.  We may find multiple minima.  We take the lowest of them.  */
 
-double improve_along_lov( double *orbit, const double epoch, const double *lov,
-          const unsigned n_params, unsigned n_obs, OBSERVE *obs)
+double improve_along_lov(double *orbit, const double epoch, const double *lov,
+          const unsigned n_params, unsigned n_obs, Observe *obs)
 {
    unsigned i, j;
    unsigned n_divs = atoi( get_environment_ptr( "IMPROVE_ALONG_LOV_DIVS"));
@@ -815,7 +818,7 @@ int text_search_and_replace( char   *str, const char *oldstr,
 
 const char *excluded_filename = "excluded.txt";
 
-int write_excluded_observations_file( const OBSERVE *obs, int n_obs)
+int write_excluded_observations_file(const Observe *obs, int n_obs)
 {
    FILE *ofile;
    int n_excluded = 0;
@@ -868,7 +871,7 @@ int write_excluded_observations_file( const OBSERVE *obs, int n_obs)
 double automatic_outlier_rejection_limit;
 double default_automatic_outlier_rejection_limit = 3.;
 
-int apply_excluded_observations_file( OBSERVE *obs, const int n_obs)
+int apply_excluded_observations_file(Observe *obs, const int n_obs)
 {
    char buff[90];
    FILE *ifile;

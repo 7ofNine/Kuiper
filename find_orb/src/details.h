@@ -19,6 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 data for 80-column MPC-formatted astrometry,  as documented at
 
 https://www.minorplanetcenter.net/iau/info/ObsDetails.html */
+#ifndef DETAILS_H_INCLUDE
+#define DETAILS_H_INCLUDE
 
 void *init_observation_details( void);
 int add_line_to_observation_details( void *obs_details, const char *iline);
@@ -30,3 +32,5 @@ void free_observation_details( void *obs_details);
 #define OBS_DETAILS_IRRELEVANT_LINE             0
 #define OBS_DETAILS_MPC_80_COLUMN_LINE          1
 #define OBS_DETAILS_HEADER_LINE                 2
+
+#endif

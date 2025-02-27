@@ -46,20 +46,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include "elem_out.h"
 #include "ephem0.h"
 #include "bias.h"
+#include "orbfunc.h"
 
 int pattern_match(const char* pattern, const char* string);   /* miscell.c */
 int text_search_and_replace( char   *str, const char *oldstr,
                                      const char *newstr);   /* ephem0.cpp */
 
-int apply_excluded_observations_file( OBSERVE *obs, const int n_obs);
-void set_up_observation( OBSERVE   *obs);                 /* mpc_obs.c */
+int apply_excluded_observations_file(Observe *obs, const int n_obs);
+void set_up_observation(Observe *obs);                 /* mpc_obs.c */
 static double observation_jd( const char *buff);
 double centralize_ang( double ang);             /* elem_out.cpp */
-int sort_obs_by_date_and_remove_duplicates( OBSERVE *obs, const int n_obs);
+int sort_obs_by_date_and_remove_duplicates(Observe *obs, const int n_obs);
 
 int lat_alt_to_parallax( const double lat, const double ht_in_meters,
              double *rho_cos_phi, double *rho_sin_phi, const int planet_idx);
-void set_obs_vect( OBSERVE   *obs);        /* mpc_obs.h */
+void set_obs_vect(Observe *obs);        /* mpc_obs.h */
 void remove_trailing_cr_lf( char *buff);            /* ephem0.cpp */
 void format_dist_in_buff( char *buff, const double dist_in_au); /* ephem0.c */
 double current_jd( void);                       /* elem_out.cpp */
@@ -71,10 +72,10 @@ int compute_observer_vel( const double jde, const int planet_no,
              const double rho_cos_phi,           /* mpc_obs.cpp */
              const double rho_sin_phi, const double lon, double   *vel);
 int get_satellite_offset( const char *iline, double *xyz);  /* mpc_obs.cpp */
-int get_residual_data( const OBSERVE *obs, double *xresid, double *yresid);
+int get_residual_data( const Observe *obs, double *xresid, double *yresid);
 bool nighttime_only( const char *mpc_code);                 /* mpc_obs.cpp */
 char *find_numbered_mp_info( const int number);             /* mpc_obs.cpp */
-bool is_sungrazing_comet( const OBSERVE *obs, const int n_obs);  /* orb_func.c */
+bool is_sungrazing_comet( const Observe *obs, const int n_obs);  /* orb_func.c */
 static int xref_designation( char *desig);
 int debug_printf( const char *format, ...)                 /* mpc_obs.cpp */
 #ifdef __GNUC__
@@ -93,7 +94,7 @@ void *bsearch_ext( const void *key, const void *base0,
       int (*compar)(const void *, const void *), bool *found);
 int string_compare_for_sort( const void *a, const void *b, void *context);
 static void reduce_designation( char *desig, const char *idesig);
-int set_tholen_style_sigmas( OBSERVE *obs, const char *buff);  /* mpc_obs.c */
+int set_tholen_style_sigmas(Observe *obs, const char *buff);  /* mpc_obs.c */
 
 #ifdef _MSC_VER
      /* Microsoft Visual C/C++ has no strncasecmp.  strncmp will do.  */
@@ -104,9 +105,9 @@ int compute_canned_object_state_vect( double *loc, const char *mpc_code,
 char *mpc_station_name( char *station_data);       /* mpc_obs.cpp */
 int get_object_name( char *obuff, const char *packed_desig);   /* mpc_obs.c */
 void compute_error_ellipse_adjusted_for_motion( double *sigma1, double *sigma2,
-                  double *posn_angle, const OBSERVE *obs,
+                  double *posn_angle, const Observe *obs,
                   const MOTION_DETAILS *m);                  /* orb_func.cpp */
-double n_nearby_obs( const OBSERVE   *obs, const unsigned n_obs,
+double n_nearby_obs(const Observe *obs, const unsigned n_obs,
           const unsigned idx, const double time_span);       /* orb_func.cpp */
 void convert_ades_sigmas_to_error_ellipse( const double sig_ra,
          const double sig_dec, const double correl, double *major,
@@ -408,7 +409,7 @@ static int fix_up_mpc_observation( char *buff, double *jd)
    return( rval);
 }
 
-int set_tholen_style_sigmas( OBSERVE *obs, const char *buff)
+int set_tholen_style_sigmas(Observe *obs, const char *buff)
 {
    const int n_scanned = sscanf( buff, "%lf%lf%lf",
                &obs->posn_sigma_1, &obs->posn_sigma_2, &obs->posn_sigma_theta);
@@ -909,7 +910,7 @@ static int get_observer_data_latlon( const char   *mpc_code,
 
 */
 
-static int get_obs_alt_azzes( const OBSERVE   *obs, DPT *sun_alt_az,
+static int get_obs_alt_azzes( const Observe *obs, DPT *sun_alt_az,
                                                DPT *object_alt_az)
 {
    DPT latlon;
@@ -1324,7 +1325,7 @@ int get_object_name( char *obuff, const char *packed_desig)
    return( rval);
 }
 
-void set_obs_vect( OBSERVE   *obs)
+void set_obs_vect(Observe *obs)
 {
    obs->vect[0] = cos( obs->ra) * cos( obs->dec);
    obs->vect[1] = sin( obs->ra) * cos( obs->dec);
@@ -1566,7 +1567,7 @@ static double observation_time_offset = 0.;
       /* meteor observations,  where one station might have its clock in */
       /* error by a second or more relative to another. */
 
-static void comment_observation( OBSERVE   *obs, const char *comment)
+static void comment_observation(Observe *obs, const char *comment)
 {
    size_t i;
 
@@ -1596,7 +1597,7 @@ static int jpl_code_to_planet_idx( const int spice_code)
    return( rval);
 }
 
-void set_up_observation( OBSERVE   *obs)
+void set_up_observation(Observe *obs)
 {
    char tbuff[300];
    mpc_code_t cinfo;
@@ -1647,13 +1648,13 @@ void set_up_observation( OBSERVE   *obs)
    set_obs_vect( obs);
 }
 
-static int set_data_from_obs_header( OBSERVE *obs);
+static int set_data_from_obs_header(Observe *obs);
 
 /* Some historical observations are provided in apparent coordinates of date.
 When that happens,  they have to be adjusted for both aberration of light
 and nutation and precession.  The following removes the aberration. */
 
-static void adjust_for_aberration( OBSERVE   *obs)
+static void adjust_for_aberration(Observe *obs)
 {
    size_t i;
 
@@ -1670,13 +1671,13 @@ int apply_debiasing = 0;
 int object_type;
 
 
-static int parse_observation( OBSERVE   *obs, const char *buff)
+static int parse_observation(Observe *obs, const char *buff)
 {
    unsigned time_format;
    double utc = extract_date_from_mpc_report( buff, &time_format);
    const bool is_radar_obs = (buff[14] == 'R' || buff[14] == 'r');
    static bool fcct_error_message_shown = false;
-   const OBSERVE saved_obs = *obs;
+   const Observe saved_obs = *obs;
    double coord_epoch = input_coordinate_epoch;
    int obj_desig_type;
 
@@ -1684,7 +1685,7 @@ static int parse_observation( OBSERVE   *obs, const char *buff)
       return( -1);
    assert( obs);
    assert( buff);
-   memset( obs, 0, sizeof( OBSERVE));
+   memset( obs, 0, sizeof(Observe));
    memcpy( obs->packed_id, buff, 12);
    obs->ra_bias = saved_obs.ra_bias;
    obs->dec_bias = saved_obs.dec_bias;
@@ -1801,7 +1802,7 @@ static int parse_observation( OBSERVE   *obs, const char *buff)
          }
       else
          {
-         if( coord_epoch)               /* specific epoch given, not just */
+         if(coord_epoch)               /* specific epoch given, not just */
             year = coord_epoch;         /* mean coords of date */
          obs->ra *= -1.;
          precess_pt( (DPT   *)&obs->ra,
@@ -2812,7 +2813,7 @@ one, and the mag that's given over the zero mag,  and so forth.  Then
 we check to see if that's caused the observations to become the same.
 If it has, we consider the difference to have been "corrected".    */
 
-static void correct_differences( OBSERVE *obs1, const OBSERVE *obs2)
+static void correct_differences(Observe *obs1, const Observe *obs2)
 {
    if( obs1->reference[0] == ' ' && obs2->reference[0] != ' ')
       strcpy( obs1->reference, obs2->reference);
@@ -2841,8 +2842,8 @@ the end.  When we're done,  we re-sort "conventionally" (by date).  */
 
 int compare_observations( const void *a, const void *b, void *context)
 {
-   const OBSERVE *obs1 = (const OBSERVE *)a;
-   const OBSERVE *obs2 = (const OBSERVE *)b;
+   const Observe *obs1 = (const Observe *)a;
+   const Observe *obs2 = (const Observe *)b;
    int rval = memcmp( obs1->mpc_code, obs2->mpc_code, 3);
 
    if( context)
@@ -2887,7 +2888,7 @@ each other.  Such nuances aren't currently implemented,  but they
 are why pointers to the full observation data are passed,  instead
 of just the observed times. */
 
-static bool times_very_close( OBSERVE *obs1, OBSERVE *obs2)
+static bool times_very_close(Observe *obs1, Observe *obs2)
 {
    const double threshhold = 3. / seconds_per_day;
 
@@ -2899,7 +2900,7 @@ static bool times_very_close( OBSERVE *obs1, OBSERVE *obs2)
 determination.  Otherwise,  they'll probably just throw off IOD
 and should be marked as OBS_DONT_USE and excluded. */
 
-static void exclude_unusable_duplicate_obs( OBSERVE *obs, int n_obs)
+static void exclude_unusable_duplicate_obs(Observe *obs, int n_obs)
 {
    int i;
 
@@ -2940,26 +2941,26 @@ static void exclude_unusable_duplicate_obs( OBSERVE *obs, int n_obs)
 /* Does what the function name suggests.  Return value is the number
 of observations left after duplicates have been removed.   */
 
-int sort_obs_by_date_and_remove_duplicates( OBSERVE *obs, const int n_obs)
+int sort_obs_by_date_and_remove_duplicates(Observe *obs, const int n_obs)
 {
    int i, j;
 
    if( !n_obs)
       return( 0);
-   shellsort_r( obs, n_obs, sizeof( OBSERVE), compare_observations, nullptr);
+   shellsort_r( obs, n_obs, sizeof(Observe), compare_observations, nullptr);
    if( debug_level)
       debug_printf( "%d obs sorted by date\n", n_obs);
    for( i = j = 1; i < n_obs; i++)
       if( !times_very_close( obs + i, obs + i - 1) || strcmp( obs[i].mpc_code,
                                                 obs[i - 1].mpc_code))
          obs[j++] = obs[i];
-      else if( memcmp( obs + i, obs + i - 1, sizeof( OBSERVE)))
+      else if( memcmp( obs + i, obs + i - 1, sizeof(Observe)))
          {
-         OBSERVE temp1 = obs[i], temp2 = obs[i - 1];
+          Observe temp1 = obs[i], temp2 = obs[i - 1];
 
          correct_differences( &temp1, &temp2);
          correct_differences( &temp2, &temp1);
-         if( !memcmp( &temp1, &temp2, sizeof( OBSERVE)))
+         if( !memcmp( &temp1, &temp2, sizeof(Observe)))
             {
             char buff[80];
 
@@ -2987,7 +2988,7 @@ int sort_obs_by_date_and_remove_duplicates( OBSERVE *obs, const int n_obs)
    return( j);
 }
 
-static int fix_radar_obs( OBSERVE *obs, unsigned n_obs)
+static int fix_radar_obs(Observe *obs, unsigned n_obs)
 {
    unsigned i;
 
@@ -3010,9 +3011,9 @@ static int fix_radar_obs( OBSERVE *obs, unsigned n_obs)
             }
          free( obs[1].second_line);
          n_obs--;
-         memmove( obs + 1, obs + 2, (n_obs - i - 1) * sizeof( OBSERVE));
+         memmove( obs + 1, obs + 2, (n_obs - i - 1) * sizeof(Observe));
          }
-   return( n_obs);
+   return n_obs;
 }
 
 /* MPC gives radar data to six decimal places in days.  But this is  */
@@ -3053,7 +3054,7 @@ static void fix_radar_time( char *buff)
 }
 #endif
 
-int unload_observations( OBSERVE   *obs, const int n_obs)
+int unload_observations(Observe *obs, const int n_obs)
 {
    int i;
    extern int available_sigmas;
@@ -3088,7 +3089,7 @@ int unload_observations( OBSERVE   *obs, const int n_obs)
    return( 0);
 }
 
-inline bool is_satellite_obs( const OBSERVE *obs)
+inline bool is_satellite_obs( const Observe *obs)
 {
    return( obs->second_line && obs->second_line[14] == 's');
 }
@@ -3257,7 +3258,7 @@ measured) observation only.
 note and the other has a 'K' ('stacked image').  In that case,  we're supposed
 to ignore the stacked one and keep the blank-note one.  */
 
-inline int spacewatch_duplication( OBSERVE   *obs)
+inline int spacewatch_duplication(Observe *obs)
 {
    int rval = 0;
 
@@ -3281,7 +3282,7 @@ inline int spacewatch_duplication( OBSERVE   *obs)
    return( rval);
 }
 
-static inline void check_for_star( const OBSERVE *obs, const int n_obs)
+static inline void check_for_star(const Observe *obs, const int n_obs)
 {
    double min_ra, max_ra, min_dec, max_dec;
    int i;
@@ -3360,7 +3361,7 @@ static inline int extract_ades_sigmas( const char *buff,
 to decide if we ought to use a comet or asteroid magnitude formula.
 (If it's not provided,  a default judgment is made based on the desig.) */
 
-static void reset_object_type( const OBSERVE *obs, const int n_obs)
+static void reset_object_type( const Observe *obs, const int n_obs)
 {
    int i, n_asteroid = 0, n_nuclear = 0, n_total = 0;
 
@@ -3401,7 +3402,7 @@ bool nighttime_only( const char *mpc_code)
 #define INSUFFICIENT_PRECISION_POSN1    4
 #define INSUFFICIENT_PRECISION_POSN2    8
 
-static bool _is_synthetic_obs( const OBSERVE *obs)
+static bool _is_synthetic_obs(const Observe *obs)
 {
    return( !strcmp( obs->reference, "Synth")
             || !strcmp( obs->reference, "neocp")
@@ -3436,13 +3437,12 @@ bool use_sigmas = true;
 extern int is_interstellar;
 static double _overall_obj_alt_limit, _overall_sun_alt_limit;
 
-OBSERVE   *load_observations( FILE *ifile, const char *packed_desig,
-                           const int n_obs)
+Observe  *load_observations(FILE *ifile, const char *packed_desig, const int n_obs)
 {
    const double days_per_year = 365.25;
    char buff[650], mpc_code_from_neocp[4], desig_from_neocp[15];
    char obj_name[80], curr_ades_ids[100];
-   OBSERVE   *rval;
+   Observe   *rval;
    bool including_obs = true;
    int i, n_fixes_made = 0, n_future_obs = 0;
    unsigned line_no = 0;
@@ -3480,7 +3480,7 @@ OBSERVE   *load_observations( FILE *ifile, const char *packed_desig,
    strcpy( mpc_code_from_neocp, "500");   /* default is geocenter */
    neocp_file_type = NEOCP_FILE_TYPE_UNKNOWN;
    get_object_name( obj_name, packed_desig);
-   rval = (OBSERVE   *)calloc( n_obs + 1, sizeof( OBSERVE));
+   rval = (Observe*)calloc( n_obs + 1, sizeof(Observe));
    if( !rval)
       return( nullptr);
    input_coordinate_epoch = 2000.;
@@ -3831,7 +3831,7 @@ OBSERVE   *load_observations( FILE *ifile, const char *packed_desig,
             }
          else if( !memcmp( buff, "#Posn sigma ", 12))
             {
-            OBSERVE tmp;
+             Observe tmp;
 
             if( set_tholen_style_sigmas( &tmp, buff + 12))
                {
@@ -3944,7 +3944,7 @@ OBSERVE   *load_observations( FILE *ifile, const char *packed_desig,
          j++;
       i -= j;
       n_obs_actually_loaded -= j;
-      memmove( rval, rval + j, i * sizeof( OBSERVE));
+      memmove( rval, rval + j, i * sizeof(Observe));
       }
 
    n_duplicate_obs_found = n_obs_actually_loaded - i;
@@ -4811,7 +4811,7 @@ void update_environ_dot_dat( void)
       }
 }
 
-static inline void compute_relative_velocity_vectors( const OBSERVE   *obs,
+static inline void compute_relative_velocity_vectors(const Observe *obs,
                                     double *vel)
 {
    double j2000_vel[3], matrix[9], length;
@@ -4945,8 +4945,7 @@ static void reference_to_text( char *obuff, const size_t obuff_size,
       }
 }
 
-int compute_observation_motion_details( const OBSERVE   *obs,
-               MOTION_DETAILS *m)
+int compute_observation_motion_details(const Observe *obs, MOTION_DETAILS *m)
 {
    double vel[3];
 
@@ -5052,7 +5051,7 @@ static double extract_radar_value( const char *ibuff)
    return( rval * 1.e-4);
 }
 
-int compute_radar_info( const OBSERVE *obs, RADAR_INFO *rinfo)
+int compute_radar_info(const Observe *obs, RADAR_INFO *rinfo)
 {
    double time_diff = obs->r * AU_IN_KM / SPEED_OF_LIGHT;
    const double jd = obs->jd - time_diff / seconds_per_day;
@@ -5108,7 +5107,7 @@ int compute_radar_info( const OBSERVE *obs, RADAR_INFO *rinfo)
    return( 0);
 }
 
-static void show_radar_info( char *buff, const OBSERVE *obs)
+static void show_radar_info(char *buff, const Observe *obs)
 {
    RADAR_INFO rinfo;
 
@@ -5137,7 +5136,7 @@ through the above 'net_codes' array in hopes of finding a match to the
 rest of the line. If it does, we've got our byte for column 72 of the
 punched-card astrometry format. */
 
-static int set_data_from_obs_header( OBSERVE *obs)
+static int set_data_from_obs_header(Observe *obs)
 {
    const char **lines;
    int rval = 0;
@@ -5177,11 +5176,11 @@ line 4: (709) W & B Observatory, Cloudcroft  (N32.95580 E254.22882)
 
 int show_alt_info = 0;
 
-static int generate_observation_text( const OBSERVE   *obs, const int idx,
+static int generate_observation_text(const Observe *obs, const int idx,
                  const int n_obs, const int line_number, char *const buff,
                  size_t buffsize)
 {
-   const OBSERVE   *optr = obs + idx;
+   const Observe *optr = obs + idx;
    const double earth_sun = vector3_length( optr->obs_posn);
 
    *buff = '\0';
@@ -5491,8 +5490,7 @@ static void _add_version_and_de_text( char *buff, const size_t buffsize)
 
 int show_observational_details = 0;
 
-int generate_obs_text( const OBSERVE   *obs, const int n_obs, char *buff,
-                                               const size_t buffsize)
+int generate_obs_text(const Observe *obs, const int n_obs, char *buff, const size_t buffsize)
 {
    size_t i, n_selected = 0, first = 0, last = 0;
    int n_lines = 1;
@@ -5576,8 +5574,8 @@ int generate_obs_text( const OBSERVE   *obs, const int n_obs, char *buff,
       if( n_selected == 2)
          {
          double dist, posn_ang, delta_time;
-         const OBSERVE   *optr1 = obs + first;
-         const OBSERVE   *optr2 = obs + last;
+         const Observe *optr1 = obs + first;
+         const Observe *optr2 = obs + last;
 
          calc_dist_and_posn_ang( &optr1->ra, &optr2->ra, &dist, &posn_ang);
          dist *= 180. / PI;      /* cvt radians to degrees */
@@ -5682,7 +5680,7 @@ int sanity_test_observations( const char *filename)
    FILE *ofile = nullptr;
    long line_no = 0L;
    char buff[250];
-   OBSERVE obs;
+   Observe obs;
    int n_problems_found = 0;
 
    if( !ifile)

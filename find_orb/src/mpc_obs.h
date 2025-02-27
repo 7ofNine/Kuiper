@@ -14,31 +14,37 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 02110-1301, USA. */
+#ifndef MPC_OBS_H_INCLUDE
+#define MPC_OBS_H_INCLUDE
 
-#define OBSERVE struct observe
+#include <cstdio>
 
-OBSERVE
-   {
-   double jd, obs_posn[3], obs_vel[3], vect[3], ra, dec, obs_mag;
-   double r,  obj_posn[3], obj_vel[3], solar_r, computed_ra, computed_dec;
-   double posn_sigma_1, posn_sigma_2;         /* in arcseconds */
-            /* Usually, posn_sigma_1 = RA sigma, posn_sigma_2 = dec sigma. */
-   double posn_sigma_theta;   /* tilt angle of uncertainty ellipse */
-   double mag_sigma;
-   double time_sigma;         /* in days */
-   double unc_time;           /* uncTime (semi-systematic timing err) in days */
-   double computed_mag;
-   double ra_bias, dec_bias;     /* in arcseconds */
-   char *second_line;
-   int flags, is_included;
-   int ref_center;       /* 399 = geocenter, 10 = heliocenter, 0 = SSB... */
-   int time_precision, ra_precision, dec_precision, mag_precision;
-   char mpc_code[4], packed_id[13], reference[6];
-   char columns_57_to_65[10];
-   char mag_band, astrometric_net_code, discovery_asterisk, note1, note2, satellite_obs;
-   const char **obs_details;
-   char *ades_ids;
-   };
+struct Observe;
+
+//#define OBSERVE struct observe                             // moved to orbfunc.h
+//
+//OBSERVE
+//   {
+//   double jd, obs_posn[3], obs_vel[3], vect[3], ra, dec, obs_mag;
+//   double r,  obj_posn[3], obj_vel[3], solar_r, computed_ra, computed_dec;
+//   double posn_sigma_1, posn_sigma_2;         /* in arcseconds */
+//            /* Usually, posn_sigma_1 = RA sigma, posn_sigma_2 = dec sigma. */
+//   double posn_sigma_theta;   /* tilt angle of uncertainty ellipse */
+//   double mag_sigma;
+//   double time_sigma;         /* in days */
+//   double unc_time;           /* uncTime (semi-systematic timing err) in days */
+//   double computed_mag;
+//   double ra_bias, dec_bias;     /* in arcseconds */
+//   char *second_line;
+//   int flags, is_included;
+//   int ref_center;       /* 399 = geocenter, 10 = heliocenter, 0 = SSB... */
+//   int time_precision, ra_precision, dec_precision, mag_precision;
+//   char mpc_code[4], packed_id[13], reference[6];
+//   char columns_57_to_65[10];
+//   char mag_band, astrometric_net_code, discovery_asterisk, note1, note2, satellite_obs;
+//   const char **obs_details;
+//   char *ades_ids;
+//   };
 
 #define OBJECT_INFO struct object_info
 
@@ -86,7 +92,7 @@ RADAR_INFO
    #include "mpc_func.h"
 #endif
 
-int compute_radar_info( const OBSERVE *obs, RADAR_INFO *rinfo);
+int compute_radar_info( const Observe *obs, RADAR_INFO *rinfo);
 
 /* So far,  there can be zero,  one,  two,  or three nongravitational
 parameters in Find_Orb.  I have some force models in mind that will
@@ -99,76 +105,76 @@ orbit;  i.e.,  we could have a 12x12 covariance matrix. */
 #define MAX_N_PARAMS 12
 #define ORBIT_CENTER_AUTO  -2
 
-typedef uint64_t ephem_option_t;
-
-/* Bitfield options for ephemeris_in_a_file( ): */
-/* Bottom three bits define an ephemeris type.  "Observables" are the */
-/* usual RA/dec,  radial velocity,  etc. type output.  "State vector  */
-/* output" results in the time (as a JD) and position (in AU,  relative */
-/* to the observer,  in Cartesian coordinates) being output.  "Position */
-/* output" is the same thing,  minus the velocity components.  "MPCORB  */
-/* output" means that the orbital elements will be written out for each */
-/* ephemeris step,  on a single line.  "8-line output" is almost the    */
-/* same,  except that the elements are written out in the MPC's usual   */
-/* eight-line form.  "Close approaches" will result in the range minima */
-/* (times and distances) being output.                                  */
-
-#define OPTION_OBSERVABLES             0
-#define OPTION_STATE_VECTOR_OUTPUT     1
-#define OPTION_POSITION_OUTPUT         2
-#define OPTION_MPCORB_OUTPUT           3
-#define OPTION_8_LINE_OUTPUT           4
-#define OPTION_CLOSE_APPROACHES        5
-#define OPTION_FAKE_ASTROMETRY         6
-
-#define EPHEM_OPTION_BIT( N)  (((ephem_option_t)1) << (N))
-
-#define OPTION_ALT_AZ_OUTPUT            EPHEM_OPTION_BIT( 3)
-#define OPTION_RADIAL_VEL_OUTPUT        EPHEM_OPTION_BIT( 4)
-#define OPTION_MOTION_OUTPUT            EPHEM_OPTION_BIT( 5)
-#define OPTION_PHASE_ANGLE_OUTPUT       EPHEM_OPTION_BIT( 6)
-#define OPTION_GROUND_TRACK             EPHEM_OPTION_BIT( 8)
-#define OPTION_SEPARATE_MOTIONS         EPHEM_OPTION_BIT( 9)
-
-#define OPTION_ROUND_TO_NEAREST_STEP    EPHEM_OPTION_BIT( 10)
-#define OPTION_PHASE_ANGLE_BISECTOR     EPHEM_OPTION_BIT( 11)
-#define OPTION_HELIO_ECLIPTIC           EPHEM_OPTION_BIT( 12)
-#define OPTION_TOPO_ECLIPTIC            EPHEM_OPTION_BIT( 13)
-
-#define OPTION_VISIBILITY               EPHEM_OPTION_BIT( 14)
-#define OPTION_SUPPRESS_UNOBSERVABLE    EPHEM_OPTION_BIT( 15)
-#define OPTION_SHOW_SIGMAS              EPHEM_OPTION_BIT( 16)
-#define OPTION_COMPUTER_FRIENDLY        EPHEM_OPTION_BIT( 17)
-      /* Above option means 'ephems are written in format easy for  */
-      /* software to read,  instead of in a human-readable format'. */
-
-      /* Added 2015 May 4 at suggestion of Denis Denisenko          */
-#define OPTION_MOIDS                    EPHEM_OPTION_BIT( 18)
-#define OPTION_SPACE_VEL_OUTPUT         EPHEM_OPTION_BIT( 19)
-#define OPTION_LUNAR_ELONGATION         EPHEM_OPTION_BIT( 20)
-
-#define OPTION_SUPPRESS_RA_DEC          EPHEM_OPTION_BIT( 21)
-#define OPTION_SUPPRESS_DELTA           EPHEM_OPTION_BIT( 22)
-#define OPTION_SUPPRESS_SOLAR_R         EPHEM_OPTION_BIT( 23)
-#define OPTION_SUPPRESS_ELONG           EPHEM_OPTION_BIT( 24)
-
-#define OPTION_SUN_ALT                  EPHEM_OPTION_BIT( 25)
-#define OPTION_SUN_AZ                   EPHEM_OPTION_BIT( 26)
-#define OPTION_MOON_ALT                 EPHEM_OPTION_BIT( 27)
-#define OPTION_MOON_AZ                  EPHEM_OPTION_BIT( 28)
-#define OPTION_SKY_BRIGHTNESS           EPHEM_OPTION_BIT( 29)
-
-
-#define OPTION_SUN_TARGET_PA            EPHEM_OPTION_BIT( 30)
-#define OPTION_SUN_HELIO_VEL_PA         EPHEM_OPTION_BIT( 31)
-#define OPTION_ORBIT_PLANE_ANGLE        EPHEM_OPTION_BIT( 32)
-#define OPTION_GALACTIC_COORDS          EPHEM_OPTION_BIT( 33)
-#define OPTION_GALACTIC_CONFUSION       EPHEM_OPTION_BIT( 34)
-#define OPTION_SNR                      EPHEM_OPTION_BIT( 35)
-#define OPTION_EXPOSURE_TIME            EPHEM_OPTION_BIT( 36)
-#define OPTION_EXPLANATIONS             EPHEM_OPTION_BIT( 37)
-#define OPTION_CONSTELLATION            EPHEM_OPTION_BIT( 38)
-#define OPTION_RV_AND_DELTA_SIGMAS      EPHEM_OPTION_BIT( 39)
+//typedef uint64_t ephem_option_t;   // moved to ephem0.h were it makes more sense
+//
+///* Bitfield options for ephemeris_in_a_file( ): */
+///* Bottom three bits define an ephemeris type.  "Observables" are the */
+///* usual RA/dec,  radial velocity,  etc. type output.  "State vector  */
+///* output" results in the time (as a JD) and position (in AU,  relative */
+///* to the observer,  in Cartesian coordinates) being output.  "Position */
+///* output" is the same thing,  minus the velocity components.  "MPCORB  */
+///* output" means that the orbital elements will be written out for each */
+///* ephemeris step,  on a single line.  "8-line output" is almost the    */
+///* same,  except that the elements are written out in the MPC's usual   */
+///* eight-line form.  "Close approaches" will result in the range minima */
+///* (times and distances) being output.                                  */
+//
+//#define OPTION_OBSERVABLES             0
+//#define OPTION_STATE_VECTOR_OUTPUT     1
+//#define OPTION_POSITION_OUTPUT         2
+//#define OPTION_MPCORB_OUTPUT           3
+//#define OPTION_8_LINE_OUTPUT           4
+//#define OPTION_CLOSE_APPROACHES        5
+//#define OPTION_FAKE_ASTROMETRY         6
+//
+//#define EPHEM_OPTION_BIT( N)  (((ephem_option_t)1) << (N))
+//
+//#define OPTION_ALT_AZ_OUTPUT            EPHEM_OPTION_BIT( 3)
+//#define OPTION_RADIAL_VEL_OUTPUT        EPHEM_OPTION_BIT( 4)
+//#define OPTION_MOTION_OUTPUT            EPHEM_OPTION_BIT( 5)
+//#define OPTION_PHASE_ANGLE_OUTPUT       EPHEM_OPTION_BIT( 6)
+//#define OPTION_GROUND_TRACK             EPHEM_OPTION_BIT( 8)
+//#define OPTION_SEPARATE_MOTIONS         EPHEM_OPTION_BIT( 9)
+//
+//#define OPTION_ROUND_TO_NEAREST_STEP    EPHEM_OPTION_BIT( 10)
+//#define OPTION_PHASE_ANGLE_BISECTOR     EPHEM_OPTION_BIT( 11)
+//#define OPTION_HELIO_ECLIPTIC           EPHEM_OPTION_BIT( 12)
+//#define OPTION_TOPO_ECLIPTIC            EPHEM_OPTION_BIT( 13)
+//
+//#define OPTION_VISIBILITY               EPHEM_OPTION_BIT( 14)
+//#define OPTION_SUPPRESS_UNOBSERVABLE    EPHEM_OPTION_BIT( 15)
+//#define OPTION_SHOW_SIGMAS              EPHEM_OPTION_BIT( 16)
+//#define OPTION_COMPUTER_FRIENDLY        EPHEM_OPTION_BIT( 17)
+//      /* Above option means 'ephems are written in format easy for  */
+//      /* software to read,  instead of in a human-readable format'. */
+//
+//      /* Added 2015 May 4 at suggestion of Denis Denisenko          */
+//#define OPTION_MOIDS                    EPHEM_OPTION_BIT( 18)
+//#define OPTION_SPACE_VEL_OUTPUT         EPHEM_OPTION_BIT( 19)
+//#define OPTION_LUNAR_ELONGATION         EPHEM_OPTION_BIT( 20)
+//
+//#define OPTION_SUPPRESS_RA_DEC          EPHEM_OPTION_BIT( 21)
+//#define OPTION_SUPPRESS_DELTA           EPHEM_OPTION_BIT( 22)
+//#define OPTION_SUPPRESS_SOLAR_R         EPHEM_OPTION_BIT( 23)
+//#define OPTION_SUPPRESS_ELONG           EPHEM_OPTION_BIT( 24)
+//
+//#define OPTION_SUN_ALT                  EPHEM_OPTION_BIT( 25)
+//#define OPTION_SUN_AZ                   EPHEM_OPTION_BIT( 26)
+//#define OPTION_MOON_ALT                 EPHEM_OPTION_BIT( 27)
+//#define OPTION_MOON_AZ                  EPHEM_OPTION_BIT( 28)
+//#define OPTION_SKY_BRIGHTNESS           EPHEM_OPTION_BIT( 29)
+//
+//
+//#define OPTION_SUN_TARGET_PA            EPHEM_OPTION_BIT( 30)
+//#define OPTION_SUN_HELIO_VEL_PA         EPHEM_OPTION_BIT( 31)
+//#define OPTION_ORBIT_PLANE_ANGLE        EPHEM_OPTION_BIT( 32)
+//#define OPTION_GALACTIC_COORDS          EPHEM_OPTION_BIT( 33)
+//#define OPTION_GALACTIC_CONFUSION       EPHEM_OPTION_BIT( 34)
+//#define OPTION_SNR                      EPHEM_OPTION_BIT( 35)
+//#define OPTION_EXPOSURE_TIME            EPHEM_OPTION_BIT( 36)
+//#define OPTION_EXPLANATIONS             EPHEM_OPTION_BIT( 37)
+//#define OPTION_CONSTELLATION            EPHEM_OPTION_BIT( 38)
+//#define OPTION_RV_AND_DELTA_SIGMAS      EPHEM_OPTION_BIT( 39)
 
 #define ORBIT_SIGMAS_REQUESTED         1
 #define NO_ORBIT_SIGMAS_REQUESTED    (-1)
@@ -210,67 +216,66 @@ other sort orders (perhaps reversed,  or by residuals) possible later. */
 #define SORT_OBS_RADAR_LAST             2
 
 #ifdef SEEK_CUR
-OBSERVE   *load_observations( FILE *ifile, const char *packed_desig,
+Observe  *load_observations( FILE *ifile, const char *packed_desig,
                         const int n_obs);
 #endif
-int unload_observations( OBSERVE   *obs, const int n_obs);
+int unload_observations(Observe   *obs, const int n_obs);
 OBJECT_INFO *find_objects_in_file( const char *filename,
                                          int *n_found, const char *station);
-void sort_object_info( OBJECT_INFO *ids, const int n_ids,
-                                          int compare_by_last_obs_time);
+void sort_object_info(OBJECT_INFO *ids, const int n_ids, int compare_by_last_obs_time);
 int get_object_name( char *obuff, const char *packed_desig);
 int get_observer_data( const char   *mpc_code, char *buff, mpc_code_t *cinfo);
-void recreate_observation_line( char *obuff, const OBSERVE   *obs,
+void recreate_observation_line(char *obuff, const Observe   *obs,
                            const int residual_format);   /* ephem0.cpp */
 int put_observer_data_in_text( const char   *mpc_code, char *buff);
 
-void create_obs_file( const OBSERVE   *obs, int n_obs, const int append,
+void create_obs_file( const Observe   *obs, int n_obs, const int append,
                   const int resid_format);            /* ephem0.cpp */
-void create_obs_file_with_computed_values( const OBSERVE   *obs,
+void create_obs_file_with_computed_values( const Observe   *obs,
                   int n_obs, const int append,
                   const int resid_format);            /* ephem0.cpp */
-int find_worst_observation( const OBSERVE   *obs, const int n_obs);
-double calc_absolute_magnitude( OBSERVE   *obs, int n_obs);
-double compute_rms( const OBSERVE   *obs, const int n_obs);
-double compute_weighted_rms( const OBSERVE   *obs, const int n_obs, int *n_resids);
-bool opposition_break( const OBSERVE *obs);              /* elem_out.cpp */
-int herget_method( OBSERVE   *obs, int n_obs, double r1, double r2,
+int find_worst_observation( const Observe   *obs, const int n_obs);
+double calc_absolute_magnitude( Observe   *obs, int n_obs);
+double compute_rms( const Observe   *obs, const int n_obs);
+double compute_weighted_rms(const Observe   *obs, const int n_obs, int *n_resids);
+bool opposition_break(const Observe *obs);              /* elem_out.cpp */
+int herget_method(Observe *obs, int n_obs, double r1, double r2,
          double *orbit, double *d_r1, double *d_r2, const char *limited_orbit);
-int adjust_herget_results( OBSERVE   *obs, int n_obs, double *orbit);
-void improve_parabolic( OBSERVE   *obs, int n_obs, double *orbit, double epoch);
-int full_improvement( OBSERVE   *obs, int n_obs, double *orbit,
+int adjust_herget_results(Observe *obs, int n_obs, double *orbit);
+void improve_parabolic(Observe *obs, int n_obs, double *orbit, double epoch);
+int full_improvement(Observe *obs, int n_obs, double *orbit,
                  const double epoch, const char *limited_orbit,
                  const int sigmas_requested, const double epoch2);
-int set_locs( const double *orbit, const double t0, OBSERVE   *obs,
+int set_locs( const double *orbit, const double t0, Observe *obs,
                                    const int n_obs);
 void make_date_range_text( char *obuff, const double jd1, const double jd2);
                                                         /* orb_func.cpp */
-int get_r1_and_r2( const int n_obs, const OBSERVE   *obs,
+int get_r1_and_r2( const int n_obs, const Observe *obs,
                              double *r1, double *r2);    /* elem_out.cpp */
-int get_idx1_and_idx2( const int n_obs, const OBSERVE   *obs,
+int get_idx1_and_idx2(const int n_obs, const Observe *obs,
                                   int *idx1, int *idx2);  /* elem_out.cpp */
-double initial_orbit( OBSERVE   *obs, int n_obs, double *orbit);
-double get_step_size( const char *stepsize, char *step_units,
+double initial_orbit(Observe *obs, int n_obs, double *orbit);
+double get_step_size(const char *stepsize, char *step_units,
                                  int *step_digits);          /* ephem0.cpp */
-int ephemeris_in_a_file_from_mpc_code( const char *filename,
-         const double *orbit,
-         OBSERVE *obs, const int n_obs,
-         const double epoch_jd, const double jd_start, const char *stepsize,
-         const int n_steps, const char *mpc_code,
-         ephem_option_t options, const unsigned n_objects);
-int find_best_fit_planet( const double jd, const double *ivect,
+//int ephemeris_in_a_file_from_mpc_code( const char *filename,                     // declaration moved to ephem0.h. ephem0.cpp has the definition
+//         const double *orbit,
+//         OBSERVE *obs, const int n_obs,
+//         const double epoch_jd, const double jd_start, const char *stepsize,
+//         const int n_steps, const char *mpc_code,
+//         ephem_option_t options, const unsigned n_objects);
+int find_best_fit_planet(const double jd, const double *ivect,
                      double *rel_vect);     /* runge.cpp */
-int integrate_orbit( double *orbit, const double t0, const double t1);
-int generate_obs_text( const OBSERVE   *obs, const int n_obs, char *buff,
+int integrate_orbit(double *orbit, const double t0, const double t1);
+int generate_obs_text(const Observe *obs, const int n_obs, char *buff,
                                           const size_t buffsize);
-double convenient_gauss( const OBSERVE   *obs, int n_obs, double *orbit,
+double convenient_gauss(const Observe *obs, int n_obs, double *orbit,
                   const double mu, const int desired_soln); /* gauss.cpp */
 void set_solutions_found( OBJECT_INFO *ids, const int n_ids);
-OBSERVE   *load_object( FILE *ifile, OBJECT_INFO *id,
+Observe *load_object( FILE *ifile, OBJECT_INFO *id,
                        double *curr_epoch, double *epoch_shown, double *orbit);
-int store_solution( const OBSERVE   *obs, const int n_obs, const double *orbit,
+int store_solution(const Observe *obs, const int n_obs, const double *orbit,
        const double orbit_epoch, const int perturbers);
-int compute_observation_motion_details( const OBSERVE   *obs,
+int compute_observation_motion_details(const Observe *obs,
                MOTION_DETAILS *m);                    /* mpc_obs.cpp */
 int compute_observer_loc( const double jde, const int planet_no,
                const double rho_cos_phi,                    /* mpc_obs.cpp */
@@ -282,12 +287,12 @@ int get_findorb_text( char *buff, const int ival);    /* ephem.cpp */
 int write_out_elements_to_file( const double *orbit,
             const double curr_epoch,
             const double epoch_shown,
-            OBSERVE   *obs, const int n_obs, const char *constraints,
+            Observe *obs, const int n_obs, const char *constraints,
             const int precision, const int monte_carlo,
             const int options);    /* elem_out.cpp */
-int extend_orbit_solution( OBSERVE   *obs, const int n_obs,
+int extend_orbit_solution(Observe *obs, const int n_obs,
             const double limit, const double time_limit);
-int clean_up_find_orb_memory( void);         /* orb_func.cpp */
+int clean_up_find_orb_memory(void);         /* orb_func.cpp */
 //
 int generic_message_box(const char* message, const char* box_type);
 const char* get_environment_ptr(const char* env_ptr); 
@@ -363,8 +368,8 @@ const char* get_environment_ptr(const char* env_ptr);
 #define RESIDUAL_FORMAT_SHOW_DESIGS              0x20000
 
 int write_residuals_to_file( const char *filename, const char *ast_filename,
-        const int n_obs, const OBSERVE   *obs_data, const int resid_format);
-void format_observation( const OBSERVE   *obs, char *text,
+        const int n_obs, const Observe *obs_data, const int resid_format);
+void format_observation( const Observe *obs, char *text,
                                    const int resid_format);   /* ephem0.cpp */
 
 #define MPC_STATION struct mpc_station
@@ -377,10 +382,10 @@ MPC_STATION
    };
 
 int find_mpc_color( const MPC_STATION *sdata, const char *mpc_code);
-MPC_STATION *find_mpc_color_codes( const int n_obs, const OBSERVE   *obs,
+MPC_STATION *find_mpc_color_codes(const int n_obs, const Observe *obs,
                    const int max_n_colors);           /* elem_out.cpp */
 
-int filter_obs( OBSERVE   *obs, const int n_obs,           /* orb_fun2.cpp */
+int filter_obs(Observe *obs, const int n_obs,           /* orb_fun2.cpp */
                   const double max_residual_in_sigmas, const int filter_type);
    /* Currently,  filter_type = 0 -> in sigmas; = 1 => in arcsec */
 
@@ -396,9 +401,9 @@ typedef struct
    double rparam, vparam, orbit[6], score;
 } sr_orbit_t;
 
-int find_nth_sr_orbit( sr_orbit_t *orbit, OBSERVE   *obs, int n_obs,
+int find_nth_sr_orbit(sr_orbit_t *orbit, Observe *obs, int n_obs,
                             const int orbit_number);         /* orb_func.cpp */
-int get_sr_orbits( sr_orbit_t *orbits, OBSERVE   *obs,     /* orb_func.cpp */
+int get_sr_orbits(sr_orbit_t *orbits, Observe *obs,     /* orb_func.cpp */
                const unsigned n_obs, const unsigned starting_orbit,
                const unsigned max_orbits, const double max_time,
                const double noise_in_sigmas, const int writing_sr_elems);
@@ -524,3 +529,6 @@ void move_add_nstr( const int col, const int row, const char *msg, const int n_b
 
 int inquire( const char *prompt, char *buff, const int max_len,
                      const int color);
+
+
+#endif // !MPC_OBS_H_INCLUDE

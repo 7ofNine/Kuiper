@@ -23,18 +23,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include <cstdlib>
 #include <cmath>
 //
+#include "elem2tle.h"
 #include "afuncs.h"
 #include "comets.h"
-#include "norad.h"
+//#include "norad.h"
 #include "date.h"
-
+//#include "elem2tle.h"
+#include "norad.h"
 const double earth_mass_over_sun_mass = 2.98994e-6;
 #define GAUSS_K .01720209895
 #define SOLAR_GM (GAUSS_K * GAUSS_K)
 #define PI 3.141592653589793238462643383279502884197169399375105
 #define J2000 2451545.0
 
-int elements_to_tle( tle_t *tle, const ELEMENTS *elem);
 int vector_to_tle( tle_t *tle, const double *state_vect, const double epoch);
 int write_tle_from_vector( char *buff, const double *state_vect,
         const double epoch, const char *norad_desig, const char *intl_desig);

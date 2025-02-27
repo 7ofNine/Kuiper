@@ -43,6 +43,7 @@ have to wait for another day.       */
 #include "ephem0.h"
 #include "miscell.h"
 #include "elem_out.h"
+#include "orbfunc.h"
 
 
 
@@ -82,11 +83,12 @@ problem -- sungrazing astrometry -- column 14 will always indicate the
 instrument used (see bottom of 'ObsNotes.html'), but that will not work
 reliably with other obscodes.  */
 
-static char program_code( const OBSERVE *obs)
+static char program_code(const Observe *obs)
 {
-   if( strchr( "ABGHOP", obs->note1) && strstr( "249 C49 C50", obs->mpc_code))
-      return( obs->note1);    /* SOHO and STEREO program codes */
-   return( isalpha( obs->note1) ? ' ' : obs->note1);
+    if (strchr("ABGHOP", obs->note1) && strstr("249 C49 C50", obs->mpc_code)) {
+        return obs->note1;    /* SOHO and STEREO program codes */
+    }
+    return isalpha( obs->note1) ? ' ' : obs->note1;
 }
 
 /* Given a line such as 'OBS E. E. Barnard, M. Wolf',  this will write out
@@ -96,7 +98,7 @@ static char program_code( const OBSERVE *obs)
 
    i.e.,  it 'ADES-izes' old-style observer details. */
 
-static int dump_one_line_of_names( FILE *ofile, const char *line)
+static int dump_one_line_of_names(FILE *ofile, const char *line)
 {
    int n_found = 0;
 
@@ -180,7 +182,7 @@ static int dump_one_line_of_names( FILE *ofile, const char *line)
    return( n_found);
 }
 
-static int output_names( FILE *ofile, const OBSERVE   *obs, const char *target)
+static int output_names(FILE *ofile, const Observe *obs, const char *target)
 {
    int i, n_found = 0;
    const size_t tlen = strlen( target);
@@ -227,14 +229,13 @@ static int output_names( FILE *ofile, const OBSERVE   *obs, const char *target)
          }
       fclose( ifile);
       }
-   return( n_found);
+   return n_found;
 }
 
 /* Outputs _only_ those observations from the station and program code
 specified by the first observation.      */
 
-static void create_ades_file_for_one_code( FILE *ofile,
-                   const OBSERVE   *obs, int n_obs)
+static void create_ades_file_for_one_code(FILE *ofile, const Observe *obs, int n_obs)
 {
    char buff[200];
    const char *code = obs->mpc_code;
@@ -375,8 +376,7 @@ do all this only once per code.   */
 
 #define OBSCODE_BUFF_SIZE 20000
 
-void create_ades_file( const char *filename, const OBSERVE   *obs,
-                                           int n_obs)
+void create_ades_file(const char *filename, const Observe *obs, int n_obs)
 {
    int i, j;
    char *codes = (char *)malloc( OBSCODE_BUFF_SIZE);

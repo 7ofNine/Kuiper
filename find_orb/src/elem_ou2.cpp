@@ -32,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include "monte0.h"     /* for put_double_in_buff() proto */
 #include "date.h"
 #include "elem_ou2.h"
+#include "orbfunc.h"
 
    /* MSVC/C++ lacks snprintf.  See 'ephem0.cpp' for details. */
 #if defined(_MSC_VER) && _MSC_VER < 1900
@@ -40,9 +41,9 @@ int snprintf( char *string, const size_t max_len, const char *format, ...);
 
 const double PI = 3.1415926535897932384626433832795028841971693993751058209749445923;
 
-int put_elements_into_sof( char *obuff, const char *templat,
+int put_elements_into_sof(char *obuff, const char *templat,
          const ELEMENTS *elem, const double *nongravs,
-         const int n_obs, const OBSERVE *obs)
+         const int n_obs, const Observe *obs)
 {
    int rval = 0;
 
@@ -205,6 +206,6 @@ int put_elements_into_sof( char *obuff, const char *templat,
          }
       }
    strcpy( obuff, templat);     /* CR/LF or LF */
-   return( rval);    /* indicates number of failed fields */
+   return rval;    /* indicates number of failed fields */
 }
 

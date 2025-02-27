@@ -14,6 +14,12 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 02110-1301, USA. */
+#ifndef MONTE_H_INCLUDE
+#define MONTE_H_INCLUDE
+
+#include <iosfwd>
+
+struct Observe;
 
 #define MONTE_TP           0
 #define MONTE_ECC          1
@@ -30,18 +36,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #define MONTE_N_ENTRIES   11
 #define MONTE_DATA_SIZE   (3 * MONTE_N_ENTRIES)
 
-double *add_gaussian_noise_to_obs( int n_obs, OBSERVE *obs,
+double *add_gaussian_noise_to_obs(int n_obs, Observe *obs,
                  const double noise_in_sigmas);             /* monte0.cpp */
-void add_monte_orbit( double *monte_data, const ELEMENTS *elem,
-                  const int n_orbits);                      /* monte0.cpp */
+void add_monte_orbit(double *monte_data, const ELEMENTS *elem, const int n_orbits);                      /* monte0.cpp */
 void compute_monte_sigmas( double *sigmas, const double *monte_data,
                   const int n_orbits);                      /* monte0.cpp */
-void restore_ra_decs_mags_times( unsigned n_obs, OBSERVE *obs,
-                           const double *stored_ra_decs);
-void put_orbital_elements_in_array_form( const ELEMENTS *elem,
-                  double *output_array);                    /* monte0.cpp */
-double dump_monte_data_to_file( FILE *ofile, const double *sigmas,
-            const double semimajor_axis, const double ecc,
-            const int planet_orbiting);                       /* monte0.cpp */
-char * put_double_in_buff( char *buff, const double ival);    /* monte0.cpp */
+void restore_ra_decs_mags_times(unsigned n_obs, Observe *obs, const double *stored_ra_decs);
+void put_orbital_elements_in_array_form( const ELEMENTS *elem, double *output_array);                    /* monte0.cpp */
+double dump_monte_data_to_file(FILE *ofile, const double *sigmas, const double semimajor_axis,
+         const double ecc, const int planet_orbiting);                       /* monte0.cpp */
+char * put_double_in_buff(char *buff, const double ival);    /* monte0.cpp */
 
+#endif
