@@ -1,3 +1,5 @@
+#ifndef SHOWELEM_H_INCLUDE
+#define SHOWELEM_H_INCLUDE
 /* showelem.h: header file for 8-line element display functions
 Copyright (C) 2010, Project Pluto
 
@@ -23,13 +25,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 
 /* REMEMBER:  set 'central_obj', 'epoch', 'abs_mag', 'slope_param' fields */
 
+struct Elements;
 
 extern "C" {
 
 
 int /*DLL_FUNC*/ elements_in_mpc_format( char *obuff, const size_t obuff_size,
-                  const ELEMENTS *elem, const char *obj_id,
+                  const Elements *elem, const char *obj_id,
                   const int is_cometary, const int format);
 
 }
 
+#endif

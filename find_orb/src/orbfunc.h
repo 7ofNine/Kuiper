@@ -48,5 +48,16 @@ struct Observe
     char* ades_ids;
 };
 
+
+double initial_orbit(Observe* obs, int n_obs, double* orbit);
+int set_locs(const double* orbit, double t0, Observe* obs, int n_obs);
+void attempt_extensions(Observe* obs, const int n_obs, double* orbit,
+    const double epoch);      
+void get_relative_vector(const double jd, const double* ivect,
+    double* relative_vect, const int planet_orbiting);  
+double get_planet_mass(const int planet_idx); 
+double observation_rms(const Observe* obs);      
+
+
 #endif // !ORBFUNC_H_INCLUDE
 

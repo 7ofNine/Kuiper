@@ -146,7 +146,7 @@ static void add_pq_data( char *obuff, const size_t obuff_size,
 /* REMEMBER:  set 'central_obj', 'epoch', 'abs_mag', 'slope_param', 'gm' fields */
 
 int /*DLL_FUNC*/ elements_in_mpc_format( char *obuff, const size_t obuff_size,
-                  const ELEMENTS *elem, const char *obj_id,
+                  const Elements *elem, const char *obj_id,
                   const int is_cometary, const int format)
 {
    const char *nineteen_blank_spaces = "                   ";

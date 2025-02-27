@@ -55,13 +55,14 @@ https://www.researchgate.net/publication/325922027_On_the_minimum_orbital_inters
 #include "comets.h"
 #include "afuncs.h"
 #include "mpc_func.h"
+#include "moid.h"
 
 #define PI 3.1415926535897932384626433832795028841971693993751058209749445923
 #define GAUSS_K .01720209895
 #define SOLAR_GM (GAUSS_K * GAUSS_K)
 #define J2000 2451545.0
 
-static void fill_matrix( double mat[3][3], const ELEMENTS *elem)
+static void fill_matrix( double mat[3][3], const Elements *elem)
 {
    memcpy( mat[0], elem->perih_vec, 3 * sizeof( double));
    memcpy( mat[1], elem->sideways, 3 * sizeof( double));
@@ -69,7 +70,7 @@ static void fill_matrix( double mat[3][3], const ELEMENTS *elem)
    vector_cross_product( mat[2], mat[0], mat[1]);
 }
 
-static double compute_posn_and_vel( const ELEMENTS *elem,
+static double compute_posn_and_vel( const Elements *elem,
             const double true_anom, const double matrix[3][3],
             double *posn, double *vel)
 {
@@ -117,12 +118,12 @@ typedef struct
 {
    double xform_matrix[3][3];
    double elem1_b, lat, r2;
-   const ELEMENTS *elem1, *elem2;
+   const Elements *elem1, *elem2;
    bool compute_obj_1_data;
    moid_data_t *mdata;
 } internal_moid_t;
 
-static double true_anom_from_r( const ELEMENTS *elem, const double r)
+static double true_anom_from_r( const Elements *elem, const double r)
 {
    double rval = 0.;
 
@@ -170,7 +171,7 @@ true anomaly of elem2's orbit : */
 
 static double moid_step = 5. * PI / 180.;
 
-double /*DLL_FUNC*/ find_moid_full( const ELEMENTS *elem1, const ELEMENTS *elem2, moid_data_t *mdata)
+double /*DLL_FUNC*/ find_moid_full( const Elements *elem1, const Elements *elem2, moid_data_t *mdata)
 {
    double mat1[3][3], mat2[3][3];
    internal_moid_t idata;
@@ -321,7 +322,7 @@ static inline double centralize_angle( double ang)
 #define N_PLANET_ELEMS 15
 #define N_PLANET_RATES 9
 
-int setup_planet_elem( ELEMENTS *elem, const int planet_idx,
+int setup_planet_elem(Elements *elem, const int planet_idx,
                                              const double t_cen)
 {
 /* Planet elems taken straight from https://ssd.jpl.nasa.gov/txt/p_elem_t1.txt
@@ -377,7 +378,7 @@ static const double planet_elem_rate[N_PLANET_RATES * 6] = {
       }
    for( i = 2; i < 6; i++)
       elem_array[i] = centralize_angle( elem_array[i] * PI / 180.);
-   memset( elem, 0, sizeof( ELEMENTS));
+   memset( elem, 0, sizeof(Elements));
    elem->ecc = elem_array[1];
    elem->q = (1. - elem->ecc) * elem_array[0];
    elem->incl = elem_array[2];

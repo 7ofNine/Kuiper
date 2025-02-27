@@ -17,36 +17,38 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 02110-1301, USA.    */
 
-#include <cstdio>
-#include <cctype>
-#include <cstdlib>
-#include <cstdint>
-#include <cstring>
-#include <cmath>
-#include <time.h>
-#include <windows.h>
-#include <stdarg.h>
-#include <cassert>
-#include <errno.h>
-//
+#include "mpc_obs.h"
+
 #include "details.h"
 #include "comets.h"
 #include "lunar.h"
 #include "afuncs.h"
 #include "mpc_func.h"
-#include "mpc_obs.h"
 #include "stackall.h"
 #include "stringex.h"
 #include "sigma.h"
 #include "date.h"
 #include "pl_cache.h"
 #include "constant.h"
-
 #include "miscell.h"
 #include "elem_out.h"
 #include "ephem0.h"
 #include "bias.h"
 #include "orbfunc.h"
+
+#include <windows.h>
+
+#include <cstdio>
+#include <cctype>
+#include <cstdlib>
+#include <cstdint>
+#include <cstring>
+#include <cmath>
+#include <ctime>
+#include <cstdarg>
+#include <cassert>
+#include <cerrno>
+//
 
 int pattern_match(const char* pattern, const char* string);   /* miscell.c */
 int text_search_and_replace( char   *str, const char *oldstr,
@@ -55,7 +57,6 @@ int text_search_and_replace( char   *str, const char *oldstr,
 int apply_excluded_observations_file(Observe *obs, const int n_obs);
 void set_up_observation(Observe *obs);                 /* mpc_obs.c */
 static double observation_jd( const char *buff);
-double centralize_ang( double ang);             /* elem_out.cpp */
 int sort_obs_by_date_and_remove_duplicates(Observe *obs, const int n_obs);
 
 int lat_alt_to_parallax( const double lat, const double ht_in_meters,
@@ -84,7 +85,6 @@ int debug_printf( const char *format, ...)                 /* mpc_obs.cpp */
 ;
 char *make_config_dir_name( char *oname, const char *iname);  /* miscell.cpp */
 int download_a_file( const char *ofilename, const char *url);
-void set_environment_ptr( const char *env_ptr, const char *new_value);
 char **load_file_into_memory( const char *filename, size_t *n_lines,
                         const bool fail_if_not_found);      /* mpc_obs.cpp */
 void shellsort_r( void *base, const size_t n_elements, const size_t esize,

@@ -38,8 +38,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #define CUBE_ROOT( X)  (exp( log( X) / 3.))
 
 double kepler( const double ecc, double mean_anom);
-void setup_orbit_vectors( ELEMENTS   *e);  /* astfuncs.cpp */
-void comet_posn_part_ii( const ELEMENTS   *elem, const double t,
+void setup_orbit_vectors(Elements);  /* astfuncs.cpp */
+void comet_posn_part_ii(const Elements *elem, const double t,
                                     double   *loc, double   *vel);
 
 /* Asteroid elements on the Guide CD-ROM are stored in a compressed format,
@@ -47,7 +47,7 @@ where a full set of elements consumes six long integers = 24 bytes.  The
 grisly details are described in the file \COMPRESS\ASTEROID.DOC on the
 Guide CD-ROM.        */
 
-int /*DLL_FUNC*/ setup_elems_from_ast_file( ELEMENTS   *class_elem,
+int /*DLL_FUNC*/ setup_elems_from_ast_file(Elements *class_elem,
               const uint32_t   *elem, const double t_epoch)
 {
    double mean_anomaly;
@@ -89,7 +89,7 @@ and major axes;  the longitude of perihelion;  and a unit vector,
 "sideways",  that lies in the plane of the orbit and points at right angles
 to the direction of perihelion. */
 
-void setup_orbit_vectors( ELEMENTS   *e)
+void setup_orbit_vectors(Elements *e)
 {
    const double sin_incl = sin( e->incl), cos_incl = cos( e->incl);
    double   *vec;
@@ -118,7 +118,7 @@ void setup_orbit_vectors( ELEMENTS   *e)
    vector_cross_product( e->sideways, up, vec);
 }
 
-void /*DLL_FUNC*/ derive_quantities( ELEMENTS   *e, const double gm)
+void /*DLL_FUNC*/ derive_quantities(Elements *e, const double gm)
 {
    if( e->ecc != 1.)    /* for non-parabolic orbits: */
       {
@@ -275,7 +275,7 @@ double kepler( const double ecc, double mean_anom)
    return( is_negative ? offset - curr : offset + curr);
 }
 
-void comet_posn_part_ii( const ELEMENTS   *elem, const double t,
+void comet_posn_part_ii( const Elements *elem, const double t,
                                     double   *loc, double   *vel)
 {
    double true_anom, r, x, y, r0;
@@ -331,7 +331,7 @@ void comet_posn_part_ii( const ELEMENTS   *elem, const double t,
       }
 }
 
-int /*DLL_FUNC*/ comet_posn_and_vel( ELEMENTS   *elem, double t,
+int /*DLL_FUNC*/ comet_posn_and_vel(Elements *elem, double t,
                   double   *loc, double   *vel)
 {
    t -= elem->perih_time;
@@ -350,7 +350,7 @@ int /*DLL_FUNC*/ comet_posn_and_vel( ELEMENTS   *elem, double t,
    return( 0);
 }
 
-int /*DLL_FUNC*/ comet_posn( ELEMENTS   *elem, double t, double   *loc)
+int /*DLL_FUNC*/ comet_posn(Elements *elem, double t, double   *loc)
 {
    return( comet_posn_and_vel( elem, t, loc, nullptr));
 }

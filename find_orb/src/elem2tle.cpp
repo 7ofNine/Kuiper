@@ -47,7 +47,7 @@ void convert_elements( const double epoch_from, const double epoch_to,
 #define centralize_angle_and_cvt_to_degrees( x)  \
                              (centralize_angle( x) * (180. / PI))
 
-int elements_to_tle( tle_t *tle, const ELEMENTS *elem)
+int elements_to_tle( tle_t *tle, const Elements *elem)
 {
    int rval = -1;
 
@@ -81,7 +81,7 @@ int elements_to_tle( tle_t *tle, const ELEMENTS *elem)
 
 int vector_to_tle( tle_t *tle, const double *state_vect, const double epoch)
 {
-   ELEMENTS elem;
+    Elements elem;
    int rval = -1;
 
    elem.gm = SOLAR_GM * earth_mass_over_sun_mass;

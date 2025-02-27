@@ -206,6 +206,15 @@
     <ClInclude Include="src\orbfunc.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\nanosecs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\runge.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\orbfunc2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\mpcorb.hdr">

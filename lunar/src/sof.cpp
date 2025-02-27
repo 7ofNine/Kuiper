@@ -72,14 +72,14 @@ double extract_yyyymmdd_to_jd( const char *buff)
 #define MASS_EARTH    3.003489614792921e-06
          /* above is in solar masses,  from DE-432 */
 
-int extract_sof_data_ex( ELEMENTS *elem, const char *buff, const char *header,
+int extract_sof_data_ex(Elements *elem, const char *buff, const char *header,
                         double *extra_info)
 {
    int fields_found = 0, rval;
 
 // if( strlen( buff) != strlen( header))
 //    return( -1);
-   memset( elem, 0, sizeof( ELEMENTS));
+   memset( elem, 0, sizeof(Elements));
    elem->slope_param = 0.15;
    elem->gm = SOLAR_GM;
    if( extra_info)
@@ -198,7 +198,7 @@ int extract_sof_data_ex( ELEMENTS *elem, const char *buff, const char *header,
    return( rval);
 }
 
-int extract_sof_data( ELEMENTS *elem, const char *buff, const char *header)
+int extract_sof_data(Elements *elem, const char *buff, const char *header)
 {
    return( extract_sof_data_ex( elem, buff, header, nullptr));
 }

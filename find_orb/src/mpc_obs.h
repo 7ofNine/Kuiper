@@ -252,8 +252,6 @@ void make_date_range_text( char *obuff, const double jd1, const double jd2);
                                                         /* orb_func.cpp */
 int get_r1_and_r2( const int n_obs, const Observe *obs,
                              double *r1, double *r2);    /* elem_out.cpp */
-int get_idx1_and_idx2(const int n_obs, const Observe *obs,
-                                  int *idx1, int *idx2);  /* elem_out.cpp */
 double initial_orbit(Observe *obs, int n_obs, double *orbit);
 double get_step_size(const char *stepsize, char *step_units,
                                  int *step_digits);          /* ephem0.cpp */
@@ -296,6 +294,8 @@ int clean_up_find_orb_memory(void);         /* orb_func.cpp */
 //
 int generic_message_box(const char* message, const char* box_type);
 const char* get_environment_ptr(const char* env_ptr); 
+void set_environment_ptr(const char* env_ptr, const char* new_value);
+
 
 
 
@@ -392,8 +392,6 @@ int filter_obs(Observe *obs, const int n_obs,           /* orb_fun2.cpp */
 
     /* Functions used to store and restore orbits for the 'undo' function. */
     /* Orbits are stored on a stack and can be retrieved from it.          */
-void push_orbit( const double epoch, const double *orbit); /* orb_fun2.cpp */
-int pop_orbit( double *epoch, double *orbit);              /* orb_fun2.cpp */
 void pop_all_orbits( void);                                /* orb_fun2.cpp */
 
 typedef struct

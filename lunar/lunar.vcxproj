@@ -31,6 +31,7 @@
     <ClInclude Include="src\lunar.h" />
     <ClInclude Include="src\lun_tran.h" />
     <ClInclude Include="src\mjd_defs.h" />
+    <ClInclude Include="src\moid.h" />
     <ClInclude Include="src\mpc_func.h" />
     <ClInclude Include="src\riseset3.h" />
     <ClInclude Include="src\showelem.h" />

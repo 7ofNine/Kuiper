@@ -19,15 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 
 #define __STDC_FORMAT_MACROS
 
-#include <cmath>
-#include <cstdlib>
-#include <cstring>
-#include <cstdio>
-#include <time.h>
-#include <cassert>
-#include <cctype>
-#include <sys/stat.h>
-//
+#include "elem_out.h"
+
 #include "comets.h"
 #include "mpc_obs.h"
 #include "mpc_func.h"
@@ -41,10 +34,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 
 #include "ephem0.h"
 #include "miscell.h"
-#include "elem_out.h"
+
 #include "bc405.h"
 #include "elem_ou2.h"
 #include "orbfunc.h"
+#include "nanosecs.h"
+#include "runge.h"
+#include "elem2tle.h"
+#include "moid.h"    //lunar
+#include "collide.h"
+#include "pl_cache.h"
+#include "orbfunc2.h"
+
+
+#include <cmath>
+#include <cstdlib>
+#include <cstring>
+#include <cstdio>
+#include <time.h>
+#include <cassert>
+#include <cctype>
+#include <sys/stat.h>
+//
 
 
             /* Pretty much every platform I've run into supports */
@@ -57,60 +68,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 
 static const char *_extras_filename = "hints.txt";
 static const char *_default_extras_filename = "hints.def";
-extern int available_sigmas;
-extern double optical_albedo;
-extern unsigned perturbers;
+
+extern int available_sigmas;   // defined in orb_func.cpp
+extern double optical_albedo;  // defined in ephem0.cpp
+extern unsigned perturbers;    // defined in orbfunc.cpp. There is a field in SYORED_ORBIT with the same name !!
 
 #ifdef NOT_CURRENTLY_IN_USE
 #define ssnprintf_append( obuff, ...) snprintf_append( obuff, sizeof( obuff), __VA_ARGS__)
 #define ssnprintf( obuff, ...) snprintf( obuff, sizeof( obuff), __VA_ARGS__)
 #endif
-int get_defaults( ephem_option_t *ephemeris_output_options, int *element_format,
-         int *element_precision, double *max_residual_for_filtering,
-         double *noise_in_sigmas);                /* elem_out.cpp */
-int64_t nanoseconds_since_1970( void);                      /* mpc_obs.c */
-static int elements_in_mpcorb_format(char *buff, const char *packed_desig,
-                const char *full_desig, const ELEMENTS *elem,
-                const Observe *obs, const int n_obs);   /* orb_func.c */
-static int elements_in_guide_format(char *buff, const ELEMENTS *elem,
-                     const char *obj_name, const Observe *obs,
-                     const unsigned n_obs);                /* orb_func.c */
-FILE *open_json_file( char *filename, const char *env_ptr, const char *default_name,
-                  const char *packed_desig, const char *permits); /* ephem0.cpp */
-int find_worst_observation(const Observe *obs, const int n_obs);
-double initial_orbit(Observe *obs, int n_obs, double *orbit);
-int set_locs(const double *orbit, double t0, Observe *obs, int n_obs);
-void attempt_extensions(Observe *obs, const int n_obs, double *orbit,
-                  const double epoch);                  /* orb_func.cpp */
-double calc_obs_magnitude( const double obj_sun,
-          const double obj_earth, const double earth_sun, double *phase_ang);
-int find_best_fit_planet( const double jd, const double *ivect,
-                                 double *rel_vect);         /* runge.cpp */
-void find_relative_state_vect( const double jd, const double *ivect,
-               double *ovect, const int ref_planet);        /* runge.cpp */
-void compute_effective_solar_multiplier( const char *constraints);   /* runge.c */
-int get_orbit_from_mpcorb_sof( const char *object_name, double *orbit,
-             ELEMENTS *elems, const double full_arc_len, double *max_resid);
-void remove_trailing_cr_lf( char *buff);      /* ephem0.cpp */
-int write_tle_from_vector( char *buff, const double *state_vect,
-        const double epoch, const char *norad_desig, const char *intl_desig);
-int setup_planet_elem( ELEMENTS *elem, const int planet_idx,
-                                          const double t_cen);   /* moid4.c */
-void set_environment_ptr( const char *env_ptr, const char *new_value);
-double find_collision_time( ELEMENTS *elem, double *latlon, const int is_impact);
 
-int get_idx1_and_idx2( const int n_obs, const Observe *obs,
-                                int *idx1, int *idx2);      /* elem_out.c */
-double mag_band_shift( const char mag_band, int *err_code);   /* elem_out.c */
-int get_jpl_ephemeris_info( int *de_version, double *jd_start, double *jd_end);
-double centralize_ang( double ang);             /* elem_out.cpp */
 
-void get_relative_vector( const double jd, const double *ivect,
-          double *relative_vect, const int planet_orbiting);  /* orb_func.c */
-void push_orbit( const double epoch, const double *orbit);  /* orb_fun2.c */
-int pop_orbit( double *epoch, double *orbit);               /* orb_fun2.c */
-double get_planet_mass( const int planet_idx);                /* orb_func.c */
-double observation_rms( const Observe *obs);            /* elem_out.cpp */
 double find_epoch_shown( const Observe *obs, const int n_obs); /* elem_out */
 double evaluate_initial_orbit( const Observe *obs,      /* orb_func.c */
                const int n_obs, const double *orbit, const double epoch);
@@ -509,7 +477,7 @@ static int _n_oppositions( const Observe *obs, const int n)
 int n_clones_accepted = 0;
 
 static int elements_in_mpcorb_format( char *buff, const char *packed_desig,
-                const char *full_desig, const ELEMENTS *elem,
+                const char *full_desig, const Elements *elem,
                 const Observe *obs, const int n_obs)   /* orb_func.c */
 {
    int month, day, i, first_idx, last_idx, n_included_obs = 0;
@@ -654,7 +622,7 @@ report a linkage between 50 or more tracklets at once. */
 
 #define MAX_LINKAGE_IDS 50
 
-static int make_linkage_json( const int n_obs, const Observe *obs, const ELEMENTS *elem)
+static int make_linkage_json( const int n_obs, const Observe *obs, const Elements *elem)
 {
    int i, j, n_ids = 0, idx[MAX_LINKAGE_IDS], n_designated = 0;
    FILE *ofile, *ifile;
@@ -866,7 +834,7 @@ int geo_score( const double *orbit, const double epoch)
    return( n_geo * 100 / n_orbits);
 }
 
-static int elements_in_json_format( FILE *ofile, const ELEMENTS *elem,
+static int elements_in_json_format( FILE *ofile, const Elements *elem,
                      const double *orbit,
                      const char *obj_name, const Observe *obs,
                      const unsigned n_obs, const double *moids,
@@ -1154,7 +1122,7 @@ static int elements_in_json_format( FILE *ofile, const ELEMENTS *elem,
 readily imported to JPL Horizon's "plain text" format.  That format
 is noted as preliminary/in progress/unreliable,  so this may change. */
 
-static int write_horizons_elems( const char *filename, const ELEMENTS *elem, const double *orbit)
+static int write_horizons_elems( const char *filename, const Elements *elem, const double *orbit)
 {
    FILE *ofile = fopen( filename, "wb");
    extern int force_model;
@@ -1176,7 +1144,7 @@ static int write_horizons_elems( const char *filename, const ELEMENTS *elem, con
    return 0;
 }
 
-static int elements_in_guide_format( char *buff, const ELEMENTS *elem,
+static int elements_in_guide_format( char *buff, const Elements *elem,
                      const char *obj_name, const Observe *obs,
                      const unsigned n_obs)
 {
@@ -1413,7 +1381,7 @@ out the file doesn't actually exist yet,  we use the 'fallback_filename'
 to get the template line. */
 
 static int add_sof_to_file(const char *filename,
-             const ELEMENTS *elem, const double *nongravs,
+             const Elements *elem, const double *nongravs,
              const int n_obs, const Observe *obs, const char *fallback_filename)
 {
    char templat[MAX_SOF_LEN], obuff[MAX_SOF_LEN];
@@ -1496,7 +1464,7 @@ static double shoemaker_helin_encounter_velocity( const ELEMENTS *elem)
 #endif
 
 void get_periapsis_loc( double *ecliptic_lon, double *ecliptic_lat,
-             const ELEMENTS *elem)
+             const Elements *elem)
 {
    *ecliptic_lon = elem->asc_node +
          atan2( cos( elem->incl) * sin( elem->arg_per), cos( elem->arg_per));
@@ -1687,7 +1655,7 @@ dv = v0 * sqrt(3. - tisserand)
    where v0 = orbital speed for the earth (roughly 30 km/s) and 'tisserand'
 is the usual Tisserand criterion.           */
 
-static double encounter_velocity( const ELEMENTS *elem, const double a0)
+static double encounter_velocity( const Elements *elem, const double a0)
 {
    const double a = elem->major_axis;
    const double tval = sqrt( a * (1. - elem->ecc * elem->ecc) / a0);
@@ -1879,7 +1847,7 @@ int write_out_elements_to_file( const double *orbit,
    FILE *ofile = fopen_ext( get_file_name( buff, elements_filename), file_permits);
    double rel_orbit[MAX_N_PARAMS], orbit2[MAX_N_PARAMS];
    int planet_orbiting, n_lines, i, bad_elements = 0;
-   ELEMENTS elem, helio_elem;
+   Elements elem, helio_elem;
    char *tptr, *tbuff;
    char impact_buff[80];
    int n_more_moids = 0;
@@ -2001,7 +1969,7 @@ int write_out_elements_to_file( const double *orbit,
       }
 /* if( showing_sigmas == COVARIANCE_AVAILABLE)
 */    {
-      ELEMENTS elem2 = elem;
+       Elements  elem2 = elem;
       double rel_orbit2[MAX_N_PARAMS];
 
       if( showing_sigmas == COVARIANCE_AVAILABLE)
@@ -2161,7 +2129,7 @@ int write_out_elements_to_file( const double *orbit,
                {
                moid_data_t mdata;
                double moid, moid_limit = .1;
-               ELEMENTS planet_elem;
+               Elements planet_elem;
                const int forced_moid =
                    (atoi( get_environment_ptr( "MOIDS")) >> j) & 1;
 
@@ -2521,7 +2489,7 @@ int write_out_elements_to_file( const double *orbit,
                                          /* observed the object after */
                                          /* periapsis, must be a launch; */
                                          /* otherwise,  must be impact." */
-      ELEMENTS j2000_ecliptic_rel_elem = elem;
+      Elements j2000_ecliptic_rel_elem = elem;
 
       calc_classical_elements( &j2000_ecliptic_rel_elem,
                                 j2000_ecliptic_rel_orbit, epoch_shown, 1);
@@ -2793,7 +2761,7 @@ void set_solutions_found( OBJECT_INFO *ids, const int n_ids)
    free( ilines);
 }
 
-static void compute_two_body_state_vect( ELEMENTS *elems, double *orbit, const double jd)
+static void compute_two_body_state_vect(Elements *elems, double *orbit, const double jd)
 {
    derive_quantities( elems, get_planet_mass( elems->central_obj));
    comet_posn_and_vel( elems, jd, orbit, orbit + 3);
@@ -2823,13 +2791,13 @@ ELEMENTS.COMET,  Find_Orb can sometimes flounder about a bit in its
 efforts to determine an orbit. */
 
 static int get_orbit_from_sof( const char *filename,
-                 const char *object_name, double *orbit, ELEMENTS *elems,
+                 const char *object_name, double *orbit, Elements *elems,
                  const double full_arc_len, double *max_resid)
 {
    FILE *ifile = fopen_ext( filename, "crb");
    int got_vectors = 0;
 
-   memset( elems, 0, sizeof( ELEMENTS));
+   memset( elems, 0, sizeof(Elements));
    if( ifile)
       {
       char buff[300], header[300], tname[15];
@@ -2928,9 +2896,9 @@ int compute_canned_object_state_vect( double *loc, const char *mpc_code,
       rval = 0;
    if( !rval)
       {
-      ELEMENTS elems;
+       Elements elems;
 
-      memset( &elems, 0, sizeof( ELEMENTS));
+      memset( &elems, 0, sizeof(Elements));
       extract_sof_data_ex( &elems, buff, header, nullptr);
       if( elems.epoch < 2400000.)
          debug_printf( "JD %f\n", elems.epoch);
@@ -2998,7 +2966,7 @@ static double extract_state_vect_from_text( const char *text,
    double dist_units = 1., time_units = 1.;
    int bytes_read, central_object = 0, quantities_found = 0;
    bool is_state_vector, is_ecliptic = true;
-   ELEMENTS elem;
+   Elements elem;
 
    while( text[i] && text[i] != ',' && i < 80)
       i++;
@@ -3014,7 +2982,7 @@ static double extract_state_vect_from_text( const char *text,
       text += bytes_read + 1;
    assert( i == 6 || i == 0);
    is_state_vector = (i == 6);
-   memset( &elem, 0, sizeof( ELEMENTS));
+   memset( &elem, 0, sizeof(Elements));
    *abs_mag = 18.;
    while( *text)
       {
@@ -3155,7 +3123,7 @@ int find_first_and_last_obs_idx( const Observe *obs, const int n_obs,
 }
 
 int get_orbit_from_mpcorb_sof( const char *object_name, double *orbit,
-             ELEMENTS *elems, const double full_arc_len, double *max_resid)
+    Elements *elems, const double full_arc_len, double *max_resid)
 {
    const char *mpcorb_dot_sof_filename = get_environment_ptr( "MPCORB_SOF_FILENAME");
    int rval = 0;
@@ -3216,7 +3184,7 @@ static int fetch_previous_solution(Observe *obs, const int n_obs, double *orbit,
       }
    if( !got_vectors && !ignore_prev_solns)
       {
-      ELEMENTS elems;
+       Elements elems;
       const double full_arc_len = obs[n_obs - 1].jd - obs[0].jd;
       double rms_resid;
 

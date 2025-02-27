@@ -37,9 +37,9 @@ ask a computer.  */
 
 #include <cstdint>
 
-int64_t nanoseconds_since_1970( void);                      /* nanosecs.c */
-
 #include <windows.h>
+
+#include "nanosecs.h"
 
 int64_t nanoseconds_since_1970( void)
 {

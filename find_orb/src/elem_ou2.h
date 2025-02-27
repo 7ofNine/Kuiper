@@ -5,7 +5,7 @@ struct Observe;
 struct elements;
 
 int put_elements_into_sof(char* obuff, const char* templat,
-    const ELEMENTS* elem, const double* nongravs,
+    const Elements* elem, const double* nongravs,
     const int n_obs, const Observe *obs);
 
 

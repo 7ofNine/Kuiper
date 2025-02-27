@@ -32,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include "bc405.h"
 #include "pl_cache.h"
 #include "ephem0.h"
+#include "runge.h"
 
 
 #define ldouble long double
@@ -63,13 +64,13 @@ int debug_printf( const char *format, ...)                 /* mpc_obs.cpp */
 ;
 
 int earth_lunar_posn( const double jd, double   *earth_loc, double   *lunar_loc);
-ldouble take_rk_stepl( const ldouble jd, ELEMENTS *ref_orbit,
+ldouble take_rk_stepl( const ldouble jd, Elements *ref_orbit,
                  const ldouble *ival, ldouble *ovals,
                  const int n_vals, const ldouble step);     /* runge.cpp */
-ldouble take_pd89_step( const ldouble jd, ELEMENTS *ref_orbit,
+ldouble take_pd89_step( const ldouble jd, Elements *ref_orbit,
                  const ldouble *ival, ldouble *ovals,
                  const int n_vals, const ldouble step);    /* runge.cpp */
-int symplectic_6( double jd, ELEMENTS *ref_orbit, double *vect,
+int symplectic_6( double jd, Elements *ref_orbit, double *vect,
                                           const double dt);
 int get_planet_posn_vel( const double jd, const int planet_no,
                      double *posn, double *vel);         /* runge.cpp */
@@ -80,8 +81,8 @@ int detect_perturbers( const double jd, const double * /*__restrict*/ xyz,
 void find_relative_state_vect( const double jd, const double *ivect,
                double *ovect, const int ref_planet);        /* runge.cpp */
 int find_relative_orbit( const double jd, const double *ivect,
-               ELEMENTS *elements, const int ref_planet);     /* runge.cpp */
-static void compute_ref_state( ELEMENTS *ref_orbit, double *ref_state,
+    Elements *elements, const int ref_planet);     /* runge.cpp */
+static void compute_ref_state(Elements *ref_orbit, double *ref_state,
                                           const double jd);
 void calc_approx_planet_orientation( const int planet,        /* runge.cpp */
          const int system_number, const double jde, double *matrix);
@@ -793,7 +794,7 @@ static double lagged_dist( const ldouble *state_vect, const ldouble jd,
       rval = vector3_length( svect);
    else
       {
-      ELEMENTS elem;
+       Elements elem;
 
       find_relative_orbit( (double)jd, svect, &elem, 0);
       compute_ref_state( &elem, outvect, (double)( jd - lag));
@@ -1246,7 +1247,7 @@ void find_relative_state_vect( const double jd, const double *ivect,
 }
 
 int find_relative_orbit( const double jd, const double *ivect,
-               ELEMENTS *elements, const int ref_planet)
+    Elements *elements, const int ref_planet)
 {
    double local_rel_vect[MAX_N_PARAMS];
 
@@ -1306,7 +1307,7 @@ int find_best_fit_planet( const double jd, const double *ivect,
    return( rval);
 }
 
-static void compute_ref_state( ELEMENTS *ref_orbit, double *ref_state,
+static void compute_ref_state(Elements *ref_orbit, double *ref_state,
                                           const double jd)
 {
    double r2 = 0., accel;
@@ -1463,7 +1464,7 @@ static void compute_ref_state( ELEMENTS *ref_orbit, double *ref_state,
 #define N_EVALS 13
 #define N_EVALS_PLUS_ONE 14
 
-ldouble take_pd89_step( const ldouble jd, ELEMENTS *ref_orbit,
+ldouble take_pd89_step( const ldouble jd, Elements *ref_orbit,
                  const ldouble *ival, ldouble *ovals,
                  const int n_vals, const ldouble step)
 {
@@ -1638,7 +1639,7 @@ A6 | B61 B62 B63 B64 B65
    | C1  C2  C3  C4  C5  C6
    | C^1 C^2 C^3 C^4 C^5 C^6          */
 
-ldouble take_rk_stepl( const ldouble jd, ELEMENTS *ref_orbit,
+ldouble take_rk_stepl( const ldouble jd, Elements *ref_orbit,
                  const ldouble *ival, ldouble *ovals,
                  const int n_vals, const ldouble step)
 {
@@ -1725,7 +1726,7 @@ ldouble take_rk_stepl( const ldouble jd, ELEMENTS *ref_orbit,
    return( sqrtl( rval * step * step));
 }
 
-int symplectic_6( double jd, ELEMENTS *ref_orbit, double *vect,
+int symplectic_6( double jd, Elements *ref_orbit, double *vect,
                                           const double dt)
 {
    int i, j;

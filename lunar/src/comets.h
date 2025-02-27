@@ -19,11 +19,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #define COMETS_H_NCLUDE
 
 
-#define ELEMENTS struct elements
 
 #pragma pack(4)
-ELEMENTS
-   {
+struct Elements
+{
    double perih_time, q, ecc, incl, arg_per, asc_node;
    double epoch,  mean_anomaly;
             /* derived quantities: */
@@ -44,20 +43,19 @@ extern "C" {
 #include <cstdint>
 
 // void calc_vectors( ELEMENTS *elem, const double sqrt_gm);
-int /*DLL_FUNC*/ calc_classical_elements(ELEMENTS *elem, const double *r,
+int /*DLL_FUNC*/ calc_classical_elements(Elements *elem, const double *r,
                              const double t, const int ref);
-int /*DLL_FUNC*/ comet_posn_and_vel(ELEMENTS   *elem, double t,
+int /*DLL_FUNC*/ comet_posn_and_vel(Elements *elem, double t,
                   double   *loc, double   *vel);
-int /*DLL_FUNC*/ comet_posn(ELEMENTS   *elem, double t, double   *loc);       /* astfuncs.c */
-void /*DLL_FUNC*/ derive_quantities( ELEMENTS   *e, const double gm);
-int /*DLL_FUNC*/ setup_elems_from_ast_file( ELEMENTS   *class_elem,
+int /*DLL_FUNC*/ comet_posn(Elements *elem, double t, double   *loc);       /* astfuncs.c */
+void /*DLL_FUNC*/ derive_quantities(Elements *e, const double gm);
+int /*DLL_FUNC*/ setup_elems_from_ast_file(Elements *class_elem,
               const uint32_t   *elem, const double t_epoch);
 double /*DLL_FUNC*/ phase_angle_correction_to_magnitude( const double phase_angle,
                                  const double slope_param);
-int setup_planet_elem( ELEMENTS *elem, const int planet_idx,
-                                             const double t_cen);
-int extract_sof_data( ELEMENTS *elem, const char *buff, const char *header);
-int extract_sof_data_ex( ELEMENTS *elem, const char *buff, const char *header,
+
+int extract_sof_data(Elements *elem, const char *buff, const char *header);
+int extract_sof_data_ex(Elements *elem, const char *buff, const char *header,
                         double *extra_info);                /* sof.cpp */
 double extract_yyyymmdd_to_jd( const char *buff);           /* sof.cpp */
 
@@ -68,7 +66,7 @@ typedef struct
    double barbee_speed;              /* in AU/day */
 } moid_data_t;
 
-double /*DLL_FUNC*/ find_moid_full( const ELEMENTS *elem1, const ELEMENTS *elem2, moid_data_t *mdata);
+double /*DLL_FUNC*/ find_moid_full( const Elements *elem1, const Elements *elem2, moid_data_t *mdata);
 
 }
 

@@ -141,11 +141,11 @@ static FILE *open_bc405_file( const bool shutting_down)
    return( ifile);
 }
 
-static void grab_elems( ELEMENTS *elems, FILE *fp, const int chunk_number)
+static void grab_elems(Elements *elems, FILE *fp, const int chunk_number)
 {
    double array[6];
 
-   memset( elems, 0, sizeof( ELEMENTS));
+   memset( elems, 0, sizeof(Elements));
    if( fread( array, sizeof( double), 6, fp) == 6)
       {
       elems->major_axis = array[0];
@@ -165,11 +165,11 @@ static void grab_elems( ELEMENTS *elems, FILE *fp, const int chunk_number)
 
 #define N_CACHED_ELEMS 30
 
-static void grab_cached_elems( ELEMENTS *elems, const int chunk_number,
+static void grab_cached_elems(Elements *elems, const int chunk_number,
                                  const int asteroid_number)
 {
    static int astnums[N_CACHED_ELEMS], chunk_num[N_CACHED_ELEMS];
-   static ELEMENTS *cache = nullptr;
+   static Elements *cache = nullptr;
    FILE *fp;
    int i;
 
@@ -185,7 +185,7 @@ static void grab_cached_elems( ELEMENTS *elems, const int chunk_number,
    fp = open_bc405_file( false);
    assert( fp);
    if( !cache)
-      cache = (ELEMENTS *)calloc( N_CACHED_ELEMS, sizeof( ELEMENTS));
+      cache = (Elements *)calloc( N_CACHED_ELEMS, sizeof(Elements));
    assert( cache);
    if( !cache)
       return;
@@ -311,7 +311,7 @@ static int find_and_set_precomputed_data( FILE *precomputed_fp,
                     * 6 * sizeof( double), SEEK_SET);
       for( i = 0; i < bc405_n_asteroids; i++)
          {
-         ELEMENTS elems;
+          Elements elems;
          double posn[4];
 
          grab_elems( &elems, bc405_elem_file, bc_chunk);
@@ -363,7 +363,7 @@ static double *load_asteroid_masses( void)
 int asteroid_position_raw( const int astnum, const double jd,
                               double *posn, double *vel)
 {
-   ELEMENTS elem;
+    Elements elem;
    int chunk;
 
    open_bc405_file( false);

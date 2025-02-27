@@ -74,7 +74,7 @@ double find_lat_lon_alt( const double ut, const double *ivect,
    return( alt_in_meters);
 }
 
-double find_collision_time( ELEMENTS *elem, double *latlon, const int is_impact)
+double find_collision_time(Elements *elem, double *latlon, const int is_impact)
 {
    double t_low = (is_impact ? -2. / 24. : 2. / 24.);
    double t_high = 0.;    /* assume impact within 2 hrs */

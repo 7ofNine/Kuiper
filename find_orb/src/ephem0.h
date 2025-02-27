@@ -19,6 +19,7 @@
 #ifndef EPHEM0_H_INCLUDED
 #define EPHEM0_H_INCLUDED
 
+#include <iosfwd>
 #include <cstdint>
 
 //this is from mpc_obs.h but it doesn't make sense there
@@ -105,6 +106,11 @@ int parallax_to_lat_alt(const double rho_cos_phi, const double rho_sin_phi,
 int ephemeris_in_a_file_from_mpc_code(const char* filename, const double* orbit, Observe *obs, const int n_obs,
     const double epoch_jd, const double jd_start, const char* stepsize, const int n_steps, const char* mpc_code,
     ephem_option_t options, const unsigned n_objects);
+FILE* open_json_file(char* filename, const char* env_ptr, const char* default_name,
+    const char* packed_desig, const char* permits);
+void remove_trailing_cr_lf(char* buff); 
+
+
 
 
 

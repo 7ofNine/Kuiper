@@ -17,13 +17,8 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 02110-1301, USA.    */
 
-#include <cmath>
-#include <cstdlib>
-#include <cstring>
-#include <cassert>
-#include <cstdio>
-#include <time.h>
-//
+#include "orbfunc.h"
+
 #include "stringex.h"
 #include "comets.h"
 #include "mpc_obs.h"
@@ -42,7 +37,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include "bc405.h"
 #include "bias.h"
 #include "eigen.h"
-#include "orbfunc.h"
+
+
+#include <cmath>
+#include <cstdlib>
+#include <cstring>
+#include <cassert>
+#include <cstdio>
+#include <ctime>
+//
 
 /* MS only got around to adding 'isfinite' in VS2013 : */
 
@@ -91,7 +94,7 @@ static int evaluate_limited_orbit( const double *orbit,
                     const int planet_orbiting, const double epoch,
                     const char *limited_orbit, double *constraints);
 int find_relative_orbit( const double jd, const double *ivect,
-               ELEMENTS *elements, const int ref_planet);     /* runge.cpp */
+    Elements *elements, const int ref_planet);     /* runge.cpp */
 void format_dist_in_buff( char *buff, const double dist_in_au); /* ephem0.c */
 static inline void look_for_best_subarc( const Observe *obs,
        const int n_obs, const double max_arc_len, int *start, int *end);
@@ -109,9 +112,6 @@ int compute_observer_loc( const double jde, const int planet_no,
 int compute_observer_vel( const double jde, const int planet_no,
              const double rho_cos_phi,           /* mpc_obs.cpp */
              const double rho_sin_phi, const double lon, double   *vel);
-void get_relative_vector( const double jd, const double *ivect,
-          double *relative_vect, const int planet_orbiting);  /* orb_func.c */
-double get_planet_mass( const int planet_idx);                /* orb_func.c */
 int compute_available_sigmas_hash( const Observe *obs, const int n_obs,
          const double epoch, const unsigned perturbers, const int central_obj);
 double vector3_dist( const double *a, const double *b);     /* orb_func.c */
@@ -121,7 +121,6 @@ double evaluate_initial_orbit( const Observe *obs,      /* orb_func.c */
 static int find_transfer_orbit( double *orbit, Observe *obs1, Observe *obs2,
                 const int already_have_approximate_orbit);
 bool is_sungrazing_comet( const Observe *obs, const int n_obs);  /* orb_func.c */
-double observation_rms( const Observe *obs);            /* elem_out.cpp */
 double compute_weighted_rms( const Observe *obs, const int n_obs,
                            int *n_resids);                  /* orb_func.cpp */
 double find_epoch_shown( const Observe *obs, const int n_obs); /* elem_out */
@@ -302,13 +301,13 @@ int find_parabolic_orbit(Observe *obs, const int n_obs,
 
 int calc_derivatives( const double jd, const double *ival, double *oval,
                            const int reference_planet);
-long double take_rk_stepl( const long double jd, ELEMENTS *ref_orbit,
+long double take_rk_stepl( const long double jd, Elements *ref_orbit,
                  const long double *ival, long double *ovals,
                  const int n_vals, const long double step);     /* runge.cpp */
-long double take_pd89_step( const long double jd, ELEMENTS *ref_orbit,
+long double take_pd89_step( const long double jd, Elements *ref_orbit,
                  const long double *ival, long double *ovals,
                  const int n_vals, const long double step);    /* runge.cpp */
-int symplectic_6( double jd, ELEMENTS *ref_orbit, double *vect,
+int symplectic_6( double jd, Elements *ref_orbit, double *vect,
                                           const double dt);
 static int is_unreasonable_orbit( const double *orbit);     /* orb_func.cpp */
 static int is_unreasonable_orbitl( const long double *orbit);
@@ -385,7 +384,7 @@ int integrate_orbitl( long double *orbit, const long double t0, const long doubl
    int n_steps = 0, prev_n_steps = 0;
    int going_backward = (t1 < t0);
    static int n_changes;
-   ELEMENTS ref_orbit;
+   Elements ref_orbit;
 
    assert( fabsl( t0) < 1e+9);
    assert( fabsl( t1) < 1e+9);
@@ -1820,15 +1819,15 @@ static inline void compute_sr_sigmas( const double *sr_orbits,
    FILE *monte_file;
    char filename[100];
    const int planet_orbiting = 0;      /* heliocentric only,  at least for now */
-   ELEMENTS elem0;
+   Elements elem0;
 
    elem0.major_axis = elem0.ecc = 0.;     /* just to avoid uninitialized  */
    for( i = 0; i < n_orbits; i++)         /* variable warnings            */
       {
       double orbit[6];
-      ELEMENTS elem;
+      Elements elem;
 
-      memset( &elem, 0, sizeof( ELEMENTS));
+      memset( &elem, 0, sizeof(Elements));
       elem.gm = SOLAR_GM;
       memcpy( orbit, sr_orbits + 6 * i, 6 * sizeof( double));
       integrate_orbit( orbit, epoch, epoch_shown);
@@ -2283,7 +2282,7 @@ static int parse_constraint( const char *tptr)
 }
 
 void get_periapsis_loc( double *ecliptic_lon, double *ecliptic_lat,
-             const ELEMENTS *elem);             /* elem_out.cpp */
+             const Elements *elem);             /* elem_out.cpp */
 
 static int evaluate_limited_orbit( const double *orbit,
                     const int planet_orbiting, const double epoch,
@@ -2293,7 +2292,7 @@ static int evaluate_limited_orbit( const double *orbit,
 
    if( limited_orbit)
       {
-      ELEMENTS elem;
+       Elements elem;
       int i, variable;
 
       elem.gm = get_planet_mass( planet_orbiting);
@@ -2762,7 +2761,7 @@ int full_improvement(Observe *obs, int n_obs, double *orbit,
    const int n_total_obs = n_obs;
    const char *covariance_filename = "covar.txt";
    char tstr[80];
-   ELEMENTS elem;
+   Elements elem;
    Observe *orig_obs = nullptr;
    const int showing_deltas_in_debug_file =
                       atoi( get_environment_ptr( "DEBUG_DELTAS"));
@@ -3720,7 +3719,7 @@ double evaluate_initial_orbit( const Observe *obs,
 {
    const double rms_err = compute_weighted_rms( obs, n_obs, nullptr);
    double rval, rel_orbit[MAX_N_PARAMS], planet_radius_in_au;
-   ELEMENTS elem;
+   Elements elem;
    int planet_orbiting = find_best_fit_planet( epoch,
                                   orbit, rel_orbit);
 
@@ -3910,7 +3909,7 @@ static double find_sungrazer_orbit(Observe *obs, int n_obs, double *orbit)
          set_distance( obs, r);
          if( !find_parabolic_orbit( obs, n_obs, temp_orbit, direction))
             {
-            ELEMENTS elem;
+             Elements elem;
             double ecliptic_lon, ecliptic_lat;
 
             double score;

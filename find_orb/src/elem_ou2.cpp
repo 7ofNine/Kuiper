@@ -42,7 +42,7 @@ int snprintf( char *string, const size_t max_len, const char *format, ...);
 const double PI = 3.1415926535897932384626433832795028841971693993751058209749445923;
 
 int put_elements_into_sof(char *obuff, const char *templat,
-         const ELEMENTS *elem, const double *nongravs,
+         const Elements *elem, const double *nongravs,
          const int n_obs, const Observe *obs)
 {
    int rval = 0;

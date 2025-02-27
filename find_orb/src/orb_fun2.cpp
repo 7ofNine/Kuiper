@@ -17,28 +17,27 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 02110-1301, USA.    */
 
+#include "orbfunc2.h"
+
+#include "stringex.h"
+#include "comets.h"
+#include "afuncs.h"
+#include "mpc_obs.h"
+#include "date.h"
+#include "miscell.h"
+#include "orbfunc.h"
 
 #include <cstdlib>
 #include <cstring>
 #include <cassert>
 #include <cmath>
 #include <cstdio>
-//
-#include "stringex.h"
-#include "comets.h"
-#include "afuncs.h"
-#include "mpc_obs.h"
-#include "date.h"
 
-#include "miscell.h"
-#include "orbfunc.h"
 
 #define PI 3.1415926535897932384626433832795028841971693993751058209749445923078
 #define GAUSS_K .01720209895
 #define SOLAR_GM (GAUSS_K * GAUSS_K)
 
-void push_orbit( const double epoch, const double *orbit);  /* orb_fun2.c */
-int pop_orbit( double *epoch, double *orbit);               /* orb_fun2.c */
 double generate_mc_variant_from_covariance( double *var_orbit,
                                                      const double *orbit);
 double improve_along_lov( double *orbit, const double epoch, const double *lov,

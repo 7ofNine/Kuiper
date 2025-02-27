@@ -98,7 +98,7 @@ static double remaining_terms( const double ival)
    return( rval);
 }
 
-int /*DLL_FUNC*/ calc_classical_elements( ELEMENTS *elem, const double *r,
+int /*DLL_FUNC*/ calc_classical_elements(Elements *elem, const double *r,
                              const double t, const int ref)
 {
    const double *v = r + 3;

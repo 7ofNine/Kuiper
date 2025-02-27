@@ -35,14 +35,13 @@ int debug_printf( const char *format, ...)                 /* mpc_obs.cpp */
          __attribute__ (( format( printf, 1, 2)))
 #endif
 ;
-double get_planet_mass( const int planet_idx);                /* orb_func.c */
 void remove_insignificant_digits( char *tbuff);          /* monte0.c */
 void set_up_observation(Observe *obs);                 /* mpc_obs.c */
 void set_obs_vect(Observe *obs);        /* mpc_obs.h */
 
 #define PI 3.1415926535897932384626433832795028841971693993751058209749445923
 
-void put_orbital_elements_in_array_form( const ELEMENTS *elem,
+void put_orbital_elements_in_array_form( const Elements *elem,
                   double *output_array)
 {
    output_array[MONTE_TP] = elem->perih_time;
@@ -58,7 +57,7 @@ void put_orbital_elements_in_array_form( const ELEMENTS *elem,
    output_array[MONTE_H] = elem->abs_mag;
 }
 
-void add_monte_orbit( double *monte_data, const ELEMENTS *elem,
+void add_monte_orbit( double *monte_data, const Elements *elem,
                   const int n_orbits)
 {
    double tarr[MONTE_N_ENTRIES];

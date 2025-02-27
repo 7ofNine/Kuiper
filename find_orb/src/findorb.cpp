@@ -86,17 +86,6 @@ report is received. */
 
 static bool _mouse_movements_are_reported = false;
 
-#include <wchar.h>
-#include <cmath>
-#include <cstdio>
-#include <cstring>
-#include <cstdlib>
-#include <cctype>
-#include <time.h>
-#include <cassert>
-#include <sys/stat.h>
-#include <locale.h>
-//
 #include "sigma.h"
 #include "afuncs.h"
 #include "comets.h"
@@ -112,6 +101,20 @@ static bool _mouse_movements_are_reported = false;
 #include "bias.h"
 #include "clipfunc.h"
 #include "orbfunc.h"
+#include "orbfunc2.h"
+
+
+#include <wchar.h>
+#include <cmath>
+#include <cstdio>
+#include <cstring>
+#include <cstdlib>
+#include <cctype>
+#include <time.h>
+#include <cassert>
+#include <sys/stat.h>
+#include <locale.h>
+//
 
 
 int debug_level = 0;
@@ -166,7 +169,6 @@ devoted to station data.   */
 
 void ensure_config_directory_exists(); /* miscell.c */
 static int user_select_file( char *filename, const char *title, const int flags);
-double get_planet_mass( const int planet_idx);                /* orb_func.c */
 int simplex_method(Observe *obs, int n_obs, double *orbit,
                const double r1, const double r2, const char *constraints);
 int superplex_method(Observe *obs, int n_obs, double *orbit, const char *constraints);
@@ -211,7 +213,7 @@ int find_circular_orbits(Observe *obs1, Observe *obs2, double *orbit, const int 
 void set_up_observation(Observe *obs);               /* mpc_obs.cpp */
 double euler_function(const Observe *obs1, const Observe *obs2);
 int find_relative_orbit( const double jd, const double *ivect,
-               ELEMENTS *elements, const int ref_planet);     /* runge.cpp */
+    Elements *elements, const int ref_planet);     /* runge.cpp */
 int find_parabolic_orbit(Observe *obs, const int n_obs,
             double *orbit, const int direction);         /* orb_func.cpp */
 int format_jpl_ephemeris_info( char *buff);
@@ -228,7 +230,6 @@ int find_vaisala_orbit( double *orbit, const Observe *obs1,   /* orb_func.c */
 int extended_orbit_fit( double *orbit, Observe *obs, int n_obs,
                   const unsigned fit_type, double epoch);     /* orb_func.c */
 int load_environment_file( const char *filename);          /* mpc_obs.cpp */
-void set_environment_ptr( const char *env_ptr, const char *new_value);
 int orbital_monte_carlo( const double *orbit, Observe *obs, const int n_obs,
          const double curr_epoch, const double epoch_shown);   /* orb_func.cpp */
 char *make_config_dir_name( char *oname, const char *iname);    /* miscell.cpp */
@@ -246,7 +247,7 @@ void size_from_h_text( const double abs_mag, char *obuff,
                                  const int obuff_size);  /* ephem0.c */
 int select_tracklet(Observe *obs, const int n_obs, const int idx);
 int get_orbit_from_mpcorb_sof( const char *object_name, double *orbit,
-             ELEMENTS *elems, const double full_arc_len, double *max_resid);
+    Elements *elems, const double full_arc_len, double *max_resid);
 int improve_sr_orbits( sr_orbit_t *orbits, Observe *obs,
                const unsigned n_obs, const unsigned n_orbits,  /* orb_func.c */
                const double noise_in_sigmas, const int writing_sr_elems);
@@ -5151,7 +5152,7 @@ int main( int argc, const char **argv)
                }
             else if( *tbuff == 'p')
                {
-               ELEMENTS elem;
+                Elements elem;
                double orbit2[MAX_N_PARAMS];
 
                memcpy( orbit2, orbit, n_orbit_params * sizeof( double));
@@ -5248,7 +5249,7 @@ int main( int argc, const char **argv)
             update_element_display = (err ? 0 : 1);
             if( c == AUTO_REPEATING && !err)
                {
-               ELEMENTS elem;
+                Elements elem;
                double rel_orbit[MAX_N_PARAMS], orbit2[MAX_N_PARAMS];
                int curr_planet_orbiting;
                extern int n_clones_accepted;
@@ -6502,7 +6503,7 @@ int main( int argc, const char **argv)
             {
             char object_name[80];
             double unused_max_resid;
-            ELEMENTS elems;
+            Elements elems;
 
             get_object_name( object_name, obs->packed_id);
             if( get_orbit_from_mpcorb_sof( object_name, orbit,

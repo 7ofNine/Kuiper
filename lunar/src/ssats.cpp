@@ -96,9 +96,9 @@ SAT_ELEMS
    int sat_no;
    };
 
-void comet_posn_part_ii( const ELEMENTS   *elem, const double t,
+void comet_posn_part_ii( const Elements *elem, const double t,
                                     double   *loc, double   *vel);
-void setup_orbit_vectors( ELEMENTS   *e);             /* astfuncs.cpp */
+void setup_orbit_vectors( Elements *e);             /* astfuncs.cpp */
 
 /* set_ssat_elems( ) is the core part of computing positions for the
 satellites of Saturn,  and quite probably the only part of the code
@@ -111,7 +111,7 @@ relative to the equator of Saturn,  and you have to do two rotations to
 get a B1950.0 coordinate.  For the outer four moons,  you get B1950.0
 elements right away. */
 
-static int set_ssat_elems( SAT_ELEMS   *elems, ELEMENTS   *orbit)
+static int set_ssat_elems( SAT_ELEMS   *elems, Elements *orbit)
 {
    static const long semimaj[9] = { 268180L, 344301, 426393, 545876,
                762277, 1766041, 2140790, 5148431, 18720552 };
@@ -511,7 +511,7 @@ int /*DLL_FUNC*/ calc_ssat_loc( const double t, double   *ssat,
                                 const int sat_wanted, const long precision)
 {
    SAT_ELEMS elems;
-   ELEMENTS orbit;
+   Elements orbit;
    double matrix[9];
    const double t_years = (t - J2000) / 365.25;
 

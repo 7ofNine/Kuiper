@@ -17,17 +17,8 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 02110-1301, USA.    */
 
+#include "ephem0.h"
 
-#include <direct.h>        /* for _mkdir() definition */
-#include <sys/types.h>
-#include <cmath>
-#include <cstdio>
-#include <cstring>
-#include <cstdlib>
-#include <time.h>
-#include <cctype>
-#include <cassert>
-//
 #include "afuncs.h"
 #include "lunar.h"
 #include "date.h"
@@ -42,16 +33,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include "stringex.h"
 #include "constant.h"
 
-#include "ephem0.h"
 #include "miscell.h"
 #include "elem_out.h"
 #include "collide.h"
 #include "orbfunc.h"
+#include "moid.h"        //lunar
+
+#include <direct.h>        /* for _mkdir() definition */
+#include <sys/types.h>
+#include <cmath>
+#include <cstdio>
+#include <cstring>
+#include <cstdlib>
+#include <time.h>
+#include <cctype>
+#include <cassert>
+//
 
 #define LOG_10 2.3025850929940456840179914546843642076011014886287729760333279009675726
 #define LIGHT_YEAR_IN_KM    (365.25 * seconds_per_day * SPEED_OF_LIGHT)
 
-double centralize_ang( double ang);             /* elem_out.cpp */
 double vector_to_polar( double *lon, double *lat, const double *vector);
 
 double calc_obs_magnitude( const double obj_sun,
@@ -67,9 +68,7 @@ int make_pseudo_mpec( const char *mpec_filename, const char *obj_name);
 int earth_lunar_posn( const double jd, double   *earth_loc,
                                        double   *lunar_loc);
 bool nighttime_only( const char *mpc_code);                 /* mpc_obs.cpp */
-double get_planet_mass( const int planet_idx);                /* orb_func.c */
 void remove_trailing_cr_lf( char *buff);      /* ephem0.cpp */
-void set_environment_ptr( const char *env_ptr, const char *new_value);
 uint64_t parse_bit_string( const char *istr);                /* miscell.cpp */
 void format_dist_in_buff( char *buff, const double dist_in_au); /* ephem0.c */
 int debug_printf( const char *format, ...)                 /* mpc_obs.cpp */
@@ -80,8 +79,6 @@ int debug_printf( const char *format, ...)                 /* mpc_obs.cpp */
 int calc_derivatives( const double jd, const double *ival, double *oval,
                            const int reference_planet);     /* runge.cpp */
 
-double mag_band_shift( const char mag_band, int *err_code);   /* elem_out.c */
-
 double diameter_from_abs_mag( const double abs_mag,      /* ephem0.cpp */
                                      const double optical_albedo);
 double shadow_check( const double *planet_loc,           /* ephem0.cpp */
@@ -89,8 +86,6 @@ double shadow_check( const double *planet_loc,           /* ephem0.cpp */
                             const double planet_radius_in_au);
 int get_object_name( char *obuff, const char *packed_desig);   /* mpc_obs.c */
 int get_residual_data(const Observe *obs, double *xresid, double *yresid);
-int setup_planet_elem( ELEMENTS *elem, const int planet_idx,
-                                          const double t_cen);   /* moid4.c */
 void calc_approx_planet_orientation( const int planet,        /* runge.cpp */
          const int system_number, const double jde, double *matrix);
 char *mpc_station_name( char *station_data);       /* mpc_obs.cpp */
@@ -1705,7 +1700,7 @@ double get_approach_info( const double *orbit, double epoch,
                 / dot_product( rel_state + 3, rel_state + 3);
       else
          {
-         ELEMENTS elem;
+          Elements elem;
 
          elem.gm = get_planet_mass( planet_no);
          elem.central_obj = planet_no;
@@ -3598,7 +3593,7 @@ static int _ephemeris_in_a_file( const char *filename, const double *orbit,
             for( j = 1; j <= 8; j++)
                {
                double moid;
-               ELEMENTS planet_elem, elem;
+               Elements planet_elem, elem;
 
                elem.central_obj = 0;
                elem.gm = SOLAR_GM;
