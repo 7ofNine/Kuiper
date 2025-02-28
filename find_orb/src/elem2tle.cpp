@@ -18,30 +18,24 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 02110-1301, USA.    */
 
+#include "elem2tle.h"
+#include "afuncs.h"   // lunar
+#include "comets.h"   // lunar
+#include "date.h"     //lunar 
+#include "norad.h"    //sat_code
+#include "convele.h"
+
 #include <cstdio>
 #include <cstring>
 #include <cstdlib>
 #include <cmath>
 //
-#include "elem2tle.h"
-#include "afuncs.h"
-#include "comets.h"
-//#include "norad.h"
-#include "date.h"
-//#include "elem2tle.h"
-#include "norad.h"
 const double earth_mass_over_sun_mass = 2.98994e-6;
 #define GAUSS_K .01720209895
 #define SOLAR_GM (GAUSS_K * GAUSS_K)
 #define PI 3.141592653589793238462643383279502884197169399375105
 #define J2000 2451545.0
 
-int vector_to_tle( tle_t *tle, const double *state_vect, const double epoch);
-int write_tle_from_vector( char *buff, const double *state_vect,
-        const double epoch, const char *norad_desig, const char *intl_desig);
-
-void convert_elements( const double epoch_from, const double epoch_to,
-      double *incl, double *asc_node, double *arg_per);     /* conv_ele.cpp */
 
 #define centralize_angle(x) (fmod( (x) + PI * 10., PI + PI))
 #define centralize_angle_and_cvt_to_degrees( x)  \
@@ -79,7 +73,7 @@ int elements_to_tle( tle_t *tle, const Elements *elem)
    return( rval);
 }
 
-int vector_to_tle( tle_t *tle, const double *state_vect, const double epoch)
+int vector_to_tle(tle_t *tle, const double *state_vect, const double epoch)
 {
     Elements elem;
    int rval = -1;
@@ -93,7 +87,7 @@ int vector_to_tle( tle_t *tle, const double *state_vect, const double epoch)
       elements_to_tle( tle, &elem);
       rval = 0;
       }
-   return( rval);
+   return rval;
 }
 
 int write_tle_from_vector( char *buff, const double *state_vect,

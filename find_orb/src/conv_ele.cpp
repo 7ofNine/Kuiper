@@ -25,10 +25,12 @@ example of the latter usage.
 gcc -Wall -Wextra -pedantic -I../include -DCGI_VERSION -o cvt_elem conv_ele.cpp -L../lib -l lunar -lm
 */
 
+#include "convele.h"
+
+#include "afuncs.h"
 
 #include <cmath>
 //
-#include "afuncs.h"
 
 const double PI = 3.141592653589793238462643383279502884197169399375;
 
