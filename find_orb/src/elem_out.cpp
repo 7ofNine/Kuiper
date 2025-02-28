@@ -45,13 +45,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include "collide.h"
 #include "pl_cache.h"
 #include "orbfunc2.h"
+#include "shellsor.h"
 
 
 #include <cmath>
 #include <cstdlib>
 #include <cstring>
 #include <cstdio>
-#include <time.h>
+#include <ctime>
 #include <cassert>
 #include <cctype>
 #include <sys/stat.h>
@@ -68,10 +69,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 
 static const char *_extras_filename = "hints.txt";
 static const char *_default_extras_filename = "hints.def";
+const char* mpc_fmt_filename = "mpc_fmt.txt";
+const char* sof_filename = "sof.txt";
+const char* sofv_filename = "sofv.txt";
+
+double asteroid_magnitude_slope_param = .15;
+double comet_magnitude_slope_param = 10.;
+char default_comet_magnitude_type = 'N';
+int force_model = 0;
+
 
 extern int available_sigmas;   // defined in orb_func.cpp
 extern double optical_albedo;  // defined in ephem0.cpp
 extern unsigned perturbers;    // defined in orbfunc.cpp. There is a field in SYORED_ORBIT with the same name !!
+extern int debug_level;        // defined in findorb.cpp
+extern int forced_central_body;//defined in orb_func.cpp 
+
 
 #ifdef NOT_CURRENTLY_IN_USE
 #define ssnprintf_append( obuff, ...) snprintf_append( obuff, sizeof( obuff), __VA_ARGS__)
@@ -79,63 +92,7 @@ extern unsigned perturbers;    // defined in orbfunc.cpp. There is a field in SY
 #endif
 
 
-double find_epoch_shown( const Observe *obs, const int n_obs); /* elem_out */
-double evaluate_initial_orbit( const Observe *obs,      /* orb_func.c */
-               const int n_obs, const double *orbit, const double epoch);
-double diameter_from_abs_mag( const double abs_mag,      /* ephem0.cpp */
-                                     const double optical_albedo);
-char **load_file_into_memory( const char *filename, size_t *n_lines,
-                        const bool fail_if_not_found);      /* mpc_obs.cpp */
-int set_language( const int language);                      /* elem_out.cpp */
-void get_find_orb_text_filename( char *filename);     /* elem_out.cpp */
 
-static int names_compare( const char *name1, const char *name2);
-static int get_uncertainty( const char *key, char *obuff, const bool in_km);
-
-int compute_canned_object_state_vect( double *loc, const char *mpc_code,
-                     const double jd);                /* elem_out.cpp */
-char *real_packed_desig( char *obuff, const char *packed_id);  /* ephem0.cpp */
-extern int debug_level;
-double asteroid_magnitude_slope_param = .15;
-double comet_magnitude_slope_param = 10.;
-char default_comet_magnitude_type = 'N';
-const char *mpc_fmt_filename = "mpc_fmt.txt";
-const char *sof_filename = "sof.txt";
-const char *sofv_filename = "sofv.txt";
-int force_model = 0;
-extern int forced_central_body;
-int get_planet_posn_vel( const double jd, const int planet_no,
-                     double *posn, double *vel);         /* runge.cpp */
-void compute_variant_orbit( double *variant, const double *ref_orbit,
-                     const double n_sigmas);       /* orb_func.cpp */
-char *make_config_dir_name( char *oname, const char *iname);  /* miscell.cpp */
-int earth_lunar_posn( const double jd, double   *earth_loc, double   *lunar_loc);
-double vect_diff2( const double *a, const double *b);
-int get_residual_data(const Observe *obs, double *xresid, double *yresid);
-int qsort_strcmp( const void *a, const void *b, void *ignored_context);
-uint64_t parse_bit_string( const char *istr);                /* miscell.cpp */
-const char *write_bit_string( char *ibuff, const uint64_t bits,
-                                          const size_t max_bitstring_len);
-int save_ephemeris_settings( const ephem_option_t ephemeris_output_options,
-      const int n_steps, const char *obscode, const char *step_size,
-      const char *ephem_start, const char *config);      /* elem_out.cpp */
-int load_ephemeris_settings( ephem_option_t *ephemeris_output_options,
-      int *n_steps, char *obscode, char *step_size, char *ephem_start,
-      const char *config);                               /* elem_out.cpp */
-double generate_mc_variant_from_covariance( double *var_orbit,
-                                    const double *orbit);    /* orb_func.c */
-void rotate_state_vector_to_current_frame( double *state_vect,
-                  const double epoch_shown, const int planet_orbiting,
-                  char *body_frame_note);               /* elem_out.cpp */
-void *bsearch_ext_r( const void *key, const void *base0, size_t nmemb,
-      const size_t size, int (*compar)(const void *, const void *, void *),
-      void *arg, bool *found);                           /* shellsor.cpp */
-
-int debug_printf( const char *format, ...)                 /* mpc_obs.cpp */
-#ifdef __GNUC__
-         __attribute__ (( format( printf, 1, 2)))
-#endif
-;
 
 /* Old MSVCs and OpenWATCOM lack erf() and many other math functions: */
 

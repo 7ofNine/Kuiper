@@ -182,7 +182,6 @@ int search_for_trial_orbit( double *orbit, Observe *obs, int n_obs,
 void create_ades_file(const char *filename, const Observe *obs, int n_obs);
 
 int write_excluded_observations_file(const Observe *obs, int n_obs);
-int debug_printf( const char *format, ...)                 /* mpc_obs.cpp */
 #ifdef __GNUC__
          __attribute__ (( format( printf, 1, 2)))
 #endif
@@ -232,15 +231,11 @@ int extended_orbit_fit( double *orbit, Observe *obs, int n_obs,
 int load_environment_file( const char *filename);          /* mpc_obs.cpp */
 int orbital_monte_carlo( const double *orbit, Observe *obs, const int n_obs,
          const double curr_epoch, const double epoch_shown);   /* orb_func.cpp */
-char *make_config_dir_name( char *oname, const char *iname);    /* miscell.cpp */
 int reset_astrometry_filename( int *argc, const char **argv);
-int set_language( const int language);                      /* elem_out.cpp */
 static void show_splash_screen( void);
 void shellsort_r( void *base, const size_t n_elements, const size_t esize,
          int (*compare)(const void *, const void *, void *), void *context);
 static int count_wide_chars_in_utf8_string( const char *iptr, const char *endptr);
-char **load_file_into_memory( const char *filename, size_t *n_lines,
-                        const bool fail_if_not_found);      /* mpc_obs.cpp */
 void make_observatory_info_text( char *text, const size_t textlen,
              const Observe *obs, int n_obs, const char *mpc_code);
 void size_from_h_text( const double abs_mag, char *obuff,
@@ -251,12 +246,6 @@ int get_orbit_from_mpcorb_sof( const char *object_name, double *orbit,
 int improve_sr_orbits( sr_orbit_t *orbits, Observe *obs,
                const unsigned n_obs, const unsigned n_orbits,  /* orb_func.c */
                const double noise_in_sigmas, const int writing_sr_elems);
-int save_ephemeris_settings( const ephem_option_t ephemeris_output_options,
-      const int n_steps, const char *obscode, const char *step_size,
-      const char *ephem_start, const char *config);      /* elem_out.cpp */
-int load_ephemeris_settings( ephem_option_t *ephemeris_output_options,
-      int *n_steps, char *obscode, char *step_size, char *ephem_start,
-      const char *config);                               /* elem_out.cpp */
 void compute_effective_solar_multiplier( const char *constraints);  /* runge.c */
 
 
@@ -729,8 +718,6 @@ static int extract_date( const char *buff, double *jd)
    return( rval);
 }
 
-void compute_variant_orbit( double *variant, const double *ref_orbit,
-                     const double n_sigmas);       /* orb_func.cpp */
 
 static double *set_up_alt_orbits( const double *orbit, unsigned *n_orbits)
 {

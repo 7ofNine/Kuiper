@@ -15,6 +15,8 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 02110-1301, USA. */
 
+#include "shellsor.h"
+
 #include <cstring>
 
 #include <malloc.h>     /* for alloca() prototype */
@@ -100,12 +102,6 @@ void shellsort_r( void *base, const size_t n_elements, const size_t elem_size,
          int (*compare)(const void *, const void *, void *), void *context);
 void shellsort( void *base, const size_t n_elements, const size_t elem_size,
          int (*compare)(const void *, const void *));    /* shellsor.cpp */
-void *bsearch_ext_r( const void *key, const void *base0, size_t nmemb,
-      const size_t size, int (*compar)(const void *, const void *, void *),
-      void *arg, bool *found);                           /* shellsor.cpp */
-void *bsearch_ext( const void *key, const void *base0,
-      size_t nmemb, const size_t size,                   /* shellsor.cpp */
-      int (*compar)(const void *, const void *), bool *found);
 
 void shellsort_r( void *base, const size_t n_elements, const size_t elem_size,
          int (*compare)(const void *, const void *, void *), void *context)

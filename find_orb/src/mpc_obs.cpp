@@ -73,20 +73,15 @@ int compute_observer_vel( const double jde, const int planet_no,
              const double rho_cos_phi,           /* mpc_obs.cpp */
              const double rho_sin_phi, const double lon, double   *vel);
 int get_satellite_offset( const char *iline, double *xyz);  /* mpc_obs.cpp */
-int get_residual_data( const Observe *obs, double *xresid, double *yresid);
 bool nighttime_only( const char *mpc_code);                 /* mpc_obs.cpp */
 char *find_numbered_mp_info( const int number);             /* mpc_obs.cpp */
 bool is_sungrazing_comet( const Observe *obs, const int n_obs);  /* orb_func.c */
 static int xref_designation( char *desig);
-int debug_printf( const char *format, ...)                 /* mpc_obs.cpp */
 #ifdef __GNUC__
          __attribute__ (( format( printf, 1, 2)))
 #endif
 ;
-char *make_config_dir_name( char *oname, const char *iname);  /* miscell.cpp */
 int download_a_file( const char *ofilename, const char *url);
-char **load_file_into_memory( const char *filename, size_t *n_lines,
-                        const bool fail_if_not_found);      /* mpc_obs.cpp */
 void shellsort_r( void *base, const size_t n_elements, const size_t esize,
          int (*compare)(const void *, const void *, void *), void *context);
 void *bsearch_ext( const void *key, const void *base0,
@@ -100,8 +95,6 @@ int set_tholen_style_sigmas(Observe *obs, const char *buff);  /* mpc_obs.c */
      /* Microsoft Visual C/C++ has no strncasecmp.  strncmp will do.  */
 #define strncasecmp strncmp
 #endif
-int compute_canned_object_state_vect( double *loc, const char *mpc_code,
-                     const double jd);                 /* elem_out.cpp */
 char *mpc_station_name( char *station_data);       /* mpc_obs.cpp */
 int get_object_name( char *obuff, const char *packed_desig);   /* mpc_obs.c */
 void compute_error_ellipse_adjusted_for_motion( double *sigma1, double *sigma2,

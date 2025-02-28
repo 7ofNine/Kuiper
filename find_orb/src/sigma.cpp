@@ -17,18 +17,20 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 02110-1301, USA.    */
 
+#include "sigma.h"
+
+#include "afuncs.h"
+#include "date.h"
+
+#include "miscell.h"
+#include "mpc_obs.h"
+
 #include <cstdio>
 #include <cstring>
 #include <cstdlib>
 #include <cassert>
 #include <cmath>
 //
-#include "sigma.h"
-#include "afuncs.h"
-#include "date.h"
-
-#include "miscell.h"
-#include "mpc_obs.h"
 
 #define SIGMA_RECORD struct sigma_record
 
@@ -44,11 +46,6 @@ SIGMA_RECORD
 static int n_sigma_recs;
 static SIGMA_RECORD *sigma_recs;
 
-int debug_printf( const char *format, ...)                 /* mpc_obs.cpp */
-#ifdef __GNUC__
-         __attribute__ (( format( printf, 1, 2)))
-#endif
-;
 
 static int parse_sigma_record( SIGMA_RECORD *w, const char *buff)
 {

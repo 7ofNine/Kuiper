@@ -38,8 +38,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #define GAUSS_K .01720209895
 #define SOLAR_GM (GAUSS_K * GAUSS_K)
 
-double generate_mc_variant_from_covariance( double *var_orbit,
-                                                     const double *orbit);
 double improve_along_lov( double *orbit, const double epoch, const double *lov,
           const unsigned n_params, unsigned n_obs, Observe *obs);
 int adjust_herget_results(Observe *obs, int n_obs, double *orbit);
@@ -51,15 +49,11 @@ double evaluate_for_simplex_method(const Observe *obs,
 void init_simplex( double **vects, double *fvals,
          double (*f)( void *context, const double *vect),
                void *context, const int n);        /* simplex.c */
-int get_residual_data( const Observe *obs, double *xresid, double *yresid);
 int simplex_step( double **vects, double *fvals,
          double (*f)( void *context, const double *vect),
                void *context, const int n);        /* simplex.c */
 int apply_excluded_observations_file(Observe *obs, const int n_obs);
 int write_excluded_observations_file( const Observe *obs, int n_obs);
-char **load_file_into_memory( const char *filename, size_t *n_lines,
-                        const bool fail_if_not_found);      /* mpc_obs.cpp */
-
 double find_r_given_solar_r(const Observe* obs, const double solar_r);
 
 extern int n_orbit_params, force_model;

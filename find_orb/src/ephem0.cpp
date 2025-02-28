@@ -65,13 +65,9 @@ void light_time_lag( const double jde, const double *orbit,       /* orb_func.c 
              const double *observer, double *result, const int is_heliocentric);
 int make_pseudo_mpec( const char *mpec_filename, const char *obj_name);
                                               /* ephem0.cpp */
-int earth_lunar_posn( const double jd, double   *earth_loc,
-                                       double   *lunar_loc);
 bool nighttime_only( const char *mpc_code);                 /* mpc_obs.cpp */
 void remove_trailing_cr_lf( char *buff);      /* ephem0.cpp */
-uint64_t parse_bit_string( const char *istr);                /* miscell.cpp */
 void format_dist_in_buff( char *buff, const double dist_in_au); /* ephem0.c */
-int debug_printf( const char *format, ...)                 /* mpc_obs.cpp */
 #ifdef __GNUC__
          __attribute__ (( format( printf, 1, 2)))
 #endif
@@ -79,13 +75,10 @@ int debug_printf( const char *format, ...)                 /* mpc_obs.cpp */
 int calc_derivatives( const double jd, const double *ival, double *oval,
                            const int reference_planet);     /* runge.cpp */
 
-double diameter_from_abs_mag( const double abs_mag,      /* ephem0.cpp */
-                                     const double optical_albedo);
 double shadow_check( const double *planet_loc,           /* ephem0.cpp */
                             const double *obs_posn,
                             const double planet_radius_in_au);
 int get_object_name( char *obuff, const char *packed_desig);   /* mpc_obs.c */
-int get_residual_data(const Observe *obs, double *xresid, double *yresid);
 void calc_approx_planet_orientation( const int planet,        /* runge.cpp */
          const int system_number, const double jde, double *matrix);
 char *mpc_station_name( char *station_data);       /* mpc_obs.cpp */
@@ -2458,8 +2451,8 @@ static int _ephemeris_in_a_file( const char *filename, const double *orbit,
                   rdata.gain);
             fprintf( ofile,
                "Assumed rotation period = %.2f hours, diameter %.1f meters\n",
-                           guessed_rotation_period_in_hours( abs_mag),
-                           diameter_from_abs_mag( abs_mag, optical_albedo));
+                           guessed_rotation_period_in_hours(abs_mag),
+                           diameter_from_abs_mag(abs_mag, optical_albedo));
             }
          for( i = 0; buff[i]; i++)
             if( buff[i] == '-')

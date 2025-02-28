@@ -37,6 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include "bc405.h"
 #include "bias.h"
 #include "eigen.h"
+#include "orbfunc2.h"
 
 
 #include <cmath>
@@ -75,12 +76,6 @@ int available_sigmas_hash = 0;
 static bool fail_on_hitting_planet = false;
 
 double gaussian_random( void);                           /* monte0.c */
-int get_residual_data(const Observe *obs, double *xresid, double *yresid);
-int debug_printf( const char *format, ...)                 /* mpc_obs.cpp */
-#ifdef __GNUC__
-         __attribute__ (( format( printf, 1, 2)))
-#endif
-;
 double initial_orbit(Observe *obs, int n_obs, double *orbit);
 int adjust_herget_results(Observe *obs, int n_obs, double *orbit);
 int find_trial_orbit( double *orbit, Observe *obs, int n_obs,
@@ -116,18 +111,12 @@ int compute_available_sigmas_hash( const Observe *obs, const int n_obs,
          const double epoch, const unsigned perturbers, const int central_obj);
 double vector3_dist( const double *a, const double *b);     /* orb_func.c */
 double euler_function( const Observe *obs1, const Observe *obs2);
-double evaluate_initial_orbit( const Observe *obs,      /* orb_func.c */
-               const int n_obs, const double *orbit, const double epoch);
 static int find_transfer_orbit( double *orbit, Observe *obs1, Observe *obs2,
                 const int already_have_approximate_orbit);
 bool is_sungrazing_comet( const Observe *obs, const int n_obs);  /* orb_func.c */
 double compute_weighted_rms( const Observe *obs, const int n_obs,
                            int *n_resids);                  /* orb_func.cpp */
-double find_epoch_shown( const Observe *obs, const int n_obs); /* elem_out */
 
-void rotate_state_vector_to_current_frame( double *state_vect,
-                  const double epoch_shown, const int planet_orbiting,
-                  char *body_frame_note);               /* elem_out.cpp */
 void set_obs_vect(Observe *obs);        /* mpc_obs.h */
 double improve_along_lov( double *orbit, const double epoch, const double *lov,
           const unsigned n_params, unsigned n_obs, Observe *obs);
@@ -4343,9 +4332,6 @@ double initial_orbit(Observe *obs, int n_obs, double *orbit)
          obs[i].is_included = 1;
    return( orbit_epoch);           /* ...and return epoch = JD of first observation */
 }
-
-double generate_mc_variant_from_covariance( double *var_orbit,
-                                                     const double *orbit);
 
 int orbital_monte_carlo( const double *orbit, Observe *obs, const int n_obs,
          const double curr_epoch, const double epoch_shown)

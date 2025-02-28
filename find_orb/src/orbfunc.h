@@ -56,7 +56,16 @@ void attempt_extensions(Observe* obs, const int n_obs, double* orbit,
 void get_relative_vector(const double jd, const double* ivect,
     double* relative_vect, const int planet_orbiting);  
 double get_planet_mass(const int planet_idx); 
-double observation_rms(const Observe* obs);      
+double observation_rms(const Observe* obs);     
+double evaluate_initial_orbit(const Observe* obs,      
+    const int n_obs, const double* orbit, const double epoch);
+void compute_variant_orbit(double* variant, const double* ref_orbit, const double n_sigmas); 
+double vect_diff2(const double* a, const double* b);
+int get_residual_data(const Observe *obs, double *xresid, double *yresid);
+
+
+
+
 
 
 #endif // !ORBFUNC_H_INCLUDE

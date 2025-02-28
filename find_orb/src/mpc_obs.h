@@ -295,8 +295,11 @@ int clean_up_find_orb_memory(void);         /* orb_func.cpp */
 int generic_message_box(const char* message, const char* box_type);
 const char* get_environment_ptr(const char* env_ptr); 
 void set_environment_ptr(const char* env_ptr, const char* new_value);
-
-
+char** load_file_into_memory(const char* filename, size_t* n_lines,
+    const bool fail_if_not_found);    
+int earth_lunar_posn(const double jd, double* earth_loc, double* lunar_loc);
+int qsort_strcmp(const void* a, const void* b, void* ignored_context);
+int debug_printf(const char* format, ...);
 
 
 #define ELEM_OUT_NORMALIZED_MEAN_RESID 16

@@ -17,13 +17,8 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 02110-1301, USA.    */
 
-#include <cstdio>
-#include <cstdlib>
-#include <cstring>
-#include <stdarg.h>
-#include <cmath>
-#include <cassert>
-//
+#include "runge.h"
+
 #include "lunar.h"
 #include "afuncs.h"
 #include "comets.h"
@@ -32,7 +27,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include "bc405.h"
 #include "pl_cache.h"
 #include "ephem0.h"
-#include "runge.h"
+
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
+#include <stdarg.h>
+#include <cmath>
+#include <cassert>
+//
 
 
 #define ldouble long double
@@ -57,13 +59,7 @@ extern unsigned perturbers;
 extern int n_orbit_params;
 
 extern int debug_level;
-int debug_printf( const char *format, ...)                 /* mpc_obs.cpp */
-#ifdef __GNUC__
-         __attribute__ (( format( printf, 1, 2)))
-#endif
-;
 
-int earth_lunar_posn( const double jd, double   *earth_loc, double   *lunar_loc);
 ldouble take_rk_stepl( const ldouble jd, Elements *ref_orbit,
                  const ldouble *ival, ldouble *ovals,
                  const int n_vals, const ldouble step);     /* runge.cpp */
@@ -72,8 +68,6 @@ ldouble take_pd89_step( const ldouble jd, Elements *ref_orbit,
                  const int n_vals, const ldouble step);    /* runge.cpp */
 int symplectic_6( double jd, Elements *ref_orbit, double *vect,
                                           const double dt);
-int get_planet_posn_vel( const double jd, const int planet_no,
-                     double *posn, double *vel);         /* runge.cpp */
 int find_best_fit_planet( const double jd, const double *ivect,
                                  double *rel_vect);      /* runge.cpp */
 int detect_perturbers( const double jd, const double * /*__restrict*/ xyz,

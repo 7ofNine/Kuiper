@@ -21,16 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 02110-1301, USA.    */
 
 /* #define TIMING_ON  */
-
-#include <cstdio>
-#include <cstdlib>
-#include <cstdint>
-#include <cstring>
-#include <cassert>
-#include <cmath>
-#ifdef TIMING_ON
-    #include <time.h>
-#endif
 #include "pl_cache.h"
 //
 #include "stringex.h"
@@ -43,12 +33,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include "mpc_obs.h"
 #include "bc405.h"
 
-const char *get_environment_ptr( const char *env_ptr);     /* mpc_obs.cpp */
-int debug_printf( const char *format, ...)                 /* mpc_obs.cpp */
-#ifdef __GNUC__
-         __attribute__ (( format( printf, 1, 2)))
+
+#include <cstdio>
+#include <cstdlib>
+#include <cstdint>
+#include <cstring>
+#include <cassert>
+#include <cmath>
+#ifdef TIMING_ON
+    #include <time.h>
 #endif
-;
+
+const char *get_environment_ptr( const char *env_ptr);     /* mpc_obs.cpp */
 extern int debug_level;
 
 int64_t planet_ns;
@@ -59,7 +55,6 @@ static void *jpl_eph = nullptr;
 #define JD_TO_YEAR( jd)  (((jd)-J2000) / 365.25 + 2000.)
 
 
-char *make_config_dir_name( char *oname, const char *iname);  /* miscell.cpp */
 
 
 int compute_rough_planet_loc( const double t_cen, const int planet_idx,

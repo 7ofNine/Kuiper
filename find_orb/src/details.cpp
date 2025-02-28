@@ -26,6 +26,7 @@ https://www.minorplanetcenter.net/iau/info/ObsDetails.html */
 #include <cstdio>
 #include "stackall.h"
 #include "details.h"
+#include "mpc_obs.h"
 
 typedef struct
 {
@@ -45,11 +46,6 @@ typedef struct
 #define min_n_code_details 16
 #define min_code_lines 16
 
-int debug_printf( const char *format, ...)                 /* mpc_obs.cpp */
-#ifdef __GNUC__
-         __attribute__ (( format( printf, 1, 2)))
-#endif
-;
 
 void *init_observation_details( void)
 {

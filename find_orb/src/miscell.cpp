@@ -29,7 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include "miscell.h"
 #include "mpc_obs.h"
 
-int debug_printf( const char *format, ...)                 /* mpc_obs.cpp */
 #ifdef __GNUC__
          __attribute__ (( format( printf, 1, 2)))
 #endif
@@ -89,11 +88,7 @@ can turn it back to 'false'.
 int fetch_astrometry_from_mpc( FILE *ofile, const char *desig);
 int download_a_file( const char *ofilename, const char *url);
 
-char *make_config_dir_name( char *oname, const char *iname);  /* miscell.cpp */
 int reset_astrometry_filename( int *argc, const char **argv);
-uint64_t parse_bit_string( const char *istr);                /* miscell.cpp */
-const char *write_bit_string( char *ibuff, const uint64_t bits,
-                                          const size_t max_bitstring_len);
 int use_config_directory = false;
 const char *alt_config_directory;
 

@@ -215,6 +215,9 @@
     <ClInclude Include="src\orbfunc2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\shellsor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\mpcorb.hdr">

@@ -109,6 +109,9 @@ int ephemeris_in_a_file_from_mpc_code(const char* filename, const double* orbit,
 FILE* open_json_file(char* filename, const char* env_ptr, const char* default_name,
     const char* packed_desig, const char* permits);
 void remove_trailing_cr_lf(char* buff); 
+double diameter_from_abs_mag(const double abs_mag, const double optical_albedo);
+char* real_packed_desig(char* obuff, const char* packed_id); 
+
 
 
 
