@@ -102,6 +102,7 @@ static bool _mouse_movements_are_reported = false;
 #include "clipfunc.h"
 #include "orbfunc.h"
 #include "orbfunc2.h"
+#include "gauss.h"
 
 
 #include <wchar.h>

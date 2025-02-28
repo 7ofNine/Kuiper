@@ -85,11 +85,10 @@ bother finishing it, because the code is plenty fast enough for my needs
 at present;  the slight loss of precision inherent in removing roots this
 way is more worrisome than the slight gain in speed. */
 
+#include "roots.h"
+
 #include <cmath>       /* used for fabs( ) prototype */
 #include <cassert>
-
-int find_real_polynomial_roots( const double *poly, int poly_degree,
-                                double *real_roots);        /* roots.cpp */
 
 static double evaluate_poly( const double *poly, int poly_degree, const double x)
 {
@@ -336,7 +335,7 @@ static double best_upper_root_bound( const double *poly, int poly_degree)
 
 #define MAX_POLY_ORDER 10
 
-int find_real_polynomial_roots( const double *poly, int poly_degree,
+int find_real_polynomial_roots(const double *poly, int poly_degree,
                                 double *real_roots)
 {
    int i, n_roots_found = 0;

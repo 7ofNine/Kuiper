@@ -224,6 +224,12 @@
     <ClInclude Include="src\errors.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\gauss.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\roots.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\mpcorb.hdr">

@@ -52,6 +52,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include <cassert>
 //
 
+static void put_residual_into_text(char* text, const double resid, const int resid_format);
+
+
 #define LOG_10 2.3025850929940456840179914546843642076011014886287729760333279009675726
 #define LIGHT_YEAR_IN_KM    (365.25 * seconds_per_day * SPEED_OF_LIGHT)
 

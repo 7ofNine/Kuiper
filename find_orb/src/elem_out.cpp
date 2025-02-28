@@ -91,6 +91,8 @@ extern int forced_central_body;//defined in orb_func.cpp
 #define ssnprintf( obuff, ...) snprintf( obuff, sizeof( obuff), __VA_ARGS__)
 #endif
 
+static int get_uncertainty(const char* key, char* obuff, const bool in_km);
+static int names_compare(const char* name1, const char* name2);
 
 
 
@@ -2661,9 +2663,10 @@ int string_compare_for_sort( const void *a, const void *b, void *context)
    const char **b1 = (const char **)b;
    const int *sort_column = (int *)context;
 
-   if( *sort_column == -1)
-      return( names_compare( a1[0], b1[0]));
-   return( strcmp( a1[0] + *sort_column, b1[0] + *sort_column));
+   if (*sort_column == -1) {
+       return names_compare(a1[0], b1[0]);
+   }
+   return strcmp( a1[0] + *sort_column, b1[0] + *sort_column);
 }
 
 /* For each object,  we'd like to know if a solution has already been

@@ -45,12 +45,12 @@ void rotate_state_vector_to_current_frame(double* state_vect,
 
 
 
-static int elements_in_mpcorb_format(char* buff, const char* packed_desig,const char* full_desig, const Elements *elem,
-           const Observe* obs, const int n_obs);   /* orb_func.c */
-static int elements_in_guide_format(char* buff, const Elements* elem,
-    const char* obj_name, const Observe* obs, const unsigned n_obs);
-static int names_compare(const char* name1, const char* name2);
-static int get_uncertainty(const char* key, char* obuff, const bool in_km);
+//static int elements_in_mpcorb_format(char* buff, const char* packed_desig,const char* full_desig, const Elements *elem,
+//           const Observe* obs, const int n_obs);   /* orb_func.c */
+//static int elements_in_guide_format(char* buff, const Elements* elem,
+//    const char* obj_name, const Observe* obs, const unsigned n_obs);
+//static int names_compare(const char* name1, const char* name2);
+//static int get_uncertainty(const char* key, char* obuff, const bool in_km);
 
 
 

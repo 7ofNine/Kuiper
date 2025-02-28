@@ -40,6 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include "orbfunc2.h"
 #include "runge.h"
 #include "errors.h"
+#include "gauss.h"
 
 
 #include <cmath>

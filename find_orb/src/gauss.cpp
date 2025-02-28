@@ -16,25 +16,22 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 02110-1301, USA.    */
+#include "gauss.h"
 
-#include <cstdio>
-#include <cstdint>
-#include <cmath>
-//
 #include "mpc_obs.h"
 #include "afuncs.h"
 
 #include "miscell.h"
 #include "orbfunc.h"
+#include "roots.h"
 
 
-double gauss_method( const Observe *obs1, const Observe *obs2,
-                     const Observe *obs3, double *orbit, const double mu,
-                     const int desired_soln);               /* gauss.cpp */
-double convenient_gauss( const Observe *obs, int n_obs, double *orbit,
-                  const double mu, const int desired_soln); /* gauss.cpp */
-int find_real_polynomial_roots( const double *poly, int poly_order,
-                                double *real_roots);        /* roots.cpp */
+#include <cstdio>
+#include <cstdint>
+#include <cmath>
+//
+
+
 
 /* References are to Boulet,  _Methods of Orbit Determination_. */
 

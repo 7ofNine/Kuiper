@@ -123,6 +123,6 @@ double shadow_check(const double* planet_loc, const double* obs_posn, const doub
 
 
 
-static void put_residual_into_text(char* text, const double resid, const int resid_format);
+//static void put_residual_into_text(char* text, const double resid, const int resid_format);
 
 #endif

@@ -125,8 +125,7 @@ such ranges are dropped.  Also,  if the lower limit of the range is
 less than zero (always true for at least one range),  then that lower
 limit is bumped up to zero.   */
 
-int find_real_polynomial_roots( const double *poly, int poly_degree,
-                                double *real_roots);        /* roots.cpp */
+#include "roots.h"
 
 double dot_product( const double *v1, const double *v2)
 {
