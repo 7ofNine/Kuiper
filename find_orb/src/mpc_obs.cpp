@@ -59,11 +59,7 @@ void set_up_observation(Observe *obs);                 /* mpc_obs.c */
 static double observation_jd( const char *buff);
 int sort_obs_by_date_and_remove_duplicates(Observe *obs, const int n_obs);
 
-int lat_alt_to_parallax( const double lat, const double ht_in_meters,
-             double *rho_cos_phi, double *rho_sin_phi, const int planet_idx);
 void set_obs_vect(Observe *obs);        /* mpc_obs.h */
-void remove_trailing_cr_lf( char *buff);            /* ephem0.cpp */
-void format_dist_in_buff( char *buff, const double dist_in_au); /* ephem0.c */
 double current_jd( void);                       /* elem_out.cpp */
 void remove_insignificant_digits( char *tbuff);          /* monte0.c */
 int compute_observer_loc( const double jde, const int planet_no,
@@ -95,8 +91,6 @@ int set_tholen_style_sigmas(Observe *obs, const char *buff);  /* mpc_obs.c */
      /* Microsoft Visual C/C++ has no strncasecmp.  strncmp will do.  */
 #define strncasecmp strncmp
 #endif
-char *mpc_station_name( char *station_data);       /* mpc_obs.cpp */
-int get_object_name( char *obuff, const char *packed_desig);   /* mpc_obs.c */
 void compute_error_ellipse_adjusted_for_motion( double *sigma1, double *sigma2,
                   double *posn_angle, const Observe *obs,
                   const MOTION_DETAILS *m);                  /* orb_func.cpp */

@@ -376,8 +376,6 @@ double centralize_ang(double ang)
    return ang;
 }
 
-void convert_elements( const double epoch_from, const double epoch_to,
-      double *incl, double *asc_node, double *arg_per);     /* conv_ele.cpp */
 
    /* Packed MPC designations have leading and/or trailing spaces.  This */
    /* function lets you get the designation minus those spaces.          */

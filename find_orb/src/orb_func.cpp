@@ -38,6 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include "bias.h"
 #include "eigen.h"
 #include "orbfunc2.h"
+#include "runge.h"
 
 
 #include <cmath>
@@ -69,7 +70,8 @@ extern int debug_level;
 #define AUTOMATIC_PERTURBERS  1
 #define MAX_CONSTRAINTS 5
 
-int n_orbit_params = 6, setting_outside_of_arc = 1;
+int n_orbit_params = 6; // used in extern in ephem0.cpp
+int setting_outside_of_arc = 1;
 double uncertainty_parameter = 99.;
 int available_sigmas = NO_SIGMAS_AVAILABLE;
 int available_sigmas_hash = 0;
@@ -90,7 +92,6 @@ static int evaluate_limited_orbit( const double *orbit,
                     const char *limited_orbit, double *constraints);
 int find_relative_orbit( const double jd, const double *ivect,
     Elements *elements, const int ref_planet);     /* runge.cpp */
-void format_dist_in_buff( char *buff, const double dist_in_au); /* ephem0.c */
 static inline void look_for_best_subarc( const Observe *obs,
        const int n_obs, const double max_arc_len, int *start, int *end);
 int check_for_perturbers( const double t_cen, const double *vect); /* sm_vsop*/
@@ -288,8 +289,6 @@ int find_parabolic_orbit(Observe *obs, const int n_obs,
    return( rval);
 }
 
-int calc_derivatives( const double jd, const double *ival, double *oval,
-                           const int reference_planet);
 long double take_rk_stepl( const long double jd, Elements *ref_orbit,
                  const long double *ival, long double *ovals,
                  const int n_vals, const long double step);     /* runge.cpp */

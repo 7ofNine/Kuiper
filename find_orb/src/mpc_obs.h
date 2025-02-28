@@ -300,6 +300,10 @@ char** load_file_into_memory(const char* filename, size_t* n_lines,
 int earth_lunar_posn(const double jd, double* earth_loc, double* lunar_loc);
 int qsort_strcmp(const void* a, const void* b, void* ignored_context);
 int debug_printf(const char* format, ...);
+bool nighttime_only(const char* mpc_code); 
+char* mpc_station_name(char* station_data);
+
+
 
 
 #define ELEM_OUT_NORMALIZED_MEAN_RESID 16
@@ -370,8 +374,6 @@ int debug_printf(const char* format, ...);
 #define GET_RESID_RA_DEC_FORMAT( residual_format)   ((residual_format >> 14) & 7)
 #define RESIDUAL_FORMAT_SHOW_DESIGS              0x20000
 
-int write_residuals_to_file( const char *filename, const char *ast_filename,
-        const int n_obs, const Observe *obs_data, const int resid_format);
 void format_observation( const Observe *obs, char *text,
                                    const int resid_format);   /* ephem0.cpp */
 

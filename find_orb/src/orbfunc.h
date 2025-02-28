@@ -62,6 +62,8 @@ double evaluate_initial_orbit(const Observe* obs,
 void compute_variant_orbit(double* variant, const double* ref_orbit, const double n_sigmas); 
 double vect_diff2(const double* a, const double* b);
 int get_residual_data(const Observe *obs, double *xresid, double *yresid);
+void light_time_lag(const double jde, const double* orbit,     
+    const double* observer, double* result, const int is_heliocentric);
 
 
 

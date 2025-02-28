@@ -188,8 +188,6 @@ int write_excluded_observations_file(const Observe *obs, int n_obs);
 ;
 int fetch_astrometry_from_mpc( FILE *ofile, const char *desig);
 static void get_mouse_data( int *mouse_x, int *mouse_y, int *mouse_z, mmask_t *button);
-int make_pseudo_mpec( const char *mpec_filename, const char *obj_name);
-                                              /* ephem0.cpp */
 int store_defaults( const ephem_option_t ephemeris_output_options,
          const int element_format, const int element_precision,
          const double max_residual_for_filtering,
@@ -1914,7 +1912,6 @@ int select_object_in_file( OBJECT_INFO *ids, const int n_ids)
    return( rval);
 }
 
-void format_dist_in_buff( char *buff, const double dist_in_au); /* ephem0.c */
 
 #define is_power_of_two( X)   (!((X) & ((X) - 1)))
 

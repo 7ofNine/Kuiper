@@ -78,14 +78,9 @@ int find_relative_orbit( const double jd, const double *ivect,
     Elements *elements, const int ref_planet);     /* runge.cpp */
 static void compute_ref_state(Elements *ref_orbit, double *ref_state,
                                           const double jd);
-void calc_approx_planet_orientation( const int planet,        /* runge.cpp */
-         const int system_number, const double jde, double *matrix);
 void compute_effective_solar_multiplier( const char *constraints);   /* runge.c */
 double geo_potential_in_au( const double x, const double y, const double z,
                  double *derivs, const int n_terms);    /* geo_pot.c */
-double shadow_check( const double *planet_loc,           /* ephem0.cpp */
-                            const double *obs_posn,
-                            const double planet_radius_in_au);
 double comet_g_func( const ldouble r);                   /* runge.cpp */
 
 #define N_PERTURB 19

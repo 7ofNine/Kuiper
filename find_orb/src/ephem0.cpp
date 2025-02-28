@@ -38,6 +38,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include "collide.h"
 #include "orbfunc.h"
 #include "moid.h"        //lunar
+#include "runge.h"
+#include "shellsor.h"
 
 #include <direct.h>        /* for _mkdir() definition */
 #include <sys/types.h>
@@ -53,52 +55,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #define LOG_10 2.3025850929940456840179914546843642076011014886287729760333279009675726
 #define LIGHT_YEAR_IN_KM    (365.25 * seconds_per_day * SPEED_OF_LIGHT)
 
-double vector_to_polar( double *lon, double *lat, const double *vector);
-
-double calc_obs_magnitude( const double obj_sun,
-          const double obj_earth, const double earth_sun, double *phase_ang);
-int lat_alt_to_parallax( const double lat, const double ht_in_meters,
-             double *rho_cos_phi, double *rho_sin_phi, const int planet_idx);
-int write_residuals_to_file(const char *filename, const char *ast_filename,
-          const int n_obs, const Observe *obs_data, const int format);
-void light_time_lag( const double jde, const double *orbit,       /* orb_func.c */
-             const double *observer, double *result, const int is_heliocentric);
-int make_pseudo_mpec( const char *mpec_filename, const char *obj_name);
-                                              /* ephem0.cpp */
-bool nighttime_only( const char *mpc_code);                 /* mpc_obs.cpp */
-void remove_trailing_cr_lf( char *buff);      /* ephem0.cpp */
-void format_dist_in_buff( char *buff, const double dist_in_au); /* ephem0.c */
-#ifdef __GNUC__
-         __attribute__ (( format( printf, 1, 2)))
-#endif
-;
-int calc_derivatives( const double jd, const double *ival, double *oval,
-                           const int reference_planet);     /* runge.cpp */
-
-double shadow_check( const double *planet_loc,           /* ephem0.cpp */
-                            const double *obs_posn,
-                            const double planet_radius_in_au);
-int get_object_name( char *obuff, const char *packed_desig);   /* mpc_obs.c */
-void calc_approx_planet_orientation( const int planet,        /* runge.cpp */
-         const int system_number, const double jde, double *matrix);
-char *mpc_station_name( char *station_data);       /* mpc_obs.cpp */
-
-static void put_residual_into_text( char *text, const double resid,
-                                 const int resid_format);    /* ephem0.cpp */
-FILE *open_json_file( char *filename, const char *env_ptr, const char *default_name,
-                  const char *packed_desig, const char *permits); /* ephem0.cpp */
-void shellsort_r( void *base, const size_t n_elements, const size_t elem_size,
-         int (*compare)(const void *, const void *, void *), void *context);
+extern int n_orbit_params;  // defined in orb_func.cpp
 
 const char *default_observe_filename = "observe.txt";
 const char *observe_filename = default_observe_filename;
 const char *residual_filename = "residual.txt";
 const char *ephemeris_filename = "ephemeri.txt";
+const char* elements_filename = "elements.txt";
+
 bool is_default_ephem = true;
-const char *elements_filename = "elements.txt";
 
 static expcalc_config_t exposure_config;
-extern int n_orbit_params;
+
 
 /* Returns parallax constants (rho_cos_phi, rho_sin_phi) in AU. */
 
@@ -1190,7 +1158,7 @@ double shadow_check( const double *planet_loc,
       }
 }
 
-double vector_to_polar( double *lon, double *lat, const double *vector)
+double vector_to_polar(double *lon, double *lat, const double *vector)
 {
    const double r = vector3_length( vector);
 

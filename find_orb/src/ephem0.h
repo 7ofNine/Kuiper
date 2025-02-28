@@ -111,10 +111,18 @@ FILE* open_json_file(char* filename, const char* env_ptr, const char* default_na
 void remove_trailing_cr_lf(char* buff); 
 double diameter_from_abs_mag(const double abs_mag, const double optical_albedo);
 char* real_packed_desig(char* obuff, const char* packed_id); 
+double vector_to_polar(double* lon, double* lat, const double* vector);
+int lat_alt_to_parallax(const double lat, const double ht_in_meters,   // this name also exists in lunar with a slightly different parameters
+    double* rho_cos_phi, double* rho_sin_phi, const int planet_idx);
+int write_residuals_to_file(const char* filename, const char* ast_filename,
+    const int n_obs, const Observe* obs_data, const int format);
+int make_pseudo_mpec(const char* mpec_filename, const char* obj_name);
+void format_dist_in_buff(char* buff, const double dist_in_au);
+double shadow_check(const double* planet_loc, const double* obs_posn, const double planet_radius_in_au);
 
 
 
 
-
+static void put_residual_into_text(char* text, const double resid, const int resid_format);
 
 #endif
