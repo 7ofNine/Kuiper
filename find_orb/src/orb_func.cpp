@@ -39,6 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include "eigen.h"
 #include "orbfunc2.h"
 #include "runge.h"
+#include "errors.h"
 
 
 #include <cmath>
@@ -121,8 +122,6 @@ double compute_weighted_rms( const Observe *obs, const int n_obs,
 void set_obs_vect(Observe *obs);        /* mpc_obs.h */
 double improve_along_lov( double *orbit, const double epoch, const double *lov,
           const unsigned n_params, unsigned n_obs, Observe *obs);
-void adjust_error_ellipse_for_timing_error( double *sigma_a, double *sigma_b,
-         double *angle, const double vx, const double vy);   /* errors.cpp */
 void compute_error_ellipse_adjusted_for_motion( double *sigma1, double *sigma2,
                   double *posn_angle, const Observe *obs,
                   const MOTION_DETAILS *m);                  /* orb_func.cpp */

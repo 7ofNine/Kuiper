@@ -14,6 +14,7 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 02110-1301, USA. */
+#include "errors.h"
 
 #include <cmath>
 #include <cassert>
@@ -154,11 +155,6 @@ of the following.)
    ...i.e.,  we have reduced it to a new quadratic form/covariance matrix.
 */
 
-void adjust_error_ellipse_for_timing_error( double *sigma_a, double *sigma_b,
-         double *angle, const double vx, const double vy);   /* errors.cpp */
-void convert_ades_sigmas_to_error_ellipse( const double sig_ra,
-         const double sig_dec, const double correl, double *major,
-         double *minor, double *angle);                      /* errors.cpp */
 
 static void adjust_quadratic_form_for_timing_error( const double A,
          const double B, const double C, const double vx, const double vy,

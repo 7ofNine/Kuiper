@@ -221,6 +221,9 @@
     <ClInclude Include="src\convele.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\errors.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\mpcorb.hdr">

@@ -194,6 +194,7 @@ copy /Y "$(ProjectDir)\src\link_def.json" /A "$(SolutionDir)run\link_def.json" /
     <ClInclude Include="src\elem_ou2.h" />
     <ClInclude Include="src\elem_out.h" />
     <ClInclude Include="src\ephem0.h" />
+    <ClInclude Include="src\errors.h" />
     <ClInclude Include="src\expcalc.h" />
     <ClInclude Include="src\generic.h" />
     <ClInclude Include="src\healpix.h" />

@@ -35,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include "ephem0.h"
 #include "bias.h"
 #include "orbfunc.h"
+#include "errors.h"
 
 #include <windows.h>
 
@@ -96,9 +97,6 @@ void compute_error_ellipse_adjusted_for_motion( double *sigma1, double *sigma2,
                   const MOTION_DETAILS *m);                  /* orb_func.cpp */
 double n_nearby_obs(const Observe *obs, const unsigned n_obs,
           const unsigned idx, const double time_span);       /* orb_func.cpp */
-void convert_ades_sigmas_to_error_ellipse( const double sig_ra,
-         const double sig_dec, const double correl, double *major,
-         double *minor, double *angle);                      /* errors.cpp */
 
 #ifndef PATH_MAX
    #define PATH_MAX 256
