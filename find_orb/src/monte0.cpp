@@ -14,6 +14,13 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 02110-1301, USA. */
+#include "monte0.h"
+
+#include "comets.h"
+#include "mpc_obs.h"
+#include "stringex.h"
+#include "afuncs.h"
+#include "orbfunc.h"
 
 #include <cstdlib>
 #include <cstdint>
@@ -22,20 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include <cstring>
 #include <cassert>
 //
-#include "comets.h"
-#include "mpc_obs.h"
-#include "stringex.h"
-#include "afuncs.h"
-#include "monte0.h"
-#include "orbfunc.h"
 
-double gaussian_random( void);                           /* monte0.c */
-#ifdef __GNUC__
-         __attribute__ (( format( printf, 1, 2)))
-#endif
-;
-void remove_insignificant_digits( char *tbuff);          /* monte0.c */
-void set_obs_vect(Observe *obs);        /* mpc_obs.h */
 
 #define PI 3.1415926535897932384626433832795028841971693993751058209749445923
 

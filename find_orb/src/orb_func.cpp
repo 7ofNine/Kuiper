@@ -80,7 +80,6 @@ int available_sigmas = NO_SIGMAS_AVAILABLE;
 int available_sigmas_hash = 0;
 static bool fail_on_hitting_planet = false;
 
-double gaussian_random( void);                           /* monte0.c */
 double initial_orbit(Observe *obs, int n_obs, double *orbit);
 int adjust_herget_results(Observe *obs, int n_obs, double *orbit);
 int find_trial_orbit( double *orbit, Observe *obs, int n_obs,
@@ -118,7 +117,6 @@ bool is_sungrazing_comet( const Observe *obs, const int n_obs);  /* orb_func.c *
 double compute_weighted_rms( const Observe *obs, const int n_obs,
                            int *n_resids);                  /* orb_func.cpp */
 
-void set_obs_vect(Observe *obs);        /* mpc_obs.h */
 void compute_error_ellipse_adjusted_for_motion( double *sigma1, double *sigma2,
                   double *posn_angle, const Observe *obs,
                   const MOTION_DETAILS *m);                  /* orb_func.cpp */

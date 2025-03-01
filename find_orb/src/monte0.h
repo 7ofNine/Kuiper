@@ -47,5 +47,8 @@ void put_orbital_elements_in_array_form( const Elements *elem, double *output_ar
 double dump_monte_data_to_file(FILE *ofile, const double *sigmas, const double semimajor_axis,
          const double ecc, const int planet_orbiting);                       /* monte0.cpp */
 char * put_double_in_buff(char *buff, const double ival);    /* monte0.cpp */
+double gaussian_random(void);                           /* monte0.c */
+void remove_insignificant_digits(char* tbuff);          /* monte0.c */
+
 
 #endif

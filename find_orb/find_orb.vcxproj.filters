@@ -140,9 +140,6 @@
     <ClInclude Include="src\lsquare.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\monte.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\monte0.h">
       <Filter>Header Files</Filter>
     </ClInclude>

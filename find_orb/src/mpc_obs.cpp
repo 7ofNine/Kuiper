@@ -57,9 +57,7 @@ int pattern_match(const char* pattern, const char* string);   /* miscell.c */
 int apply_excluded_observations_file(Observe *obs, const int n_obs);
 static double observation_jd( const char *buff);
 
-void set_obs_vect(Observe *obs);        /* mpc_obs.h */
 double current_jd( void);                       /* elem_out.cpp */
-void remove_insignificant_digits( char *tbuff);          /* monte0.c */
 int compute_observer_loc( const double jde, const int planet_no,
              const double rho_cos_phi,           /* mpc_obs.cpp */
              const double rho_sin_phi, const double lon, double   *offset);

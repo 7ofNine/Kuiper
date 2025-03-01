@@ -305,6 +305,7 @@ int write_environment_pointers(void);
 void set_up_observation(Observe* obs);  
 int set_tholen_style_sigmas(Observe* obs, const char* buff);
 int load_environment_file(const char* filename);  
+void set_obs_vect(Observe* obs);        /* mpc_obs.h */
 
 
 

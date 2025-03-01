@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include "miscell.h"
 #include "orbfunc.h"
 #include "mpc_func.h" //lunar
+#include "monte0.h"
 
 #include <cstdlib>
 #include <cstring>
@@ -782,7 +783,6 @@ double improve_along_lov(double *orbit, const double epoch, const double *lov,
    return( rval);
 }
 
-double gaussian_random( void);                           /* monte0.c */
 
 double generate_mc_variant_from_covariance( double *var_orbit,
                                                      const double *orbit)
