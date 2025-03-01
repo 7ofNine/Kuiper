@@ -1,3 +1,6 @@
+#ifndef STACKALL_H_INCLUDE
+#define STACKALL_H_INCLUDE
+
 /* Copyright (C) 2018, Project Pluto
 
 This program is free software; you can redistribute it and/or
@@ -23,3 +26,5 @@ void destroy_stack( void *stack);
 #ifdef NOT_USED_YET
 int stack_free( void *stack, void *ptr);
 #endif
+
+#endif // !STACKALL_H_INCLUDE

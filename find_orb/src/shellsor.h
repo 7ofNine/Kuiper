@@ -11,6 +11,8 @@ void* bsearch_ext(const void* key, const void* base0, size_t nmemb, const size_t
 void shellsort_r(void* base, const size_t n_elements, const size_t elem_size,
     int (*compare)(const void*, const void*, void*), void* context);
 
+//void shellsort(void* base, const size_t n_elements, const size_t elem_size,   // Unused
+//    int (*compare)(const void*, const void*));    /* shellsor.cpp */
 
 
 

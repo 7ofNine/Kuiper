@@ -98,8 +98,6 @@ the gap sequence and their factorizations.
    #include <cstdlib>
 #endif
 
-void shellsort( void *base, const size_t n_elements, const size_t elem_size,
-         int (*compare)(const void *, const void *));    /* shellsor.cpp */
 
 void shellsort_r( void *base, const size_t n_elements, const size_t elem_size,
          int (*compare)(const void *, const void *, void *), void *context)
