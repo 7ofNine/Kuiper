@@ -14,5 +14,11 @@ int find_relative_orbit(const double jd, const double* ivect, Elements* elements
 double comet_g_func(const long double r);                   /* runge.cpp */
 int find_best_fit_planet(const double jd, const double* ivect,
     double* rel_vect);         /* runge.cpp */
+long double take_rk_stepl(const long double jd, Elements* ref_orbit,
+    const long double* ival, long double* ovals,
+    const int n_vals, const long double step);     /* runge.cpp */
+int symplectic_6(double jd, Elements* ref_orbit, double* vect,
+    const double dt);
+
 
 #endif // !RUNGE_H_INCLUDE

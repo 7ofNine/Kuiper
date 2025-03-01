@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include "pl_cache.h"
 #include "ephem0.h"
 #include "smvsop.h"
+#include "geopot.h"
 
 #include <cstdio>
 #include <cstdlib>
@@ -61,23 +62,8 @@ extern int n_orbit_params;
 
 extern int debug_level;
 
-ldouble take_rk_stepl( const ldouble jd, Elements *ref_orbit,
-                 const ldouble *ival, ldouble *ovals,
-                 const int n_vals, const ldouble step);     /* runge.cpp */
-ldouble take_pd89_step( const ldouble jd, Elements *ref_orbit,
-                 const ldouble *ival, ldouble *ovals,
-                 const int n_vals, const ldouble step);    /* runge.cpp */
-int symplectic_6( double jd, Elements *ref_orbit, double *vect,
-                                          const double dt);
-int detect_perturbers( const double jd, const double * /*__restrict*/ xyz,
-                       double *accel);          /* bc405.cpp */
-void find_relative_state_vect( const double jd, const double *ivect,
-               double *ovect, const int ref_planet);        /* runge.cpp */
 static void compute_ref_state(Elements *ref_orbit, double *ref_state,
                                           const double jd);
-double geo_potential_in_au( const double x, const double y, const double z,
-                 double *derivs, const int n_terms);    /* geo_pot.c */
-
 #define N_PERTURB 19
 #define IDX_MERCURY    1
 #define IDX_VENUS      2

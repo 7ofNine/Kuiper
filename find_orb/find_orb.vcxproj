@@ -201,6 +201,7 @@ copy /Y "$(ProjectDir)\src\orbitdef.sof" /A "$(SolutionDir)run\orbitdef.sof" /A
     <ClInclude Include="src\fixorb.h" />
     <ClInclude Include="src\gauss.h" />
     <ClInclude Include="src\generic.h" />
+    <ClInclude Include="src\geopot.h" />
     <ClInclude Include="src\getsrex.h" />
     <ClInclude Include="src\healpix.h" />
     <ClInclude Include="src\lsquare.h" />

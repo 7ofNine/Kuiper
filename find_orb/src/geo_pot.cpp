@@ -14,6 +14,7 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 02110-1301, USA. */
+#include "geopot.h"
 
 #include <cstdlib>
 #include <cassert>
@@ -26,8 +27,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
    #define isnan _isnan
 #endif
 
-double geo_potential_in_au( const double x, const double y, const double z,
-                 double *derivs, const int n_terms);    /* geo_pot.c */
 
 #define PI 3.1415926535897932384626433832795028841971693993751058209749445923
 

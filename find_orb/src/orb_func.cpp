@@ -247,14 +247,9 @@ int find_parabolic_orbit(Observe *obs, const int n_obs,
    return( rval);
 }
 
-long double take_rk_stepl( const long double jd, Elements *ref_orbit,
-                 const long double *ival, long double *ovals,
-                 const int n_vals, const long double step);     /* runge.cpp */
 long double take_pd89_step( const long double jd, Elements *ref_orbit,
                  const long double *ival, long double *ovals,
                  const int n_vals, const long double step);    /* runge.cpp */
-int symplectic_6( double jd, Elements *ref_orbit, double *vect,
-                                          const double dt);
 static int is_unreasonable_orbit( const double *orbit);     /* orb_func.cpp */
 static int is_unreasonable_orbitl( const long double *orbit);
 
