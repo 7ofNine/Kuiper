@@ -75,8 +75,6 @@ Theorie du mouvement de l'ensemble des planetes (VSOP82).
 
    Code is also included for approximate lunar and Plutonian ephemerides.  */
 
-int compute_rough_planet_loc( const double t_cen, const int planet_idx,
-                                          double *vect);    /* sm_vsop.c */
 
 /* #define LONG_EARTH_SERIES  1  */
 

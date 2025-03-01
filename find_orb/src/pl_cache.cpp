@@ -33,6 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include "mpc_obs.h"
 #include "bc405.h"
 #include "shellsor.h"
+#include "smvsop.h"
 
 
 #include <cstdio>
@@ -45,7 +46,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
     #include <time.h>
 #endif
 
-const char *get_environment_ptr( const char *env_ptr);     /* mpc_obs.cpp */
 extern int debug_level;
 
 int64_t planet_ns;
@@ -58,8 +58,6 @@ static void *jpl_eph = nullptr;
 
 
 
-int compute_rough_planet_loc( const double t_cen, const int planet_idx,
-                                          double *vect);    /* sm_vsop.cpp */
 
 static int planet_posn_raw( int planet_no, const double jd,
                             double *vect_2000)
