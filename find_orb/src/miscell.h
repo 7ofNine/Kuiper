@@ -11,6 +11,7 @@ const char* write_bit_string(char* ibuff, const uint64_t bits, const size_t max_
 void ensure_config_directory_exists(); 
 int fetch_astrometry_from_mpc(FILE* ofile, const char* desig);
 int reset_astrometry_filename(int* argc, const char** argv);
+int download_a_file(const char* ofilename, const char* url);
 
 
 

@@ -71,11 +71,6 @@ bool nighttime_only( const char *mpc_code);                 /* mpc_obs.cpp */
 char *find_numbered_mp_info( const int number);             /* mpc_obs.cpp */
 bool is_sungrazing_comet( const Observe *obs, const int n_obs);  /* orb_func.c */
 static int xref_designation( char *desig);
-#ifdef __GNUC__
-         __attribute__ (( format( printf, 1, 2)))
-#endif
-;
-int download_a_file( const char *ofilename, const char *url);
 void *bsearch_ext( const void *key, const void *base0,
       size_t nmemb, const size_t size,                   /* shellsor.cpp */
       int (*compar)(const void *, const void *), bool *found);

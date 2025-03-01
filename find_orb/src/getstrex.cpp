@@ -18,9 +18,8 @@
 
 extern "C" {
 
-int wgetnstr_ex(WINDOW *win, char *str, int *loc, int maxlen, const int size);
-int wgetn_wstr_ex(WINDOW *win, wint_t *wstr, int *loc, const int maxlen, const int size);
-int getn_wstr_ex( wint_t *wstr, int *loc, const int maxlen, const int size);
+int wgetn_wstr_ex(WINDOW *win, wint_t *wstr, int *loc, const int maxlen, const int size);    // we leave that here. It reaches into curses (WINDOW definition) and we want to get rid of it
+int getn_wstr_ex( wint_t *wstr, int *loc, const int maxlen, const int size);                 // anyways
 
 }
 

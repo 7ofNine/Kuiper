@@ -82,8 +82,6 @@ is 'true' is for console Find_Orb in Linux,  and even there,  you
 can turn it back to 'false'.
 */
 
-int fetch_astrometry_from_mpc( FILE *ofile, const char *desig);
-int download_a_file( const char *ofilename, const char *url);
 
 int use_config_directory = false;
 const char *alt_config_directory;
