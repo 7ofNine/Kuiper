@@ -15,6 +15,8 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 02110-1301, USA. */
 
+#include "simplex.h"
+
 #include <cstring>
 
 /* Slightly modified Nelder-Mead simplex method,  using parameters from
@@ -28,12 +30,6 @@ theoretical and empirical evidence for improving the speed of convergence
 beta = 2., gamma = delta = 0.5 if you want the original N-M parameters.
 */
 
-void init_simplex( double **vects, double *fvals,
-         double (*f)( void *context, const double *vect),
-               void *context, const int n);        /* simplex.c */
-int simplex_step( double **vects, double *fvals,
-         double (*f)( void *context, const double *vect),
-               void *context, const int n);        /* simplex.c */
 
 static void sort_simplex( double *fvals, double **vects, const int n)
 {

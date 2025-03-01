@@ -28,6 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include "orbfunc.h"
 #include "mpc_func.h" //lunar
 #include "monte0.h"
+#include "nanosecs.h"
+#include "simplex.h"
 
 #include <cstdlib>
 #include <cstring>
@@ -40,20 +42,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #define GAUSS_K .01720209895
 #define SOLAR_GM (GAUSS_K * GAUSS_K)
 
-int adjust_herget_results(Observe *obs, int n_obs, double *orbit);
-double current_jd( void);                       /* elem_out.cpp */
-double evaluate_for_simplex_method(const Observe *obs,
-                    const int n_obs, const double *orbit,
-                    const int planet_orbiting,
-                    const char *limited_orbit);     /* orb_func.cpp */
-void init_simplex( double **vects, double *fvals,
-         double (*f)( void *context, const double *vect),
-               void *context, const int n);        /* simplex.c */
-int simplex_step( double **vects, double *fvals,
-         double (*f)( void *context, const double *vect),
-               void *context, const int n);        /* simplex.c */
-int write_excluded_observations_file( const Observe *obs, int n_obs);
-double find_r_given_solar_r(const Observe* obs, const double solar_r);
 
 extern int n_orbit_params, force_model;
 extern int available_sigmas;

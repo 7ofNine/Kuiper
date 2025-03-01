@@ -241,7 +241,6 @@ double compute_weighted_rms(const Observe   *obs, const int n_obs, int *n_resids
 bool opposition_break(const Observe *obs);              /* elem_out.cpp */
 int herget_method(Observe *obs, int n_obs, double r1, double r2,
          double *orbit, double *d_r1, double *d_r2, const char *limited_orbit);
-int adjust_herget_results(Observe *obs, int n_obs, double *orbit);
 void improve_parabolic(Observe *obs, int n_obs, double *orbit, double epoch);
 int full_improvement(Observe *obs, int n_obs, double *orbit,
                  const double epoch, const char *limited_orbit,

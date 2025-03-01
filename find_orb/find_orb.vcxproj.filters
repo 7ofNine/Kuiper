@@ -236,6 +236,9 @@
     <ClInclude Include="src\getsrex.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\simplex.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\mpcorb.hdr">

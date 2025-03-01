@@ -81,7 +81,6 @@ int available_sigmas_hash = 0;
 static bool fail_on_hitting_planet = false;
 
 double initial_orbit(Observe *obs, int n_obs, double *orbit);
-int adjust_herget_results(Observe *obs, int n_obs, double *orbit);
 int find_trial_orbit( double *orbit, Observe *obs, int n_obs,
              const double r1, const double angle_param);   /* orb_func.cpp */
 int search_for_trial_orbit( double *orbit, Observe *obs, int n_obs,
@@ -97,7 +96,6 @@ static inline void look_for_best_subarc( const Observe *obs,
 int check_for_perturbers( const double t_cen, const double *vect); /* sm_vsop*/
 int get_idx1_and_idx2( const int n_obs, const Observe *obs,
                                 int *idx1, int *idx2);      /* elem_out.c */
-double find_r_given_solar_r( const Observe *obs, const double solar_r);
 void attempt_extensions(Observe *obs, const int n_obs, double *orbit,
                   const double epoch);                  /* orb_func.cpp */
 

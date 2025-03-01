@@ -96,6 +96,13 @@ void compute_error_ellipse_adjusted_for_motion(double* sigma1, double* sigma2,
     const Motion_details* m);                  /* orb_func.cpp */
 double n_nearby_obs(const Observe* obs, const unsigned n_obs,
     const unsigned idx, const double time_span);       /* orb_func.cpp */
+int adjust_herget_results(Observe* obs, int n_obs, double* orbit);
+double evaluate_for_simplex_method(const Observe* obs,
+    const int n_obs, const double* orbit,
+    const int planet_orbiting,
+    const char* limited_orbit);     /* orb_func.cpp */
+double find_r_given_solar_r(const Observe* obs, const double solar_r);
+
 
 
 
