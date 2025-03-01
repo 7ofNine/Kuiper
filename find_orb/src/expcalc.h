@@ -1,3 +1,7 @@
+#ifndef EXPCALC_HINCLUDE
+#define EXPCALC_HINCLUDE
+
+#include <iosfwd>
 typedef struct
 {
    const char *mpc_code;
@@ -36,3 +40,5 @@ int is_under_horizon( const double alt, const double az,
 #define EXPCALC_NO_CONFIG_FOUND             -1
 #define EXPCALC_GEOCENTRIC_CONFIG            0
 #define EXPCALC_SITE_SPECIFIC_CONFIG         1
+
+#endif // !EXPCALC_HINCLUDE
