@@ -103,6 +103,12 @@ static bool _mouse_movements_are_reported = false;
 #include "orbfunc.h"
 #include "orbfunc2.h"
 #include "gauss.h"
+#include "mpc_func.h"   //lunar
+#include "adesout.h"
+#include "runge.h"
+#include "pl_cache.h"
+#include "shellsor.h"
+#include "getsrex.h"
 
 
 #include <wchar.h>
@@ -168,97 +174,20 @@ devoted to station data.   */
 
 #define CTRL(c) ((c) & 0x1f)
 
-void ensure_config_directory_exists(); /* miscell.c */
 static int user_select_file( char *filename, const char *title, const int flags);
-int simplex_method(Observe *obs, int n_obs, double *orbit,
-               const double r1, const double r2, const char *constraints);
-int superplex_method(Observe *obs, int n_obs, double *orbit, const char *constraints);
 static void show_a_file( const char *filename, const int flags);
 static void put_colored_text( const char *text, const int line_no,
                const int column, const int n_bytes, const int color);
-int find_trial_orbit( double *orbit, Observe *obs, int n_obs,
-             const double r1, const double angle_param);   /* orb_func.cpp */
-int search_for_trial_orbit( double *orbit, Observe *obs, int n_obs,
-              const double r1, double *angle_param);  /* orb_func.cpp */
-void create_ades_file(const char *filename, const Observe *obs, int n_obs);
-
-int write_excluded_observations_file(const Observe *obs, int n_obs);
-#ifdef __GNUC__
-         __attribute__ (( format( printf, 1, 2)))
-#endif
-;
-int fetch_astrometry_from_mpc( FILE *ofile, const char *desig);
-static void get_mouse_data( int *mouse_x, int *mouse_y, int *mouse_z, mmask_t *button);
-int store_defaults( const ephem_option_t ephemeris_output_options,
-         const int element_format, const int element_precision,
-         const double max_residual_for_filtering,
-         const double noise_in_sigmas);           /* elem_out.cpp */
-int get_defaults( ephem_option_t *ephemeris_output_options, int *element_format,
-         int *element_precision, double *max_residual_for_filtering,
-         double *noise_in_sigmas);                /* elem_out.cpp */
-int text_search_and_replace(char   *str, const char *oldstr,
-                                     const char *newstr);   /* ephem0.cpp */
-int sort_obs_by_date_and_remove_duplicates(Observe *obs, const int n_obs);
-
-void fix_home_dir( char *filename);                /* ephem0.cpp */
-int write_environment_pointers( void);             /* mpc_obs.cpp */
-int add_ephemeris_details( FILE *ofile, const double start_jd,  /* ephem0.c */
-                                               const double end_jd);
-void set_distance(Observe *obs, double r);             /* orb_func.c */
-void set_statistical_ranging( const int new_using_sr);      /* elem_out.cpp */
-int link_arcs(Observe *obs, int n_obs, const double r1, const double r2);
-int find_circular_orbits(Observe *obs1, Observe *obs2, double *orbit, const int desired_soln);   /* orb_fun2.cpp */
-void set_up_observation(Observe *obs);               /* mpc_obs.cpp */
-double euler_function(const Observe *obs1, const Observe *obs2);
-int find_relative_orbit( const double jd, const double *ivect,
-    Elements *elements, const int ref_planet);     /* runge.cpp */
-int find_parabolic_orbit(Observe *obs, const int n_obs,
-            double *orbit, const int direction);         /* orb_func.cpp */
-int format_jpl_ephemeris_info( char *buff);
-double improve_along_lov( double *orbit, const double epoch, const double *lov,
-          const unsigned n_params, unsigned n_obs, Observe *obs);
-bool is_topocentric_mpc_code( const char *mpc_code);
-int64_t nanoseconds_since_1970( void);                      /* mpc_obs.c */
-int metropolis_search(Observe *obs, const int n_obs, double *orbit,
-               const double epoch, int n_iterations, double scale);
-int set_tholen_style_sigmas(Observe *obs, const char *buff);  /* mpc_obs.c */
-
-int find_vaisala_orbit( double *orbit, const Observe *obs1,   /* orb_func.c */
-                     const Observe *obs2, const double solar_r);
-int extended_orbit_fit( double *orbit, Observe *obs, int n_obs,
-                  const unsigned fit_type, double epoch);     /* orb_func.c */
-int load_environment_file( const char *filename);          /* mpc_obs.cpp */
-int orbital_monte_carlo( const double *orbit, Observe *obs, const int n_obs,
-         const double curr_epoch, const double epoch_shown);   /* orb_func.cpp */
-int reset_astrometry_filename( int *argc, const char **argv);
-static void show_splash_screen( void);
-void shellsort_r( void *base, const size_t n_elements, const size_t esize,
-         int (*compare)(const void *, const void *, void *), void *context);
-static int count_wide_chars_in_utf8_string( const char *iptr, const char *endptr);
-void make_observatory_info_text( char *text, const size_t textlen,
-             const Observe *obs, int n_obs, const char *mpc_code);
-void size_from_h_text( const double abs_mag, char *obuff,
-                                 const int obuff_size);  /* ephem0.c */
-int select_tracklet(Observe *obs, const int n_obs, const int idx);
-int get_orbit_from_mpcorb_sof( const char *object_name, double *orbit,
-    Elements *elems, const double full_arc_len, double *max_resid);
-int improve_sr_orbits( sr_orbit_t *orbits, Observe *obs,
-               const unsigned n_obs, const unsigned n_orbits,  /* orb_func.c */
-               const double noise_in_sigmas, const int writing_sr_elems);
-void compute_effective_solar_multiplier( const char *constraints);  /* runge.c */
+static void get_mouse_data(int* mouse_x, int* mouse_y, int* mouse_z, mmask_t* button);
+static void show_splash_screen(void);
+static int count_wide_chars_in_utf8_string(const char* iptr, const char* endptr);
 
 
-extern "C" {
-
-int getnstr_ex( char *str, int *loc, int maxlen, const int size);  /* getstrex.c */
-
-}
 
 
-double comet_g_func( const long double r);                   /* runge.cpp */
-
-extern int n_orbit_params;
+extern int n_orbit_params;    // defined in orb_func.cpp
 extern double maximum_jd, minimum_jd;        /* orb_func.cpp */
+
 
 #define COLOR_BACKGROUND            1
 #define COLOR_ORBITAL_ELEMENTS      2

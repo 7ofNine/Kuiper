@@ -26,6 +26,18 @@ current code is suitable for one very specific instance where I've been
 tasked to provide ADES output;  a solution to the more general case will
 have to wait for another day.       */
 
+#include "adesout.h"
+
+#include "mpc_obs.h"
+#include "mpc_func.h"  //lunar
+#include "details.h"
+#include "afuncs.h"
+
+#include "ephem0.h"
+#include "miscell.h"
+#include "elem_out.h"
+#include "orbfunc.h"
+
 #include <cstdio>
 #include <cstdint>
 #include <cstring>
@@ -35,22 +47,9 @@ have to wait for another day.       */
 #include <cmath>
 #include <cctype>
 //
-#include "mpc_obs.h"
-#include "mpc_func.h"
-#include "details.h"
-#include "afuncs.h"
-
-#include "ephem0.h"
-#include "miscell.h"
-#include "elem_out.h"
-#include "orbfunc.h"
 
 
 
-
-
-int text_search_and_replace( char   *str, const char *oldstr,
-                                     const char *newstr);   /* ephem0.cpp */ // in lunar used there in a single case
 
 
 

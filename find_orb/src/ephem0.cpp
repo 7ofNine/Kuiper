@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include "lunar.h"
 #include "date.h"
 #include "comets.h"
-#include "mpc_func.h"
+#include "mpc_func.h"  //lunar
 #include "mpc_obs.h"
 #include "vislimit.h"
 #include "brentmin.h"

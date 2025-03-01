@@ -74,14 +74,10 @@ int detect_perturbers( const double jd, const double * /*__restrict*/ xyz,
                        double *accel);          /* bc405.cpp */
 void find_relative_state_vect( const double jd, const double *ivect,
                double *ovect, const int ref_planet);        /* runge.cpp */
-int find_relative_orbit( const double jd, const double *ivect,
-    Elements *elements, const int ref_planet);     /* runge.cpp */
 static void compute_ref_state(Elements *ref_orbit, double *ref_state,
                                           const double jd);
-void compute_effective_solar_multiplier( const char *constraints);   /* runge.c */
 double geo_potential_in_au( const double x, const double y, const double z,
                  double *derivs, const int n_terms);    /* geo_pot.c */
-double comet_g_func( const ldouble r);                   /* runge.cpp */
 
 #define N_PERTURB 19
 #define IDX_MERCURY    1

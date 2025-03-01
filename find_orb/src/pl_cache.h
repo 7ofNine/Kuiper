@@ -1,3 +1,6 @@
+#ifndef PL_CACHE_INCLUDE
+#define PL_CACHE_INCLUDE
+
 /* pl_cache.h: computes and caches planetary positions
 
 SEE PL_CACHE.TXT (and 'pl_cache.cpp') FOR A DISCUSSION OF WHAT
@@ -34,3 +37,6 @@ these values can be fed to planet_posn() in such cases.   */
 
 #define PLANET_POSN_EARTH        20
 #define PLANET_POSN_MOON         21
+
+#endif // !PL_CACHE_INCLUDE
+

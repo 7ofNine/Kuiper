@@ -300,6 +300,15 @@ int qsort_strcmp(const void* a, const void* b, void* ignored_context);
 int debug_printf(const char* format, ...);
 bool nighttime_only(const char* mpc_code); 
 char* mpc_station_name(char* station_data);
+int sort_obs_by_date_and_remove_duplicates(Observe* obs, const int n_obs);
+int write_environment_pointers(void);           
+void set_up_observation(Observe* obs);  
+int set_tholen_style_sigmas(Observe* obs, const char* buff);
+int load_environment_file(const char* filename);  
+
+
+
+
 
 
 
@@ -397,10 +406,10 @@ int filter_obs(Observe *obs, const int n_obs,           /* orb_fun2.cpp */
     /* Orbits are stored on a stack and can be retrieved from it.          */
 void pop_all_orbits( void);                                /* orb_fun2.cpp */
 
-typedef struct
+struct sr_orbit_t
 {
-   double rparam, vparam, orbit[6], score;
-} sr_orbit_t;
+    double rparam, vparam, orbit[6], score;
+};
 
 int find_nth_sr_orbit(sr_orbit_t *orbit, Observe *obs, int n_obs,
                             const int orbit_number);         /* orb_func.cpp */

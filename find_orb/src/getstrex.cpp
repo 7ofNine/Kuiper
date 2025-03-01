@@ -20,7 +20,6 @@ extern "C" {
 
 int wgetnstr_ex(WINDOW *win, char *str, int *loc, int maxlen, const int size);
 int wgetn_wstr_ex(WINDOW *win, wint_t *wstr, int *loc, const int maxlen, const int size);
-int getnstr_ex( char *str, int *loc, int maxlen, const int size);
 int getn_wstr_ex( wint_t *wstr, int *loc, const int maxlen, const int size);
 
 }
@@ -297,9 +296,11 @@ int wgetnstr_ex(WINDOW *win, char *str, int *loc, int maxlen, const int size)
     return( rval);
 }
 
+extern "C" {
 int getnstr_ex( char *str, int *loc, int maxlen, const int size)
 {
     return( wgetnstr_ex( stdscr, str, loc, maxlen, size));
+}
 }
 
 int getn_wstr_ex( wint_t *wstr, int *loc, const int maxlen, const int size)

@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include "comets.h"
 #include "lunar.h"
 #include "afuncs.h"
-#include "mpc_func.h"
+#include "mpc_func.h"  //lunar
 #include "stackall.h"
 #include "stringex.h"
 #include "sigma.h"
@@ -36,6 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include "bias.h"
 #include "orbfunc.h"
 #include "errors.h"
+#include "shellsor.h"
 
 #include <windows.h>
 
@@ -52,13 +53,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 //
 
 int pattern_match(const char* pattern, const char* string);   /* miscell.c */
-int text_search_and_replace( char   *str, const char *oldstr,
-                                     const char *newstr);   /* ephem0.cpp */
 
 int apply_excluded_observations_file(Observe *obs, const int n_obs);
-void set_up_observation(Observe *obs);                 /* mpc_obs.c */
 static double observation_jd( const char *buff);
-int sort_obs_by_date_and_remove_duplicates(Observe *obs, const int n_obs);
 
 void set_obs_vect(Observe *obs);        /* mpc_obs.h */
 double current_jd( void);                       /* elem_out.cpp */
@@ -79,14 +76,11 @@ static int xref_designation( char *desig);
 #endif
 ;
 int download_a_file( const char *ofilename, const char *url);
-void shellsort_r( void *base, const size_t n_elements, const size_t esize,
-         int (*compare)(const void *, const void *, void *), void *context);
 void *bsearch_ext( const void *key, const void *base0,
       size_t nmemb, const size_t size,                   /* shellsor.cpp */
       int (*compar)(const void *, const void *), bool *found);
 int string_compare_for_sort( const void *a, const void *b, void *context);
 static void reduce_designation( char *desig, const char *idesig);
-int set_tholen_style_sigmas(Observe *obs, const char *buff);  /* mpc_obs.c */
 
 #ifdef _MSC_VER
      /* Microsoft Visual C/C++ has no strncasecmp.  strncmp will do.  */
@@ -1322,7 +1316,6 @@ void set_obs_vect(Observe *obs)
    the following code computes that planet's J2000 equatorial coordinates
    using the PS1996 theory (or,  for the moon,  ELP82). */
 
-int load_environment_file( const char *filename);          /* mpc_obs.cpp */
 static int load_default_environment_file( void);           /* mpc_obs.cpp */
 void update_environ_dot_dat( void);                        /* mpc_obs.cpp */
 

@@ -35,7 +35,6 @@ double gaussian_random( void);                           /* monte0.c */
 #endif
 ;
 void remove_insignificant_digits( char *tbuff);          /* monte0.c */
-void set_up_observation(Observe *obs);                 /* mpc_obs.c */
 void set_obs_vect(Observe *obs);        /* mpc_obs.h */
 
 #define PI 3.1415926535897932384626433832795028841971693993751058209749445923

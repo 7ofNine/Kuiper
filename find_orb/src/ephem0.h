@@ -119,6 +119,11 @@ int write_residuals_to_file(const char* filename, const char* ast_filename,
 int make_pseudo_mpec(const char* mpec_filename, const char* obj_name);
 void format_dist_in_buff(char* buff, const double dist_in_au);
 double shadow_check(const double* planet_loc, const double* obs_posn, const double planet_radius_in_au);
+int add_ephemeris_details(FILE* ofile, const double start_jd, const double end_jd);
+bool is_topocentric_mpc_code(const char* mpc_code);
+void size_from_h_text(const double abs_mag, char* obuff, const int obuff_size);
+
+
 
 
 

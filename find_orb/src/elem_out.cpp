@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 
 #include "comets.h"
 #include "mpc_obs.h"
-#include "mpc_func.h"
+#include "mpc_func.h"  //lunar
 #include "date.h"
 #include "afuncs.h"
 #include "lunar.h"
@@ -2654,8 +2654,6 @@ int write_out_elements_to_file( const double *orbit,
    return( bad_elements);
 }
 
-void shellsort_r( void *base, const size_t n_elements, const size_t esize,
-         int (*compare)(const void *, const void *, void *), void *context);
 
 int string_compare_for_sort( const void *a, const void *b, void *context)
 {
@@ -3210,7 +3208,7 @@ static int fetch_previous_solution(Observe *obs, const int n_obs, double *orbit,
          attempt_extensions( obs, n_obs, orbit, *orbit_epoch);
       for( pass = 0; pass < 2; pass++)
          {
-         const int64_t t0 = nanoseconds_since_1970( );
+         const int64_t t0 = nanoseconds_since_1970();
          const int64_t QUARTER_SECOND = 250000000;
          const double mid_epoch = mid_epoch_of_arc( obs, n_obs);
 

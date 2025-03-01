@@ -38,6 +38,11 @@ int load_ephemeris_settings(ephem_option_t* ephemeris_output_options,
 void rotate_state_vector_to_current_frame(double* state_vect,
     const double epoch_shown, const int planet_orbiting,
     char* body_frame_note);
+void set_statistical_ranging(const int new_using_sr); 
+void make_observatory_info_text(char* text, const size_t textlen,
+    const Observe* obs, int n_obs, const char* mpc_code);
+
+
 
 
 

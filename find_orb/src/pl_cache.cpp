@@ -32,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include "elem_out.h"
 #include "mpc_obs.h"
 #include "bc405.h"
+#include "shellsor.h"
 
 
 #include <cstdio>
@@ -59,8 +60,6 @@ static void *jpl_eph = nullptr;
 
 int compute_rough_planet_loc( const double t_cen, const int planet_idx,
                                           double *vect);    /* sm_vsop.cpp */
-int64_t nanoseconds_since_1970( void);                      /* mpc_obs.c */
-int format_jpl_ephemeris_info( char *buff);                 /* pl_cache.c */
 
 static int planet_posn_raw( int planet_no, const double jd,
                             double *vect_2000)
@@ -285,8 +284,6 @@ static inline int hash_function( const int planet_no, const double jd)
 that partitioning,  at least for the nonce,  the lazy way : we
 sort the entire array.  */
 
-void shellsort_r( void *base, const size_t n_elements, const size_t elem_size,
-         int (*compare)(const void *, const void *, void *), void *context);
 
 static int compare_cached_posns( const void *a, const void *b, [[maybe_unused]] void *ignored_context)
 {

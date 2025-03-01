@@ -48,6 +48,7 @@ struct Observe
     char* ades_ids;
 };
 
+struct sr_orbit_t;
 
 double initial_orbit(Observe* obs, int n_obs, double* orbit);
 int set_locs(const double* orbit, double t0, Observe* obs, int n_obs);
@@ -64,10 +65,29 @@ double vect_diff2(const double* a, const double* b);
 int get_residual_data(const Observe *obs, double *xresid, double *yresid);
 void light_time_lag(const double jde, const double* orbit,     
     const double* observer, double* result, const int is_heliocentric);
+int find_trial_orbit(double* orbit, Observe* obs, int n_obs,
+    const double r1, const double angle_param); 
+int search_for_trial_orbit(double* orbit, Observe* obs, int n_obs,
+    const double r1, double* angle_param); 
+void set_distance(Observe* obs, double r);  
+double euler_function(const Observe* obs1, const Observe* obs2);
+int find_parabolic_orbit(Observe* obs, const int n_obs,
+    double* orbit, const int direction);
+double improve_along_lov(double* orbit, const double epoch, const double* lov,
+    const unsigned n_params, unsigned n_obs, Observe* obs);
+int metropolis_search(Observe* obs, const int n_obs, double* orbit,
+    const double epoch, int n_iterations, double scale);
+int find_vaisala_orbit(double* orbit, const Observe* obs1,   /* orb_func.c */
+    const Observe* obs2, const double solar_r);
+int extended_orbit_fit(double* orbit, Observe* obs, int n_obs,
+    const unsigned fit_type, double epoch);     /* orb_func.c */
+int orbital_monte_carlo(const double* orbit, Observe* obs, const int n_obs,
+    const double curr_epoch, const double epoch_shown);   /* orb_func.cpp */
+int select_tracklet(Observe* obs, const int n_obs, const int idx);
 
-
-
-
+int improve_sr_orbits(sr_orbit_t* orbits, Observe* obs,
+    const unsigned n_obs, const unsigned n_orbits,
+    const double noise_in_sigmas, const int writing_sr_elems);
 
 
 #endif // !ORBFUNC_H_INCLUDE

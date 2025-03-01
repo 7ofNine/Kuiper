@@ -41,6 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include "runge.h"
 #include "errors.h"
 #include "gauss.h"
+#include "shellsor.h"
 
 
 #include <cmath>
@@ -92,14 +93,11 @@ int find_best_fit_planet( const double jd, const double *ivect,
 static int evaluate_limited_orbit( const double *orbit,
                     const int planet_orbiting, const double epoch,
                     const char *limited_orbit, double *constraints);
-int find_relative_orbit( const double jd, const double *ivect,
-    Elements *elements, const int ref_planet);     /* runge.cpp */
 static inline void look_for_best_subarc( const Observe *obs,
        const int n_obs, const double max_arc_len, int *start, int *end);
 int check_for_perturbers( const double t_cen, const double *vect); /* sm_vsop*/
 int get_idx1_and_idx2( const int n_obs, const Observe *obs,
                                 int *idx1, int *idx2);      /* elem_out.c */
-void set_distance(Observe *obs, double r);             /* orb_func.c */
 double find_r_given_solar_r( const Observe *obs, const double solar_r);
 void attempt_extensions(Observe *obs, const int n_obs, double *orbit,
                   const double epoch);                  /* orb_func.cpp */
@@ -121,18 +119,12 @@ double compute_weighted_rms( const Observe *obs, const int n_obs,
                            int *n_resids);                  /* orb_func.cpp */
 
 void set_obs_vect(Observe *obs);        /* mpc_obs.h */
-double improve_along_lov( double *orbit, const double epoch, const double *lov,
-          const unsigned n_params, unsigned n_obs, Observe *obs);
 void compute_error_ellipse_adjusted_for_motion( double *sigma1, double *sigma2,
                   double *posn_angle, const Observe *obs,
                   const MOTION_DETAILS *m);                  /* orb_func.cpp */
 double n_nearby_obs( const Observe *obs, const unsigned n_obs,
           const unsigned idx, const double time_span);       /* orb_func.cpp */
 double find_parabolic_minimum_point( const double x[3], const double y[3]);
-int orbital_monte_carlo( const double *orbit, Observe *obs, const int n_obs,
-         const double curr_epoch, const double epoch_shown);   /* orb_func.cpp */
-void shellsort_r( void *base, const size_t n_elements, const size_t esize,
-         int (*compare)(const void *, const void *, void *), void *context);
 int curses_kbhit_without_mouse( );
 
 void set_distance(Observe *obs, double r)

@@ -230,6 +230,15 @@
     <ClInclude Include="src\roots.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\adesout.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\fixorb.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\getsrex.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\mpcorb.hdr">

@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include "date.h"
 #include "miscell.h"
 #include "orbfunc.h"
+#include "mpc_func.h" //lunar
 
 #include <cstdlib>
 #include <cstring>
@@ -38,8 +39,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #define GAUSS_K .01720209895
 #define SOLAR_GM (GAUSS_K * GAUSS_K)
 
-double improve_along_lov( double *orbit, const double epoch, const double *lov,
-          const unsigned n_params, unsigned n_obs, Observe *obs);
 int adjust_herget_results(Observe *obs, int n_obs, double *orbit);
 double current_jd( void);                       /* elem_out.cpp */
 double evaluate_for_simplex_method(const Observe *obs,
@@ -283,7 +282,6 @@ void pop_all_orbits( void)
       ;
 }
 
-void set_distance(Observe *obs, double r);             /* orb_func.c */
 
 /* The linear regression fit here is used to determine a perihelion distance
 q,  eccentricity ecc,  and longitude of perihelion omega.  The idea is that
@@ -806,8 +804,6 @@ double generate_mc_variant_from_covariance( double *var_orbit,
    return( rval);
 }
 
-int text_search_and_replace( char   *str, const char *oldstr,
-                                     const char *newstr);   /* ephem0.cpp */
 
 const char *excluded_filename = "excluded.txt";
 

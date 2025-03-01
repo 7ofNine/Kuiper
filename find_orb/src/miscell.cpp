@@ -15,6 +15,12 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 02110-1301, USA. */
 
+#include "miscell.h"
+
+#include "mpc_obs.h"
+#include "stringex.h"
+#include "mpc_func.h"
+
 #include <cstdio>
 #include <cctype>
 #include <cstring>
@@ -23,16 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include <stdarg.h>
 #include <cassert>
 #include <errno.h>
-#include "stringex.h"
-#include "mpc_func.h"
 
-#include "miscell.h"
-#include "mpc_obs.h"
-
-#ifdef __GNUC__
-         __attribute__ (( format( printf, 1, 2)))
-#endif
-;
 
 #ifdef CONFIG_DIR_AUTOCOPY
 #include <string>
@@ -88,7 +85,6 @@ can turn it back to 'false'.
 int fetch_astrometry_from_mpc( FILE *ofile, const char *desig);
 int download_a_file( const char *ofilename, const char *url);
 
-int reset_astrometry_filename( int *argc, const char **argv);
 int use_config_directory = false;
 const char *alt_config_directory;
 
