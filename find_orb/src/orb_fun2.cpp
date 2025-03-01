@@ -631,7 +631,6 @@ static double search_score( const double *loc, const double *deriv, size_t n_obs
    return( rval);
 }
 
-double find_parabolic_minimum_point( const double x[3], const double y[3]);
 
 /* Theoretically speaking,  this one-dimensional minimization should use
 something like Brent's method.  But the minimum really is nearly parabolic

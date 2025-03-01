@@ -1197,8 +1197,6 @@ static int show_reference( char *buff)
    return( rval);
 }
 
-int compute_available_sigmas_hash(const Observe *obs, const int n_obs,
-         const double epoch, const unsigned perturbers, const int central_obj);
 
 static int get_uncertainty( const char *key, char *obuff, const bool in_km)
 {

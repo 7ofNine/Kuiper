@@ -16,11 +16,14 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 02110-1301, USA.    */
+#include "smvsop.h"
+
+#include "afuncs.h"     /* for vector3_length() proto */
+
 
 #include <cmath>
 #include <cstdlib>
 //
-#include "afuncs.h"     /* for vector3_length() proto */
 
 /* Following are the first few terms of the VSOP87A Cartesian coordinate
    series for each planet (Mercury through Neptune;  VSOP doesn't do
@@ -74,7 +77,6 @@ Theorie du mouvement de l'ensemble des planetes (VSOP82).
 
 int compute_rough_planet_loc( const double t_cen, const int planet_idx,
                                           double *vect);    /* sm_vsop.c */
-int check_for_perturbers( const double t_cen, const double *vect); /* sm_vsop*/
 
 /* #define LONG_EARTH_SERIES  1  */
 

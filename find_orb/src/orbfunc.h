@@ -102,6 +102,15 @@ double evaluate_for_simplex_method(const Observe* obs,
     const int planet_orbiting,
     const char* limited_orbit);     /* orb_func.cpp */
 double find_r_given_solar_r(const Observe* obs, const double solar_r);
+int compute_available_sigmas_hash(const Observe* obs, const int n_obs,
+    const double epoch, const unsigned perturbers, const int central_obj);
+double vector3_dist(const double* a, const double* b);     /* orb_func.c */
+double compute_weighted_rms(const Observe* obs, const int n_obs,
+    int* n_resids);                  /* orb_func.cpp */
+double find_parabolic_minimum_point(const double x[3], const double y[3]);
+
+
+
 
 
 

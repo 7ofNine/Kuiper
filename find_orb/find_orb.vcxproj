@@ -220,6 +220,7 @@ copy /Y "$(ProjectDir)\src\orbitdef.sof" /A "$(SolutionDir)run\orbitdef.sof" /A
     <ClInclude Include="src\shellsor.h" />
     <ClInclude Include="src\sigma.h" />
     <ClInclude Include="src\simplex.h" />
+    <ClInclude Include="src\smvsop.h" />
     <ClInclude Include="src\stackall.h" />
   </ItemGroup>
   <ItemGroup>

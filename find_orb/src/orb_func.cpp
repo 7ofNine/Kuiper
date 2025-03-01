@@ -42,6 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include "errors.h"
 #include "gauss.h"
 #include "shellsor.h"
+#include "smvsop.h"
 
 
 #include <cmath>
@@ -80,36 +81,17 @@ int available_sigmas = NO_SIGMAS_AVAILABLE;
 int available_sigmas_hash = 0;
 static bool fail_on_hitting_planet = false;
 
-double initial_orbit(Observe *obs, int n_obs, double *orbit);
-int find_trial_orbit( double *orbit, Observe *obs, int n_obs,
-             const double r1, const double angle_param);   /* orb_func.cpp */
-int search_for_trial_orbit( double *orbit, Observe *obs, int n_obs,
-              const double r1, double *angle_param);  /* orb_func.cpp */
-int set_locs( const double *orbit, double t0, Observe *obs, int n_obs);
-int find_best_fit_planet( const double jd, const double *ivect,
-                                 double *rel_vect);         /* runge.cpp */
-static int evaluate_limited_orbit( const double *orbit,
-                    const int planet_orbiting, const double epoch,
-                    const char *limited_orbit, double *constraints);
-static inline void look_for_best_subarc( const Observe *obs,
-       const int n_obs, const double max_arc_len, int *start, int *end);
-int check_for_perturbers( const double t_cen, const double *vect); /* sm_vsop*/
-int get_idx1_and_idx2( const int n_obs, const Observe *obs,
-                                int *idx1, int *idx2);      /* elem_out.c */
-void attempt_extensions(Observe *obs, const int n_obs, double *orbit,
-                  const double epoch);                  /* orb_func.cpp */
+static int evaluate_limited_orbit(const double* orbit,
+    const int planet_orbiting, const double epoch,
+    const char* limited_orbit, double* constraints);
+static inline void look_for_best_subarc(const Observe* obs,
+    const int n_obs, const double max_arc_len, int* start, int* end);
+static int find_transfer_orbit(double* orbit, Observe* obs1, Observe* obs2,
+    const int already_have_approximate_orbit);
 
-int compute_available_sigmas_hash( const Observe *obs, const int n_obs,
-         const double epoch, const unsigned perturbers, const int central_obj);
-double vector3_dist( const double *a, const double *b);     /* orb_func.c */
-double euler_function( const Observe *obs1, const Observe *obs2);
-static int find_transfer_orbit( double *orbit, Observe *obs1, Observe *obs2,
-                const int already_have_approximate_orbit);
-double compute_weighted_rms( const Observe *obs, const int n_obs,
-                           int *n_resids);                  /* orb_func.cpp */
 
-double find_parabolic_minimum_point( const double x[3], const double y[3]);
-int curses_kbhit_without_mouse( );
+
+int curses_kbhit_without_mouse( );    // this is actually defined in findorb??
 
 void set_distance(Observe *obs, double r)
 {

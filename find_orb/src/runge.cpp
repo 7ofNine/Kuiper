@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include "bc405.h"
 #include "pl_cache.h"
 #include "ephem0.h"
+#include "smvsop.h"
 
 #include <cstdio>
 #include <cstdlib>
@@ -68,8 +69,6 @@ ldouble take_pd89_step( const ldouble jd, Elements *ref_orbit,
                  const int n_vals, const ldouble step);    /* runge.cpp */
 int symplectic_6( double jd, Elements *ref_orbit, double *vect,
                                           const double dt);
-int find_best_fit_planet( const double jd, const double *ivect,
-                                 double *rel_vect);      /* runge.cpp */
 int detect_perturbers( const double jd, const double * /*__restrict*/ xyz,
                        double *accel);          /* bc405.cpp */
 void find_relative_state_vect( const double jd, const double *ivect,
@@ -1249,7 +1248,6 @@ int find_relative_orbit( const double jd, const double *ivect,
    return( 0);
 }
 
-int check_for_perturbers( const double t_cen, const double *vect); /* sm_vsop*/
 
 int find_best_fit_planet( const double jd, const double *ivect,
                                  double *rel_vect)

@@ -237,7 +237,6 @@ void create_obs_file_with_computed_values( const Observe   *obs,
 int find_worst_observation( const Observe   *obs, const int n_obs);
 double calc_absolute_magnitude( Observe   *obs, int n_obs);
 double compute_rms( const Observe   *obs, const int n_obs);
-double compute_weighted_rms(const Observe   *obs, const int n_obs, int *n_resids);
 bool opposition_break(const Observe *obs);              /* elem_out.cpp */
 int herget_method(Observe *obs, int n_obs, double r1, double r2,
          double *orbit, double *d_r1, double *d_r2, const char *limited_orbit);
@@ -245,13 +244,10 @@ void improve_parabolic(Observe *obs, int n_obs, double *orbit, double epoch);
 int full_improvement(Observe *obs, int n_obs, double *orbit,
                  const double epoch, const char *limited_orbit,
                  const int sigmas_requested, const double epoch2);
-int set_locs( const double *orbit, const double t0, Observe *obs,
-                                   const int n_obs);
 void make_date_range_text( char *obuff, const double jd1, const double jd2);
                                                         /* orb_func.cpp */
 int get_r1_and_r2( const int n_obs, const Observe *obs,
                              double *r1, double *r2);    /* elem_out.cpp */
-double initial_orbit(Observe *obs, int n_obs, double *orbit);
 double get_step_size(const char *stepsize, char *step_units,
                                  int *step_digits);          /* ephem0.cpp */
 //int ephemeris_in_a_file_from_mpc_code( const char *filename,                     // declaration moved to ephem0.h. ephem0.cpp has the definition
@@ -260,8 +256,6 @@ double get_step_size(const char *stepsize, char *step_units,
 //         const double epoch_jd, const double jd_start, const char *stepsize,
 //         const int n_steps, const char *mpc_code,
 //         ephem_option_t options, const unsigned n_objects);
-int find_best_fit_planet(const double jd, const double *ivect,
-                     double *rel_vect);     /* runge.cpp */
 int integrate_orbit(double *orbit, const double t0, const double t1);
 int generate_obs_text(const Observe *obs, const int n_obs, char *buff,
                                           const size_t buffsize);

@@ -12,5 +12,7 @@ int calc_derivatives(const double jd, const double* ival, double* oval, const in
 void calc_approx_planet_orientation(const int planet, const int system_number, const double jde, double* matrix);
 int find_relative_orbit(const double jd, const double* ivect, Elements* elements, const int ref_planet);
 double comet_g_func(const long double r);                   /* runge.cpp */
+int find_best_fit_planet(const double jd, const double* ivect,
+    double* rel_vect);         /* runge.cpp */
 
 #endif // !RUNGE_H_INCLUDE
