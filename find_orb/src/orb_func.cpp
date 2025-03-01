@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include "mpc_obs.h"
 #include "lsquare.h"
 #include "date.h"
-#include "afuncs.h"
+#include "afuncs.h" //lunar
 #include "lunar.h"
 #include "monte0.h"
 #include "pl_cache.h"
@@ -101,27 +101,15 @@ double find_r_given_solar_r( const Observe *obs, const double solar_r);
 void attempt_extensions(Observe *obs, const int n_obs, double *orbit,
                   const double epoch);                  /* orb_func.cpp */
 
-int compute_observer_loc( const double jde, const int planet_no,
-             const double rho_cos_phi,           /* mpc_obs.cpp */
-             const double rho_sin_phi, const double lon, double   *offset);
-int compute_observer_vel( const double jde, const int planet_no,
-             const double rho_cos_phi,           /* mpc_obs.cpp */
-             const double rho_sin_phi, const double lon, double   *vel);
 int compute_available_sigmas_hash( const Observe *obs, const int n_obs,
          const double epoch, const unsigned perturbers, const int central_obj);
 double vector3_dist( const double *a, const double *b);     /* orb_func.c */
 double euler_function( const Observe *obs1, const Observe *obs2);
 static int find_transfer_orbit( double *orbit, Observe *obs1, Observe *obs2,
                 const int already_have_approximate_orbit);
-bool is_sungrazing_comet( const Observe *obs, const int n_obs);  /* orb_func.c */
 double compute_weighted_rms( const Observe *obs, const int n_obs,
                            int *n_resids);                  /* orb_func.cpp */
 
-void compute_error_ellipse_adjusted_for_motion( double *sigma1, double *sigma2,
-                  double *posn_angle, const Observe *obs,
-                  const MOTION_DETAILS *m);                  /* orb_func.cpp */
-double n_nearby_obs( const Observe *obs, const unsigned n_obs,
-          const unsigned idx, const double time_span);       /* orb_func.cpp */
 double find_parabolic_minimum_point( const double x[3], const double y[3]);
 int curses_kbhit_without_mouse( );
 
@@ -4879,7 +4867,6 @@ int metropolis_search(Observe *obs, const int n_obs, double *orbit,
 void update_environ_dot_dat( void);     /* mpc_obs.cpp */
 double galactic_confusion( const double ra, const double dec);
 void pop_all_orbits( void);         /* orb_func2.cpp */
-char *find_numbered_mp_info( const int number);    /* mpc_obs.cpp */
 
 int clean_up_find_orb_memory( void)
 {

@@ -738,7 +738,6 @@ static inline void align_packed_desig( char *obuff, const char *packed_desig)
    obuff[12] = '\0';
 }
 
-char *find_numbered_mp_info( const int number);             /* mpc_obs.cpp */
 
 static char *object_name( char *buff, const int obj_index)
 {

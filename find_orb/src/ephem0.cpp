@@ -40,6 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include "moid.h"        //lunar
 #include "runge.h"
 #include "shellsor.h"
+#include "nanosecs.h"
 
 #include <direct.h>        /* for _mkdir() definition */
 #include <sys/types.h>

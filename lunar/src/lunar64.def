@@ -112,7 +112,6 @@ EXPORTS
    strlcat_err                            @111
    text_search_and_replace                @112   
    planet_radius_in_meters                @113  
-   current_jd                             @114
    nanoseconds_since_1970                 @115
    extract_yyyymmdd_to_jd                 @116  
    planet_rotation_rate                   @117

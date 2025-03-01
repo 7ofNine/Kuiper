@@ -135,7 +135,8 @@
       <Command>xcopy "$(SolutionDir)$(Platform)\$(Configuration)\*.exe"  "$(SolutionDir)run\" /Y /F
 xcopy "$(SolutionDir)$(Platform)\$(Configuration)\*.dll" "$(SolutionDir)run\" /Y /F
 copy /Y "$(SolutionDir)..\PDCursesMod_build\wincon\$(Configuration)\pdcurses.dll" /B "$(SolutionDir)run\pdcurses.dll" /B
-copy /Y "$(ProjectDir)\src\link_def.json" /A "$(SolutionDir)run\link_def.json" /B
+copy /Y "$(ProjectDir)\src\link_def.json" /A "$(SolutionDir)run\link_def.json" /A
+copy /Y "$(ProjectDir)\src\orbitdef.sof" /A "$(SolutionDir)run\orbitdef.sof" /A
 
 </Command>
     </PostBuildEvent>

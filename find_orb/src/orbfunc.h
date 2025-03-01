@@ -49,6 +49,7 @@ struct Observe
 };
 
 struct sr_orbit_t;
+struct Motion_details;
 
 double initial_orbit(Observe* obs, int n_obs, double* orbit);
 int set_locs(const double* orbit, double t0, Observe* obs, int n_obs);
@@ -88,6 +89,16 @@ int select_tracklet(Observe* obs, const int n_obs, const int idx);
 int improve_sr_orbits(sr_orbit_t* orbits, Observe* obs,
     const unsigned n_obs, const unsigned n_orbits,
     const double noise_in_sigmas, const int writing_sr_elems);
+bool is_sungrazing_comet(const Observe* obs, const int n_obs);  /* orb_func.c */
+
+void compute_error_ellipse_adjusted_for_motion(double* sigma1, double* sigma2,
+    double* posn_angle, const Observe* obs,
+    const Motion_details* m);                  /* orb_func.cpp */
+double n_nearby_obs(const Observe* obs, const unsigned n_obs,
+    const unsigned idx, const double time_span);       /* orb_func.cpp */
+
+
+
 
 
 #endif // !ORBFUNC_H_INCLUDE

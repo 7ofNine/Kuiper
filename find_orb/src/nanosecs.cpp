@@ -34,12 +34,18 @@ it may be wiser to switch to 128-bit integers.
 the computer's time is adjusted by NTP or the user,  the result may
 actually go backward.  If you want to know what time it is,  don't
 ask a computer.  */
+#include "nanosecs.h"
 
-#include <cstdint>
+//#include "afuncs.h"  // lunar  interference with nanoseconds in afuncs. We should define all the constants etc. in a single file
+// or use external library....
 
 #include <windows.h>
 
-#include "nanosecs.h"
+#include <cstdint>
+
+
+
+
 
 int64_t nanoseconds_since_1970( void)
 {
@@ -72,3 +78,15 @@ int64_t nanoseconds_since_1970( void)
    return( t.tv_sec * (int64_t)1000000000 + t.tv_nsec);
 }
 #endif    /* NOT_CURRENTLY_IN_USE */
+
+// moved here from lunar/nanoseconds.cpp. Not used in lunar // are there better methods e.g. in novas?
+double current_jd(void)
+{
+    static const constinit uint64_t seconds_per_day = 24 * 60 * 60;
+    static const constinit double jan_1970 = 2440587.5;
+    const double jd = jan_1970 +
+        (double)nanoseconds_since_1970() * 1e-9 / seconds_per_day;
+
+    return jd;
+}
+

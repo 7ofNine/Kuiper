@@ -52,7 +52,6 @@ void init_simplex( double **vects, double *fvals,
 int simplex_step( double **vects, double *fvals,
          double (*f)( void *context, const double *vect),
                void *context, const int n);        /* simplex.c */
-int apply_excluded_observations_file(Observe *obs, const int n_obs);
 int write_excluded_observations_file( const Observe *obs, int n_obs);
 double find_r_given_solar_r(const Observe* obs, const double solar_r);
 

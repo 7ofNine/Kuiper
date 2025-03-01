@@ -40,3 +40,6 @@ run/errors.txt
 run/sof.txt
 run/sofv.txt
 /run/monte.txt
+/run/guide.txt
+/run/mpc_fmt.txt
+/run/orbitdef.sof

@@ -12,6 +12,7 @@ void ensure_config_directory_exists();
 int fetch_astrometry_from_mpc(FILE* ofile, const char* desig);
 int reset_astrometry_filename(int* argc, const char** argv);
 int download_a_file(const char* ofilename, const char* url);
+int pattern_match(const char* pattern, const char* string);   /* miscell.c */
 
 
 

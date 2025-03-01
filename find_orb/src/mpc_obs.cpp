@@ -37,6 +37,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include "orbfunc.h"
 #include "errors.h"
 #include "shellsor.h"
+#include "orbfunc2.h"
+#include "monte0.h"
+#include "nanosecs.h"
 
 #include <windows.h>
 
@@ -52,38 +55,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include <cerrno>
 //
 
-int pattern_match(const char* pattern, const char* string);   /* miscell.c */
 
-int apply_excluded_observations_file(Observe *obs, const int n_obs);
 static double observation_jd( const char *buff);
+static int xref_designation(char* desig);
+static void reduce_designation(char* desig, const char* idesig);
 
-double current_jd( void);                       /* elem_out.cpp */
-int compute_observer_loc( const double jde, const int planet_no,
-             const double rho_cos_phi,           /* mpc_obs.cpp */
-             const double rho_sin_phi, const double lon, double   *offset);
-int compute_observer_vel( const double jde, const int planet_no,
-             const double rho_cos_phi,           /* mpc_obs.cpp */
-             const double rho_sin_phi, const double lon, double   *vel);
-int get_satellite_offset( const char *iline, double *xyz);  /* mpc_obs.cpp */
-bool nighttime_only( const char *mpc_code);                 /* mpc_obs.cpp */
-char *find_numbered_mp_info( const int number);             /* mpc_obs.cpp */
-bool is_sungrazing_comet( const Observe *obs, const int n_obs);  /* orb_func.c */
-static int xref_designation( char *desig);
-void *bsearch_ext( const void *key, const void *base0,
-      size_t nmemb, const size_t size,                   /* shellsor.cpp */
-      int (*compar)(const void *, const void *), bool *found);
-int string_compare_for_sort( const void *a, const void *b, void *context);
-static void reduce_designation( char *desig, const char *idesig);
 
-#ifdef _MSC_VER
-     /* Microsoft Visual C/C++ has no strncasecmp.  strncmp will do.  */
-#define strncasecmp strncmp
-#endif
-void compute_error_ellipse_adjusted_for_motion( double *sigma1, double *sigma2,
-                  double *posn_angle, const Observe *obs,
-                  const MOTION_DETAILS *m);                  /* orb_func.cpp */
-double n_nearby_obs(const Observe *obs, const unsigned n_obs,
-          const unsigned idx, const double time_span);       /* orb_func.cpp */
 
 #ifndef PATH_MAX
    #define PATH_MAX 256

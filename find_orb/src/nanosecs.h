@@ -4,7 +4,8 @@
 // Remark :: This is also defined in lunar library in a DLL interface. Why?
 #include <cstdint>
 
-int64_t nanoseconds_since_1970(void);                      
+int64_t nanoseconds_since_1970(void);    
+double current_jd(void);
 
 #endif // !NANOSECS_H_INCLUDE
 

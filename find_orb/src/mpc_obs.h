@@ -63,9 +63,9 @@ OBJECT_INFO
 #define OBJECT_INFO_COMPARE_NAME             2
 #define OBJECT_INFO_COMPARE_LAST_UPDATED     3
 
-#define MOTION_DETAILS struct motion_details
+#define MOTION_DETAILS  Motion_details
 
-MOTION_DETAILS
+struct Motion_details
    {
    double xresid, yresid;
    double ra_motion, dec_motion, total_motion;     /* in arcmin/hour */
@@ -306,6 +306,8 @@ void set_up_observation(Observe* obs);
 int set_tholen_style_sigmas(Observe* obs, const char* buff);
 int load_environment_file(const char* filename);  
 void set_obs_vect(Observe* obs);        /* mpc_obs.h */
+char* find_numbered_mp_info(const int number);             /* mpc_obs.cpp */
+
 
 
 

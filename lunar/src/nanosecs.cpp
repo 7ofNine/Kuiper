@@ -58,11 +58,3 @@ int64_t /*DLL_FUNC*/ nanoseconds_since_1970( void)
    return( decimicroseconds_since_1970 * (int64_t)100);
 }
 
-double /*DLL_FUNC*/ current_jd( void)
-{
-   static const double jan_1970 = 2440587.5;
-   const double jd = jan_1970 +
-                  (double)nanoseconds_since_1970( ) * 1e-9 / seconds_per_day;
-
-   return( jd);
-}

@@ -176,7 +176,7 @@ int /*DLL_FUNC*/ get_earth_orientation_params( const double jd,  /* eop_prec.c *
 int /*DLL_FUNC*/ setup_precession_with_nutation_eops( double   *matrix,
                     const double year);            /* eop_prec.c */
 int64_t /*DLL_FUNC*/ nanoseconds_since_1970( void);    /* nanosecs.c */
-double /*DLL_FUNC*/ current_jd( void);                 /* nanosecs.c */
+//double /*DLL_FUNC*/ current_jd( void);                 /* nanosecs.c */ moved to nanosecs in find_orb
 
 
 }
