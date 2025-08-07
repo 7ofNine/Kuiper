@@ -46,16 +46,18 @@ two minima may exist between points in the search grid.)
 https://www.researchgate.net/publication/325922027_On_the_minimum_orbital_intersection_distance_computation_A_new_effective_method
 */
 
-#include <cassert>
-#include <cstring>
-#include <cmath>
-#include <cstdio>
-
 #include "brentmin.h"
 #include "comets.h"
 #include "afuncs.h"
 #include "mpc_func.h"
 #include "moid.h"
+#include "miscell.h"
+
+#include <cassert>
+#include <cstring>
+#include <cmath>
+#include <cstdio>
+
 
 #define PI 3.1415926535897932384626433832795028841971693993751058209749445923
 #define GAUSS_K .01720209895
@@ -322,7 +324,7 @@ static inline double centralize_angle( double ang)
 #define N_PLANET_ELEMS 15
 #define N_PLANET_RATES 9
 
-int setup_planet_elem(Elements *elem, const int planet_idx,
+extern "C" int setup_planet_elem(Elements* elem, const int planet_idx,
                                              const double t_cen)
 {
 /* Planet elems taken straight from https://ssd.jpl.nasa.gov/txt/p_elem_t1.txt

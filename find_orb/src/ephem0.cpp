@@ -41,6 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include "runge.h"
 #include "shellsor.h"
 #include "nanosecs.h"
+#include "sr.h"
 
 #include <direct.h>        /* for _mkdir() definition */
 #include <sys/types.h>
@@ -69,7 +70,7 @@ const char* elements_filename = "elements.txt";
 
 bool is_default_ephem = true;
 
-static expcalc_config_t exposure_config;
+static Expcalc_config exposure_config;
 
 
 /* Returns parallax constants (rho_cos_phi, rho_sin_phi) in AU. */
@@ -389,13 +390,13 @@ static double centralize_ang_around_zero( double ang)
    return( ang);
 }
 
-typedef struct
+struct Obj_location
 {
    double ra, dec, jd, r;
    double sun_obj, sun_earth;
-} obj_location_t;
+};
 
-static void setup_obj_loc( obj_location_t *p, double *orbit,
+static void setup_obj_loc(Obj_location *p, double *orbit,
           const size_t n_orbits, const double epoch_jd, const char *mpc_code)
 {
    size_t i, j;
@@ -451,21 +452,28 @@ static void adjust_sky_brightness_for_added_light_source(
 
 #pragma pack( 1)
 
-typedef struct
+struct Field_location
 {
-   double ra, dec, jd;
-   double height, width, tilt;
-   uint32_t file_offset;
-   char obscode[4];
-   char file_number;
-} field_location_t;
+    double ra;
+    double dec;
+    double jd;
+    double height;
+    double width;
+    double tilt;
+    uint32_t file_offset;
+    char obscode[4];
+    char file_number;
+};
 
-typedef struct
+struct Field_group
 {
-   double height, width;
-   double min_jd, max_jd;
-   char obscode[4], file_number;
-} field_group_t;
+    double height;
+    double width;
+    double min_jd;
+    double max_jd;
+    char obscode[4];
+    char file_number;
+};
 
 #pragma pack( )
 
@@ -534,8 +542,8 @@ cases.
    TO BE DONE:  figure out how to extend this to non-covariance (SR) cases.
 I've ideas for this... but first,  the (more common) covariance case.  */
 
-static double precovery_in_field( const field_location_t *field,
-         const obj_location_t *p, const unsigned n_objs,
+static double precovery_in_field(const Field_location *field,
+         const Obj_location *p, const unsigned n_objs,
          const double margin)
 {
    double sigma1 = -10., sigma2 = 10.;
@@ -571,7 +579,7 @@ static double precovery_in_field( const field_location_t *field,
       return( (erf( sigma2 / sqrt_2) - erf( sigma1 / sqrt_2)) * .5);
 }
 
-static void show_precovery_extent( char *obuff, const obj_location_t *objs,
+static void show_precovery_extent( char *obuff, const Obj_location *objs,
                                const int n_objs)
 {
    *obuff = '\0';
@@ -591,8 +599,8 @@ static void show_precovery_extent( char *obuff, const obj_location_t *objs,
 #define COMPRESSED_FIELD_SIZE 18
 
 
-static void extract_field( field_location_t *field, const char *buff,
-               const field_group_t *groups)
+static void extract_field(Field_location *field, const char *buff,
+               const Field_group *groups)
 {
    int32_t array[4];
 
@@ -603,8 +611,7 @@ static void extract_field( field_location_t *field, const char *buff,
    memcpy( array, buff, 4 * sizeof( int32_t));
    field->ra = (double)array[0] * 2. * PI / 2e+9;
    field->dec = (double)array[1]      * PI / 2e+9;
-   field->jd = groups->min_jd + (groups->max_jd - groups->min_jd)
-                        * (double)array[2] / 2e+9;
+   field->jd = groups->min_jd + (groups->max_jd - groups->min_jd) * (double)array[2] / 2e+9;
    field->file_offset = array[3];
    field->tilt = (double)buff[17] * PI / 256.;
    field->height = groups->height;
@@ -623,7 +630,7 @@ static int find_precovery_plates(Observe *obs, const int n_obs,
    FILE *ifile, *original_file = nullptr;
    int current_file_number = -1;
    double *orbi, stepsize = 1., max_jd_available, min_jd_available;
-   obj_location_t *p1, *p2, *p3;
+   Obj_location *p1, *p2, *p3;
    int n_fields_read, n;
    const double abs_mag = calc_absolute_magnitude( obs, n_obs);
    char *buff;
@@ -631,7 +638,7 @@ static int find_precovery_plates(Observe *obs, const int n_obs,
    const int inclusion = atoi( get_environment_ptr( "FIELD_INCLUSION")) ^ 3;
    const bool show_base_60 = (*get_environment_ptr( "FIELD_DEBUG") != '\0');
    size_t n_groups;
-   field_group_t *groups;
+   Field_group *groups;
 
    if( !ofile)
       return( -1);
@@ -641,7 +648,7 @@ static int find_precovery_plates(Observe *obs, const int n_obs,
       debug_printf( "Couldn't open %s\n", idx_filename);
       return( -2);
       }
-   p1 = (obj_location_t *)calloc( 3 * n_orbits, sizeof( obj_location_t));
+   p1 = (Obj_location *)calloc( 3 * n_orbits, sizeof(Obj_location));
    p2 = p1 + n_orbits;
    p3 = p2 + n_orbits;
    buff = (char *)calloc( FIELD_BUFF_N, COMPRESSED_FIELD_SIZE);
@@ -650,16 +657,16 @@ static int find_precovery_plates(Observe *obs, const int n_obs,
       return( -4);
    n_groups = (size_t)atoi( buff);
    assert( n_groups);
-   groups = (field_group_t *)calloc( n_groups, sizeof( field_group_t));
+   groups = (Field_group *)calloc( n_groups, sizeof(Field_group));
    assert( groups);
-   if( fread( groups, sizeof( field_group_t), n_groups, ifile) != n_groups)
+   if( fread( groups, sizeof(Field_group), n_groups, ifile) != n_groups)
       return( -3);
    orbi = (double *)malloc( 2 * n_orbit_params * n_orbits * sizeof( double));
    memcpy( orbi, orbit,     n_orbit_params * n_orbits * sizeof( double));
    while( (n_fields_read = (int)fread( buff, COMPRESSED_FIELD_SIZE, FIELD_BUFF_N, ifile)) > 0)
       for( n = 0; n < n_fields_read; n++)
          {
-         field_location_t field;
+         Field_location field;
 
          extract_field( &field, buff + n * COMPRESSED_FIELD_SIZE, groups);
          if( jd_is_in_range( field.jd, min_jd, max_jd))
@@ -677,7 +684,7 @@ static int find_precovery_plates(Observe *obs, const int n_obs,
                const double scale_factor = 2.;
 
                if( new_p2_jd == p1->jd)
-                  memcpy( p2, p1, n_orbits * sizeof( obj_location_t));
+                  memcpy( p2, p1, n_orbits * sizeof(Obj_location));
                else if( new_p2_jd != p2->jd)
                   {
                   p2->jd = new_p2_jd;
@@ -708,7 +715,7 @@ static int find_precovery_plates(Observe *obs, const int n_obs,
                double *temp_orbit = orbi + n_orbit_params * n_orbits;
 
                memcpy( temp_orbit, orbi, n_orbit_params * n_orbits * sizeof( double));
-               memcpy( p3, p2, n_orbits * sizeof( obj_location_t));
+               memcpy( p3, p2, n_orbits * sizeof(Obj_location));
                p3->jd = jdt;
                setup_obj_loc( p3, temp_orbit, n_orbits, epoch_jd, field.obscode);
                possibly_within_field = true;
@@ -3688,7 +3695,7 @@ or the replacement specified via SCOPE_JSON_FILE.  If details for
 the site aren't provided in the JSON data,  we dig through 'details.txt'
 to get a telescope diameter.  */
 
-static void get_scope_params( const char *mpc_code, expcalc_config_t *c)
+static void get_scope_params( const char *mpc_code, Expcalc_config *c)
 {
    FILE *ifile;
    int scope_details = EXPCALC_NO_CONFIG_FOUND;

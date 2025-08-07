@@ -43,7 +43,7 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>NotSet</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -70,6 +70,13 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <CodeAnalysisRuleSet>NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -102,13 +109,32 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;PDC_DLL_BUILD;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp23</LanguageStandard>
+      <AdditionalIncludeDirectories>$(ProjectDir)src\;$(SolutionDir)lunar\src\;$(SolutionDir)sat_code\src\;$(SolutionDir)jpl_eph\src\;I:\Project Pluto\PDCursesMod;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <FloatingPointExceptions>true</FloatingPointExceptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>lunar.lib;sat_code.lib;jpleph.lib;pdcurses.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>I:\Project Pluto\PDCursesMod_build\wingui\Release;$(SolutionDir)$(PlatformTarget)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy "$(SolutionDir)$(Platform)\$(Configuration)\*.exe"  "$(SolutionDir)run\" /Y /F
+xcopy "$(SolutionDir)$(Platform)\$(Configuration)\*.dll" "$(SolutionDir)run\" /Y /F
+copy /Y "$(SolutionDir)..\PDCursesMod_build\wingui\$(Configuration)\pdcurses.dll" /B "$(SolutionDir)run\pdcurses.dll" /B
+copy /Y "$(ProjectDir)\src\link_def.json" /A "$(SolutionDir)run\link_def.json" /A
+copy /Y "$(ProjectDir)\src\orbitdef.sof" /A "$(SolutionDir)run\orbitdef.sof" /A
+copy /Y "$(ProjectDir)\src\scope.json" /A "$(SolutionDir)run\scope.json" /A
+copy /Y "$(ProjectDir)\src\obj_name.txt" /A "$(SolutionDir)run\obj_name.txt" /A
+copy /Y "$(ProjectDir)\src\obj_help.txt" /A "$(SolutionDir)run\obj_help.txt" /A
+copy /Y "$(ProjectDir)\src\hints.def" /A "$(SolutionDir)run\hints.def" /A
+</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -128,15 +154,20 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <AdditionalDependencies>lunar.lib;sat_code.lib;jpleph.lib;pdcurses.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>I:\Project Pluto\PDCursesMod_build\wincon\Release;$(SolutionDir)$(PlatformTarget)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>I:\Project Pluto\PDCursesMod_build\wingui\Release;$(SolutionDir)$(PlatformTarget)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ShowProgress>NotSet</ShowProgress>
     </Link>
     <PostBuildEvent>
       <Command>xcopy "$(SolutionDir)$(Platform)\$(Configuration)\*.exe"  "$(SolutionDir)run\" /Y /F
 xcopy "$(SolutionDir)$(Platform)\$(Configuration)\*.dll" "$(SolutionDir)run\" /Y /F
-copy /Y "$(SolutionDir)..\PDCursesMod_build\wincon\$(Configuration)\pdcurses.dll" /B "$(SolutionDir)run\pdcurses.dll" /B
+copy /Y "$(SolutionDir)..\PDCursesMod_build\wingui\$(Configuration)\pdcurses.dll" /B "$(SolutionDir)run\pdcurses.dll" /B
 copy /Y "$(ProjectDir)\src\link_def.json" /A "$(SolutionDir)run\link_def.json" /A
 copy /Y "$(ProjectDir)\src\orbitdef.sof" /A "$(SolutionDir)run\orbitdef.sof" /A
+copy /Y "$(ProjectDir)\src\scope.json" /A "$(SolutionDir)run\scope.json" /A
+copy /Y "$(ProjectDir)\src\obj_name.txt" /A "$(SolutionDir)run\obj_name.txt" /A
+copy /Y "$(ProjectDir)\src\obj_help.txt" /A "$(SolutionDir)run\obj_help.txt" /A
+copy /Y "$(ProjectDir)\src\hints.def" /A "$(SolutionDir)run\hints.def" /A
+
 
 </Command>
     </PostBuildEvent>
@@ -222,6 +253,7 @@ copy /Y "$(ProjectDir)\src\orbitdef.sof" /A "$(SolutionDir)run\orbitdef.sof" /A
     <ClInclude Include="src\sigma.h" />
     <ClInclude Include="src\simplex.h" />
     <ClInclude Include="src\smvsop.h" />
+    <ClInclude Include="src\sr.h" />
     <ClInclude Include="src\stackall.h" />
   </ItemGroup>
   <ItemGroup>

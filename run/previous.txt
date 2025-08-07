@@ -5,5 +5,7 @@
 #
 I:\temp\example.txt
 I:\Project Pluto\find_orb_build\x64\Release\temp_obs.txt
-I:\Project Pluto\find_orb\example.txt
 I:\Project Pluto\compiled\example.txt
+D:\Dev\OrbFit5\OrbFit5.0.8\tests\fitobs\2015RN35\2015RN35.rwo
+I:\Project Pluto\find_orb\example.txt
+I:\Project Pluto\Kuiper\run\temp_obs.txt

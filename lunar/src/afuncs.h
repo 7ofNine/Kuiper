@@ -91,7 +91,7 @@ void /*DLL_FUNC*/ rotate_vector( double   *v, const double angle,
 void /*DLL_FUNC*/ polar3_to_cartesian( double *vect, const double lon,
                                           const double lat);
 double /*DLL_FUNC*/ vector3_length( const double *vect);
-double /*DLL_FUNC*/ dot_product( const double *a, const double *b);
+//double /*DLL_FUNC*/ dot_product( const double *a, const double *b);
 double /*DLL_FUNC*/ normalize_vect3( double *vect);
 void /*DLL_FUNC*/ vector_cross_product( double *xprod, const double *a,
                                 const double *b);
@@ -175,7 +175,7 @@ int /*DLL_FUNC*/ get_earth_orientation_params( const double jd,  /* eop_prec.c *
                               int desired_params_mask);
 int /*DLL_FUNC*/ setup_precession_with_nutation_eops( double   *matrix,
                     const double year);            /* eop_prec.c */
-int64_t /*DLL_FUNC*/ nanoseconds_since_1970( void);    /* nanosecs.c */
+//int64_t /*DLL_FUNC*/ nanoseconds_since_1970( void);    /* nanosecs.c */
 //double /*DLL_FUNC*/ current_jd( void);                 /* nanosecs.c */ moved to nanosecs in find_orb
 
 

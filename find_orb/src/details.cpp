@@ -28,20 +28,20 @@ https://www.minorplanetcenter.net/iau/info/ObsDetails.html */
 #include "details.h"
 #include "mpc_obs.h"
 
-typedef struct
+struct MPC_code_details
 {
    char **lines;
    size_t n_lines;
    bool observations_found;
-} mpc_code_details_t;
+};
 
-typedef struct
+struct Observation_details
 {
    void *stack;
-   mpc_code_details_t *code_details;
+   MPC_code_details *code_details;
    int n_code_details, n_curr;
    int curr_idx[10];
-} observation_details_t;
+};
 
 #define min_n_code_details 16
 #define min_code_lines 16
@@ -50,14 +50,14 @@ typedef struct
 void *init_observation_details( void)
 {
    void *stack = create_stack( 2000);
-   observation_details_t *rval = (observation_details_t *)
-                     stack_calloc( stack, sizeof( observation_details_t));
+   Observation_details *rval = (Observation_details *)
+                     stack_calloc( stack, sizeof(Observation_details));
 
    rval->stack = stack;
    rval->n_curr = 0;    /* i.e.,  "no COD line yet" */
-   rval->code_details = (mpc_code_details_t *)stack_calloc( stack,
-                              min_n_code_details * sizeof( mpc_code_details_t));
-   return( rval);
+   rval->code_details = (MPC_code_details *)stack_calloc( stack,
+                              min_n_code_details * sizeof(MPC_code_details));
+   return  rval ;
 }
 
       /* A useful piece of bit-twiddling. X & (X-1) clears the lowest */
@@ -85,7 +85,7 @@ static int code_cmp( const char *a, const char *b)
    return( rval);
 }
 
-static int find_code_details( const observation_details_t *det,
+static int find_code_details( const Observation_details *det,
                  const char *mpc_code, int *cmp)
 {
    int loc = -1, stepsize = (int)0x8000, compare = 1, loc1;
@@ -104,7 +104,7 @@ static int find_code_details( const observation_details_t *det,
 
 const char **get_code_details( const void *obs_details, const char *mpc_code)
 {
-   const observation_details_t *det = (const observation_details_t *)obs_details;
+   const Observation_details *det = (const Observation_details *)obs_details;
    int idx, compare;
 
 #ifdef DEBUG_PRINTFS
@@ -120,7 +120,7 @@ const char **get_code_details( const void *obs_details, const char *mpc_code)
       return( nullptr);
 }
 
-static int reset_mpc_code( observation_details_t *det, const char *mpc_code)
+static int reset_mpc_code(Observation_details *det, const char *mpc_code)
 {
    int compare, idx = find_code_details( det, mpc_code, &compare);
 
@@ -134,17 +134,17 @@ static int reset_mpc_code( observation_details_t *det, const char *mpc_code)
       det->n_code_details++;
       if( is_power_of_two( det->n_code_details) && det->n_code_details >= min_n_code_details)
          {
-         mpc_code_details_t *new_array = (mpc_code_details_t *)
-                  stack_alloc( det->stack, 2 * det->n_code_details * sizeof( mpc_code_details_t));
+         MPC_code_details *new_array = (MPC_code_details *)
+                  stack_alloc( det->stack, 2 * det->n_code_details * sizeof(MPC_code_details));
 
-         memcpy( new_array, det->code_details, det->n_code_details * sizeof( mpc_code_details_t));
+         memcpy( new_array, det->code_details, det->n_code_details * sizeof(MPC_code_details));
          det->code_details = new_array;
          }
 #ifdef DEBUG_PRINTFS
       printf( "Moving memory\n");
 #endif
       memmove( det->code_details + idx + 1, det->code_details + idx,
-                  (det->n_code_details - idx) * sizeof( mpc_code_details_t));
+                  (det->n_code_details - idx) * sizeof(MPC_code_details));
 #ifdef DEBUG_PRINTFS
       printf( "Moved memory\n");
 #endif
@@ -174,7 +174,7 @@ static int probable_mpc_record( const char *buff)
 
 int add_line_to_observation_details( void *obs_details, const char *iline)
 {
-   observation_details_t *det = (observation_details_t *)obs_details;
+   Observation_details *det = (Observation_details *)obs_details;
    size_t len = strlen( iline);
    const char *valid_lines = "COD CON OBS MEA TEL NET BND COM NUM ACK AC2 ";
    int i, compare = 1, rval;
@@ -212,7 +212,7 @@ int add_line_to_observation_details( void *obs_details, const char *iline)
 
       if( !compare)
          {
-         mpc_code_details_t *mptr = det->code_details + idx;
+         MPC_code_details *mptr = det->code_details + idx;
 
 #ifdef DEBUG_PRINTFS
          if( !mptr->observations_found)
@@ -230,7 +230,7 @@ int add_line_to_observation_details( void *obs_details, const char *iline)
    if( !compare)    /* yup,  it's a valid header line */
       for( i = 0; i < det->n_curr; i++)
          {
-         mpc_code_details_t *mptr = det->code_details + det->curr_idx[i];
+         MPC_code_details *mptr = det->code_details + det->curr_idx[i];
          const bool reallocation_needed = (mptr->observations_found
                 || (is_power_of_two( mptr->n_lines)
                     && mptr->n_lines >= min_code_lines));
@@ -260,7 +260,7 @@ int add_line_to_observation_details( void *obs_details, const char *iline)
 
 void free_observation_details( void *obs_details)
 {
-   observation_details_t *det = (observation_details_t *)obs_details;
+   Observation_details *det = (Observation_details *)obs_details;
 
    destroy_stack( det->stack);
 }

@@ -245,6 +245,9 @@
     <ClInclude Include="src\geopot.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\sr.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\mpcorb.hdr">

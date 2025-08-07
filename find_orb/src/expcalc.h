@@ -2,7 +2,7 @@
 #define EXPCALC_HINCLUDE
 
 #include <iosfwd>
-typedef struct
+struct Expcalc_config
 {
    const char *mpc_code;
    char filter;
@@ -21,19 +21,19 @@ typedef struct
    double sky_brightness_at_zenith;         /* mags/arcsec^2 */
    double *horizon;                         /* degrees */
    int n_horizon_points;
-} expcalc_config_t;
+};
 
-double mag_from_snr_and_exposure( const expcalc_config_t *c,
+double mag_from_snr_and_exposure( const Expcalc_config *c,
                               const double snr, const double exposure);
-double snr_from_mag_and_exposure( const expcalc_config_t *c,
+double snr_from_mag_and_exposure( const Expcalc_config *c,
                               const double mag, const double exposure);
-double exposure_from_snr_and_mag( const expcalc_config_t *c,
+double exposure_from_snr_and_mag( const Expcalc_config *c,
                               const double snr, const double mag);
 int find_expcalc_config_from_mpc_code( const char *mpc_code,
-                              FILE *ifile, expcalc_config_t *c);
-void free_expcalc_config_t( expcalc_config_t *c);
+                              FILE *ifile, Expcalc_config *c);
+void free_expcalc_config_t( Expcalc_config *c);
 int is_under_horizon( const double alt, const double az,
-                              const expcalc_config_t *c);
+                              const Expcalc_config *c);
 
       /* find_expcalc_config_from_mpc_code( ) will return one
          of the following three values.         */

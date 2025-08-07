@@ -649,12 +649,14 @@ static int get_rover_index( const char *obscode)
             case;  0=sun, 1=mercury,  etc.)
 */
 
-typedef struct
+struct Rover
 {
-   double lon, lat, alt;         /* alt is in meters */
-} rover_t;
+    double lon;
+    double lat;
+    double alt;         /* alt is in meters */
+};
 
-static rover_t *rovers = nullptr;
+static Rover *rovers = nullptr;
 int n_obs_actually_loaded, n_rovers = 0;
 
 int get_observer_data( const char   *mpc_code, char *buff, mpc_code_t *cinfo)
@@ -1146,11 +1148,11 @@ static int is_artsat_desig( const char *desig)
    Return values are as follows.  Note that 'other' includes artsats and
    temporary designations.        */
 
-typedef struct
+struct Odd_name
 {
    void *next;
    char *line;
-} odd_name_t;
+};
 
 int get_object_name( char *obuff, const char *packed_desig)
 {
@@ -1158,7 +1160,7 @@ int get_object_name( char *obuff, const char *packed_desig)
    size_t i, gap;
    static size_t n_lines;
    static char **extra_names = nullptr;
-   static odd_name_t *added = nullptr;
+   static Odd_name *added = nullptr;
    char xdesig[40];
 
    if( !packed_desig && !obuff)   /* flag to free up internal memory */
@@ -1168,7 +1170,7 @@ int get_object_name( char *obuff, const char *packed_desig)
       extra_names = nullptr;
       while( added)
          {
-         odd_name_t *next = (odd_name_t *)added->next;
+         Odd_name *next = (Odd_name *)added->next;
          free( added->line);
          free( added);
          added = next;
@@ -1178,12 +1180,12 @@ int get_object_name( char *obuff, const char *packed_desig)
 
    if( !packed_desig && obuff)      /* adding a new name using 'COM desig' */
       {
-      odd_name_t *next = (odd_name_t *)calloc( 1, sizeof( odd_name_t));
+      Odd_name *next = (Odd_name *)calloc( 1, sizeof( Odd_name));
 
       next->line = (char *)malloc( strlen( obuff) + 1);
       strcpy( next->line, obuff);
       xref_designation( next->line);
-      next->next = (odd_name_t *)added;
+      next->next = (Odd_name *)added;
       added = next;
       return( 0);
       }
@@ -1219,7 +1221,7 @@ int get_object_name( char *obuff, const char *packed_desig)
 
    if( obuff && added)
       {
-      odd_name_t *tptr = added;
+      Odd_name *tptr = added;
 
       while( tptr)
          {
@@ -1230,7 +1232,7 @@ int get_object_name( char *obuff, const char *packed_desig)
                return( OBJ_DESIG_ARTSAT);
             return( get_object_name( nullptr, packed_desig));
             }
-         tptr = (odd_name_t *)tptr->next;
+         tptr = (Odd_name *)tptr->next;
          }
       }
 
@@ -3576,7 +3578,7 @@ Observe  *load_observations(FILE *ifile, const char *packed_desig, const int n_o
                   {
                   n_rovers++;
                   assert( idx < 1665);    /* can't handle more at the mo */
-                  rovers = (rover_t *)realloc( rovers, n_rovers * sizeof( rover_t));
+                  rovers = (Rover *)realloc( rovers, n_rovers * sizeof( Rover));
                   rovers[idx].lat = rlat;
                   rovers[idx].lon = rlon;
                   rovers[idx].alt = ralt;

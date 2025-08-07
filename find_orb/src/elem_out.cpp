@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include "comets.h"
 #include "mpc_obs.h"
 #include "mpc_func.h"  //lunar
-#include "date.h"
+#include "date.h"      //lunar
 #include "afuncs.h"
 #include "lunar.h"
 #include "monte0.h"     /* for put_double_in_buff() proto */
@@ -46,6 +46,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include "pl_cache.h"
 #include "orbfunc2.h"
 #include "shellsor.h"
+#include "sr.h"
 
 
 #include <cmath>
@@ -3570,17 +3571,17 @@ I _think_ that quantity would be small for transforming,  say,
 R to V,  but would be large for transforming a "less V-like"
 band (such as the IR bands JHK) to V.     */
 
-typedef struct
+struct Band_shift
 {
    char band;
    double v_mag_correction;
-} band_shift_t;
+} ;
 
 double mag_band_shift( const char mag_band, int *err_code)
 {
    size_t i;
    static bool unknown_band_warning_shown = false;
-   static const band_shift_t bands[] = {
+   static const Band_shift bands[] = {
              {' ', 0.43},   {'B', -0.8 },   {'c', -0.05 },
              {'C', 0.4 },   {'g', -0.35 },  {'G', 0.28 },
              {'H', 1.4 },   {'i', 0.32 },   {'I', 0.8 },
@@ -3611,7 +3612,7 @@ double mag_band_shift( const char mag_band, int *err_code)
       if( err_code)
          *err_code = -1;
       }
-   return( 0.);
+   return 0.0;
 }
 
 double override_abs_mag = 0.;

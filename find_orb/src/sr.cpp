@@ -125,9 +125,11 @@ such ranges are dropped.  Also,  if the lower limit of the range is
 less than zero (always true for at least one range),  then that lower
 limit is bumped up to zero.   */
 
+#include "sr.h"
+
 #include "roots.h"
 
-double dot_product( const double *v1, const double *v2)
+double dot_product(const double *v1,const double *v2)
 {
    return( v1[0] * v2[0] + v1[1] * v2[1] + v1[2] * v2[2]);
 }

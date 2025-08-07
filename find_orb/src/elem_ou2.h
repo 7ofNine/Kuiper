@@ -2,7 +2,7 @@
 #define ELEM_OU2_H_INCLUDE
 
 struct Observe;
-struct elements;
+struct Elements;
 
 int put_elements_into_sof(char* obuff, const char* templat,
     const Elements* elem, const double* nongravs,

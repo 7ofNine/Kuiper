@@ -109,6 +109,7 @@ static bool _mouse_movements_are_reported = false;
 #include "pl_cache.h"
 #include "shellsor.h"
 #include "getsrex.h"
+#include "nanosecs.h"
 
 
 #include <wchar.h>
@@ -1845,24 +1846,26 @@ int select_object_in_file( OBJECT_INFO *ids, const int n_ids)
 
 #define is_power_of_two( X)   (!((X) & ((X) - 1)))
 
-typedef struct
-   {
+struct Command_area
+{
    int key;
-   unsigned line, col1, col2;
-   } command_area_t;
+   unsigned line;
+   unsigned col1;
+   unsigned col2;
+} ;
 
-static command_area_t *command_areas;
+static Command_area *command_areas;
 static unsigned n_command_areas;
 
 static void add_cmd_area( const unsigned key,
               const unsigned line, const unsigned col1, const unsigned len)
 {
-   command_area_t *tptr;
+   Command_area *tptr;
 
    n_command_areas++;
    if( is_power_of_two( n_command_areas))
-      command_areas = (command_area_t *)realloc( command_areas,
-                         n_command_areas * 2 * sizeof( command_area_t));
+      command_areas = (Command_area *)realloc( command_areas,
+                         n_command_areas * 2 * sizeof( Command_area));
    tptr = command_areas + n_command_areas - 1;
    tptr->key = key;
    tptr->line = line;
@@ -3142,7 +3145,7 @@ static int user_select_file( char *filename, const char *title, const int flags)
 }
 
 
-extern const char *elements_filename;
+extern const char *elements_filename;  //defined in ephem0.cpp
 
 #define DISPLAY_OBSERVATION_DETAILS  2
 #define DISPLAY_ORBITAL_ELEMENTS     4

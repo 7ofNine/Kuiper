@@ -45,3 +45,4 @@ run/sofv.txt
 /run/orbitdef.sof
 /run/covar.txt
 /run/comments.txt
+run/*

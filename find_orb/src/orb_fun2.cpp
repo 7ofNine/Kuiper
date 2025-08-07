@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include "monte0.h"
 #include "nanosecs.h"
 #include "simplex.h"
+#include "sr.h"
 
 #include <cstdlib>
 #include <cstring>
@@ -46,17 +47,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 extern int n_orbit_params, force_model;
 extern int available_sigmas;
 
-typedef struct
-   {
+struct Simplex_context
+{
    Observe *obs;
    int n_obs, n_params;
    const char *constraints;
    double orbit[MAX_N_PARAMS];
-   } simplex_context_t;
+};
 
 static double simplex_scoring( void *icontext, const double *ivect)
 {
-   simplex_context_t *context = (simplex_context_t *)icontext;
+   Simplex_context *context = (Simplex_context *)icontext;
    double rval;
 
    if( context->n_params == 2)
@@ -84,7 +85,7 @@ int simplex_method(Observe *obs, int n_obs, double *orbit,
    int i, iter;
    int max_iter = atoi( get_environment_ptr( "SIMPLEX_ITER"));
    double rvals[MAX_N_PARAMS], *rptr[3], scores[3];
-   simplex_context_t context;
+   Simplex_context context;
 
    for( i = 0; i < 3; i++)
       {
@@ -131,7 +132,7 @@ int superplex_method(Observe *obs, int n_obs, double *orbit, const char *constra
    double *rptr[MAX_N_PARAMS + 1], scores[MAX_N_PARAMS + 1];
    double *rvals = (double *)calloc( n_orbit_params * (n_orbit_params + 1),
                                        sizeof( double));
-   simplex_context_t context;
+   Simplex_context context;
 
    for( i = 0; i <= n_orbit_params; i++)
       {

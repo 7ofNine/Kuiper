@@ -43,6 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 #include "gauss.h"
 #include "shellsor.h"
 #include "smvsop.h"
+#include "sr.h"
 
 
 #include <cmath>

@@ -914,8 +914,7 @@ void * /*DLL_FUNC*/ jpl_init_ephemeris( const char *ephemeris_filename,
                /* we need is allocated in _one_ chunk,  then parceled out. */
                /* This looks a little weird,  but it simplifies error      */
                /* handling and cleanup.                                    */
-   rval = (struct jpl_eph_data *)calloc( sizeof( struct jpl_eph_data)
-                        + temp_data.recsize, 1);
+   rval = (struct jpl_eph_data *)calloc( sizeof( struct jpl_eph_data) + temp_data.recsize, 1);
    if( !rval)
       {
       init_err_code = JPL_INIT_MEMORY_FAILURE;

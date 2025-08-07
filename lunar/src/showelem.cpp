@@ -17,25 +17,24 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 02110-1301, USA.    */
 
-#include <cstdio>
-#include <cstring>
-#include <cstdlib>
-#include <cmath>
-
 #include "comets.h"
 #include "date.h"
 #include "afuncs.h"
 #include "showelem.h"
 #include "stringex.h"
 
+
+#include <cstdio>
+#include <cstring>
+#include <cstdlib>
+#include <cmath>
+
+
 /* 23 Sep 2006:  revised to show 'M1' and 'K1' for comets instead of
 the (very wrong) 'H' and 'G',  and made sure those parameters were shown
 for hyperbolic/parabolic orbits. */
 
 #define PI 3.1415926535897932384626433832795028841971693993751058209749445923
-
-double /*DLL_FUNC*/ decimal_day_to_dmy( double jd, long *year, int *month,
-                              const int calendar);
 
 static double zero_to_two_pi( double ang)
 {
@@ -56,7 +55,7 @@ static void lop_digits( char *buff, int precision)
       *buff++ = ' ';
 }
 
-double /*DLL_FUNC*/ decimal_day_to_dmy( double jd, long *year, int *month,
+double /*DLL_FUNC*/ decimal_day_to_dmy( double jd, long *year, int *month,             // declared in date.h
                               const int calendar)
 {
    int day;

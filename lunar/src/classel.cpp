@@ -17,12 +17,13 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 02110-1301, USA.    */
 
+#include "afuncs.h"
+#include "comets.h"
+#include "miscell.h"
+
 #include <cmath>
 #include <cassert>
 //
-#include "afuncs.h"
-#include "comets.h"
-
 /* MS only got around to adding 'isfinite',  asinh in VS2013 : */
 
 #if defined( _MSC_VER) && (_MSC_VER < 1800)

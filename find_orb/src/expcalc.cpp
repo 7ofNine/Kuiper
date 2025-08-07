@@ -51,12 +51,12 @@ https://www.noao.edu/kpno/manuals/dim/#ccdtime
 Find_Orb,  we'll lean on the Schaefer & Krisciunas model (see 'vislimit.cpp'
 in the 'lunar' repository).  See note below on aperture size.  */
 
-typedef struct
+struct Filter
 {
    char band;
    double extinction;            /* mags per airmass */
    double zero_point;
-} filter_t;
+};
 
 /* 'zero_point = photons per square cm per second for a mag 0 star
 with a Vega-like spectrum,  as measured above the atmosphere.  See
@@ -87,7 +87,7 @@ you need to get beyond some point for the airmass to matter.
 */
 
 #ifdef NOT_CURRENTLY_IN_USE
-static double _optimal_aperture( const expcalc_config_t *c)
+static double _optimal_aperture( const Expcalc_config *c)
 {
    double rval = c->fwhm * c->airmass * 0.67;
    const double min_aperture = c->pixel_size * 1.693;
@@ -122,7 +122,7 @@ multiplied by the airmass.  (Or -- I think more likely -- the square
 root of the airmass.  Due to some uncertainty about all of this,  we have
 reverted this change and are _not_ adjusting for airmass here.)   */
 
-static double _fraction_inside( const expcalc_config_t *c)
+static double _fraction_inside( const Expcalc_config *c)
 {
    const double full_widths_per_sigma = 2.354820045030949;
 /* const double real_fwhm = c->fwhm * c->airmass;     */
@@ -132,12 +132,12 @@ static double _fraction_inside( const expcalc_config_t *c)
 }
 
 /* Sizes in centimeters */
-static double effective_area( const expcalc_config_t *c)
+static double effective_area( const Expcalc_config *c)
 {
    return( pi * (c->primary_diam * c->primary_diam - c->obstruction_diam * c->obstruction_diam) / 4.);
 }
 
-static double sky_electrons_per_second_per_pixel( const expcalc_config_t *c, const double zero_point)
+static double sky_electrons_per_second_per_pixel( const Expcalc_config *c, const double zero_point)
 {
    const double area = effective_area( c);
    const double sky_electrons_per_sec_per_square_arcsec =
@@ -146,15 +146,19 @@ static double sky_electrons_per_second_per_pixel( const expcalc_config_t *c, con
    return( sky_electrons_per_sec_per_square_arcsec * c->pixel_size * c->pixel_size);
 }
 
-typedef struct
+struct Expcalc_internals
 {
-   double extinction, zero_point;
-   double n_pixels_in_aperture, s, noise2;
-   double n_star, area;
-} expcalc_internals_t;
+    double extinction;
+    double zero_point;
+    double n_pixels_in_aperture;
+    double s;
+    double noise2;
+    double n_star;
+    double area;
+} ;
 
-static double star_electrons_per_second_per_pixel( const expcalc_config_t *c, const double mag,
-              const expcalc_internals_t *e)
+static double star_electrons_per_second_per_pixel( const Expcalc_config *c, const double mag,
+              const Expcalc_internals *e)
 {
    const double mag_corr = mag + c->airmass * e->extinction;
    const double rval = pow( 10., -0.4 * mag_corr) * e->zero_point * effective_area( c)
@@ -200,10 +204,10 @@ int xlate_filter_to_ubvri( const char filter)
    return( -1);
 }
 
-static int find_filter( expcalc_internals_t *e, char filter)
+static int find_filter(Expcalc_internals *e, char filter)
 {
    size_t i;
-   static filter_t filters[] = {
+   static Filter filters[] = {
      { 'U', 0.60, 5.50e+05 },
      { 'B', 0.40, 3.91e+05 },
      { 'V', 0.20, 8.66e+05 },
@@ -233,7 +237,7 @@ static int find_filter( expcalc_internals_t *e, char filter)
    return( -1);
 }
 
-static int set_internals( expcalc_internals_t *e, const expcalc_config_t *c)
+static int set_internals( Expcalc_internals *e, const Expcalc_config *c)
 {
    if( find_filter( e, c->filter))
       return( EXPCALC_UNKNOWN_FILTER);
@@ -251,8 +255,8 @@ static int set_internals( expcalc_internals_t *e, const expcalc_config_t *c)
 }
 
 static double internal_mag_from_snr_and_exposure(
-                              expcalc_internals_t *e,
-                              const expcalc_config_t *c,
+                              Expcalc_internals *e,
+                              const Expcalc_config *c,
                               const double snr, const double exposure)
 {
    const double tval = snr * snr * exposure;
@@ -268,17 +272,17 @@ static double internal_mag_from_snr_and_exposure(
    return( mag);
 }
 
-double mag_from_snr_and_exposure( const expcalc_config_t *c,
+double mag_from_snr_and_exposure( const Expcalc_config *c,
                               const double snr, const double exposure)
 {
-   expcalc_internals_t e;
+   Expcalc_internals e;
 
    return( internal_mag_from_snr_and_exposure( &e, c, snr, exposure));
 }
 
 static double internal_snr_from_mag_and_exposure(
-                              expcalc_internals_t *e,
-                              const expcalc_config_t *c,
+                              Expcalc_internals *e,
+                              const Expcalc_config *c,
                               const double mag, const double exposure)
 {
 
@@ -293,17 +297,17 @@ static double internal_snr_from_mag_and_exposure(
    return( signal / noise);
 }
 
-double snr_from_mag_and_exposure( const expcalc_config_t *c,
+double snr_from_mag_and_exposure( const Expcalc_config *c,
                               const double mag, const double exposure)
 {
-   expcalc_internals_t e;
+   Expcalc_internals e;
 
    return( internal_snr_from_mag_and_exposure( &e, c, mag, exposure));
 }
 
 static double internal_exposure_from_snr_and_mag(
-                              expcalc_internals_t *e,
-                              const expcalc_config_t *c,
+                              Expcalc_internals *e,
+                              const Expcalc_config *c,
                               const double snr, const double mag)
 {
    double exposure;
@@ -317,10 +321,10 @@ static double internal_exposure_from_snr_and_mag(
    return( exposure);
 }
 
-double exposure_from_snr_and_mag( const expcalc_config_t *c,
+double exposure_from_snr_and_mag( const Expcalc_config *c,
                               const double snr, const double mag)
 {
-   expcalc_internals_t e;
+   Expcalc_internals e;
 
    return( internal_exposure_from_snr_and_mag( &e, c, snr, mag));
 }
@@ -370,7 +374,7 @@ static void set_config_double( const char *buff, const char *config_var,
 #define EXPCALC_SITE_SPECIFIC_CONFIG         1
 
 int find_expcalc_config_from_mpc_code( const char *mpc_code,
-             FILE *ifile, expcalc_config_t *c)
+             FILE *ifile, Expcalc_config *c)
 {
    int rval = EXPCALC_NO_CONFIG_FOUND;
    char buff[200];
@@ -461,7 +465,7 @@ int find_expcalc_config_from_mpc_code( const char *mpc_code,
    return( rval);
 }
 
-void free_expcalc_config_t( expcalc_config_t *c)
+void free_expcalc_config_t( Expcalc_config *c)
 {
    if( c->horizon)
       free( c->horizon);
@@ -486,7 +490,7 @@ static int under_horizon_slice( const double alt, const double az,
 }
 
 int is_under_horizon( const double alt, const double az,
-                              const expcalc_config_t *c)
+                              const Expcalc_config *c)
 {
    int i, rval = (alt < c->min_alt || alt > c->max_alt);
 
@@ -543,8 +547,8 @@ SNR 2.38 with exposure time 30 seconds and magnitude 20.50
 
 int main( const int argc, const char **argv)
 {
-   expcalc_config_t c;
-   expcalc_internals_t e;
+   Expcalc_config c;
+   Expcalc_internals e;
    double mag = 0., exposure = 0., snr = 0.;
    int i;
    const char *mpc_code = "I52";
@@ -575,7 +579,7 @@ int main( const int argc, const char **argv)
       fprintf( stderr, "Couldn't open 'scope.json'\n");
       usage( );
       }
-   memset( &c, 0, sizeof( expcalc_config_t));
+   memset( &c, 0, sizeof( Expcalc_config));
    switch( find_expcalc_config_from_mpc_code( mpc_code, ifile, &c))
       {
       case EXPCALC_NO_CONFIG_FOUND:
